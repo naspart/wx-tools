@@ -5,10 +5,14 @@ import com.rolbel.mp.bean.user.WxMpUserBlacklistGetResult;
 
 import java.util.List;
 
-/**
- * @author miller
- */
+
 public interface WxMpUserBlacklistService {
+    String GET_USER_BLACK_LIST_URL = "https://api.weixin.qq.com/cgi-bin/tags/members/getblacklist";
+
+    String BATCH_ADD_BLACK_LIST_URL = "https://api.weixin.qq.com/cgi-bin/tags/members/batchblacklist";
+
+    String BATCH_DELETE_BLACK_LIST_URL = "https://api.weixin.qq.com/cgi-bin/tags/members/batchunblacklist";
+
     /**
      * <pre>
      * 获取公众号的黑名单列表

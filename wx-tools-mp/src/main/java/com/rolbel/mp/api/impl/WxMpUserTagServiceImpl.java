@@ -21,8 +21,6 @@ import java.util.List;
  * @author <a href="https://github.com/binarywang">Binary Wang</a>
  */
 public class WxMpUserTagServiceImpl implements WxMpUserTagService {
-    private static final String API_URL_PREFIX = "https://api.weixin.qq.com/cgi-bin/tags";
-
     private WxMpService wxMpService;
 
     public WxMpUserTagServiceImpl(WxMpService wxMpService) {
@@ -31,35 +29,30 @@ public class WxMpUserTagServiceImpl implements WxMpUserTagService {
 
     @Override
     public WxUserTag tagCreate(String name) throws WxErrorException {
-        String url = API_URL_PREFIX + "/create";
         JsonObject json = new JsonObject();
         JsonObject tagJson = new JsonObject();
         tagJson.addProperty("name", name);
         json.add("tag", tagJson);
 
-        String responseContent = this.wxMpService.post(url, json.toString());
+        String responseContent = this.wxMpService.post(WxMpUserTagService.CREATE_TAG_URL, json.toString());
         return WxUserTag.fromJson(responseContent);
     }
 
     @Override
     public List<WxUserTag> tagGet() throws WxErrorException {
-        String url = API_URL_PREFIX + "/get";
-
-        String responseContent = this.wxMpService.get(url, null);
+        String responseContent = this.wxMpService.get(WxMpUserTagService.GET_TAG_URL, null);
         return WxUserTag.listFromJson(responseContent);
     }
 
     @Override
     public Boolean tagUpdate(Long id, String name) throws WxErrorException {
-        String url = API_URL_PREFIX + "/update";
-
         JsonObject json = new JsonObject();
         JsonObject tagJson = new JsonObject();
         tagJson.addProperty("id", id);
         tagJson.addProperty("name", name);
         json.add("tag", tagJson);
 
-        String responseContent = this.wxMpService.post(url, json.toString());
+        String responseContent = this.wxMpService.post(WxMpUserTagService.UPDATE_TAG_URL, json.toString());
         WxError wxError = WxError.fromJson(responseContent);
         if (wxError.getErrorCode() == 0) {
             return true;
@@ -70,14 +63,12 @@ public class WxMpUserTagServiceImpl implements WxMpUserTagService {
 
     @Override
     public Boolean tagDelete(Long id) throws WxErrorException {
-        String url = API_URL_PREFIX + "/delete";
-
         JsonObject json = new JsonObject();
         JsonObject tagJson = new JsonObject();
         tagJson.addProperty("id", id);
         json.add("tag", tagJson);
 
-        String responseContent = this.wxMpService.post(url, json.toString());
+        String responseContent = this.wxMpService.post(WxMpUserTagService.DELETE_TAG_URL, json.toString());
         WxError wxError = WxError.fromJson(responseContent);
         if (wxError.getErrorCode() == 0) {
             return true;
@@ -87,23 +78,17 @@ public class WxMpUserTagServiceImpl implements WxMpUserTagService {
     }
 
     @Override
-    public WxTagListUser tagListUser(Long tagId, String nextOpenid)
-            throws WxErrorException {
-        String url = "https://api.weixin.qq.com/cgi-bin/user/tag/get";
-
+    public WxTagListUser tagListUser(Long tagId, String nextOpenid) throws WxErrorException {
         JsonObject json = new JsonObject();
         json.addProperty("tagid", tagId);
         json.addProperty("next_openid", StringUtils.trimToEmpty(nextOpenid));
 
-        String responseContent = this.wxMpService.post(url, json.toString());
+        String responseContent = this.wxMpService.post(WxMpUserTagService.GET_TAG_USER_LIST_URL, json.toString());
         return WxTagListUser.fromJson(responseContent);
     }
 
     @Override
-    public boolean batchTagging(Long tagId, String[] openids)
-            throws WxErrorException {
-        String url = API_URL_PREFIX + "/members/batchtagging";
-
+    public boolean batchTagging(Long tagId, String[] openids) throws WxErrorException {
         JsonObject json = new JsonObject();
         json.addProperty("tagid", tagId);
         JsonArray openidArrayJson = new JsonArray();
@@ -112,7 +97,7 @@ public class WxMpUserTagServiceImpl implements WxMpUserTagService {
         }
         json.add("openid_list", openidArrayJson);
 
-        String responseContent = this.wxMpService.post(url, json.toString());
+        String responseContent = this.wxMpService.post(WxMpUserTagService.BATCH_SET_TAG_FOR_USERS_URL, json.toString());
         WxError wxError = WxError.fromJson(responseContent);
         if (wxError.getErrorCode() == 0) {
             return true;
@@ -122,10 +107,7 @@ public class WxMpUserTagServiceImpl implements WxMpUserTagService {
     }
 
     @Override
-    public boolean batchUntagging(Long tagId, String[] openids)
-            throws WxErrorException {
-        String url = API_URL_PREFIX + "/members/batchuntagging";
-
+    public boolean batchUntagging(Long tagId, String[] openids) throws WxErrorException {
         JsonObject json = new JsonObject();
         json.addProperty("tagid", tagId);
         JsonArray openidArrayJson = new JsonArray();
@@ -134,7 +116,7 @@ public class WxMpUserTagServiceImpl implements WxMpUserTagService {
         }
         json.add("openid_list", openidArrayJson);
 
-        String responseContent = this.wxMpService.post(url, json.toString());
+        String responseContent = this.wxMpService.post(WxMpUserTagService.BATCH_CANCEL_TAG_FOR_USERS_URL, json.toString());
         WxError wxError = WxError.fromJson(responseContent);
         if (wxError.getErrorCode() == 0) {
             return true;
@@ -145,12 +127,10 @@ public class WxMpUserTagServiceImpl implements WxMpUserTagService {
 
     @Override
     public List<Long> userTagList(String openid) throws WxErrorException {
-        String url = API_URL_PREFIX + "/getidlist";
-
         JsonObject json = new JsonObject();
         json.addProperty("openid", openid);
 
-        String responseContent = this.wxMpService.post(url, json.toString());
+        String responseContent = this.wxMpService.post(WxMpUserTagService.GET_USER_TAG_LIST_URL, json.toString());
 
         return WxMpGsonBuilder.create().fromJson(
                 new JsonParser().parse(responseContent).getAsJsonObject().get("tagid_list"),

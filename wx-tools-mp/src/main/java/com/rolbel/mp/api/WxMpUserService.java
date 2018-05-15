@@ -9,10 +9,15 @@ import java.util.List;
 
 /**
  * 用户管理相关操作接口
- *
- * @author Binary Wang
  */
 public interface WxMpUserService {
+    String UPDATE_USER_REMARK_URL = "https://api.weixin.qq.com/cgi-bin/user/info/updateremark";
+
+    String GET_USER_INFO_URL = "https://api.weixin.qq.com/cgi-bin/user/info";
+
+    String GET_USER_LIST_URL = "https://api.weixin.qq.com/cgi-bin/user/get";
+
+    String BATCH_GET_USER_INFO_URL = "https://api.weixin.qq.com/cgi-bin/user/info/batchget";
 
     /**
      * <pre>

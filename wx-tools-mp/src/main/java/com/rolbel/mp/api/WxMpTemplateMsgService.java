@@ -10,10 +10,6 @@ import java.util.List;
 /**
  * <pre>
  * 模板消息接口
- * http://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1433751277&token=&lang=zh_CN
- * Created by Binary Wang on 2016-10-14.
- * @author miller.lin
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
  * </pre>
  */
 public interface WxMpTemplateMsgService {

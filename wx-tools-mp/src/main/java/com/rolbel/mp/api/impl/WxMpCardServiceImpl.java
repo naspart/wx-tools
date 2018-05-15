@@ -112,7 +112,9 @@ public class WxMpCardServiceImpl implements WxMpCardService {
         signParam[optionalSignParam.length] = String.valueOf(timestamp);
         signParam[optionalSignParam.length + 1] = nonceStr;
         signParam[optionalSignParam.length + 2] = cardApiTicket;
+
         String signature = SHA1.gen(signParam);
+
         WxCardApiSignature cardApiSignature = new WxCardApiSignature();
         cardApiSignature.setTimestamp(timestamp);
         cardApiSignature.setNonceStr(nonceStr);
@@ -130,10 +132,13 @@ public class WxMpCardServiceImpl implements WxMpCardService {
     public String decryptCardCode(String encryptCode) throws WxErrorException {
         JsonObject param = new JsonObject();
         param.addProperty("encrypt_code", encryptCode);
+
         String responseContent = this.wxMpService.post(CARD_CODE_DECRYPT, param.toString());
+
         JsonElement tmpJsonElement = new JsonParser().parse(responseContent);
         JsonObject tmpJsonObject = tmpJsonElement.getAsJsonObject();
         JsonPrimitive jsonPrimitive = tmpJsonObject.getAsJsonPrimitive("code");
+
         return jsonPrimitive.getAsString();
     }
 
@@ -153,6 +158,7 @@ public class WxMpCardServiceImpl implements WxMpCardService {
         param.addProperty("check_consume", checkConsume);
         String responseContent = this.wxMpService.post(CARD_CODE_GET, param.toString());
         JsonElement tmpJsonElement = new JsonParser().parse(responseContent);
+
         return WxMpGsonBuilder.INSTANCE.create().fromJson(tmpJsonElement,
                 new TypeToken<WxMpCardResult>() {
                 }.getType());

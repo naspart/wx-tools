@@ -66,8 +66,7 @@ public class WxMpServiceHttpClientImpl extends WxMpServiceBaseImpl<CloseableHttp
         try {
             lock.lock();
             if (this.getWxMpConfigStorage().isAccessTokenExpired() || forceRefresh) {
-                String url = String.format(WxMpService.GET_ACCESS_TOKEN_URL,
-                        this.getWxMpConfigStorage().getAppId(), this.getWxMpConfigStorage().getSecret());
+                String url = String.format(WxMpService.GET_ACCESS_TOKEN_URL, this.getWxMpConfigStorage().getAppId(), this.getWxMpConfigStorage().getSecret());
                 try {
                     HttpGet httpGet = new HttpGet(url);
                     if (this.getRequestHttpProxy() != null) {

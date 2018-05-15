@@ -8,11 +8,23 @@ import java.util.List;
 
 /**
  * 用户标签管理相关接口
- * Created by Binary Wang on 2016/9/2.
- *
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
  */
 public interface WxMpUserTagService {
+    String CREATE_TAG_URL = "https://api.weixin.qq.com/cgi-bin/tags/create";
+
+    String GET_TAG_URL = "https://api.weixin.qq.com/cgi-bin/tags/get";
+
+    String UPDATE_TAG_URL = "https://api.weixin.qq.com/cgi-bin/tags/update";
+
+    String DELETE_TAG_URL = "https://api.weixin.qq.com/cgi-bin/tags/delete";
+
+    String GET_TAG_USER_LIST_URL = "https://api.weixin.qq.com/cgi-bin/user/tag/get";
+
+    String BATCH_SET_TAG_FOR_USERS_URL = "https://api.weixin.qq.com/cgi-bin/tags/members/batchtagging";
+
+    String BATCH_CANCEL_TAG_FOR_USERS_URL = "https://api.weixin.qq.com/cgi-bin/tags/members/batchuntagging";
+
+    String GET_USER_TAG_LIST_URL = "https://api.weixin.qq.com/cgi-bin/tags/members/batchuntagging";
 
     /**
      * <pre>

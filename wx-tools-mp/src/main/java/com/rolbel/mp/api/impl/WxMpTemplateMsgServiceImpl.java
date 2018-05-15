@@ -12,13 +12,7 @@ import com.rolbel.mp.bean.template.WxMpTemplateMessage;
 
 import java.util.List;
 
-/**
- * <pre>
- * Created by Binary Wang on 2016-10-14.
- * </pre>
- *
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
- */
+
 public class WxMpTemplateMsgServiceImpl implements WxMpTemplateMsgService {
     public static final String API_URL_PREFIX = "https://api.weixin.qq.com/cgi-bin/template";
     private static final JsonParser JSON_PARSER = new JsonParser();
