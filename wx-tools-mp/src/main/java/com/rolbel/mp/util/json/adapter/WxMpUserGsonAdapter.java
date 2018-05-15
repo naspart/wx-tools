@@ -1,0 +1,50 @@
+package com.rolbel.mp.util.json.adapter;
+
+import com.google.gson.*;
+import com.rolbel.common.util.json.GsonHelper;
+import com.rolbel.mp.bean.user.WxMpUser;
+
+import java.lang.reflect.Type;
+
+public class WxMpUserGsonAdapter implements JsonDeserializer<WxMpUser> {
+
+    @Override
+    public WxMpUser deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+        JsonObject o = json.getAsJsonObject();
+        WxMpUser user = new WxMpUser();
+        Integer subscribe = GsonHelper.getInteger(o, "subscribe");
+        if (subscribe != null) {
+            user.setSubscribe(!new Integer(0).equals(subscribe));
+        }
+        user.setCity(GsonHelper.getString(o, "city"));
+        user.setCountry(GsonHelper.getString(o, "country"));
+        user.setHeadImgUrl(GsonHelper.getString(o, "headimgurl"));
+        user.setLanguage(GsonHelper.getString(o, "language"));
+        user.setNickname(GsonHelper.getString(o, "nickname"));
+        user.setOpenId(GsonHelper.getString(o, "openid"));
+        user.setProvince(GsonHelper.getString(o, "province"));
+        user.setSubscribeTime(GsonHelper.getLong(o, "subscribe_time"));
+        user.setUnionId(GsonHelper.getString(o, "unionid"));
+        user.setRemark(GsonHelper.getString(o, "remark"));
+        user.setGroupId(GsonHelper.getInteger(o, "groupid"));
+        user.setTagIds(GsonHelper.getLongArray(o, "tagid_list"));
+        user.setPrivileges(GsonHelper.getStringArray(o, "privilege"));
+
+        Integer sex = GsonHelper.getInteger(o, "sex");
+        if (sex != null) {
+            user.setSex(sex);
+            switch (sex) {
+                case 1:
+                    user.setSexDesc("男");
+                    break;
+                case 2:
+                    user.setSexDesc("女");
+                    break;
+                default:
+                    user.setSexDesc("未知");
+            }
+
+        }
+        return user;
+    }
+}
