@@ -24,5 +24,5 @@ package com.rolbel.common.session;
  * @author Craig R. McClanahan
  */
 public class Constants {
-  public static final String PACKAGE = "me.chanjar.weixin.common.session";
+  public static final String PACKAGE = "com.rolbel.common.session";
 }
