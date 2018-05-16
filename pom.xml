@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.rolbel</groupId>
-    <artifactId>wx-tools-parent</artifactId>
+    <artifactId>wx-tools</artifactId>
     <version>0.0.1</version>
 
     <modules>
