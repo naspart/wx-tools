@@ -7,10 +7,7 @@ import com.rolbel.common.annotation.Required;
 /**
  * <pre>
  *  提交刷卡支付请求对象类
- * Created by Binary Wang on 2017-3-23.
  * </pre>
- *
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

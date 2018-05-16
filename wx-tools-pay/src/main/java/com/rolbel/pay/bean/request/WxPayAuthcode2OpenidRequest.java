@@ -6,10 +6,7 @@ import lombok.*;
 /**
  * <pre>
  * 授权码查询openid接口请求对象类
- * Created by Binary Wang on 2017-3-27.
  * </pre>
- *
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

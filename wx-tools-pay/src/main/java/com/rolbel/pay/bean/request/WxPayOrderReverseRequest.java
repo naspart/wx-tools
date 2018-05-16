@@ -8,10 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * <pre>
  * 撤销订单请求类
- * Created by Binary Wang on 2017-3-23.
  * </pre>
- *
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

@@ -6,10 +6,7 @@ import lombok.*;
 /**
  * <pre>
  *  关闭订单请求对象类
- * Created by Binary Wang on 2016-10-27.
  * </pre>
- *
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

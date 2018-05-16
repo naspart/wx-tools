@@ -11,6 +11,7 @@
         <module>wx-tools-mp</module>
         <module>wx-tools-common</module>
         <module>wx-tools-pay</module>
+        <module>wx-tools-miniapp</module>
     </modules>
     <packaging>pom</packaging>
 

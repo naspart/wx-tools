@@ -20,30 +20,31 @@ import com.rolbel.common.util.xml.XStreamInitializer;
 @AllArgsConstructor
 @XStreamAlias("xml")
 public class WxPayNotifyResponse {
-  @XStreamOmitField
-  private transient static final String FAIL = "FAIL";
-  @XStreamOmitField
-  private transient static final String SUCCESS = "SUCCESS";
+    @XStreamOmitField
+    private transient static final String FAIL = "FAIL";
+    @XStreamOmitField
+    private transient static final String SUCCESS = "SUCCESS";
 
-  @XStreamAlias("return_code")
-  @XStreamConverter(value = XStreamCDataConverter.class)
-  private String returnCode;
-  @XStreamConverter(value = XStreamCDataConverter.class)
-  @XStreamAlias("return_msg")
-  private String returnMsg;
+    @XStreamAlias("return_code")
+    @XStreamConverter(value = XStreamCDataConverter.class)
+    private String returnCode;
+    @XStreamConverter(value = XStreamCDataConverter.class)
+    @XStreamAlias("return_msg")
+    private String returnMsg;
 
-  public static String fail(String msg) {
-    WxPayNotifyResponse response = new WxPayNotifyResponse(FAIL, msg);
-    XStream xstream = XStreamInitializer.getInstance();
-    xstream.autodetectAnnotations(true);
-    return xstream.toXML(response);
-  }
+    public static String fail(String msg) {
+        WxPayNotifyResponse response = new WxPayNotifyResponse(FAIL, msg);
+        XStream xstream = XStreamInitializer.getInstance();
+        xstream.autodetectAnnotations(true);
 
-  public static String success(String msg) {
-    WxPayNotifyResponse response = new WxPayNotifyResponse(SUCCESS, msg);
-    XStream xstream = XStreamInitializer.getInstance();
-    xstream.autodetectAnnotations(true);
-    return xstream.toXML(response);
-  }
+        return xstream.toXML(response);
+    }
 
+    public static String success(String msg) {
+        WxPayNotifyResponse response = new WxPayNotifyResponse(SUCCESS, msg);
+        XStream xstream = XStreamInitializer.getInstance();
+        xstream.autodetectAnnotations(true);
+
+        return xstream.toXML(response);
+    }
 }

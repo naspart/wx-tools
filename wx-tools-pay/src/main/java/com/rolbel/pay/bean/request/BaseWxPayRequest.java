@@ -20,10 +20,7 @@ import static com.rolbel.pay.constant.WxPayConstants.SignType.ALL_SIGN_TYPES;
 /**
  * <pre>
  *  微信支付请求对象共用的参数存放类
- * Created by Binary Wang on 2016-10-24.
  * </pre>
- *
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
  */
 @Data
 public abstract class BaseWxPayRequest implements Serializable {

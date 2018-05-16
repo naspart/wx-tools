@@ -21,10 +21,7 @@ import java.security.MessageDigest;
 /**
  * <pre>
  *  退款结果通知对象
- *  Created by BinaryWang on 2017/8/27.
  * </pre>
- *
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
