@@ -21,9 +21,6 @@ import org.slf4j.LoggerFactory;
 import java.util.Arrays;
 import java.util.concurrent.locks.Lock;
 
-/**
- * Created by Binary Wang on 2016/7/27.
- */
 public class WxMpCardServiceImpl implements WxMpCardService {
 
     private final Logger log = LoggerFactory.getLogger(WxMpCardServiceImpl.class);
@@ -55,9 +52,7 @@ public class WxMpCardServiceImpl implements WxMpCardService {
      * 获得卡券api_ticket
      * 获得时会检查卡券apiToken是否过期，如果过期了，那么就刷新一下，否则就什么都不干
      *
-     * 详情请见：http://mp.weixin.qq.com/wiki/7/aaa137b55fb2e0456bf8dd9148dd613f.html#.E9.99.84.E5.BD
-     * .954-.E5.8D.A1.E5.88.B8.E6.89.A9.E5.B1.95.E5.AD.97.E6.AE.B5.E5.8F.8A.E7.AD.BE.E5.90.8D.E7.94
-     * .9F.E6.88.90.E7.AE.97.E6.B3.95
+     * 详情请见：http://mp.weixin.qq.com/wiki/7/aaa137b55fb2e0456bf8dd9148dd613f.html
      * </pre>
      *
      * @param forceRefresh 强制刷新
@@ -91,9 +86,7 @@ public class WxMpCardServiceImpl implements WxMpCardService {
      * <pre>
      * 创建调用卡券api时所需要的签名
      *
-     * 详情请见：http://mp.weixin.qq.com/wiki/7/aaa137b55fb2e0456bf8dd9148dd613f.html#.E9.99.84.E5.BD
-     * .954-.E5.8D.A1.E5.88.B8.E6.89.A9.E5.B1.95.E5.AD.97.E6.AE.B5.E5.8F.8A.E7.AD.BE.E5.90.8D.E7.94
-     * .9F.E6.88.90.E7.AE.97.E6.B3.95
+     * 详情请见：http://mp.weixin.qq.com/wiki/7/aaa137b55fb2e0456bf8dd9148dd613f.html
      * </pre>
      *
      * @param optionalSignParam 参与签名的参数数组。
@@ -156,6 +149,7 @@ public class WxMpCardServiceImpl implements WxMpCardService {
         param.addProperty("card_id", cardId);
         param.addProperty("code", code);
         param.addProperty("check_consume", checkConsume);
+
         String responseContent = this.wxMpService.post(CARD_CODE_GET, param.toString());
         JsonElement tmpJsonElement = new JsonParser().parse(responseContent);
 
@@ -214,11 +208,14 @@ public class WxMpCardServiceImpl implements WxMpCardService {
         param.addProperty("card_id", cardId);
         param.addProperty("openid", openId);
         param.addProperty("is_mark", isMark);
+
         String responseContent = this.getWxMpService().post(CARD_CODE_MARK, param.toString());
+
         JsonElement tmpJsonElement = new JsonParser().parse(responseContent);
         WxMpCardResult cardResult = WxMpGsonBuilder.INSTANCE.create().fromJson(tmpJsonElement,
                 new TypeToken<WxMpCardResult>() {
                 }.getType());
+
         if (!"0".equals(cardResult.getErrorCode())) {
             this.log.warn("朋友的券mark失败：{}", cardResult.getErrorMsg());
         }

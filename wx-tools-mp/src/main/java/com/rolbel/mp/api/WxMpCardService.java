@@ -6,8 +6,6 @@ import com.rolbel.mp.bean.result.WxMpCardResult;
 
 /**
  * 卡券相关接口
- *
- * @author YuJian(mgcnrx11 @ hotmail.com) on 01/11/2016
  */
 public interface WxMpCardService {
     String CARD_GET = "https://api.weixin.qq.com/card/get";
@@ -35,7 +33,7 @@ public interface WxMpCardService {
      * 获得卡券api_ticket
      * 获得时会检查卡券apiToken是否过期，如果过期了，那么就刷新一下，否则就什么都不干
      *
-     * 详情请见：http://mp.weixin.qq.com/wiki/7/aaa137b55fb2e0456bf8dd9148dd613f.html#.E9.99.84.E5.BD.954-.E5.8D.A1.E5.88.B8.E6.89.A9.E5.B1.95.E5.AD.97.E6.AE.B5.E5.8F.8A.E7.AD.BE.E5.90.8D.E7.94.9F.E6.88.90.E7.AE.97.E6.B3.95
+     * 详情请见：http://mp.weixin.qq.com/wiki/7/aaa137b55fb2e0456bf8dd9148dd613f.html
      * </pre>
      *
      * @param forceRefresh 强制刷新
@@ -48,9 +46,7 @@ public interface WxMpCardService {
      * <pre>
      * 创建调用卡券api时所需要的签名
      *
-     * 详情请见：http://mp.weixin.qq.com/wiki/7/aaa137b55fb2e0456bf8dd9148dd613f.html#.E9.99.84.E5.BD
-     * .954-.E5.8D.A1.E5.88.B8.E6.89.A9.E5.B1.95.E5.AD.97.E6.AE.B5.E5.8F.8A.E7.AD.BE.E5.90.8D.E7.94
-     * .9F.E6.88.90.E7.AE.97.E6.B3.95
+     * 详情请见：http://mp.weixin.qq.com/wiki/7/aaa137b55fb2e0456bf8dd9148dd613f.html
      * </pre>
      *
      * @param optionalSignParam 参与签名的参数数组。
@@ -58,8 +54,7 @@ public interface WxMpCardService {
      *                          </br>注意：当做wx.chooseCard调用时，必须传入app_id参与签名，否则会造成签名失败导致拉取卡券列表为空
      * @return 卡券Api签名对象
      */
-    WxCardApiSignature createCardApiSignature(String... optionalSignParam) throws
-            WxErrorException;
+    WxCardApiSignature createCardApiSignature(String... optionalSignParam) throws WxErrorException;
 
     /**
      * 卡券Code解码
@@ -109,8 +104,7 @@ public interface WxMpCardService {
      * @param openId 用券用户的openid
      * @param isMark 是否要mark（占用）这个code，填写true或者false，表示占用或解除占用
      */
-    void markCardCode(String code, String cardId, String openId, boolean isMark) throws
-            WxErrorException;
+    void markCardCode(String code, String cardId, String openId, boolean isMark) throws WxErrorException;
 
     /**
      * 查看卡券详情接口
