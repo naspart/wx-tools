@@ -13,6 +13,8 @@ import com.rolbel.common.util.crypto.SHA1;
 import com.rolbel.common.util.http.SimpleGetRequestExecutor;
 import com.rolbel.mp.api.WxMpCardService;
 import com.rolbel.mp.api.WxMpService;
+import com.rolbel.mp.bean.card.base.WxMpCardCreateRequest;
+import com.rolbel.mp.bean.card.result.WxMpCardCreateResult;
 import com.rolbel.mp.bean.result.WxMpCardResult;
 import com.rolbel.mp.util.json.WxMpGsonBuilder;
 import org.slf4j.Logger;
@@ -69,7 +71,7 @@ public class WxMpCardServiceImpl implements WxMpCardService {
             }
 
             if (this.getWxMpService().getWxMpConfigStorage().isCardApiTicketExpired()) {
-                String responseContent = this.wxMpService.execute(SimpleGetRequestExecutor.create(this.getWxMpService().getRequestHttp()), CARD_GET_TICKET, null);
+                String responseContent = this.wxMpService.execute(SimpleGetRequestExecutor.create(this.getWxMpService().getRequestHttp()), CARD_GET_TICKET_URL, null);
                 JsonElement tmpJsonElement = new JsonParser().parse(responseContent);
                 JsonObject tmpJsonObject = tmpJsonElement.getAsJsonObject();
                 String cardApiTicket = tmpJsonObject.get("ticket").getAsString();
@@ -80,6 +82,27 @@ public class WxMpCardServiceImpl implements WxMpCardService {
             lock.unlock();
         }
         return this.getWxMpService().getWxMpConfigStorage().getCardApiTicket();
+    }
+
+    /**
+     * <pre>
+     *     创建卡券
+     *
+     *     详情请见：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1451025056
+     * </pre>
+     *
+     * @param wxMpGrouponCard 卡券详情
+     * @return 卡券card_id
+     * @throws WxErrorException
+     */
+    @Override
+    public WxMpCardCreateResult createCard(WxMpCardCreateRequest wxMpGrouponCard) throws WxErrorException {
+        String responseContent = this.wxMpService.post(WxMpCardService.CARD_CREATE_URL, wxMpGrouponCard.toJson());
+        JsonElement tmpJsonElement = new JsonParser().parse(responseContent);
+
+        return WxMpGsonBuilder.INSTANCE.create().fromJson(tmpJsonElement,
+                new TypeToken<WxMpCardCreateResult>() {
+                }.getType());
     }
 
     /**
@@ -95,8 +118,7 @@ public class WxMpCardServiceImpl implements WxMpCardService {
      * @return 卡券Api签名对象
      */
     @Override
-    public WxCardApiSignature createCardApiSignature(String... optionalSignParam) throws
-            WxErrorException {
+    public WxCardApiSignature createCardApiSignature(String... optionalSignParam) throws WxErrorException {
         long timestamp = System.currentTimeMillis() / 1000;
         String nonceStr = RandomUtil.getRandomStr();
         String cardApiTicket = getCardApiTicket(false);
@@ -112,6 +134,7 @@ public class WxMpCardServiceImpl implements WxMpCardService {
         cardApiSignature.setTimestamp(timestamp);
         cardApiSignature.setNonceStr(nonceStr);
         cardApiSignature.setSignature(signature);
+
         return cardApiSignature;
     }
 
@@ -126,7 +149,7 @@ public class WxMpCardServiceImpl implements WxMpCardService {
         JsonObject param = new JsonObject();
         param.addProperty("encrypt_code", encryptCode);
 
-        String responseContent = this.wxMpService.post(CARD_CODE_DECRYPT, param.toString());
+        String responseContent = this.wxMpService.post(CARD_CODE_DECRYPT_URL, param.toString());
 
         JsonElement tmpJsonElement = new JsonParser().parse(responseContent);
         JsonObject tmpJsonObject = tmpJsonElement.getAsJsonObject();
@@ -150,7 +173,7 @@ public class WxMpCardServiceImpl implements WxMpCardService {
         param.addProperty("code", code);
         param.addProperty("check_consume", checkConsume);
 
-        String responseContent = this.wxMpService.post(CARD_CODE_GET, param.toString());
+        String responseContent = this.wxMpService.post(CARD_CODE_GET_URL, param.toString());
         JsonElement tmpJsonElement = new JsonParser().parse(responseContent);
 
         return WxMpGsonBuilder.INSTANCE.create().fromJson(tmpJsonElement,
@@ -187,7 +210,7 @@ public class WxMpCardServiceImpl implements WxMpCardService {
             param.addProperty("card_id", cardId);
         }
 
-        return this.wxMpService.post(CARD_CODE_CONSUME, param.toString());
+        return this.wxMpService.post(CARD_CODE_CONSUME_URL, param.toString());
     }
 
     /**
@@ -209,7 +232,7 @@ public class WxMpCardServiceImpl implements WxMpCardService {
         param.addProperty("openid", openId);
         param.addProperty("is_mark", isMark);
 
-        String responseContent = this.getWxMpService().post(CARD_CODE_MARK, param.toString());
+        String responseContent = this.getWxMpService().post(CARD_CODE_MARK_URL, param.toString());
 
         JsonElement tmpJsonElement = new JsonParser().parse(responseContent);
         WxMpCardResult cardResult = WxMpGsonBuilder.INSTANCE.create().fromJson(tmpJsonElement,
@@ -225,7 +248,7 @@ public class WxMpCardServiceImpl implements WxMpCardService {
     public String getCardDetail(String cardId) throws WxErrorException {
         JsonObject param = new JsonObject();
         param.addProperty("card_id", cardId);
-        String responseContent = this.wxMpService.post(CARD_GET, param.toString());
+        String responseContent = this.wxMpService.post(CARD_GET_URL, param.toString());
 
         // 判断返回值
         JsonObject json = (new JsonParser()).parse(responseContent).getAsJsonObject();

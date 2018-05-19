@@ -32,8 +32,6 @@ public abstract class WxMpServiceBaseImpl<H, P> implements WxMpService, RequestH
     protected WxSessionManager sessionManager = new StandardSessionManager();
     protected WxMpConfigStorage wxMpConfigStorage;
 
-    private WxMpCardCreateService cardCreateService = new WxMpCardCreateServiceImpl(this);
-
     private WxMpKefuService kefuService = new WxMpKefuServiceImpl(this);
     private WxMpMaterialService materialService = new WxMpMaterialServiceImpl(this);
     private WxMpMenuService menuService = new WxMpMenuServiceImpl(this);
@@ -333,11 +331,6 @@ public abstract class WxMpServiceBaseImpl<H, P> implements WxMpService, RequestH
     @Override
     public void setMaxRetryTimes(int maxRetryTimes) {
         this.maxRetryTimes = maxRetryTimes;
-    }
-
-    @Override
-    public WxMpCardCreateService getCardCreateService() {
-        return this.cardCreateService;
     }
 
     @Override

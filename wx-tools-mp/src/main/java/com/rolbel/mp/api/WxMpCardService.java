@@ -2,18 +2,21 @@ package com.rolbel.mp.api;
 
 import com.rolbel.common.bean.WxCardApiSignature;
 import com.rolbel.common.exception.WxErrorException;
+import com.rolbel.mp.bean.card.base.WxMpCardCreateRequest;
+import com.rolbel.mp.bean.card.result.WxMpCardCreateResult;
 import com.rolbel.mp.bean.result.WxMpCardResult;
 
 /**
  * 卡券相关接口
  */
 public interface WxMpCardService {
-    String CARD_GET = "https://api.weixin.qq.com/card/get";
-    String CARD_GET_TICKET = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?type=wx_card";
-    String CARD_CODE_DECRYPT = "https://api.weixin.qq.com/card/code/decrypt";
-    String CARD_CODE_GET = "https://api.weixin.qq.com/card/code/get";
-    String CARD_CODE_CONSUME = "https://api.weixin.qq.com/card/code/consume";
-    String CARD_CODE_MARK = "https://api.weixin.qq.com/card/code/mark";
+    String CARD_CREATE_URL = "https://api.weixin.qq.com/card/create";
+    String CARD_GET_URL = "https://api.weixin.qq.com/card/get";
+    String CARD_GET_TICKET_URL = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?type=wx_card";
+    String CARD_CODE_DECRYPT_URL = "https://api.weixin.qq.com/card/code/decrypt";
+    String CARD_CODE_GET_URL = "https://api.weixin.qq.com/card/code/get";
+    String CARD_CODE_CONSUME_URL = "https://api.weixin.qq.com/card/code/consume";
+    String CARD_CODE_MARK_URL = "https://api.weixin.qq.com/card/code/mark";
 
     /**
      * 得到WxMpService
@@ -41,6 +44,8 @@ public interface WxMpCardService {
      * @throws WxErrorException
      */
     String getCardApiTicket(boolean forceRefresh) throws WxErrorException;
+
+    WxMpCardCreateResult createCard(WxMpCardCreateRequest wxMpGrouponCard) throws WxErrorException;
 
     /**
      * <pre>

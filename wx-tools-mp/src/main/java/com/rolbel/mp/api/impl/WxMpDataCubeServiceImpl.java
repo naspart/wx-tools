@@ -11,11 +11,6 @@ import java.text.Format;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Created by Binary Wang on 2016/8/23.
- *
- * @author binarywang (https://github.com/binarywang)
- */
 public class WxMpDataCubeServiceImpl implements WxMpDataCubeService {
 
     private final Format dateFormat = FastDateFormat.getInstance("yyyy-MM-dd");

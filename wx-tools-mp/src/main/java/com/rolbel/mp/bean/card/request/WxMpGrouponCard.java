@@ -25,21 +25,6 @@ public class WxMpGrouponCard implements WxMpCardBaseRequest, Serializable {
         return WxMpGsonBuilder.INSTANCE.create().toJson(this);
     }
 
-    @Data
-    @Builder
-    public class WxMpGrouponCardDetail implements Serializable {
-        private static final long serialVersionUID = -1103433073416775068L;
-
-        @SerializedName("base_info")
-        private WxMpCardBaseInfo baseInfo;
-
-        @SerializedName("advanced_info")
-        private WxMpCardAdvancedInfo advancedInfo;
-
-        @SerializedName("deal_detail")
-        private String dealDetail;
-    }
-
     public static void main(String[] args) {
         WxMpCardBaseInfo baseInfo = WxMpCardBaseInfo.builder()
                 .logoUrl("http://mmbiz.qpic.cn/mmbiz_jpg/oCk1ww9OL3nUVVasicSYGxmVg7icVMrgKyXGaWJibr1Swb3Cr58TMumwCuny317KDnlvKSicQQECnl1JOwMleeQ1SQ/0")
