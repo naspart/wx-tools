@@ -81,6 +81,7 @@ public class WxMpCardServiceImpl implements WxMpCardService {
         } finally {
             lock.unlock();
         }
+
         return this.getWxMpService().getWxMpConfigStorage().getCardApiTicket();
     }
 
@@ -107,9 +108,9 @@ public class WxMpCardServiceImpl implements WxMpCardService {
 
     /**
      * <pre>
-     * 创建调用卡券api时所需要的签名
+     *     创建调用卡券api时所需要的签名
      *
-     * 详情请见：http://mp.weixin.qq.com/wiki/7/aaa137b55fb2e0456bf8dd9148dd613f.html
+     *     详情请见：http://mp.weixin.qq.com/wiki/7/aaa137b55fb2e0456bf8dd9148dd613f.html
      * </pre>
      *
      * @param optionalSignParam 参与签名的参数数组。

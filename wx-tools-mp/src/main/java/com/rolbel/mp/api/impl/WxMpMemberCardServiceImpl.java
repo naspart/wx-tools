@@ -18,12 +18,8 @@ import org.slf4j.LoggerFactory;
 
 /**
  * 会员卡相关接口的实现类
- *
- * @author YuJian(mgcnrx11 @ gmail.com)
- * @version 2017/7/8
  */
 public class WxMpMemberCardServiceImpl implements WxMpMemberCardService {
-
     private final Logger log = LoggerFactory.getLogger(WxMpMemberCardServiceImpl.class);
 
     private static final String MEMBER_CARD_ACTIVATE = "https://api.weixin.qq.com/card/membercard/activate";

@@ -14,8 +14,6 @@ import java.security.KeyStore;
 
 /**
  * 微信支付配置
- *
- * @author Binary Wang (https://github.com/binarywang)
  */
 public class WxPayConfig {
 

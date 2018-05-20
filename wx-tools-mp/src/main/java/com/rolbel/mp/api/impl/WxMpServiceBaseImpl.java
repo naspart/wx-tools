@@ -26,11 +26,12 @@ import java.io.IOException;
 import java.util.concurrent.locks.Lock;
 
 public abstract class WxMpServiceBaseImpl<H, P> implements WxMpService, RequestHttp<H, P> {
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
+
     private static final JsonParser JSON_PARSER = new JsonParser();
 
-    protected final Logger log = LoggerFactory.getLogger(this.getClass());
-    protected WxSessionManager sessionManager = new StandardSessionManager();
-    protected WxMpConfigStorage wxMpConfigStorage;
+    private WxSessionManager sessionManager = new StandardSessionManager();
+    private WxMpConfigStorage wxMpConfigStorage;
 
     private WxMpKefuService kefuService = new WxMpKefuServiceImpl(this);
     private WxMpMaterialService materialService = new WxMpMaterialServiceImpl(this);

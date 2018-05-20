@@ -7,12 +7,10 @@ import com.rolbel.mp.bean.device.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * Created by keungtung on 10/12/2016.
- */
 public class WxMpDeviceServiceImpl implements WxMpDeviceService {
-    private static final String API_URL_PREFIX = "https://api.weixin.qq.com/device";
     private static Logger log = LoggerFactory.getLogger(WxMpDeviceServiceImpl.class);
+
+    private static final String API_URL_PREFIX = "https://api.weixin.qq.com/device";
 
     private WxMpService wxMpService;
 

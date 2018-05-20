@@ -6,7 +6,7 @@ import com.google.common.collect.Maps;
 import com.rolbel.common.util.ToStringUtil;
 import com.rolbel.common.util.xml.XStreamInitializer;
 import com.rolbel.pay.exception.WxPayException;
-import com.rolbel.pay.service.WxPayService;
+import com.rolbel.pay.api.WxPayService;
 import com.rolbel.pay.util.SignUtil;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.annotations.XStreamAlias;

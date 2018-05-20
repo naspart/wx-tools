@@ -9,12 +9,6 @@ import com.rolbel.mp.util.json.WxMpGsonBuilder;
 
 import java.lang.reflect.Type;
 
-/**
- * Created by YuJian on 15/11/11.
- *
- * @author YuJian
- * @version 15/11/11
- */
 public class WxMpCardResultGsonAdapter implements JsonDeserializer<WxMpCardResult> {
     @Override
     public WxMpCardResult deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {

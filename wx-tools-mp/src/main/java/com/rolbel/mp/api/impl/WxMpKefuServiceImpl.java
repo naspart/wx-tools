@@ -17,11 +17,9 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.util.Date;
 
-/**
- * @author Binary Wang
- */
 public class WxMpKefuServiceImpl implements WxMpKefuService {
     protected final Logger log = LoggerFactory.getLogger(this.getClass());
+
     private WxMpService wxMpService;
 
     public WxMpKefuServiceImpl(WxMpService wxMpService) {

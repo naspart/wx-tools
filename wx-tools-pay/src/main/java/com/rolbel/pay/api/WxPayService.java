@@ -1,4 +1,4 @@
-package com.rolbel.pay.service;
+package com.rolbel.pay.api;
 
 import com.rolbel.pay.bean.WxPayApiData;
 import com.rolbel.pay.bean.coupon.*;
@@ -10,7 +10,6 @@ import com.rolbel.pay.bean.result.*;
 import com.rolbel.pay.config.WxPayConfig;
 import com.rolbel.pay.exception.WxPayException;
 
-import java.io.File;
 import java.util.Date;
 import java.util.Map;
 
@@ -116,7 +115,7 @@ public interface WxPayService {
      * 详见https://pay.weixin.qq.com/wiki/doc/api/app/app.php?chapter=8_5
      *
      * @param request 请求对象，注意一些参数如appid、mchid等不用设置，方法内会自动从配置对象中获取到（前提是对应配置中已经设置）
-     * @deprecated 建议使用 {@link com.rolbel.pay.service.WxPayService#createOrder(WxPayUnifiedOrderRequest)}
+     * @deprecated 建议使用 {@link com.rolbel.pay.api.WxPayService#createOrder(WxPayUnifiedOrderRequest)}
      */
     @Deprecated
     Map<String, String> getPayInfo(WxPayUnifiedOrderRequest request) throws WxPayException;

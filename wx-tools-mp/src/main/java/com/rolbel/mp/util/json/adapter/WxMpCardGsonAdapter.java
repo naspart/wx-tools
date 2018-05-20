@@ -6,12 +6,6 @@ import com.rolbel.mp.bean.WxMpCard;
 
 import java.lang.reflect.Type;
 
-/**
- * Created by YuJian on 15/11/11.
- *
- * @author YuJian
- * @version 15/11/11
- */
 public class WxMpCardGsonAdapter implements JsonDeserializer<WxMpCard> {
 
     @Override

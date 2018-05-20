@@ -1,4 +1,4 @@
-package com.rolbel.pay.service.impl;
+package com.rolbel.pay.api.impl;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.Maps;
@@ -15,8 +15,8 @@ import com.rolbel.pay.bean.result.*;
 import com.rolbel.pay.config.WxPayConfig;
 import com.rolbel.pay.constant.WxPayConstants;
 import com.rolbel.pay.exception.WxPayException;
-import com.rolbel.pay.service.EntPayService;
-import com.rolbel.pay.service.WxPayService;
+import com.rolbel.pay.api.EntPayService;
+import com.rolbel.pay.api.WxPayService;
 import com.rolbel.pay.util.SignUtil;
 import jodd.io.ZipUtil;
 import org.apache.commons.lang3.StringUtils;

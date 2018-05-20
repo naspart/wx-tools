@@ -12,15 +12,14 @@ import com.rolbel.mp.bean.tag.WxTagListUser;
 import com.rolbel.mp.bean.tag.WxUserTag;
 import com.rolbel.mp.util.json.WxMpGsonBuilder;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-/**
- * Created by Binary Wang on 2016/9/2.
- *
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
- */
 public class WxMpUserTagServiceImpl implements WxMpUserTagService {
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     private WxMpService wxMpService;
 
     public WxMpUserTagServiceImpl(WxMpService wxMpService) {
@@ -35,12 +34,18 @@ public class WxMpUserTagServiceImpl implements WxMpUserTagService {
         json.add("tag", tagJson);
 
         String responseContent = this.wxMpService.post(WxMpUserTagService.CREATE_TAG_URL, json.toString());
+
+        logger.debug("Create user tag result: " + responseContent);
+
         return WxUserTag.fromJson(responseContent);
     }
 
     @Override
     public List<WxUserTag> tagGet() throws WxErrorException {
         String responseContent = this.wxMpService.get(WxMpUserTagService.GET_TAG_URL, null);
+
+        logger.debug("Get user tag result: " + responseContent);
+
         return WxUserTag.listFromJson(responseContent);
     }
 
@@ -53,6 +58,9 @@ public class WxMpUserTagServiceImpl implements WxMpUserTagService {
         json.add("tag", tagJson);
 
         String responseContent = this.wxMpService.post(WxMpUserTagService.UPDATE_TAG_URL, json.toString());
+
+        logger.debug("Update user tag result: " + responseContent);
+
         WxError wxError = WxError.fromJson(responseContent);
         if (wxError.getErrorCode() == 0) {
             return true;
@@ -69,6 +77,9 @@ public class WxMpUserTagServiceImpl implements WxMpUserTagService {
         json.add("tag", tagJson);
 
         String responseContent = this.wxMpService.post(WxMpUserTagService.DELETE_TAG_URL, json.toString());
+
+        logger.debug("Delete user tag result: " + responseContent);
+
         WxError wxError = WxError.fromJson(responseContent);
         if (wxError.getErrorCode() == 0) {
             return true;
@@ -84,6 +95,9 @@ public class WxMpUserTagServiceImpl implements WxMpUserTagService {
         json.addProperty("next_openid", StringUtils.trimToEmpty(nextOpenid));
 
         String responseContent = this.wxMpService.post(WxMpUserTagService.GET_TAG_USER_LIST_URL, json.toString());
+
+        logger.debug("Get tag's user list result: " + responseContent);
+
         return WxTagListUser.fromJson(responseContent);
     }
 
@@ -98,6 +112,9 @@ public class WxMpUserTagServiceImpl implements WxMpUserTagService {
         json.add("openid_list", openidArrayJson);
 
         String responseContent = this.wxMpService.post(WxMpUserTagService.BATCH_SET_TAG_FOR_USERS_URL, json.toString());
+
+        logger.debug("Batch set users for tag result: " + responseContent);
+
         WxError wxError = WxError.fromJson(responseContent);
         if (wxError.getErrorCode() == 0) {
             return true;
@@ -117,6 +134,9 @@ public class WxMpUserTagServiceImpl implements WxMpUserTagService {
         json.add("openid_list", openidArrayJson);
 
         String responseContent = this.wxMpService.post(WxMpUserTagService.BATCH_CANCEL_TAG_FOR_USERS_URL, json.toString());
+
+        logger.debug("Batch cancel users for tag result: " + responseContent);
+
         WxError wxError = WxError.fromJson(responseContent);
         if (wxError.getErrorCode() == 0) {
             return true;
@@ -131,6 +151,8 @@ public class WxMpUserTagServiceImpl implements WxMpUserTagService {
         json.addProperty("openid", openid);
 
         String responseContent = this.wxMpService.post(WxMpUserTagService.GET_USER_TAG_LIST_URL, json.toString());
+
+        logger.debug("Get tags of user result: " + responseContent);
 
         return WxMpGsonBuilder.create().fromJson(
                 new JsonParser().parse(responseContent).getAsJsonObject().get("tagid_list"),

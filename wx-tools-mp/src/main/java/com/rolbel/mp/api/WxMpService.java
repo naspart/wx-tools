@@ -286,8 +286,6 @@ public interface WxMpService {
      */
     void setWxMpConfigStorage(WxMpConfigStorage wxConfigProvider);
 
-    WxMpCardCreateService getCardCreateService();
-
     /**
      * 返回客服接口方法实现类，以方便调用其各个接口
      *

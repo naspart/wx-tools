@@ -12,8 +12,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class WxMpMenuServiceImpl implements WxMpMenuService {
-    private static final String API_URL_PREFIX = "https://api.weixin.qq.com/cgi-bin/menu";
     private static Logger log = LoggerFactory.getLogger(WxMpMenuServiceImpl.class);
+
+    private static final String API_URL_PREFIX = "https://api.weixin.qq.com/cgi-bin/menu";
 
     private WxMpService wxMpService;
 
