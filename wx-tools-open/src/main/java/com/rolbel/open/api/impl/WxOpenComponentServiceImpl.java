@@ -1,7 +1,7 @@
 package com.rolbel.open.api.impl;
 
-import com.rolbel.miniapp.api.WxMaService;
-import com.rolbel.miniapp.bean.WxMaJscode2SessionResult;
+import com.rolbel.ma.api.WxMaService;
+import com.rolbel.ma.bean.WxMaJscode2SessionResult;
 import com.google.gson.JsonObject;
 import com.rolbel.common.exception.WxErrorException;
 import com.rolbel.common.util.crypto.SHA1;
@@ -239,7 +239,7 @@ public class WxOpenComponentServiceImpl implements WxOpenComponentService {
     }
 
     @Override
-    public WxMaJscode2SessionResult miniappJscode2Session(String appId, String jsCode) throws WxErrorException {
+    public WxMaJscode2SessionResult maJscode2Session(String appId, String jsCode) throws WxErrorException {
         String url = String.format(MINIAPP_JSCODE_2_SESSION, appId, jsCode, getWxOpenConfigStorage().getComponentAppId());
         String responseContent = get(url);
         return WxMaJscode2SessionResult.fromJson(responseContent);

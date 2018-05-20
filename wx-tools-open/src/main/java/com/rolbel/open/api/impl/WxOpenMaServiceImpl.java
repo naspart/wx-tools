@@ -1,8 +1,8 @@
 package com.rolbel.open.api.impl;
 
-import com.rolbel.miniapp.api.impl.WxMaServiceImpl;
-import com.rolbel.miniapp.bean.WxMaJscode2SessionResult;
-import com.rolbel.miniapp.config.WxMaConfig;
+import com.rolbel.ma.api.impl.WxMaServiceImpl;
+import com.rolbel.ma.bean.WxMaJscode2SessionResult;
+import com.rolbel.ma.config.WxMaConfig;
 import com.rolbel.common.exception.WxErrorException;
 import com.rolbel.open.api.WxOpenComponentService;
 
@@ -23,7 +23,7 @@ import com.rolbel.open.api.WxOpenComponentService;
 
     @Override
     public WxMaJscode2SessionResult jsCode2SessionInfo(String jsCode) throws WxErrorException {
-        return wxOpenComponentService.miniappJscode2Session(appId, jsCode);
+        return wxOpenComponentService.maJscode2Session(appId, jsCode);
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.rolbel.open.api.impl;
 
 
-import com.rolbel.miniapp.config.WxMaConfig;
+import com.rolbel.ma.config.WxMaConfig;
 import com.rolbel.common.bean.WxAccessToken;
 import com.rolbel.common.util.ToStringUtils;
 import com.rolbel.common.util.http.ApacheHttpClientBuilder;

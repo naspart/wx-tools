@@ -9,11 +9,11 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>wx-tools-miniapp</artifactId>
+    <artifactId>wx-tools-ma</artifactId>
     <version>0.0.1</version>
     <packaging>jar</packaging>
 
-    <name>wx-tools - MiniApp</name>
+    <name>wx-tools - MA</name>
     <description>微信小程序</description>
     <url>http://www.example.com</url>
 

@@ -1,6 +1,6 @@
 package com.rolbel.open.api;
 
-import com.rolbel.miniapp.config.WxMaConfig;
+import com.rolbel.ma.config.WxMaConfig;
 import com.rolbel.mp.api.WxMpConfigStorage;
 import com.rolbel.open.bean.WxOpenAuthorizerAccessToken;
 import com.rolbel.open.bean.WxOpenComponentAccessToken;

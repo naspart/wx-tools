@@ -1,7 +1,7 @@
 package com.rolbel.open.api;
 
-import com.rolbel.miniapp.api.WxMaService;
-import com.rolbel.miniapp.bean.WxMaJscode2SessionResult;
+import com.rolbel.ma.api.WxMaService;
+import com.rolbel.ma.bean.WxMaJscode2SessionResult;
 import com.rolbel.common.exception.WxErrorException;
 import com.rolbel.mp.api.WxMpService;
 import com.rolbel.mp.bean.result.WxMpOAuth2AccessToken;
@@ -85,6 +85,6 @@ public interface WxOpenComponentService {
 
   String oauth2buildAuthorizationUrl(String appid, String redirectURI, String scope, String state);
 
-  WxMaJscode2SessionResult miniappJscode2Session(String appId, String jsCode) throws WxErrorException;
+  WxMaJscode2SessionResult maJscode2Session(String appId, String jsCode) throws WxErrorException;
 
 }
