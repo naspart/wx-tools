@@ -3,6 +3,7 @@ package com.rolbel.mp.util.json;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.rolbel.mp.bean.*;
+import com.rolbel.mp.bean.card.WxMpCard;
 import com.rolbel.mp.bean.datacube.WxDataCubeUserCumulate;
 import com.rolbel.mp.bean.datacube.WxDataCubeUserSummary;
 import com.rolbel.mp.bean.kefu.WxMpKefuMessage;

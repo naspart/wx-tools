@@ -8,8 +8,7 @@ import java.lang.reflect.Type;
 public class WxErrorAdapter implements JsonDeserializer<WxError> {
 
     @Override
-    public WxError deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
-            throws JsonParseException {
+    public WxError deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         WxError.WxErrorBuilder errorBuilder = WxError.builder();
         JsonObject wxErrorJsonObject = json.getAsJsonObject();
 

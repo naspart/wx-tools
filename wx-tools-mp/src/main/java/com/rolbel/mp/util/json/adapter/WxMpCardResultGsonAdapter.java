@@ -3,7 +3,7 @@ package com.rolbel.mp.util.json.adapter;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import com.rolbel.common.util.json.GsonHelper;
-import com.rolbel.mp.bean.WxMpCard;
+import com.rolbel.mp.bean.card.WxMpCard;
 import com.rolbel.mp.bean.result.WxMpCardResult;
 import com.rolbel.mp.util.json.WxMpGsonBuilder;
 

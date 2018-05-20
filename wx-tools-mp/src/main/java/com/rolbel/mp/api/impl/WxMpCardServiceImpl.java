@@ -225,8 +225,7 @@ public class WxMpCardServiceImpl implements WxMpCardService {
      * @param isMark 是否要mark（占用）这个code，填写true或者false，表示占用或解除占用
      */
     @Override
-    public void markCardCode(String code, String cardId, String openId, boolean isMark) throws
-            WxErrorException {
+    public void markCardCode(String code, String cardId, String openId, boolean isMark) throws WxErrorException {
         JsonObject param = new JsonObject();
         param.addProperty("code", code);
         param.addProperty("card_id", cardId);

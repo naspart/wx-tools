@@ -14,8 +14,8 @@ import java.util.List;
 @Data
 @Builder
 public class WxMpCardBaseInfo implements Serializable {
-
     private static final long serialVersionUID = -5345805620475047226L;
+
     /**
      * 卡券的商户logo，建议像素为300*300
      */
@@ -31,12 +31,14 @@ public class WxMpCardBaseInfo implements Serializable {
     private String brandName;
 
     /**
-     * 码型： "CODE_TYPE_TEXT" 文 本 ；
-     * "CODE_TYPE_BARCODE" 一维码
-     * "CODE_TYPE_QRCODE" 二维码
-     * "CODE_TYPE_ONLY_QRCODE",二维码无code显示；
-     * "CODE_TYPE_ONLY_BARCODE",一维码无code显示；
-     * CODE_TYPE_NONE， 不显示code和条形码类型
+     * 码型：
+     * <p>
+     * CODE_TYPE_TEXT         -> 文 本；
+     * CODE_TYPE_BARCODE      -> 一维码
+     * CODE_TYPE_QRCODE       -> 二维码
+     * CODE_TYPE_ONLY_QRCODE  -> 二维码无code显示；
+     * CODE_TYPE_ONLY_BARCODE -> 一维码无code显示；
+     * CODE_TYPE_NONE         -> 不显示code和条形码类型
      */
     @Required
     @SerializedName("code_type")

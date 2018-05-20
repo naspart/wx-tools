@@ -27,6 +27,7 @@ public class WxError implements Serializable {
         if (this.json != null) {
             return this.json;
         }
+
         return "错误: Code=" + this.errorCode + ", Msg=" + this.errorMsg;
     }
 }

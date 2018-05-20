@@ -1,4 +1,4 @@
-package com.rolbel.mp.bean;
+package com.rolbel.mp.bean.card;
 
 
 import com.rolbel.common.util.ToStringUtils;
