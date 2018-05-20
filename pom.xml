@@ -16,7 +16,7 @@
     </modules>
     <packaging>pom</packaging>
 
-    <name>wx-tools - parent</name>
+    <name>wx-tools - Parent</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
