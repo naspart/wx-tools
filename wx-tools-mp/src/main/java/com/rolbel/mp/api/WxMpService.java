@@ -9,7 +9,7 @@ import com.rolbel.mp.bean.result.WxMpCurrentAutoReplyInfo;
 import com.rolbel.mp.bean.result.WxMpOAuth2AccessToken;
 import com.rolbel.mp.bean.result.WxMpSemanticQueryResult;
 import com.rolbel.mp.bean.user.WxMpUser;
-import com.rolbel.mp.util.http.MediaUploadRequestExecutor;
+import com.rolbel.common.util.http.MediaUploadRequestExecutor;
 
 /**
  * 微信API的Service

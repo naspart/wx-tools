@@ -4,11 +4,13 @@ import com.rolbel.common.api.WxConstant;
 import com.rolbel.common.bean.result.WxError;
 import com.rolbel.common.exception.WxErrorException;
 import com.rolbel.common.util.fs.FileUtil;
+import com.rolbel.common.util.http.BaseMediaDownloadRequestExecutor;
+import com.rolbel.common.util.http.MediaUploadRequestExecutor;
 import com.rolbel.common.util.json.WxGsonBuilder;
 import com.rolbel.mp.api.WxMpMaterialService;
 import com.rolbel.mp.api.WxMpService;
 import com.rolbel.mp.bean.material.*;
-import com.rolbel.mp.bean.result.WxMediaUploadResult;
+import com.rolbel.common.bean.result.WxMediaUploadResult;
 import com.rolbel.mp.util.http.*;
 import com.rolbel.mp.util.json.WxMpGsonBuilder;
 

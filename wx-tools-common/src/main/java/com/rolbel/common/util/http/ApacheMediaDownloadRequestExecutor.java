@@ -1,9 +1,8 @@
-package com.rolbel.mp.util.http;
+package com.rolbel.common.util.http;
 
 import com.rolbel.common.bean.result.WxError;
 import com.rolbel.common.exception.WxErrorException;
 import com.rolbel.common.util.fs.FileUtil;
-import com.rolbel.common.util.http.*;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.Header;
@@ -18,9 +17,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
-/**
- * Created by ecoolper on 2017/5/5.
- */
 public class ApacheMediaDownloadRequestExecutor extends BaseMediaDownloadRequestExecutor<CloseableHttpClient, HttpHost> {
 
     public ApacheMediaDownloadRequestExecutor(RequestHttp requestHttp, File tmpDirFile) {

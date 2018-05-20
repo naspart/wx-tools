@@ -1,7 +1,4 @@
-package com.rolbel.mp.util.http;
-
-import com.rolbel.common.util.http.RequestExecutor;
-import com.rolbel.common.util.http.RequestHttp;
+package com.rolbel.common.util.http;
 
 import java.io.File;
 

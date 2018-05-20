@@ -9,8 +9,8 @@ import com.rolbel.mp.bean.kefu.WxMpKefuMessage;
 import com.rolbel.mp.bean.kefu.request.WxMpKfAccountRequest;
 import com.rolbel.mp.bean.kefu.request.WxMpKfSessionRequest;
 import com.rolbel.mp.bean.kefu.result.*;
-import com.rolbel.mp.bean.result.WxMediaUploadResult;
-import com.rolbel.mp.util.http.MediaUploadRequestExecutor;
+import com.rolbel.common.bean.result.WxMediaUploadResult;
+import com.rolbel.common.util.http.MediaUploadRequestExecutor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

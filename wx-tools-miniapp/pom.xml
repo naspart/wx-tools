@@ -14,9 +14,15 @@
     <packaging>jar</packaging>
 
     <name>wx-tools-common</name>
-    <description>Demo project for Spring Boot</description>
+    <description>微信小程序</description>
     <url>http://www.example.com</url>
 
     <dependencies>
+        <dependency>
+            <groupId>com.rolbel</groupId>
+            <artifactId>wx-tools-common</artifactId>
+            <version>0.0.1</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 </project>

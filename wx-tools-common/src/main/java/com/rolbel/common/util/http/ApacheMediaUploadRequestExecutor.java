@@ -1,11 +1,9 @@
-package com.rolbel.mp.util.http;
+package com.rolbel.common.util.http;
 
 
 import com.rolbel.common.bean.result.WxError;
 import com.rolbel.common.exception.WxErrorException;
-import com.rolbel.common.util.http.RequestHttp;
-import com.rolbel.common.util.http.Utf8ResponseHandler;
-import com.rolbel.mp.bean.result.WxMediaUploadResult;
+import com.rolbel.common.bean.result.WxMediaUploadResult;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
 import org.apache.http.client.config.RequestConfig;

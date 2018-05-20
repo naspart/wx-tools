@@ -2,7 +2,7 @@ package com.rolbel.mp.api;
 
 import com.rolbel.common.exception.WxErrorException;
 import com.rolbel.mp.bean.material.*;
-import com.rolbel.mp.bean.result.WxMediaUploadResult;
+import com.rolbel.common.bean.result.WxMediaUploadResult;
 
 import java.io.File;
 import java.io.InputStream;
