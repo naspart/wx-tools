@@ -1,13 +1,13 @@
 package com.rolbel.miniapp.api.impl;
 
-import com.rolbel.common.bean.result.WxMediaUploadResult;
-import com.rolbel.common.util.fs.FileUtil;
-import com.rolbel.common.util.http.BaseMediaDownloadRequestExecutor;
-import com.rolbel.common.util.http.MediaUploadRequestExecutor;
 import com.rolbel.miniapp.api.WxMaMediaService;
 import com.rolbel.miniapp.api.WxMaService;
 import com.rolbel.common.bean.result.WxError;
+import com.rolbel.common.bean.result.WxMediaUploadResult;
 import com.rolbel.common.exception.WxErrorException;
+import com.rolbel.common.util.fs.FileUtil;
+import com.rolbel.common.util.http.BaseMediaDownloadRequestExecutor;
+import com.rolbel.common.util.http.MediaUploadRequestExecutor;
 import com.rolbel.common.util.http.RequestExecutor;
 
 import java.io.File;

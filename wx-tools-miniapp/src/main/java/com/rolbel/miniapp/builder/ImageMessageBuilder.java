@@ -1,19 +1,22 @@
 package com.rolbel.miniapp.builder;
 
 import com.rolbel.miniapp.bean.WxMaKefuMessage;
-import com.rolbel.miniapp.constant.WxMaConstant;
+
+import static com.rolbel.miniapp.constant.WxMaConstant.KefuMsgType;
 
 /**
+ * 图片消息builder.
+ *
  * @author <a href="https://github.com/binarywang">Binary Wang</a>
  */
-public final class ImageBuilder extends BaseBuilder<ImageBuilder> {
+public final class ImageMessageBuilder extends BaseBuilder<ImageMessageBuilder> {
     private String mediaId;
 
-    public ImageBuilder() {
-        this.msgType = WxMaConstant.KefuMsgType.IMAGE;
+    public ImageMessageBuilder() {
+        this.msgType = KefuMsgType.IMAGE;
     }
 
-    public ImageBuilder mediaId(String mediaId) {
+    public ImageMessageBuilder mediaId(String mediaId) {
         this.mediaId = mediaId;
         return this;
     }
@@ -21,7 +24,7 @@ public final class ImageBuilder extends BaseBuilder<ImageBuilder> {
     @Override
     public WxMaKefuMessage build() {
         WxMaKefuMessage m = super.build();
-        m.setMediaId(this.mediaId);
+        m.setImage(new WxMaKefuMessage.KfImage(this.mediaId));
         return m;
     }
 }

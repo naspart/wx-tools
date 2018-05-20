@@ -15,5 +15,5 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class WxMaCodeLineColor {
-    private String r = "0", g = "0", b = "0";
+  private String r = "0", g = "0", b = "0";
 }

@@ -1,10 +1,9 @@
 package com.rolbel.miniapp.message;
 
-
-import com.rolbel.common.exception.WxErrorException;
-import com.rolbel.common.session.WxSessionManager;
 import com.rolbel.miniapp.api.WxMaService;
 import com.rolbel.miniapp.bean.WxMaMessage;
+import com.rolbel.common.exception.WxErrorException;
+import com.rolbel.common.session.WxSessionManager;
 
 import java.util.Map;
 
@@ -15,7 +14,7 @@ import java.util.Map;
  */
 public interface WxMaMessageHandler {
 
-    void handle(WxMaMessage message, Map<String, Object> context,
-                WxMaService service, WxSessionManager sessionManager) throws WxErrorException;
+  void handle(WxMaMessage message, Map<String, Object> context,
+              WxMaService service, WxSessionManager sessionManager) throws WxErrorException;
 
 }

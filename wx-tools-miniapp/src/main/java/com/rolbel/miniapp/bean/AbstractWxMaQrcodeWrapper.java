@@ -8,10 +8,12 @@ import com.rolbel.miniapp.util.json.WxMaGsonBuilder;
  * @author Element
  */
 public abstract class AbstractWxMaQrcodeWrapper {
+  public String toJson() {
+    return WxMaGsonBuilder.create().toJson(this);
+  }
 
-    @Override
-    public String toString() {
-        return WxMaGsonBuilder.create().toJson(this);
-    }
-
+  @Override
+  public String toString() {
+    return this.toJson();
+  }
 }

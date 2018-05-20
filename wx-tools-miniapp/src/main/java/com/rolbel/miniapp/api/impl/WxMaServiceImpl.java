@@ -1,14 +1,17 @@
 package com.rolbel.miniapp.api.impl;
 
 import com.rolbel.miniapp.api.*;
+import com.rolbel.miniapp.bean.WxMaJscode2SessionResult;
 import com.rolbel.miniapp.config.WxMaConfig;
 import com.rolbel.miniapp.constant.WxMaConstant;
-import com.google.gson.JsonParser;
+import com.google.common.base.Joiner;
 import com.rolbel.common.bean.WxAccessToken;
 import com.rolbel.common.bean.result.WxError;
 import com.rolbel.common.exception.WxErrorException;
 import com.rolbel.common.util.crypto.SHA1;
 import com.rolbel.common.util.http.*;
+import com.rolbel.common.util.http.ApacheHttpClientBuilder;
+import com.rolbel.common.util.http.DefaultApacheHttpClientBuilder;
 import org.apache.http.HttpHost;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -19,10 +22,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.locks.Lock;
 
+/**
+ * @author <a href="https://github.com/binarywang">Binary Wang</a>
+ */
 public class WxMaServiceImpl implements WxMaService, RequestHttp<CloseableHttpClient, HttpHost> {
-    private static final JsonParser JSON_PARSER = new JsonParser();
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     private CloseableHttpClient httpClient;
@@ -33,6 +40,7 @@ public class WxMaServiceImpl implements WxMaService, RequestHttp<CloseableHttpCl
     private WxMaMediaService materialService = new WxMaMediaServiceImpl(this);
     private WxMaUserService userService = new WxMaUserServiceImpl(this);
     private WxMaQrcodeService qrCodeService = new WxMaQrcodeServiceImpl(this);
+    private WxMaTemplateService templateService = new WxMaTemplateServiceImpl(this);
 
     private int retrySleepMillis = 1000;
     private int maxRetryTimes = 5;
@@ -113,6 +121,19 @@ public class WxMaServiceImpl implements WxMaService, RequestHttp<CloseableHttpCl
         }
 
         return this.getWxMaConfig().getAccessToken();
+    }
+
+    @Override
+    public WxMaJscode2SessionResult jsCode2SessionInfo(String jsCode) throws WxErrorException {
+        final WxMaConfig config = getWxMaConfig();
+        Map<String, String> params = new HashMap<>(8);
+        params.put("appid", config.getAppid());
+        params.put("secret", config.getSecret());
+        params.put("js_code", jsCode);
+        params.put("grant_type", "authorization_code");
+
+        String result = get(JSCODE_TO_SESSION_URL, Joiner.on("&").withKeyValueSeparator("=").join(params));
+        return WxMaJscode2SessionResult.fromJson(result);
     }
 
     @Override
@@ -253,5 +274,10 @@ public class WxMaServiceImpl implements WxMaService, RequestHttp<CloseableHttpCl
     @Override
     public WxMaQrcodeService getQrcodeService() {
         return this.qrCodeService;
+    }
+
+    @Override
+    public WxMaTemplateService getTemplateService() {
+        return this.templateService;
     }
 }

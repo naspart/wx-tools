@@ -1,15 +1,15 @@
 package com.rolbel.miniapp.bean;
 
-import com.google.gson.annotations.SerializedName;
-import com.rolbel.common.util.ToStringUtil;
-import com.rolbel.common.util.xml.XStreamCDataConverter;
 import com.rolbel.miniapp.config.WxMaConfig;
 import com.rolbel.miniapp.util.crypt.WxMaCryptUtils;
 import com.rolbel.miniapp.util.json.WxMaGsonBuilder;
 import com.rolbel.miniapp.util.xml.XStreamTransformer;
+import com.google.gson.annotations.SerializedName;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
 import lombok.Data;
+import com.rolbel.common.util.ToStringUtils;
+import com.rolbel.common.util.xml.XStreamCDataConverter;
 import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
@@ -23,129 +23,131 @@ import java.nio.charset.StandardCharsets;
 @XStreamAlias("xml")
 @Data
 public class WxMaMessage implements Serializable {
-    private static final long serialVersionUID = -3586245291677274914L;
+  private static final long serialVersionUID = -3586245291677274914L;
 
-    @SerializedName("Encrypt")
-    @XStreamAlias("Encrypt")
-    @XStreamConverter(value = XStreamCDataConverter.class)
-    private String encrypt;
+  @SerializedName("Encrypt")
+  @XStreamAlias("Encrypt")
+  @XStreamConverter(value = XStreamCDataConverter.class)
+  private String encrypt;
 
-    @SerializedName("ToUserName")
-    @XStreamAlias("ToUserName")
-    @XStreamConverter(value = XStreamCDataConverter.class)
-    private String toUser;
+  @SerializedName("ToUserName")
+  @XStreamAlias("ToUserName")
+  @XStreamConverter(value = XStreamCDataConverter.class)
+  private String toUser;
 
-    @SerializedName("FromUserName")
-    @XStreamAlias("FromUserName")
-    @XStreamConverter(value = XStreamCDataConverter.class)
-    private String fromUser;
+  @SerializedName("FromUserName")
+  @XStreamAlias("FromUserName")
+  @XStreamConverter(value = XStreamCDataConverter.class)
+  private String fromUser;
 
-    @SerializedName("CreateTime")
-    @XStreamAlias("CreateTime")
-    @XStreamConverter(value = XStreamCDataConverter.class)
-    private Integer createTime;
+  @SerializedName("CreateTime")
+  @XStreamAlias("CreateTime")
+  @XStreamConverter(value = XStreamCDataConverter.class)
+  private Integer createTime;
 
-    @SerializedName("MsgDataFormat")
-    @XStreamAlias("MsgDataFormat")
-    @XStreamConverter(value = XStreamCDataConverter.class)
-    private String msgType;
+  @SerializedName("MsgType")
+  @XStreamAlias("MsgType")
+  @XStreamConverter(value = XStreamCDataConverter.class)
+  private String msgType;
 
-    // 文本消息
-    @SerializedName("Content")
-    @XStreamAlias("Content")
-    @XStreamConverter(value = XStreamCDataConverter.class)
-    private String content;
+  @SerializedName("MsgDataFormat")
+  @XStreamAlias("MsgDataFormat")
+  @XStreamConverter(value = XStreamCDataConverter.class)
+  private String msgDataFormat;
 
-    @SerializedName("MsgId")
-    @XStreamAlias("MsgId")
-    @XStreamConverter(value = XStreamCDataConverter.class)
-    private Long msgId;
+  @SerializedName("Content")
+  @XStreamAlias("Content")
+  @XStreamConverter(value = XStreamCDataConverter.class)
+  private String content;
 
-    // 图片消息
-    @SerializedName("PicUrl")
-    @XStreamAlias("PicUrl")
-    @XStreamConverter(value = XStreamCDataConverter.class)
-    private String picUrl;
+  @SerializedName("MsgId")
+  @XStreamAlias("MsgId")
+  @XStreamConverter(value = XStreamCDataConverter.class)
+  private Long msgId;
 
-    @SerializedName("MediaId")
-    @XStreamAlias("MediaId")
-    @XStreamConverter(value = XStreamCDataConverter.class)
-    private String mediaId;
+  @SerializedName("PicUrl")
+  @XStreamAlias("PicUrl")
+  @XStreamConverter(value = XStreamCDataConverter.class)
+  private String picUrl;
 
-    // 事件消息
-    @SerializedName("Event")
-    @XStreamAlias("Event")
-    @XStreamConverter(value = XStreamCDataConverter.class)
-    private String event;
+  @SerializedName("MediaId")
+  @XStreamAlias("MediaId")
+  @XStreamConverter(value = XStreamCDataConverter.class)
+  private String mediaId;
 
-    @SerializedName("SessionFrom")
-    @XStreamAlias("SessionFrom")
-    @XStreamConverter(value = XStreamCDataConverter.class)
-    private String sessionFrom;
+  @SerializedName("Event")
+  @XStreamAlias("Event")
+  @XStreamConverter(value = XStreamCDataConverter.class)
+  private String event;
 
-    public static WxMaMessage fromXml(String xml) {
-        return XStreamTransformer.fromXml(WxMaMessage.class, xml);
+  @SerializedName("SessionFrom")
+  @XStreamAlias("SessionFrom")
+  @XStreamConverter(value = XStreamCDataConverter.class)
+  private String sessionFrom;
+
+  public static WxMaMessage fromXml(String xml) {
+    return XStreamTransformer.fromXml(WxMaMessage.class, xml);
+  }
+
+  public static WxMaMessage fromXml(InputStream is) {
+    return XStreamTransformer.fromXml(WxMaMessage.class, is);
+  }
+
+  /**
+   * 从加密字符串转换.
+   *
+   * @param encryptedXml 密文
+   * @param wxMaConfig   配置存储器对象
+   * @param timestamp    时间戳
+   * @param nonce        随机串
+   * @param msgSignature 签名串
+   */
+  public static WxMaMessage fromEncryptedXml(String encryptedXml,
+                                             WxMaConfig wxMaConfig, String timestamp, String nonce,
+                                             String msgSignature) {
+    String plainText = new WxMaCryptUtils(wxMaConfig).decrypt(msgSignature, timestamp, nonce, encryptedXml);
+    return fromXml(plainText);
+  }
+
+  public static WxMaMessage fromEncryptedXml(InputStream is, WxMaConfig wxMaConfig, String timestamp,
+                                             String nonce, String msgSignature) {
+    try {
+      return fromEncryptedXml(IOUtils.toString(is, StandardCharsets.UTF_8), wxMaConfig,
+        timestamp, nonce, msgSignature);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
     }
+  }
 
-    public static WxMaMessage fromXml(InputStream is) {
-        return XStreamTransformer.fromXml(WxMaMessage.class, is);
-    }
+  public static WxMaMessage fromJson(String json) {
+    return WxMaGsonBuilder.create().fromJson(json, WxMaMessage.class);
+  }
 
-    /**
-     * 从加密字符串转换
-     *
-     * @param encryptedXml 密文
-     * @param wxMaConfig   配置存储器对象
-     * @param timestamp    时间戳
-     * @param nonce        随机串
-     * @param msgSignature 签名串
-     */
-    public static WxMaMessage fromEncryptedXml(String encryptedXml,
-                                               WxMaConfig wxMaConfig, String timestamp, String nonce,
-                                               String msgSignature) {
-        String plainText = new WxMaCryptUtils(wxMaConfig).decrypt(msgSignature, timestamp, nonce, encryptedXml);
-        return fromXml(plainText);
+  public static WxMaMessage fromEncryptedJson(String encryptedJson, WxMaConfig config) {
+    try {
+      WxMaMessage encryptedMessage = fromJson(encryptedJson);
+      String plainText = new WxMaCryptUtils(config).decrypt(encryptedMessage.getEncrypt());
+      return fromJson(plainText);
+    } catch (Exception e) {
+      throw new RuntimeException(e);
     }
+  }
 
-    public static WxMaMessage fromEncryptedXml(InputStream is, WxMaConfig wxMaConfig, String timestamp,
-                                               String nonce, String msgSignature) {
-        try {
-            return fromEncryptedXml(IOUtils.toString(is, StandardCharsets.UTF_8), wxMaConfig,
-                    timestamp, nonce, msgSignature);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+  public static WxMaMessage fromEncryptedJson(InputStream inputStream, WxMaConfig config) {
+    try {
+      return fromEncryptedJson(IOUtils.toString(inputStream, StandardCharsets.UTF_8), config);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
     }
+  }
 
-    public static WxMaMessage fromJson(String json) {
-        return WxMaGsonBuilder.create().fromJson(json, WxMaMessage.class);
-    }
+  @Override
+  public String toString() {
+    return ToStringUtils.toSimpleString(this);
+  }
 
-    public static WxMaMessage fromEncryptedJson(String encryptedJson, WxMaConfig config) {
-        try {
-            WxMaMessage encryptedMessage = fromJson(encryptedJson);
-            String plainText = new WxMaCryptUtils(config).decrypt(encryptedMessage.getEncrypt());
-            return fromJson(plainText);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public static WxMaMessage fromEncryptedJson(InputStream inputStream, WxMaConfig config) {
-        try {
-            return fromEncryptedJson(IOUtils.toString(inputStream, StandardCharsets.UTF_8), config);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @Override
-    public String toString() {
-        return ToStringUtil.toSimpleString(this);
-    }
-
-    public String toJson() {
-        return WxMaGsonBuilder.create().toJson(this);
-    }
+  public String toJson() {
+    return WxMaGsonBuilder.create().toJson(this);
+  }
 
 }
