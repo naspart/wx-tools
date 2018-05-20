@@ -27,15 +27,12 @@ import org.slf4j.LoggerFactory;
 import java.util.Hashtable;
 import java.util.Map;
 
-/**
- * @author <a href="https://github.com/007gzs">007</a>
- */
 public class WxOpenComponentServiceImpl implements WxOpenComponentService {
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private static final Map<String, WxMaService> WX_OPEN_MA_SERVICE_MAP = new Hashtable<>();
     private static final Map<String, WxMpService> WX_OPEN_MP_SERVICE_MAP = new Hashtable<>();
 
-    protected final Logger log = LoggerFactory.getLogger(this.getClass());
     private WxOpenService wxOpenService;
 
     public WxOpenComponentServiceImpl(WxOpenService wxOpenService) {
@@ -55,6 +52,7 @@ public class WxOpenComponentServiceImpl implements WxOpenComponentService {
                 }
             }
         }
+
         return wxMpService;
     }
 
@@ -70,6 +68,7 @@ public class WxOpenComponentServiceImpl implements WxOpenComponentService {
                 }
             }
         }
+
         return wxMaService;
     }
 
@@ -88,7 +87,7 @@ public class WxOpenComponentServiceImpl implements WxOpenComponentService {
             return SHA1.gen(getWxOpenConfigStorage().getComponentToken(), timestamp, nonce)
                     .equals(signature);
         } catch (Exception e) {
-            this.log.error("Checking signature failed, and the reason is :" + e.getMessage());
+            this.logger.error("Checking signature failed, and the reason is :" + e.getMessage());
             return false;
         }
     }
@@ -106,18 +105,21 @@ public class WxOpenComponentServiceImpl implements WxOpenComponentService {
             WxOpenComponentAccessToken componentAccessToken = WxOpenComponentAccessToken.fromJson(responseContent);
             getWxOpenConfigStorage().updateComponentAccessTokent(componentAccessToken);
         }
+
         return this.getWxOpenConfigStorage().getComponentAccessToken();
     }
 
     private String post(String uri, String postData) throws WxErrorException {
         String componentAccessToken = getComponentAccessToken(false);
         String uriWithComponentAccessToken = uri + (uri.contains("?") ? "&" : "?") + "component_access_token=" + componentAccessToken;
+
         return getWxOpenService().post(uriWithComponentAccessToken, postData);
     }
 
     private String get(String uri) throws WxErrorException {
         String componentAccessToken = getComponentAccessToken(false);
         String uriWithComponentAccessToken = uri + (uri.contains("?") ? "&" : "?") + "component_access_token=" + componentAccessToken;
+
         return getWxOpenService().get(uriWithComponentAccessToken, null);
     }
 
@@ -128,6 +130,7 @@ public class WxOpenComponentServiceImpl implements WxOpenComponentService {
         jsonObject.addProperty("component_appid", getWxOpenConfigStorage().getComponentAppId());
         String responseContent = post(API_CREATE_PREAUTHCODE_URL, jsonObject.toString());
         jsonObject = WxGsonBuilder.create().fromJson(responseContent, JsonObject.class);
+
         return String.format(COMPONENT_LOGIN_PAGE_URL, getWxOpenConfigStorage().getComponentAppId(), jsonObject.get("pre_auth_code").getAsString(), URIUtil.encodeURIComponent(redirectURI));
     }
 
@@ -156,6 +159,7 @@ public class WxOpenComponentServiceImpl implements WxOpenComponentService {
             }
             return "success";
         }
+
         return "";
     }
 
@@ -165,6 +169,7 @@ public class WxOpenComponentServiceImpl implements WxOpenComponentService {
         jsonObject.addProperty("component_appid", getWxOpenConfigStorage().getComponentAppId());
         jsonObject.addProperty("authorization_code", authorizationCode);
         String responseContent = post(API_QUERY_AUTH_URL, jsonObject.toString());
+
         return WxOpenGsonBuilder.create().fromJson(responseContent, WxOpenQueryAuthResult.class);
     }
 
@@ -174,6 +179,7 @@ public class WxOpenComponentServiceImpl implements WxOpenComponentService {
         jsonObject.addProperty("component_appid", getWxOpenConfigStorage().getComponentAppId());
         jsonObject.addProperty("authorizer_appid", authorizerAppid);
         String responseContent = post(API_GET_AUTHORIZER_INFO_URL, jsonObject.toString());
+
         return WxOpenGsonBuilder.create().fromJson(responseContent, WxOpenAuthorizerInfoResult.class);
     }
 
@@ -184,6 +190,7 @@ public class WxOpenComponentServiceImpl implements WxOpenComponentService {
         jsonObject.addProperty("authorizer_appid", authorizerAppid);
         jsonObject.addProperty("option_name", optionName);
         String responseContent = post(API_GET_AUTHORIZER_OPTION_URL, jsonObject.toString());
+
         return WxOpenGsonBuilder.create().fromJson(responseContent, WxOpenAuthorizerOptionResult.class);
     }
 
@@ -210,6 +217,7 @@ public class WxOpenComponentServiceImpl implements WxOpenComponentService {
             WxOpenAuthorizerAccessToken wxOpenAuthorizerAccessToken = WxOpenAuthorizerAccessToken.fromJson(responseContent);
             getWxOpenConfigStorage().updateAuthorizerAccessToken(appId, wxOpenAuthorizerAccessToken);
         }
+
         return this.getWxOpenConfigStorage().getAuthorizerAccessToken(appId);
     }
 
@@ -217,6 +225,7 @@ public class WxOpenComponentServiceImpl implements WxOpenComponentService {
     public WxMpOAuth2AccessToken oauth2getAccessToken(String appId, String code) throws WxErrorException {
         String url = String.format(OAUTH2_ACCESS_TOKEN_URL, appId, code, getWxOpenConfigStorage().getComponentAppId());
         String responseContent = get(url);
+
         return WxMpOAuth2AccessToken.fromJson(responseContent);
     }
 
@@ -229,6 +238,7 @@ public class WxOpenComponentServiceImpl implements WxOpenComponentService {
     public WxMpOAuth2AccessToken oauth2refreshAccessToken(String appId, String refreshToken) throws WxErrorException {
         String url = String.format(OAUTH2_REFRESH_TOKEN_URL, appId, refreshToken, getWxOpenConfigStorage().getComponentAppId());
         String responseContent = get(url);
+
         return WxMpOAuth2AccessToken.fromJson(responseContent);
     }
 
@@ -242,6 +252,7 @@ public class WxOpenComponentServiceImpl implements WxOpenComponentService {
     public WxMaJscode2SessionResult maJscode2Session(String appId, String jsCode) throws WxErrorException {
         String url = String.format(MINIAPP_JSCODE_2_SESSION, appId, jsCode, getWxOpenConfigStorage().getComponentAppId());
         String responseContent = get(url);
+
         return WxMaJscode2SessionResult.fromJson(responseContent);
     }
 
