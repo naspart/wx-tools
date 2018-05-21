@@ -13,10 +13,11 @@
         <module>wx-tools-pay</module>
         <module>wx-tools-ma</module>
         <module>wx-tools-open</module>
+        <module>wx-tools-cp</module>
     </modules>
     <packaging>pom</packaging>
 
-    <name>wx-tools - Parent</name>
+    <name>Wx Tools - Parent</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>

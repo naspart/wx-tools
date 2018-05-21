@@ -1,5 +1,7 @@
 package com.rolbel.common.util.fs;
 
+import org.apache.commons.io.FileUtils;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,7 +21,8 @@ public class FileUtil {
         File resultFile = File.createTempFile(name, '.' + ext, tmpDirFile);
 
         resultFile.deleteOnExit();
-        org.apache.commons.io.FileUtils.copyInputStreamToFile(inputStream, resultFile);
+        FileUtils.copyInputStreamToFile(inputStream, resultFile);
+
         return resultFile;
     }
 
