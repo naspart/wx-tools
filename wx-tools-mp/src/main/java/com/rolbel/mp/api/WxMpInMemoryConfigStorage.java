@@ -12,30 +12,30 @@ import java.util.concurrent.locks.ReentrantLock;
  * 基于内存的微信配置provider，在实际生产环境中应该将这些配置持久化
  */
 public class WxMpInMemoryConfigStorage implements WxMpConfigStorage {
-    protected volatile String appId;
-    protected volatile String secret;
-    protected volatile String token;
-    protected volatile String templateId;
-    protected volatile String accessToken;
-    protected volatile String aesKey;
-    protected volatile long expiresTime;
+    private volatile String appId;
+    private volatile String secret;
+    private volatile String token;
+    private volatile String templateId;
+    private volatile String accessToken;
+    private volatile String aesKey;
+    private volatile long expiresTime;
 
-    protected volatile String oauth2redirectUri;
+    private volatile String oauth2redirectUri;
 
-    protected volatile String httpProxyHost;
-    protected volatile int httpProxyPort;
-    protected volatile String httpProxyUsername;
-    protected volatile String httpProxyPassword;
+    private volatile String httpProxyHost;
+    private volatile int httpProxyPort;
+    private volatile String httpProxyUsername;
+    private volatile String httpProxyPassword;
 
-    protected volatile String jsapiTicket;
-    protected volatile long jsapiTicketExpiresTime;
+    private volatile String jsapiTicket;
+    private volatile long jsapiTicketExpiresTime;
 
-    protected volatile String cardApiTicket;
-    protected volatile long cardApiTicketExpiresTime;
+    private volatile String cardApiTicket;
+    private volatile long cardApiTicketExpiresTime;
 
-    protected Lock accessTokenLock = new ReentrantLock();
-    protected Lock jsapiTicketLock = new ReentrantLock();
-    protected Lock cardApiTicketLock = new ReentrantLock();
+    private Lock accessTokenLock = new ReentrantLock();
+    private Lock jsapiTicketLock = new ReentrantLock();
+    private Lock cardApiTicketLock = new ReentrantLock();
 
     /**
      * 临时文件目录

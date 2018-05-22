@@ -2,11 +2,17 @@ package com.rolbel.mp.api;
 
 import com.rolbel.common.exception.WxErrorException;
 import com.rolbel.mp.bean.device.*;
+import com.rolbel.mp.bean.device.result.*;
 
-/**
- * Created by keungtung on 10/12/2016.
- */
 public interface WxMpDeviceService {
+    String TRANS_MSG_URL = "https://api.weixin.qq.com/device/transmsg";
+    String GET_QRCODE_URL = "https://api.weixin.qq.com/device/getqrcode";
+    String AUTHORIZE_DEVICE_URL = "https://api.weixin.qq.com/device/authorize_device";
+    String BIND_DEVICE_URL = "https://api.weixin.qq.com/device/bind";
+    String UNBIND_DEVICE_URL = "https://api.weixin.qq.com/device/unbind";
+    String COMPEL_BIND_DEVICE_URL = "https://api.weixin.qq.com/device/compel_bind";
+    String COMPEL_UNBIND_DEVICE_URL = "https://api.weixin.qq.com/device/compel_unbind";
+
     /**
      * <pre>
      * 主动发送消息给设备

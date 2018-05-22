@@ -1,6 +1,8 @@
-package com.rolbel.mp.bean.device;
+package com.rolbel.mp.bean.device.result;
 
 import com.rolbel.common.util.json.WxGsonBuilder;
+import com.rolbel.mp.bean.device.AbstractDeviceBean;
+import com.rolbel.mp.bean.device.BaseResp;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

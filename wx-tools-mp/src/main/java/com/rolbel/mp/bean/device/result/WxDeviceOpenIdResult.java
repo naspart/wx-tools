@@ -1,16 +1,14 @@
-package com.rolbel.mp.bean.device;
+package com.rolbel.mp.bean.device.result;
 
 import com.google.gson.annotations.SerializedName;
+import com.rolbel.mp.bean.device.AbstractDeviceBean;
+import com.rolbel.mp.bean.device.RespMsg;
 import com.rolbel.mp.util.json.WxMpGsonBuilder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.util.List;
 
-/**
- * @author keungtung.
- * @date 16/12/2016
- */
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class WxDeviceOpenIdResult extends AbstractDeviceBean {

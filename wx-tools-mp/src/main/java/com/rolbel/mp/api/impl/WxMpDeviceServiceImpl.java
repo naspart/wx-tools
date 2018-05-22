@@ -4,11 +4,12 @@ import com.rolbel.common.exception.WxErrorException;
 import com.rolbel.mp.api.WxMpDeviceService;
 import com.rolbel.mp.api.WxMpService;
 import com.rolbel.mp.bean.device.*;
+import com.rolbel.mp.bean.device.result.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class WxMpDeviceServiceImpl implements WxMpDeviceService {
-    private static Logger log = LoggerFactory.getLogger(WxMpDeviceServiceImpl.class);
+    private static Logger logger = LoggerFactory.getLogger(WxMpDeviceServiceImpl.class);
 
     private static final String API_URL_PREFIX = "https://api.weixin.qq.com/device";
 
@@ -20,50 +21,50 @@ public class WxMpDeviceServiceImpl implements WxMpDeviceService {
 
     @Override
     public TransMsgResp transMsg(WxDeviceMsg msg) throws WxErrorException {
-        String url = API_URL_PREFIX + "/transmsg";
-        String response = this.wxMpService.post(url, msg.toJson());
+        String response = this.wxMpService.post(TRANS_MSG_URL, msg.toJson());
+
         return TransMsgResp.fromJson(response);
     }
 
     @Override
     public WxDeviceQrCodeResult getQrCode(String productId) throws WxErrorException {
-        String url = API_URL_PREFIX + "/getqrcode";
-        String response = this.wxMpService.get(url, "product_id=" + productId);
+        String response = this.wxMpService.get(GET_QRCODE_URL, "product_id=" + productId);
+
         return WxDeviceQrCodeResult.fromJson(response);
     }
 
     @Override
     public WxDeviceAuthorizeResult authorize(WxDeviceAuthorize wxDeviceAuthorize) throws WxErrorException {
-        String url = API_URL_PREFIX + "/authorize_device";
-        String response = this.wxMpService.post(url, wxDeviceAuthorize.toJson());
+        String response = this.wxMpService.post(AUTHORIZE_DEVICE_URL, wxDeviceAuthorize.toJson());
+
         return WxDeviceAuthorizeResult.fromJson(response);
     }
 
     @Override
     public WxDeviceBindResult bind(WxDeviceBind wxDeviceBind) throws WxErrorException {
-        String url = API_URL_PREFIX + "/bind";
-        String response = this.wxMpService.post(url, wxDeviceBind.toJson());
+        String response = this.wxMpService.post(BIND_DEVICE_URL, wxDeviceBind.toJson());
+
         return WxDeviceBindResult.fromJson(response);
     }
 
     @Override
     public WxDeviceBindResult compelBind(WxDeviceBind wxDeviceBind) throws WxErrorException {
-        String url = API_URL_PREFIX + "/compel_bind";
-        String response = this.wxMpService.post(url, wxDeviceBind.toJson());
+        String response = this.wxMpService.post(COMPEL_BIND_DEVICE_URL, wxDeviceBind.toJson());
+
         return WxDeviceBindResult.fromJson(response);
     }
 
     @Override
     public WxDeviceBindResult unbind(WxDeviceBind wxDeviceBind) throws WxErrorException {
-        String url = API_URL_PREFIX + "/unbind?";
-        String response = this.wxMpService.post(url, wxDeviceBind.toJson());
+        String response = this.wxMpService.post(UNBIND_DEVICE_URL, wxDeviceBind.toJson());
+
         return WxDeviceBindResult.fromJson(response);
     }
 
     @Override
     public WxDeviceBindResult compelUnbind(WxDeviceBind wxDeviceBind) throws WxErrorException {
-        String url = API_URL_PREFIX + "/compel_unbind?";
-        String response = this.wxMpService.post(url, wxDeviceBind.toJson());
+        String response = this.wxMpService.post(COMPEL_UNBIND_DEVICE_URL, wxDeviceBind.toJson());
+
         return WxDeviceBindResult.fromJson(response);
     }
 

@@ -1,6 +1,8 @@
-package com.rolbel.mp.bean.device;
+package com.rolbel.mp.bean.device.result;
 
 import com.google.gson.annotations.SerializedName;
+import com.rolbel.mp.bean.device.AbstractDeviceBean;
+import com.rolbel.mp.bean.device.BaseResp;
 import com.rolbel.mp.util.json.WxMpGsonBuilder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

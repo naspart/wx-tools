@@ -46,64 +46,64 @@ public class WxMpKefuServiceImpl implements WxMpKefuService {
 
     @Override
     public boolean kfAccountAdd(WxMpKfAccountRequest request) throws WxErrorException {
-        String responseContent = this.wxMpService.post(KFACCOUNT_ADD, request.toJson());
+        String responseContent = this.wxMpService.post(KF_ACCOUNT_ADD, request.toJson());
         return responseContent != null;
     }
 
     @Override
     public boolean kfAccountUpdate(WxMpKfAccountRequest request) throws WxErrorException {
-        String responseContent = this.wxMpService.post(KFACCOUNT_UPDATE, request.toJson());
+        String responseContent = this.wxMpService.post(KF_ACCOUNT_UPDATE, request.toJson());
         return responseContent != null;
     }
 
     @Override
     public boolean kfAccountInviteWorker(WxMpKfAccountRequest request) throws WxErrorException {
-        String responseContent = this.wxMpService.post(KFACCOUNT_INVITE_WORKER, request.toJson());
+        String responseContent = this.wxMpService.post(KF_ACCOUNT_INVITE_WORKER, request.toJson());
         return responseContent != null;
     }
 
     @Override
     public boolean kfAccountUploadHeadImg(String kfAccount, File imgFile) throws WxErrorException {
         WxMediaUploadResult responseContent = this.wxMpService
-                .execute(MediaUploadRequestExecutor.create(this.wxMpService.getRequestHttp()), String.format(KFACCOUNT_UPLOAD_HEAD_IMG, kfAccount), imgFile);
+                .execute(MediaUploadRequestExecutor.create(this.wxMpService.getRequestHttp()), String.format(KF_ACCOUNT_UPLOAD_HEAD_IMG, kfAccount), imgFile);
         return responseContent != null;
     }
 
     @Override
     public boolean kfAccountDel(String kfAccount) throws WxErrorException {
-        String responseContent = this.wxMpService.get(String.format(KFACCOUNT_DEL, kfAccount), null);
+        String responseContent = this.wxMpService.get(String.format(KF_ACCOUNT_DEL, kfAccount), null);
         return responseContent != null;
     }
 
     @Override
     public boolean kfSessionCreate(String openid, String kfAccount) throws WxErrorException {
         WxMpKfSessionRequest request = new WxMpKfSessionRequest(kfAccount, openid);
-        String responseContent = this.wxMpService.post(KFSESSION_CREATE, request.toJson());
+        String responseContent = this.wxMpService.post(KF_SESSION_CREATE, request.toJson());
         return responseContent != null;
     }
 
     @Override
     public boolean kfSessionClose(String openid, String kfAccount) throws WxErrorException {
         WxMpKfSessionRequest request = new WxMpKfSessionRequest(kfAccount, openid);
-        String responseContent = this.wxMpService.post(KFSESSION_CLOSE, request.toJson());
+        String responseContent = this.wxMpService.post(KF_SESSION_CLOSE, request.toJson());
         return responseContent != null;
     }
 
     @Override
     public WxMpKfSessionGetResult kfSessionGet(String openid) throws WxErrorException {
-        String responseContent = this.wxMpService.get(String.format(KFSESSION_GET_SESSION, openid), null);
+        String responseContent = this.wxMpService.get(String.format(KF_SESSION_GET_SESSION, openid), null);
         return WxMpKfSessionGetResult.fromJson(responseContent);
     }
 
     @Override
     public WxMpKfSessionList kfSessionList(String kfAccount) throws WxErrorException {
-        String responseContent = this.wxMpService.get(String.format(KFSESSION_GET_SESSION_LIST, kfAccount), null);
+        String responseContent = this.wxMpService.get(String.format(KF_SESSION_GET_SESSION_LIST, kfAccount), null);
         return WxMpKfSessionList.fromJson(responseContent);
     }
 
     @Override
     public WxMpKfSessionWaitCaseList kfSessionGetWaitCase() throws WxErrorException {
-        String responseContent = this.wxMpService.get(KFSESSION_GET_WAIT_CASE, null);
+        String responseContent = this.wxMpService.get(KF_SESSION_GET_WAIT_CASE, null);
         return WxMpKfSessionWaitCaseList.fromJson(responseContent);
     }
 
@@ -123,7 +123,7 @@ public class WxMpKefuServiceImpl implements WxMpKefuService {
         param.addProperty("msgid", msgId); //msgid	消息id顺序从小到大，从1开始
         param.addProperty("number", number); //number	每次获取条数，最多10000条
 
-        String responseContent = this.wxMpService.post(MSGRECORD_GET_MSG_LIST, param.toString());
+        String responseContent = this.wxMpService.post(MSG_RECORD_GET_MSG_LIST, param.toString());
 
         return WxMpKfMsgList.fromJson(responseContent);
     }
