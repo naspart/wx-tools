@@ -21,9 +21,9 @@ public class WxMpDeviceServiceImpl implements WxMpDeviceService {
 
     @Override
     public TransMsgResp transMsg(WxDeviceMsg msg) throws WxErrorException {
-        String response = this.wxMpService.post(TRANS_MSG_URL, msg.toJson());
+        String responseContent = this.wxMpService.post(TRANS_MSG_URL, msg.toJson());
 
-        return TransMsgResp.fromJson(response);
+        return TransMsgResp.fromJson(responseContent);
     }
 
     @Override

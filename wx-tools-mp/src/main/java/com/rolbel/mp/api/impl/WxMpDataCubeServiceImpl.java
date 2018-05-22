@@ -30,6 +30,7 @@ public class WxMpDataCubeServiceImpl implements WxMpDataCubeService {
     @Override
     public List<WxDataCubeUserCumulate> getUserCumulate(Date beginDate, Date endDate) throws WxErrorException {
         String responseContent = this.wxMpService.post(GET_USER_CUMULATE, buildParams(beginDate, endDate));
+
         return WxDataCubeUserCumulate.fromJson(responseContent);
     }
 
