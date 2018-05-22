@@ -90,7 +90,7 @@ public interface WxMpDeviceService {
 
     /**
      * <pre>
-     *   通过device type和device id 获取设备主人的openid
+     *   通过 device type 和 device id 获取设备主人的 openid
      *   详情请见：http://iot.weixin.qq.com/wiki/new/index.html?page=3-4-11
      * </pre>
      *
@@ -102,7 +102,7 @@ public interface WxMpDeviceService {
 
     /**
      * <pre>
-     *   通过openid获取用户在当前devicetype下绑定的deviceid列表`
+     *   通过openid获取用户在当前 device type下绑定的 device id 列表
      *   详情请见：http://iot.weixin.qq.com/wiki/new/index.html?page=3-4-12
      * </pre>
      *
