@@ -14,6 +14,8 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.CloseableHttpClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.concurrent.locks.Lock;
@@ -22,6 +24,8 @@ import java.util.concurrent.locks.Lock;
  * apache http client方式实现.
  */
 public class WxMpServiceHttpClientImpl extends WxMpServiceBaseImpl<CloseableHttpClient, HttpHost> {
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     private CloseableHttpClient httpClient;
     private HttpHost httpProxy;
 
@@ -77,11 +81,12 @@ public class WxMpServiceHttpClientImpl extends WxMpServiceBaseImpl<CloseableHttp
                         String resultContent = new BasicResponseHandler().handleResponse(response);
                         WxError error = WxError.fromJson(resultContent);
                         if (error.getErrorCode() != 0) {
+                            this.logger.error("\n【请求地址】: {}\n【请求参数】：{}\n【错误信息】：{}", url, null, error);
                             throw new WxErrorException(error);
                         }
+
                         WxAccessToken accessToken = WxAccessToken.fromJson(resultContent);
-                        this.getWxMpConfigStorage().updateAccessToken(accessToken.getAccessToken(),
-                                accessToken.getExpiresIn());
+                        this.getWxMpConfigStorage().updateAccessToken(accessToken.getAccessToken(), accessToken.getExpiresIn());
                     } finally {
                         httpGet.releaseConnection();
                     }

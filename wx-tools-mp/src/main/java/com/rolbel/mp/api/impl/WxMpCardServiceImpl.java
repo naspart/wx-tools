@@ -108,6 +108,35 @@ public class WxMpCardServiceImpl implements WxMpCardService {
 
     /**
      * <pre>
+     *     设置买单
+     *
+     *     详情请见：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1451025056
+     * </pre>
+     *
+     * @param cardId 卡券card_id
+     * @param isOpen 是否开启买单功能
+     * @throws WxErrorException
+     */
+    @Override
+    public void setPayCell(String cardId, boolean isOpen) throws WxErrorException {
+        JsonObject param = new JsonObject();
+        param.addProperty("card_id", cardId);
+        param.addProperty("is_open", isOpen);
+
+        String responseContent = this.wxMpService.post(CARD_PAYCELL_SET_URL, param.toString());
+
+        JsonObject json = (new JsonParser()).parse(responseContent).getAsJsonObject();
+        String errcode = json.get("errcode").getAsString();
+        if (!"0".equals(errcode)) {
+            String errmsg = json.get("errmsg").getAsString();
+            throw new WxErrorException(WxError.builder()
+                    .errorCode(Integer.valueOf(errcode)).errorMsg(errmsg)
+                    .build());
+        }
+    }
+
+    /**
+     * <pre>
      *     创建调用卡券api时所需要的签名
      *
      *     详情请见：http://mp.weixin.qq.com/wiki/7/aaa137b55fb2e0456bf8dd9148dd613f.html

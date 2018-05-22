@@ -11,6 +11,7 @@ import com.rolbel.mp.bean.result.WxMpCardResult;
  */
 public interface WxMpCardService {
     String CARD_CREATE_URL = "https://api.weixin.qq.com/card/create";
+    String CARD_PAYCELL_SET_URL = "https://api.weixin.qq.com/card/paycell/set";
     String CARD_GET_URL = "https://api.weixin.qq.com/card/get";
     String CARD_GET_TICKET_URL = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?type=wx_card";
     String CARD_CODE_DECRYPT_URL = "https://api.weixin.qq.com/card/code/decrypt";
@@ -45,7 +46,31 @@ public interface WxMpCardService {
      */
     String getCardApiTicket(boolean forceRefresh) throws WxErrorException;
 
+    /**
+     * <pre>
+     *     创建卡券
+     *
+     *     详情请见：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1451025056
+     * </pre>
+     *
+     * @param wxMpGrouponCard 卡券详情
+     * @return 卡券card_id
+     * @throws WxErrorException
+     */
     WxMpCardCreateResult createCard(WxMpCardCreateRequest wxMpGrouponCard) throws WxErrorException;
+
+    /**
+     * <pre>
+     *     设置买单
+     *
+     *     详情请见：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1451025056
+     * </pre>
+     *
+     * @param cardId 卡券card_id
+     * @param isOpen 是否开启买单功能
+     * @throws WxErrorException
+     */
+    void setPayCell(String cardId, boolean isOpen) throws WxErrorException;
 
     /**
      * <pre>
