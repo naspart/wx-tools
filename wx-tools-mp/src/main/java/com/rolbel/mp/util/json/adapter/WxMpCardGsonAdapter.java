@@ -9,8 +9,7 @@ import java.lang.reflect.Type;
 public class WxMpCardGsonAdapter implements JsonDeserializer<WxMpCard> {
 
     @Override
-    public WxMpCard deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext
-            jsonDeserializationContext) throws JsonParseException {
+    public WxMpCard deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
         WxMpCard card = new WxMpCard();
         JsonObject jsonObject = jsonElement.getAsJsonObject();
 

@@ -7,9 +7,6 @@ import lombok.Data;
 
 import java.io.Serializable;
 
-/**
- * @author miller
- */
 @Data
 public class WxMpTemplateIndustry implements Serializable {
     private static final long serialVersionUID = -7700398224795914722L;

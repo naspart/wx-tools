@@ -13,13 +13,14 @@ public class WxMpShakeAroundPageAddQuery implements Serializable {
     private String comment;
     private String iconUrl;
 
-    public String toJsonString() {
+    public String toJson() {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("title", title);
         jsonObject.addProperty("description", description);
         jsonObject.addProperty("page_url", pageUrl);
         jsonObject.addProperty("comment", comment);
         jsonObject.addProperty("icon_url", iconUrl);
+
         return jsonObject.toString();
     }
 }

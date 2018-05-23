@@ -54,7 +54,7 @@ public interface WxMpUserTagService {
      * 接口url格式： https://api.weixin.qq.com/cgi-bin/tags/update?access_token=ACCESS_TOKEN
      * </pre>
      */
-    Boolean tagUpdate(Long tagId, String name) throws WxErrorException;
+    void tagUpdate(Long tagId, String name) throws WxErrorException;
 
     /**
      * <pre>
@@ -63,7 +63,7 @@ public interface WxMpUserTagService {
      * 接口url格式： https://api.weixin.qq.com/cgi-bin/tags/delete?access_token=ACCESS_TOKEN
      * </pre>
      */
-    Boolean tagDelete(Long tagId) throws WxErrorException;
+    void tagDelete(Long tagId) throws WxErrorException;
 
     /**
      * <pre>
@@ -72,7 +72,7 @@ public interface WxMpUserTagService {
      * 接口url格式： https://api.weixin.qq.com/cgi-bin/user/tag/get?access_token=ACCESS_TOKEN
      * </pre>
      */
-    WxTagListUser tagListUser(Long tagId, String nextOpenid)
+    WxTagListUser tagListUser(Long tagId, String nextOpenId)
             throws WxErrorException;
 
     /**
@@ -82,7 +82,7 @@ public interface WxMpUserTagService {
      * 接口url格式： https://api.weixin.qq.com/cgi-bin/tags/members/batchtagging?access_token=ACCESS_TOKEN
      * </pre>
      */
-    boolean batchTagging(Long tagId, String[] openids) throws WxErrorException;
+    void batchTagging(Long tagId, String[] openIds) throws WxErrorException;
 
     /**
      * <pre>
@@ -91,7 +91,7 @@ public interface WxMpUserTagService {
      * 接口url格式： https://api.weixin.qq.com/cgi-bin/tags/members/batchuntagging?access_token=ACCESS_TOKEN
      * </pre>
      */
-    boolean batchUntagging(Long tagId, String[] openids) throws WxErrorException;
+    void batchUntagging(Long tagId, String[] openIds) throws WxErrorException;
 
 
     /**
@@ -103,5 +103,5 @@ public interface WxMpUserTagService {
      *
      * @return 标签Id的列表
      */
-    List<Long> userTagList(String openid) throws WxErrorException;
+    List<Long> userTagList(String openId) throws WxErrorException;
 }

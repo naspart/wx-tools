@@ -6,10 +6,20 @@ import com.rolbel.mp.bean.shake.*;
 
 /**
  * 摇一摇周边的相关接口
- *
- * @author rememberber
  */
 public interface WxMpShakeService {
+    String SHAKE_ACCOUNT_REGISTER_URL = "https://api.weixin.qq.com/shakearound/account/register";
+    String SHAKE_ACCOUNT_REGISTER_QUERY_URL = "https://api.weixin.qq.com/shakearound/account/auditstatus";
+    String GET_SHAKE_INFO_URL = "https://api.weixin.qq.com/shakearound/user/getshakeinfo";
+    String SHAKE_ADD_PAGE_URL = "https://api.weixin.qq.com/shakearound/page/add";
+    String SHAKE_DEVICE_BIND_PAGE_URL = "https://api.weixin.qq.com/shakearound/device/bindpage";
+    String SHAKE_DEVICE_APPLY_URL = "https://api.weixin.qq.com/shakearound/device/applyid";
+
+    void registerShake(WxMpShakeRegisterRequest wxMpShakeRegisterRequest) throws WxErrorException;
+
+    WxMpShakeRegisterQueryResult registerStatusQuery() throws WxErrorException;
+
+    WxMpShakeDeviceApplyResult applyDevice(WxMpShakeDeviceApplyRequest wxMpShakeDeviceApplyRequest) throws WxErrorException;
 
     /**
      * <pre>

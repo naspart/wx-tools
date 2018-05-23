@@ -7,13 +7,15 @@ import java.io.Serializable;
 
 @Data
 public class WxMpShakeAroundRelationSearchQuery implements Serializable {
+    private static final long serialVersionUID = 2868046934284659614L;
+
     private int type;
     private Integer pageId;
     private Integer begin;
     private Integer count;
     private WxMpDeviceIdentifier deviceIdentifier;
 
-    public String toJsonString() {
+    public String toJson() {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("type", type);
         switch (type) {
@@ -28,6 +30,7 @@ public class WxMpShakeAroundRelationSearchQuery implements Serializable {
             default:
                 throw new IllegalArgumentException("type error");
         }
+
         return jsonObject.toString();
     }
 }

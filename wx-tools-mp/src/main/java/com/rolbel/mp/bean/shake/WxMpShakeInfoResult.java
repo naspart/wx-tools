@@ -2,22 +2,20 @@ package com.rolbel.mp.bean.shake;
 
 import com.rolbel.mp.util.json.WxMpGsonBuilder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 
 /**
  * 摇一摇周边：获取设备及用户信息接口返回JSON数据接收类
- * Created by rememberber on 2017/6/5.
- *
- * @author rememberber
  */
 @Data
 public class WxMpShakeInfoResult implements Serializable {
     private static final long serialVersionUID = -1604561297395395468L;
 
-    private Integer errcode;
+    private int errCode;
 
-    private String errmsg;
+    private String errMsg;
 
     private ShakeInfoData data;
 

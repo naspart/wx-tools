@@ -1,22 +1,52 @@
 package com.rolbel.mp.api.impl;
 
+import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
 import com.rolbel.common.bean.result.WxError;
 import com.rolbel.common.exception.WxErrorException;
 import com.rolbel.mp.api.WxMpService;
 import com.rolbel.mp.api.WxMpShakeService;
 import com.rolbel.mp.bean.shake.*;
+import com.rolbel.mp.util.json.WxMpGsonBuilder;
 
-/**
- * Created by rememberber on 2017/6/5.
- *
- * @author rememberber
- */
 public class WxMpShakeServiceImpl implements WxMpShakeService {
-
     private WxMpService wxMpService;
 
     public WxMpShakeServiceImpl(WxMpService wxMpService) {
         this.wxMpService = wxMpService;
+    }
+
+    @Override
+    public void registerShake(WxMpShakeRegisterRequest wxMpShakeRegisterRequest) throws WxErrorException {
+        this.wxMpService.post(SHAKE_ACCOUNT_REGISTER_URL, wxMpShakeRegisterRequest.toJson());
+    }
+
+    /**
+     * <pre>
+     *     查询摇一摇开通审核状态
+     * </pre>
+     *
+     * @return
+     * @throws WxErrorException
+     */
+    @Override
+    public WxMpShakeRegisterQueryResult registerStatusQuery() throws WxErrorException {
+        String response = this.wxMpService.post(SHAKE_ACCOUNT_REGISTER_QUERY_URL, null);
+
+        return WxMpGsonBuilder.create().fromJson(
+                new JsonParser().parse(response).getAsJsonObject().get("data"),
+                new TypeToken<WxMpShakeRegisterQueryResult>() {
+                }.getType());
+    }
+
+    @Override
+    public WxMpShakeDeviceApplyResult applyDevice(WxMpShakeDeviceApplyRequest wxMpShakeDeviceApplyRequest) throws WxErrorException {
+        String response = this.wxMpService.post(SHAKE_DEVICE_APPLY_URL, wxMpShakeDeviceApplyRequest.toJson());
+
+        return WxMpGsonBuilder.create().fromJson(
+                new JsonParser().parse(response).getAsJsonObject().get("data"),
+                new TypeToken<WxMpShakeDeviceApplyResult>() {
+                }.getType());
     }
 
     /**
@@ -32,33 +62,30 @@ public class WxMpShakeServiceImpl implements WxMpShakeService {
      */
     @Override
     public WxMpShakeInfoResult getShakeInfo(WxMpShakeQuery wxMpShakeQuery) throws WxErrorException {
-        String url = "https://api.weixin.qq.com/shakearound/user/getshakeinfo";
-        String postData = wxMpShakeQuery.toJsonString();
-        String responseContent = this.wxMpService.post(url, postData);
+        String responseContent = this.wxMpService.post(GET_SHAKE_INFO_URL, wxMpShakeQuery.toJson());
+
         return WxMpShakeInfoResult.fromJson(responseContent);
     }
 
     @Override
     public WxMpShakeAroundPageAddResult pageAdd(WxMpShakeAroundPageAddQuery shakeAroundPageAddQuery) throws WxErrorException {
-        String url = "https://api.weixin.qq.com/shakearound/page/add";
-        String postData = shakeAroundPageAddQuery.toJsonString();
-        String responseContent = this.wxMpService.post(url, postData);
+        String responseContent = this.wxMpService.post(SHAKE_ADD_PAGE_URL, shakeAroundPageAddQuery.toJson());
+
         return WxMpShakeAroundPageAddResult.fromJson(responseContent);
     }
 
     @Override
     public WxError deviceBindPageQuery(WxMpShakeAroundDeviceBindPageQuery shakeAroundDeviceBindPageQuery) throws WxErrorException {
-        String url = "https://api.weixin.qq.com/shakearound/device/bindpage";
-        String postData = shakeAroundDeviceBindPageQuery.toJsonString();
-        String responseContent = this.wxMpService.post(url, postData);
+        String responseContent = this.wxMpService.post(SHAKE_DEVICE_BIND_PAGE_URL, shakeAroundDeviceBindPageQuery.toJson());
+
         return WxError.fromJson(responseContent);
     }
 
     @Override
     public WxMpShakeAroundRelationSearchResult relationSearch(WxMpShakeAroundRelationSearchQuery shakeAroundRelationSearchQuery) throws WxErrorException {
         String url = "https://api.weixin.qq.com/shakearound/relation/search";
-        String postData = shakeAroundRelationSearchQuery.toJsonString();
-        String responseContent = this.wxMpService.post(url, postData);
+        String responseContent = this.wxMpService.post(url, shakeAroundRelationSearchQuery.toJson());
+
         return WxMpShakeAroundRelationSearchResult.fromJson(responseContent);
     }
 }

@@ -3,7 +3,6 @@ package com.rolbel.mp.api.impl;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.rolbel.common.exception.WxErrorException;
-import com.rolbel.common.util.http.SimplePostRequestExecutor;
 import com.rolbel.mp.api.WxMpService;
 import com.rolbel.mp.api.WxMpUserBlacklistService;
 import com.rolbel.mp.bean.user.WxMpUserBlacklistGetResult;
@@ -24,7 +23,7 @@ public class WxMpUserBlacklistServiceImpl implements WxMpUserBlacklistService {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("begin_openid", nextOpenid);
 
-        String responseContent = this.wxMpService.execute(SimplePostRequestExecutor.create(this.wxMpService.getRequestHttp()), WxMpUserBlacklistService.GET_USER_BLACK_LIST_URL, jsonObject.toString());
+        String responseContent = this.wxMpService.post(GET_USER_BLACK_LIST_URL, jsonObject.toString());
 
         return WxMpUserBlacklistGetResult.fromJson(responseContent);
     }
@@ -34,7 +33,7 @@ public class WxMpUserBlacklistServiceImpl implements WxMpUserBlacklistService {
         Map<String, Object> map = new HashMap<>();
         map.put("openid_list", openidList);
 
-        this.wxMpService.execute(SimplePostRequestExecutor.create(this.wxMpService.getRequestHttp()), WxMpUserBlacklistService.BATCH_ADD_BLACK_LIST_URL, new Gson().toJson(map));
+        this.wxMpService.post(BATCH_ADD_BLACK_LIST_URL, new Gson().toJson(map));
     }
 
     @Override
@@ -42,6 +41,6 @@ public class WxMpUserBlacklistServiceImpl implements WxMpUserBlacklistService {
         Map<String, Object> map = new HashMap<>();
         map.put("openid_list", openidList);
 
-        this.wxMpService.execute(SimplePostRequestExecutor.create(this.wxMpService.getRequestHttp()), WxMpUserBlacklistService.BATCH_DELETE_BLACK_LIST_URL, new Gson().toJson(map));
+        this.wxMpService.post(BATCH_DELETE_BLACK_LIST_URL, new Gson().toJson(map));
     }
 }

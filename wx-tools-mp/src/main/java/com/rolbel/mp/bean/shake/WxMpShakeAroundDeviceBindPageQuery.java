@@ -11,7 +11,7 @@ public class WxMpShakeAroundDeviceBindPageQuery {
     private WxMpDeviceIdentifier deviceIdentifier;
     private Collection<Integer> pageIds;
 
-    public String toJsonString() {
+    public String toJson() {
         JsonObject jsonObject = new JsonObject();
         jsonObject.add("device_identifier", deviceIdentifier.toJsonObject());
         JsonArray jsonArray = new JsonArray();
@@ -19,6 +19,7 @@ public class WxMpShakeAroundDeviceBindPageQuery {
             jsonArray.add(pageid);
         }
         jsonObject.add("page_ids", jsonArray);
+
         return jsonObject.toString();
     }
 }

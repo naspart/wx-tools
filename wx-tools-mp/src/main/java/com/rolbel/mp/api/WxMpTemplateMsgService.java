@@ -4,6 +4,8 @@ import com.rolbel.common.exception.WxErrorException;
 import com.rolbel.mp.bean.template.WxMpTemplate;
 import com.rolbel.mp.bean.template.WxMpTemplateIndustry;
 import com.rolbel.mp.bean.template.WxMpTemplateMessage;
+import com.rolbel.mp.bean.template.result.WxMpTemplateAddResult;
+import com.rolbel.mp.bean.template.result.WxMpTemplateSendMsgResult;
 
 import java.util.List;
 
@@ -13,6 +15,12 @@ import java.util.List;
  * </pre>
  */
 public interface WxMpTemplateMsgService {
+    String SEND_TEMPLATE_MSG_URL = "https://api.weixin.qq.com/cgi-bin/message/template/send";
+    String SET_TEMPLATE_INDUSTRY_URL = "https://api.weixin.qq.com/cgi-bin/template/api_set_industry";
+    String GET_TEMPLATE_INDUSTRY_URL = "https://api.weixin.qq.com/cgi-bin/template/get_industry";
+    String ADD_TEMPLATE_URL = "https://api.weixin.qq.com/cgi-bin/template/api_add_template";
+    String GET_ALL_PRIVATE_TEMPLATE_URL = "https://api.weixin.qq.com/cgi-bin/template/get_all_private_template";
+    String DELETE_PRIVATE_TEMPLATE_URL = "https://api.weixin.qq.com/cgi-bin/template/del_private_template";
 
     /**
      * <pre>
@@ -23,7 +31,7 @@ public interface WxMpTemplateMsgService {
      *
      * @return 是否成功
      */
-    boolean setIndustry(WxMpTemplateIndustry wxMpIndustry) throws WxErrorException;
+    void setIndustry(WxMpTemplateIndustry wxMpIndustry) throws WxErrorException;
 
     /***
      * <pre>
@@ -43,7 +51,7 @@ public interface WxMpTemplateMsgService {
      *
      * @return 消息Id
      */
-    String sendTemplateMsg(WxMpTemplateMessage templateMessage) throws WxErrorException;
+    WxMpTemplateSendMsgResult sendTemplateMsg(WxMpTemplateMessage templateMessage) throws WxErrorException;
 
     /**
      * <pre>
@@ -56,7 +64,7 @@ public interface WxMpTemplateMsgService {
      * @param shortTemplateId 模板库中模板的编号，有“TM**”和“OPENTMTM**”等形式
      * @return templateId 模板Id
      */
-    String addTemplate(String shortTemplateId) throws WxErrorException;
+    WxMpTemplateAddResult addTemplate(String shortTemplateId) throws WxErrorException;
 
     /**
      * <pre>
@@ -80,5 +88,5 @@ public interface WxMpTemplateMsgService {
      *
      * @param templateId 模板Id
      */
-    boolean delPrivateTemplate(String templateId) throws WxErrorException;
+    void delPrivateTemplate(String templateId) throws WxErrorException;
 }

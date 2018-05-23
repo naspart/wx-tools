@@ -8,9 +8,7 @@ import java.util.List;
 
 public interface WxMpUserBlacklistService {
     String GET_USER_BLACK_LIST_URL = "https://api.weixin.qq.com/cgi-bin/tags/members/getblacklist";
-
     String BATCH_ADD_BLACK_LIST_URL = "https://api.weixin.qq.com/cgi-bin/tags/members/batchblacklist";
-
     String BATCH_DELETE_BLACK_LIST_URL = "https://api.weixin.qq.com/cgi-bin/tags/members/batchunblacklist";
 
     /**

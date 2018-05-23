@@ -7,11 +7,6 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by rememberber on 2017/6/5.
- *
- * @author rememberber
- */
 @Data
 public class WxMpShakeQuery implements Serializable {
     private static final long serialVersionUID = 4316527352035275412L;
@@ -20,10 +15,11 @@ public class WxMpShakeQuery implements Serializable {
 
     private int needPoi;
 
-    public String toJsonString() {
+    public String toJson() {
         Map<String, Object> map = new HashMap<>();
         map.put("ticket", this.ticket);
         map.put("need_poi", this.needPoi);
+
         return new Gson().toJson(map);
     }
 }
