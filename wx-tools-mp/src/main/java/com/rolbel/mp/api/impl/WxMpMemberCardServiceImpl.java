@@ -13,15 +13,11 @@ import com.rolbel.mp.bean.membercard.WxMpMemberCardUpdateMessage;
 import com.rolbel.mp.bean.membercard.WxMpMemberCardUpdateResult;
 import com.rolbel.mp.bean.membercard.WxMpMemberCardUserInfoResult;
 import com.rolbel.mp.util.json.WxMpGsonBuilder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * 会员卡相关接口的实现类
  */
 public class WxMpMemberCardServiceImpl implements WxMpMemberCardService {
-    private final Logger log = LoggerFactory.getLogger(WxMpMemberCardServiceImpl.class);
-
     private static final String MEMBER_CARD_ACTIVATE = "https://api.weixin.qq.com/card/membercard/activate";
     private static final String MEMBER_CARD_USER_INFO_GET = "https://api.weixin.qq.com/card/membercard/userinfo/get";
     private static final String MEMBER_CARD_UPDATE_USER = "https://api.weixin.qq.com/card/membercard/updateuser";

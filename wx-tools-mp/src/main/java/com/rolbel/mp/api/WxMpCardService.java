@@ -128,6 +128,7 @@ public interface WxMpCardService {
      * 卡券Mark接口。
      * 开发者在帮助消费者核销卡券之前，必须帮助先将此code（卡券串码）与一个openid绑定（即mark住），
      * 才能进一步调用核销接口，否则报错。
+     * 详见 https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1480845065_Vs2sF
      *
      * @param code   卡券的code码
      * @param cardId 卡券的ID

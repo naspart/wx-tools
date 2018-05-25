@@ -11,15 +11,11 @@ import com.rolbel.mp.bean.kefu.request.WxMpKfSessionRequest;
 import com.rolbel.mp.bean.kefu.result.*;
 import com.rolbel.common.bean.result.WxMediaUploadResult;
 import com.rolbel.common.util.http.MediaUploadRequestExecutor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.util.Date;
 
 public class WxMpKefuServiceImpl implements WxMpKefuService {
-    protected final Logger log = LoggerFactory.getLogger(this.getClass());
-
     private WxMpService wxMpService;
 
     public WxMpKefuServiceImpl(WxMpService wxMpService) {

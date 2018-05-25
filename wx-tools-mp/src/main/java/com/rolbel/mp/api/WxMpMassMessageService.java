@@ -8,10 +8,7 @@ import com.rolbel.mp.bean.result.WxMpMassUploadResult;
 /**
  * <pre>
  * 群发消息服务类.
- * Created by Binary Wang on 2017-8-16.
  * </pre>
- *
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
  */
 public interface WxMpMassMessageService {
     /**

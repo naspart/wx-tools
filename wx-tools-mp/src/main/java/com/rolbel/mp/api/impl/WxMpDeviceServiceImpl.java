@@ -5,12 +5,8 @@ import com.rolbel.mp.api.WxMpDeviceService;
 import com.rolbel.mp.api.WxMpService;
 import com.rolbel.mp.bean.device.*;
 import com.rolbel.mp.bean.device.result.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class WxMpDeviceServiceImpl implements WxMpDeviceService {
-    private static Logger logger = LoggerFactory.getLogger(WxMpDeviceServiceImpl.class);
-
     private static final String API_URL_PREFIX = "https://api.weixin.qq.com/device";
 
     private WxMpService wxMpService;
