@@ -3,7 +3,7 @@ package com.rolbel.mp.util.json.adapter;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import com.rolbel.common.util.json.GsonHelper;
-import com.rolbel.mp.bean.card.WxMpCard;
+import com.rolbel.mp.bean.card.WxMpCardInfo;
 import com.rolbel.mp.bean.result.WxMpCardResult;
 import com.rolbel.mp.util.json.WxMpGsonBuilder;
 
@@ -16,13 +16,11 @@ public class WxMpCardResultGsonAdapter implements JsonDeserializer<WxMpCardResul
         JsonObject jsonObject = jsonElement.getAsJsonObject();
 
         cardResult.setOpenId(GsonHelper.getString(jsonObject, "openid"));
-        cardResult.setErrorCode(GsonHelper.getString(jsonObject, "errcode"));
-        cardResult.setErrorMsg(GsonHelper.getString(jsonObject, "errmsg"));
         cardResult.setCanConsume(GsonHelper.getBoolean(jsonObject, "can_consume"));
         cardResult.setUserCardStatus(GsonHelper.getString(jsonObject, "user_card_status"));
 
-        WxMpCard card = WxMpGsonBuilder.INSTANCE.create().fromJson(jsonObject.get("card"),
-                new TypeToken<WxMpCard>() {
+        WxMpCardInfo card = WxMpGsonBuilder.INSTANCE.create().fromJson(jsonObject.get("card"),
+                new TypeToken<WxMpCardInfo>() {
                 }.getType());
 
         cardResult.setCard(card);

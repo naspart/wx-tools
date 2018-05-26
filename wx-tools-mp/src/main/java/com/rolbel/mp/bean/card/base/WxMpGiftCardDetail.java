@@ -1,8 +1,6 @@
 package com.rolbel.mp.bean.card.base;
 
 import com.google.gson.annotations.SerializedName;
-import com.rolbel.mp.bean.card.request.WxMpCardBaseRequest;
-import com.rolbel.mp.util.json.WxMpGsonBuilder;
 import lombok.Data;
 
 import java.io.Serializable;

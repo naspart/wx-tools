@@ -2,15 +2,15 @@ package com.rolbel.mp.util.json.adapter;
 
 import com.google.gson.*;
 import com.rolbel.common.util.json.GsonHelper;
-import com.rolbel.mp.bean.card.WxMpCard;
+import com.rolbel.mp.bean.card.WxMpCardInfo;
 
 import java.lang.reflect.Type;
 
-public class WxMpCardGsonAdapter implements JsonDeserializer<WxMpCard> {
+public class WxMpCardGsonAdapter implements JsonDeserializer<WxMpCardInfo> {
 
     @Override
-    public WxMpCard deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
-        WxMpCard card = new WxMpCard();
+    public WxMpCardInfo deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
+        WxMpCardInfo card = new WxMpCardInfo();
         JsonObject jsonObject = jsonElement.getAsJsonObject();
 
         card.setCardId(GsonHelper.getString(jsonObject, "card_id"));

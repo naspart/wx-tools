@@ -11,7 +11,7 @@ import java.io.Serializable;
 
 @Data
 @Builder
-public class WxMpGrouponCard implements WxMpCardBaseRequest, Serializable {
+public class WxMpGrouponCard implements WxMpCard, Serializable {
     private static final long serialVersionUID = -4430220088722776276L;
 
     @SerializedName("card_type")

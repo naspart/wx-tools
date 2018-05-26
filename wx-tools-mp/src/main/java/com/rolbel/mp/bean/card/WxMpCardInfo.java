@@ -10,7 +10,7 @@ import java.io.Serializable;
  * 微信卡券
  */
 @Data
-public class WxMpCard implements Serializable {
+public class WxMpCardInfo implements Serializable {
     private static final long serialVersionUID = 9214301870017772921L;
 
     private String cardId;

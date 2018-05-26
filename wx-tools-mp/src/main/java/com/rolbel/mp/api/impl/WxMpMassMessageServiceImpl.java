@@ -33,6 +33,14 @@ public class WxMpMassMessageServiceImpl implements WxMpMassMessageService {
         return WxMpMassUploadResult.fromJson(responseContent);
     }
 
+    /**
+     * <pre>
+     *     根据标签进行群发【订阅号与服务号认证后均可用】
+     * </pre>
+     * @param message
+     * @return
+     * @throws WxErrorException
+     */
     @Override
     public WxMpMassSendResult massGroupMessageSend(WxMpMassTagMessage message) throws WxErrorException {
         String responseContent = this.wxMpService.post(WxMpMassMessageService.MESSAGE_MASS_SENDALL_URL, message.toJson());
@@ -40,6 +48,14 @@ public class WxMpMassMessageServiceImpl implements WxMpMassMessageService {
         return WxMpMassSendResult.fromJson(responseContent);
     }
 
+    /**
+     * <pre>
+     *     根据OpenID列表群发【订阅号不可用，服务号认证后可用】
+     * </pre>
+     * @param message
+     * @return
+     * @throws WxErrorException
+     */
     @Override
     public WxMpMassSendResult massOpenIdsMessageSend(WxMpMassOpenIdsMessage message) throws WxErrorException {
         String responseContent = this.wxMpService.post(MESSAGE_MASS_SEND_URL, message.toJson());

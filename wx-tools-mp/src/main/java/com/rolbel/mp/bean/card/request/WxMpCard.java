@@ -1,5 +1,5 @@
 package com.rolbel.mp.bean.card.request;
 
-public interface WxMpCardBaseRequest {
+public interface WxMpCard {
     String toJson();
 }

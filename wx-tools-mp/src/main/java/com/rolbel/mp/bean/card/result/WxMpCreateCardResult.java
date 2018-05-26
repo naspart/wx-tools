@@ -8,7 +8,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class WxMpCardCreateResult extends WxBaseResult {
+public class WxMpCreateCardResult extends WxBaseResult {
     @SerializedName(value = "card_id")
     private String cardId;
 

@@ -8,7 +8,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-public class WxMpGeneralCouponCard implements WxMpCardBaseRequest, Serializable {
+public class WxMpGeneralCouponCard implements WxMpCard, Serializable {
     private static final long serialVersionUID = -6264816223451466867L;
 
     @SerializedName("card_type")

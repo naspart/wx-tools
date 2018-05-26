@@ -3,26 +3,156 @@ package com.rolbel.mp.api;
 import com.rolbel.common.bean.WxCardApiSignature;
 import com.rolbel.common.exception.WxErrorException;
 import com.rolbel.mp.bean.card.base.WxMpCardCreateRequest;
-import com.rolbel.mp.bean.card.result.WxMpCardCreateResult;
+import com.rolbel.mp.bean.card.request.WxMpCreateLandingPage;
+import com.rolbel.mp.bean.card.request.WxMpImportCardCode;
+import com.rolbel.mp.bean.card.result.WxMpCreateCardResult;
+import com.rolbel.mp.bean.card.result.WxMpCheckCodeResult;
+import com.rolbel.mp.bean.card.result.WxMpCreateLandingPageResult;
+import com.rolbel.mp.bean.card.result.WxMpGetUserCardResult;
 import com.rolbel.mp.bean.result.WxMpCardResult;
 
 /**
  * 卡券相关接口
  */
 public interface WxMpCardService {
+    /**
+     * 创建卡券
+     */
     String CARD_CREATE_URL = "https://api.weixin.qq.com/card/create";
+    /**
+     * 设置买单
+     */
     String CARD_PAYCELL_SET_URL = "https://api.weixin.qq.com/card/paycell/set";
-    String CARD_GET_URL = "https://api.weixin.qq.com/card/get";
+    /**
+     * 设置自助核销
+     */
+    String SELF_CONSUME_CELL_SET_URL = "https://api.weixin.qq.com/card/selfconsumecell/set";
+
+    /**
+     * 创建二维码
+     */
+    String QRCODE_CREATE_URL = "https://api.weixin.qq.com/card/qrcode/create";
+
+    /**
+     * 创建货架
+     */
+    String CREATE_LANDING_PAGE_URL = "https://api.weixin.qq.com/card/landingpage/create";
+
+    /**
+     * 导入code接
+     */
+    String IMPORT_CARD_CODE_URL = "http://api.weixin.qq.com/card/code/deposit";
+
+    /**
+     * 查询导入code数目接口
+     */
+    String GET_IMPORT_CARD_CODE_COUNT_URL = "http://api.weixin.qq.com/card/code/getdepositcount";
+
+    /**
+     * 核查code接口
+     */
+    String CHECK_CODE_URL = "http://api.weixin.qq.com/card/code/checkcode";
+
+    /**
+     * 图文消息群发卡券
+     */
+    String MP_NEWS_DISTRIBUTE_CARD_URL = "https://api.weixin.qq.com/card/mpnews/gethtml";
+
+    String GET_CARD_DETAIL_URL = "https://api.weixin.qq.com/card/get";
+
     String CARD_GET_TICKET_URL = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?type=wx_card";
+
     String CARD_CODE_DECRYPT_URL = "https://api.weixin.qq.com/card/code/decrypt";
+
     String CARD_CODE_GET_URL = "https://api.weixin.qq.com/card/code/get";
+
     String CARD_CODE_CONSUME_URL = "https://api.weixin.qq.com/card/code/consume";
+
     String CARD_CODE_MARK_URL = "https://api.weixin.qq.com/card/code/mark";
+
+    /**
+     * 获取用户已领取卡券
+     */
+    String GET_USER_CARD_LIST_URL = "https://api.weixin.qq.com/card/user/getcardlist";
 
     /**
      * 得到WxMpService
      */
     WxMpService getWxMpService();
+
+    /**
+     * <pre>
+     *     创建卡券
+     *
+     *     详情请见：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1451025056
+     * </pre>
+     *
+     * @param wxMpGrouponCard 卡券详情
+     * @return 卡券card_id
+     * @throws WxErrorException
+     */
+    WxMpCreateCardResult createCard(WxMpCardCreateRequest wxMpGrouponCard) throws WxErrorException;
+
+    /**
+     * <pre>
+     *     设置买单
+     *
+     *     创建卡券之后，开发者可以通过设置微信买单接口设置该card_id支持微信买单功能。值得开发者注意的是，设置买单的card_id必须已经配置了门店，否则会报错。
+     *
+     *     注意事项：
+     *     1.设置快速买单的卡券须支持至少一家有核销员门店，否则无法设置成功；
+     *     2.若该卡券设置了center_url（居中使用跳转链接）,须先将该设置更新为空后再设置自快速买单方可生效。
+     *
+     *     详情请见：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1451025056
+     * </pre>
+     *
+     * @param cardId 卡券card_id
+     * @param isOpen 是否开启买单功能
+     * @throws WxErrorException
+     */
+    void setPayCell(String cardId, boolean isOpen) throws WxErrorException;
+
+    /**
+     * <pre>
+     *     设置自助核销
+     *
+     *     创建卡券之后，开发者可以通过设置微信买单接口设置该card_id支持自助核销功能。值得开发者注意的是，设置自助核销的card_id必须已经配置了门店，否则会报错。
+     *
+     *     注意事项：
+     *     1.设置自助核销的卡券须支持至少一家门店，否则无法设置成功；
+     *     2.若该卡券设置了center_url（居中使用跳转链接）,须先将该设置更新为空后再设置自助核销功能方可生效。
+     *
+     *     详情请见：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1451025056
+     * </pre>
+     *
+     * @param cardId 卡券card_id
+     * @param isOpen 是否开启买单功能
+     * @throws WxErrorException
+     */
+    void setSelfConsumeCell(String cardId, boolean isOpen, boolean needVerifyCode, boolean needRemarkAmount) throws WxErrorException;
+
+    /**
+     * <pre>
+     *     创建货架接口
+     *
+     *     开发者需调用该接口创建货架链接，用于卡券投放。创建货架时需填写投放路径的场景字段。
+     *
+     *     详情请见：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1451025062
+     * </pre>
+     *
+     * @param request 请求对象
+     * @return 创建货架的结果
+     * @throws WxErrorException
+     */
+    WxMpCreateLandingPageResult createCardLandingPage(WxMpCreateLandingPage request) throws WxErrorException;
+
+    void importCardCode(WxMpImportCardCode request) throws WxErrorException;
+
+    Integer getImportCardCodeCount(String cardId) throws WxErrorException;
+
+    WxMpCheckCodeResult checkCode(WxMpImportCardCode request) throws WxErrorException;
+
+    String wxMpNewsDistributeCard(String cardId) throws WxErrorException;
 
     /**
      * 获得卡券api_ticket，不强制刷新卡券api_ticket
@@ -45,32 +175,6 @@ public interface WxMpCardService {
      * @throws WxErrorException
      */
     String getCardApiTicket(boolean forceRefresh) throws WxErrorException;
-
-    /**
-     * <pre>
-     *     创建卡券
-     *
-     *     详情请见：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1451025056
-     * </pre>
-     *
-     * @param wxMpGrouponCard 卡券详情
-     * @return 卡券card_id
-     * @throws WxErrorException
-     */
-    WxMpCardCreateResult createCard(WxMpCardCreateRequest wxMpGrouponCard) throws WxErrorException;
-
-    /**
-     * <pre>
-     *     设置买单
-     *
-     *     详情请见：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1451025056
-     * </pre>
-     *
-     * @param cardId 卡券card_id
-     * @param isOpen 是否开启买单功能
-     * @throws WxErrorException
-     */
-    void setPayCell(String cardId, boolean isOpen) throws WxErrorException;
 
     /**
      * <pre>
@@ -147,4 +251,6 @@ public interface WxMpCardService {
      * <br> 可由 com.google.gson.JsonParser#parse 等方法直接取JSON串中的某个字段。
      */
     String getCardDetail(String cardId) throws WxErrorException;
+
+    WxMpGetUserCardResult getUserCardList(String openId, String cardId) throws WxErrorException;
 }

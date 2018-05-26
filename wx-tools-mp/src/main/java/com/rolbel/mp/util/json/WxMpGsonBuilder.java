@@ -3,7 +3,7 @@ package com.rolbel.mp.util.json;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.rolbel.mp.bean.*;
-import com.rolbel.mp.bean.card.WxMpCard;
+import com.rolbel.mp.bean.card.WxMpCardInfo;
 import com.rolbel.mp.bean.datacube.WxDataCubeUserCumulate;
 import com.rolbel.mp.bean.datacube.WxDataCubeUserSummary;
 import com.rolbel.mp.bean.kefu.WxMpKefuMessage;
@@ -53,7 +53,7 @@ public class WxMpGsonBuilder {
         INSTANCE.registerTypeAdapter(WxMpMaterialFileBatchGetResult.class, new WxMpMaterialFileBatchGetGsonAdapter());
         INSTANCE.registerTypeAdapter(WxMpMaterialFileBatchGetResult.WxMaterialFileBatchGetNewsItem.class, new WxMpMaterialFileBatchGetGsonItemAdapter());
         INSTANCE.registerTypeAdapter(WxMpCardResult.class, new WxMpCardResultGsonAdapter());
-        INSTANCE.registerTypeAdapter(WxMpCard.class, new WxMpCardGsonAdapter());
+        INSTANCE.registerTypeAdapter(WxMpCardInfo.class, new WxMpCardGsonAdapter());
         INSTANCE.registerTypeAdapter(WxMpMassPreviewMessage.class, new WxMpMassPreviewMessageGsonAdapter());
         INSTANCE.registerTypeAdapter(WxMediaImgUploadResult.class, new WxMediaImgUploadResultGsonAdapter());
         INSTANCE.registerTypeAdapter(WxMpTemplateIndustry.class, new WxMpIndustryGsonAdapter());
