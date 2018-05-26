@@ -13,7 +13,6 @@ import com.rolbel.common.util.http.SimpleGetRequestExecutor;
 import com.rolbel.mp.api.WxMpCardService;
 import com.rolbel.mp.api.WxMpService;
 import com.rolbel.mp.bean.card.base.WxMpCardCreateRequest;
-import com.rolbel.mp.bean.card.request.WxMpCard;
 import com.rolbel.mp.bean.card.request.WxMpCreateLandingPage;
 import com.rolbel.mp.bean.card.request.WxMpImportCardCode;
 import com.rolbel.mp.bean.card.result.WxMpCreateCardResult;
