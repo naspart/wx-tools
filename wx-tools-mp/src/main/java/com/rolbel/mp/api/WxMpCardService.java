@@ -4,76 +4,23 @@ import com.rolbel.common.bean.WxCardApiSignature;
 import com.rolbel.common.exception.WxErrorException;
 import com.rolbel.mp.bean.card.base.WxMpCardCreateRequest;
 import com.rolbel.mp.bean.card.request.WxMpCreateLandingPage;
-import com.rolbel.mp.bean.card.request.WxMpImportCardCode;
 import com.rolbel.mp.bean.card.result.WxMpCreateCardResult;
-import com.rolbel.mp.bean.card.result.WxMpCheckCodeResult;
 import com.rolbel.mp.bean.card.result.WxMpCreateLandingPageResult;
 import com.rolbel.mp.bean.card.result.WxMpGetUserCardResult;
-import com.rolbel.mp.bean.result.WxMpCardResult;
 
 /**
  * 卡券相关接口
  */
 public interface WxMpCardService {
-    /**
-     * 创建卡券
-     */
     String CARD_CREATE_URL = "https://api.weixin.qq.com/card/create";
-    /**
-     * 设置买单
-     */
     String CARD_PAYCELL_SET_URL = "https://api.weixin.qq.com/card/paycell/set";
-    /**
-     * 设置自助核销
-     */
-    String SELF_CONSUME_CELL_SET_URL = "https://api.weixin.qq.com/card/selfconsumecell/set";
-
-    /**
-     * 创建二维码
-     */
-    String QRCODE_CREATE_URL = "https://api.weixin.qq.com/card/qrcode/create";
-
-    /**
-     * 创建货架
-     */
-    String CREATE_LANDING_PAGE_URL = "https://api.weixin.qq.com/card/landingpage/create";
-
-    /**
-     * 导入code接
-     */
-    String IMPORT_CARD_CODE_URL = "http://api.weixin.qq.com/card/code/deposit";
-
-    /**
-     * 查询导入code数目接口
-     */
-    String GET_IMPORT_CARD_CODE_COUNT_URL = "http://api.weixin.qq.com/card/code/getdepositcount";
-
-    /**
-     * 核查code接口
-     */
-    String CHECK_CODE_URL = "http://api.weixin.qq.com/card/code/checkcode";
-
-    /**
-     * 图文消息群发卡券
-     */
-    String MP_NEWS_DISTRIBUTE_CARD_URL = "https://api.weixin.qq.com/card/mpnews/gethtml";
-
-    String GET_CARD_DETAIL_URL = "https://api.weixin.qq.com/card/get";
-
+    String CARD_SELF_CONSUME_CELL_SET_URL = "https://api.weixin.qq.com/card/selfconsumecell/set";
+    String CARD_QRCODE_CREATE_URL = "https://api.weixin.qq.com/card/qrcode/create";
+    String CARD_LANDING_PAGE_CREATE_URL = "https://api.weixin.qq.com/card/landingpage/create";
+    String CARD_MP_NEWS_DISTRIBUTE_URL = "https://api.weixin.qq.com/card/mpnews/gethtml";
+    String CARD_GET_DETAIL_URL = "https://api.weixin.qq.com/card/get";
     String CARD_GET_TICKET_URL = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?type=wx_card";
-
-    String CARD_CODE_DECRYPT_URL = "https://api.weixin.qq.com/card/code/decrypt";
-
-    String CARD_CODE_GET_URL = "https://api.weixin.qq.com/card/code/get";
-
-    String CARD_CODE_CONSUME_URL = "https://api.weixin.qq.com/card/code/consume";
-
-    String CARD_CODE_MARK_URL = "https://api.weixin.qq.com/card/code/mark";
-
-    /**
-     * 获取用户已领取卡券
-     */
-    String GET_USER_CARD_LIST_URL = "https://api.weixin.qq.com/card/user/getcardlist";
+    String CARD_GET_USER_CARD_LIST_URL = "https://api.weixin.qq.com/card/user/getcardlist";
 
     /**
      * 得到WxMpService
@@ -87,11 +34,11 @@ public interface WxMpCardService {
      *     详情请见：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1451025056
      * </pre>
      *
-     * @param wxMpGrouponCard 卡券详情
+     * @param request 卡券详情
      * @return 卡券card_id
      * @throws WxErrorException
      */
-    WxMpCreateCardResult createCard(WxMpCardCreateRequest wxMpGrouponCard) throws WxErrorException;
+    WxMpCreateCardResult createCard(WxMpCardCreateRequest request) throws WxErrorException;
 
     /**
      * <pre>
@@ -146,12 +93,6 @@ public interface WxMpCardService {
      */
     WxMpCreateLandingPageResult createCardLandingPage(WxMpCreateLandingPage request) throws WxErrorException;
 
-    void importCardCode(WxMpImportCardCode request) throws WxErrorException;
-
-    Integer getImportCardCodeCount(String cardId) throws WxErrorException;
-
-    WxMpCheckCodeResult checkCode(WxMpImportCardCode request) throws WxErrorException;
-
     String wxMpNewsDistributeCard(String cardId) throws WxErrorException;
 
     /**
@@ -189,57 +130,6 @@ public interface WxMpCardService {
      * @return 卡券Api签名对象
      */
     WxCardApiSignature createCardApiSignature(String... optionalSignParam) throws WxErrorException;
-
-    /**
-     * 卡券Code解码
-     *
-     * @param encryptCode 加密Code，通过JSSDK的chooseCard接口获得
-     * @return 解密后的Code
-     */
-    String decryptCardCode(String encryptCode) throws WxErrorException;
-
-    /**
-     * 卡券Code查询
-     *
-     * @param cardId       卡券ID代表一类卡券
-     * @param code         单张卡券的唯一标准
-     * @param checkConsume 是否校验code核销状态，填入true和false时的code异常状态返回数据不同
-     * @return WxMpCardResult对象
-     */
-    WxMpCardResult queryCardCode(String cardId, String code, boolean checkConsume)
-            throws WxErrorException;
-
-    /**
-     * 卡券Code核销。核销失败会抛出异常
-     *
-     * @param code 单张卡券的唯一标准
-     * @return 调用返回的JSON字符串。
-     * <br>可用 com.google.gson.JsonParser#parse 等方法直接取JSON串中的errcode等信息。
-     */
-    String consumeCardCode(String code) throws WxErrorException;
-
-    /**
-     * 卡券Code核销。核销失败会抛出异常
-     *
-     * @param code   单张卡券的唯一标准
-     * @param cardId 当自定义Code卡券时需要传入card_id
-     * @return 调用返回的JSON字符串。
-     * <br>可用 com.google.gson.JsonParser#parse 等方法直接取JSON串中的errcode等信息。
-     */
-    String consumeCardCode(String code, String cardId) throws WxErrorException;
-
-    /**
-     * 卡券Mark接口。
-     * 开发者在帮助消费者核销卡券之前，必须帮助先将此code（卡券串码）与一个openid绑定（即mark住），
-     * 才能进一步调用核销接口，否则报错。
-     * 详见 https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1480845065_Vs2sF
-     *
-     * @param code   卡券的code码
-     * @param cardId 卡券的ID
-     * @param openId 用券用户的openid
-     * @param isMark 是否要mark（占用）这个code，填写true或者false，表示占用或解除占用
-     */
-    void markCardCode(String code, String cardId, String openId, boolean isMark) throws WxErrorException;
 
     /**
      * 查看卡券详情接口

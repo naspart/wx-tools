@@ -8,9 +8,6 @@ import java.util.List;
 
 /**
  * 统计分析相关接口
- * Created by Binary Wang on 2016/8/23.
- *
- * @author binarywang (https://github.com/binarywang)
  */
 public interface WxMpDataCubeService {
     String GET_USER_SUMMARY = "https://api.weixin.qq.com/datacube/getusersummary";

@@ -40,6 +40,7 @@ public abstract class WxMpServiceBaseImpl<H, P> implements WxMpService, RequestH
     private WxMpUserTagService tagService = new WxMpUserTagServiceImpl(this);
     private WxMpQrcodeService qrCodeService = new WxMpQrcodeServiceImpl(this);
     private WxMpCardService cardService = new WxMpCardServiceImpl(this);
+    private WxMpCardCodeService cardCodeService = new WxMpCardCodeServiceImpl(this);
     private WxMpStoreService storeService = new WxMpStoreServiceImpl(this);
     private WxMpDataCubeService dataCubeService = new WxMpDataCubeServiceImpl(this);
     private WxMpUserBlacklistService blackListService = new WxMpUserBlacklistServiceImpl(this);
@@ -492,5 +493,15 @@ public abstract class WxMpServiceBaseImpl<H, P> implements WxMpService, RequestH
     @Override
     public void setMassMessageService(WxMpMassMessageService massMessageService) {
         this.massMessageService = massMessageService;
+    }
+
+    @Override
+    public WxMpCardCodeService getCardCodeService() {
+        return this.cardCodeService;
+    }
+
+    @Override
+    public void setCardCodeService(WxMpCardCodeService cardCodeService) {
+        this.cardCodeService = cardCodeService;
     }
 }

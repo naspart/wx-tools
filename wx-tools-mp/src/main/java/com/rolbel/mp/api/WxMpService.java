@@ -437,4 +437,8 @@ public interface WxMpService {
     void setMemberCardService(WxMpMemberCardService memberCardService);
 
     void setMassMessageService(WxMpMassMessageService massMessageService);
+
+    WxMpCardCodeService getCardCodeService();
+
+    void setCardCodeService(WxMpCardCodeService cardCodeService);
 }
