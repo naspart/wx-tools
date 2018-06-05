@@ -89,6 +89,9 @@ public class SignUtil {
         }
 
         toSign.append("key=").append(signKey);
+
+        log.debug("要签名的字符串：" + toSign);
+
         if (WxPayConstants.SignType.HMAC_SHA256.equals(signType)) {
             return createHmacSha256Sign(toSign.toString(), signKey);
         } else {

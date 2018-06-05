@@ -14,7 +14,7 @@ import lombok.Data;
 @Builder
 public class WxPayMpOrderResult {
     private String appId;
-    private String timeStamp;
+    private Long timeStamp;
     private String nonceStr;
     /**
      * 由于package为java保留关键字，因此改为packageValue
@@ -23,4 +23,5 @@ public class WxPayMpOrderResult {
     private String packageValue;
     private String signType;
     private String paySign;
+    private String orderNo;
 }

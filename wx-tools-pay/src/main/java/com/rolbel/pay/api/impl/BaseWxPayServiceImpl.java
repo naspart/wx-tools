@@ -239,12 +239,13 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
                     unifiedOrderResult.getErrCode(), unifiedOrderResult.getErrCodeDes()));
         }
 
-        String timestamp = String.valueOf(System.currentTimeMillis() / 1000);
+        Long timestamp = System.currentTimeMillis() / 1000;
         String nonceStr = String.valueOf(System.currentTimeMillis());
         switch (request.getTradeType()) {
             case WxPayConstants.TradeType.NATIVE: {
                 return (T) WxPayNativeOrderResult.builder()
                         .codeUrl(unifiedOrderResult.getCodeURL())
+                        .orderNo(request.getOutTradeNo())
                         .build();
             }
 
@@ -258,7 +259,7 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
                 configMap.put("partnerid", partnerId);
                 String packageValue = "Sign=WXPay";
                 configMap.put("package", packageValue);
-                configMap.put("timestamp", timestamp);
+                configMap.put("timestamp", String.valueOf(timestamp));
                 configMap.put("noncestr", nonceStr);
                 configMap.put("appid", appId);
 
@@ -270,6 +271,7 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
                         .packageValue(packageValue)
                         .timeStamp(timestamp)
                         .nonceStr(nonceStr)
+                        .orderNo(request.getOutTradeNo())
                         .build();
             }
 
@@ -290,6 +292,8 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
                                 this.getConfig().getMchKey(),
                                 false)
                 );
+                payResult.setOrderNo(request.getOutTradeNo());
+
                 return (T) payResult;
             }
 

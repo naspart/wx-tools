@@ -17,6 +17,7 @@ public class WxPayAppOrderResult {
     private String partnerId;
     private String appId;
     private String packageValue;
-    private String timeStamp;
+    private Long timeStamp;
     private String nonceStr;
+    private String orderNo;
 }
