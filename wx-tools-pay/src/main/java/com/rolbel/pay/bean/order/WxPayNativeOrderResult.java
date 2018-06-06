@@ -12,5 +12,5 @@ import lombok.Data;
 @Builder
 public class WxPayNativeOrderResult {
     private String codeUrl;
-    private String orderNo;
+    private String outTradeNo;
 }

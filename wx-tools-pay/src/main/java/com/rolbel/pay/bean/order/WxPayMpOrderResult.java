@@ -23,5 +23,5 @@ public class WxPayMpOrderResult {
     private String packageValue;
     private String signType;
     private String paySign;
-    private String orderNo;
+    private String outTradeNo;
 }

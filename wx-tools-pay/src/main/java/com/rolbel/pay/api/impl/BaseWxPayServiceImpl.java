@@ -245,7 +245,7 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
             case WxPayConstants.TradeType.NATIVE: {
                 return (T) WxPayNativeOrderResult.builder()
                         .codeUrl(unifiedOrderResult.getCodeURL())
-                        .orderNo(request.getOutTradeNo())
+                        .outTradeNo(request.getOutTradeNo())
                         .build();
             }
 
@@ -271,7 +271,7 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
                         .packageValue(packageValue)
                         .timeStamp(timestamp)
                         .nonceStr(nonceStr)
-                        .orderNo(request.getOutTradeNo())
+                        .outTradeNo(request.getOutTradeNo())
                         .build();
             }
 
@@ -292,7 +292,7 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
                                 this.getConfig().getMchKey(),
                                 false)
                 );
-                payResult.setOrderNo(request.getOutTradeNo());
+                payResult.setOutTradeNo(request.getOutTradeNo());
 
                 return (T) payResult;
             }

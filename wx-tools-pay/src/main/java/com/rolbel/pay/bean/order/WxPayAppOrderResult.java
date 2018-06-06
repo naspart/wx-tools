@@ -19,5 +19,5 @@ public class WxPayAppOrderResult {
     private String packageValue;
     private Long timeStamp;
     private String nonceStr;
-    private String orderNo;
+    private String outTradeNo;
 }
