@@ -12,9 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 菜单（公众号和企业号共用的）.
- *
- * @author Daniel Qian
+ * 菜单（公众号和企业号共用的）
  */
 @Data
 public class WxMenu implements Serializable {

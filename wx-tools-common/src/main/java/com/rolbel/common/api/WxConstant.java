@@ -5,8 +5,6 @@ import java.util.Map;
 
 /**
  * 微信开发所使用到的常量类.
- *
- * @author chanjarster & binarywang
  */
 public class WxConstant {
     /**

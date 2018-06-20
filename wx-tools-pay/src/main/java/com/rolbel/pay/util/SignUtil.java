@@ -23,10 +23,7 @@ import java.util.*;
 /**
  * <pre>
  * 签名相关工具类.
- * Created by Binary Wang on 2017-3-23.
  * </pre>
- *
- * @author <a href="https://github.com/binarywang">binarywang(Binary Wang)</a>
  */
 public class SignUtil {
     private static final Logger log = LoggerFactory.getLogger(SignUtil.class);
