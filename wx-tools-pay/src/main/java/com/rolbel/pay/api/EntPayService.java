@@ -6,10 +6,7 @@ import com.rolbel.pay.exception.WxPayException;
 /**
  * <pre>
  *  企业付款相关服务类.
- *  Created by BinaryWang on 2017/12/19.
  * </pre>
- *
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
  */
 public interface EntPayService {
     /**

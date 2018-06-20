@@ -16,10 +16,7 @@ import java.util.Map;
 /**
  * <pre>
  * 微信支付相关接口.
- * Created by Binary Wang on 2016/7/28.
  * </pre>
- *
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
  */
 public interface WxPayService {
 

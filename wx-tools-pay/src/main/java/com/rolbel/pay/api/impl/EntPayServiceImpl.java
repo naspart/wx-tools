@@ -24,10 +24,8 @@ import java.security.Security;
 
 /**
  * <pre>
- *  Created by BinaryWang on 2017/12/19.
+ *  企业支付服务
  * </pre>
- *
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
  */
 public class EntPayServiceImpl implements EntPayService {
     private WxPayService payService;

@@ -37,10 +37,7 @@ import static com.rolbel.pay.constant.WxPayConstants.QUERY_COMMENT_DATE_FORMAT;
 /**
  * <pre>
  *  微信支付接口请求抽象实现类
- * Created by Binary Wang on 2017-7-8.
  * </pre>
- *
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
  */
 public abstract class BaseWxPayServiceImpl implements WxPayService {
     private static final String PAY_BASE_URL = "https://api.mch.weixin.qq.com";

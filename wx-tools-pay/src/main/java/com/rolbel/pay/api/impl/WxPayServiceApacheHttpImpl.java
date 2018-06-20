@@ -26,10 +26,7 @@ import java.nio.charset.StandardCharsets;
 /**
  * <pre>
  * 微信支付请求实现类，apache httpclient实现.
- * Created by Binary Wang on 2016/7/28.
  * </pre>
- *
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
  */
 public class WxPayServiceApacheHttpImpl extends BaseWxPayServiceImpl {
     @Override

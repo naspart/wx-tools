@@ -168,11 +168,8 @@ public class WxMpMessageRouter {
             // 返回最后一个非异步的rule的执行结果
             if (rule.isAsync()) {
                 futures.add(
-                        this.executorService.submit(new Runnable() {
-                            @Override
-                            public void run() {
-                                rule.service(wxMessage, context, mpService, WxMpMessageRouter.this.sessionManager, WxMpMessageRouter.this.exceptionHandler);
-                            }
+                        this.executorService.submit(() -> {
+                            rule.service(wxMessage, context, mpService, WxMpMessageRouter.this.sessionManager, WxMpMessageRouter.this.exceptionHandler);
                         })
                 );
             } else {
@@ -184,18 +181,15 @@ public class WxMpMessageRouter {
         }
 
         if (futures.size() > 0) {
-            this.executorService.submit(new Runnable() {
-                @Override
-                public void run() {
-                    for (Future<?> future : futures) {
-                        try {
-                            future.get();
-                            WxMpMessageRouter.this.log.debug("End session access: async=true, sessionId={}", wxMessage.getFromUser());
-                            // 异步操作结束，session访问结束
-                            sessionEndAccess(wxMessage);
-                        } catch (InterruptedException | ExecutionException e) {
-                            WxMpMessageRouter.this.log.error("Error happened when wait task finish", e);
-                        }
+            this.executorService.submit(() -> {
+                for (Future<?> future : futures) {
+                    try {
+                        future.get();
+                        WxMpMessageRouter.this.log.debug("End session access: async=true, sessionId={}", wxMessage.getFromUser());
+                        // 异步操作结束，session访问结束
+                        sessionEndAccess(wxMessage);
+                    } catch (InterruptedException | ExecutionException e) {
+                        WxMpMessageRouter.this.log.error("Error happened when wait task finish", e);
                     }
                 }
             });
@@ -204,7 +198,7 @@ public class WxMpMessageRouter {
     }
 
     public WxMpXmlOutMessage route(final WxMpXmlMessage wxMessage) {
-        return this.route(wxMessage, new HashMap<String, Object>());
+        return this.route(wxMessage, new HashMap<>());
     }
 
     protected boolean isMsgDuplicated(WxMpXmlMessage wxMessage) {
@@ -234,6 +228,5 @@ public class WxMpMessageRouter {
         if (session != null) {
             session.endAccess();
         }
-
     }
 }
