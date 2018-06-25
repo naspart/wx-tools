@@ -3,7 +3,7 @@ package com.rolbel.cp.api.impl;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.rolbel.common.exception.WxErrorException;
+import com.rolbel.common.error.WxErrorException;
 import com.rolbel.common.util.http.URIUtil;
 import com.rolbel.common.util.json.GsonHelper;
 import com.rolbel.cp.api.WxCpOAuth2Service;

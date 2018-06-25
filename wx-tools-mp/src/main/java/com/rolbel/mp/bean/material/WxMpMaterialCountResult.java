@@ -1,6 +1,6 @@
 package com.rolbel.mp.bean.material;
 
-import com.rolbel.common.util.ToStringUtils;
+import com.rolbel.common.util.ToStringUtil;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -16,7 +16,7 @@ public class WxMpMaterialCountResult implements Serializable {
 
     @Override
     public String toString() {
-        return ToStringUtils.toSimpleString(this);
+        return ToStringUtil.toSimpleString(this);
     }
 }
 

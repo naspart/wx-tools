@@ -1,7 +1,7 @@
 package com.rolbel.mp.api;
 
 import com.rolbel.common.bean.WxCardApiSignature;
-import com.rolbel.common.exception.WxErrorException;
+import com.rolbel.common.error.WxErrorException;
 import com.rolbel.mp.bean.card.base.WxMpCardCreateRequest;
 import com.rolbel.mp.bean.card.request.WxMpCreateLandingPage;
 import com.rolbel.mp.bean.card.result.WxMpCreateCardResult;

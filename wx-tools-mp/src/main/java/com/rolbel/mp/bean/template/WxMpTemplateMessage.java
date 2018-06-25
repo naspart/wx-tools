@@ -48,7 +48,7 @@ public class WxMpTemplateMessage implements Serializable {
     /**
      * 模板数据.
      */
-    private List<WxMpTemplateData> data;
+    private List<WxMpTemplateData> data = new ArrayList<>();
 
     public WxMpTemplateMessage addData(WxMpTemplateData datum) {
         if (this.data == null) {
@@ -69,6 +69,6 @@ public class WxMpTemplateMessage implements Serializable {
         private static final long serialVersionUID = -7945254706501974849L;
 
         private String appid;
-        private String path;
+        private String pagePath;
     }
 }

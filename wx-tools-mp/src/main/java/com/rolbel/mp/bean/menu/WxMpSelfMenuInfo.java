@@ -1,7 +1,7 @@
 package com.rolbel.mp.bean.menu;
 
 import com.google.gson.annotations.SerializedName;
-import com.rolbel.common.util.ToStringUtils;
+import com.rolbel.common.util.ToStringUtil;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -27,7 +27,7 @@ public class WxMpSelfMenuInfo implements Serializable {
 
     @Override
     public String toString() {
-        return ToStringUtils.toSimpleString(this);
+        return ToStringUtil.toSimpleString(this);
     }
 
     @Data
@@ -87,7 +87,7 @@ public class WxMpSelfMenuInfo implements Serializable {
 
         @Override
         public String toString() {
-            return ToStringUtils.toSimpleString(this);
+            return ToStringUtil.toSimpleString(this);
         }
 
         @Data
@@ -99,7 +99,7 @@ public class WxMpSelfMenuInfo implements Serializable {
 
             @Override
             public String toString() {
-                return ToStringUtils.toSimpleString(this);
+                return ToStringUtil.toSimpleString(this);
             }
         }
 
@@ -112,7 +112,7 @@ public class WxMpSelfMenuInfo implements Serializable {
 
             @Override
             public String toString() {
-                return ToStringUtils.toSimpleString(this);
+                return ToStringUtil.toSimpleString(this);
             }
 
             @Data
@@ -158,7 +158,7 @@ public class WxMpSelfMenuInfo implements Serializable {
 
                 @Override
                 public String toString() {
-                    return ToStringUtils.toSimpleString(this);
+                    return ToStringUtil.toSimpleString(this);
                 }
 
             }

@@ -3,7 +3,7 @@ package com.rolbel.mp.bean.menu;
 import com.google.gson.annotations.SerializedName;
 import com.rolbel.common.bean.menu.WxMenuButton;
 import com.rolbel.common.bean.menu.WxMenuRule;
-import com.rolbel.common.util.ToStringUtils;
+import com.rolbel.common.util.ToStringUtil;
 import com.rolbel.common.util.json.WxGsonBuilder;
 import lombok.Data;
 
@@ -34,7 +34,7 @@ public class WxMpMenu implements Serializable {
 
     @Override
     public String toString() {
-        return ToStringUtils.toSimpleString(this);
+        return ToStringUtil.toSimpleString(this);
     }
 
     public String toJson() {
@@ -54,7 +54,7 @@ public class WxMpMenu implements Serializable {
 
         @Override
         public String toString() {
-            return ToStringUtils.toSimpleString(this);
+            return ToStringUtil.toSimpleString(this);
         }
     }
 }

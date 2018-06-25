@@ -1,6 +1,6 @@
 package com.rolbel.mp.api;
 
-import com.rolbel.common.exception.WxErrorException;
+import com.rolbel.common.error.WxErrorException;
 import com.rolbel.mp.bean.*;
 import com.rolbel.mp.bean.result.WxMpMassSendResult;
 import com.rolbel.mp.bean.result.WxMpMassUploadResult;

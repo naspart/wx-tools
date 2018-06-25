@@ -3,7 +3,7 @@ package com.rolbel.cp.util.json;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.rolbel.common.bean.menu.WxMenu;
-import com.rolbel.common.bean.result.WxError;
+import com.rolbel.common.error.WxError;
 import com.rolbel.common.util.json.WxErrorAdapter;
 import com.rolbel.cp.bean.WxCpDepart;
 import com.rolbel.cp.bean.WxCpMessage;

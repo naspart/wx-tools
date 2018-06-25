@@ -21,7 +21,7 @@ public class FileUtil {
         File resultFile = File.createTempFile(name, '.' + ext, tmpDirFile);
 
         resultFile.deleteOnExit();
-        FileUtils.copyInputStreamToFile(inputStream, resultFile);
+        FileUtils.copyToFile(inputStream, resultFile);
 
         return resultFile;
     }

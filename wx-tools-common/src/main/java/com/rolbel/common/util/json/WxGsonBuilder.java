@@ -3,7 +3,7 @@ package com.rolbel.common.util.json;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.rolbel.common.bean.WxAccessToken;
-import com.rolbel.common.bean.result.WxError;
+import com.rolbel.common.error.WxError;
 
 public class WxGsonBuilder {
     public static final GsonBuilder INSTANCE = new GsonBuilder();

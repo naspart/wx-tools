@@ -1,6 +1,6 @@
 package com.rolbel.mp.api;
 
-import com.rolbel.common.exception.WxErrorException;
+import com.rolbel.common.error.WxErrorException;
 import com.rolbel.mp.bean.card.request.WxMpImportCardCode;
 import com.rolbel.mp.bean.card.result.WxMpCheckCodeResult;
 import com.rolbel.mp.bean.result.WxMpCardResult;

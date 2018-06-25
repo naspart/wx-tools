@@ -79,6 +79,15 @@ public class WxMpKefuMessageGsonAdapter implements JsonSerializer<WxMpKefuMessag
             messageJson.add("wxcard", wxcard);
         }
 
+        if (WxConstant.KefuMsgType.MINIPROGRAMPAGE.equals(message.getMsgType())) {
+            JsonObject miniProgramPage = new JsonObject();
+            miniProgramPage.addProperty("title", message.getTitle());
+            miniProgramPage.addProperty("appid", message.getMiniProgramAppId());
+            miniProgramPage.addProperty("pagepath", message.getMiniProgramPagePath());
+            miniProgramPage.addProperty("thumb_media_id", message.getThumbMediaId());
+            messageJson.add("miniprogrampage", miniProgramPage);
+        }
+
         if (StringUtils.isNotBlank(message.getKfAccount())) {
             JsonObject newsJsonObject = new JsonObject();
             newsJsonObject.addProperty("kf_account", message.getKfAccount());

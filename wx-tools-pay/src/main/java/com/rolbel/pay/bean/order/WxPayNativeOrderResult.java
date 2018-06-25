@@ -1,5 +1,6 @@
 package com.rolbel.pay.bean.order;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
@@ -10,6 +11,7 @@ import lombok.Data;
  */
 @Data
 @Builder
+@AllArgsConstructor
 public class WxPayNativeOrderResult {
     private String codeUrl;
     private String outTradeNo;

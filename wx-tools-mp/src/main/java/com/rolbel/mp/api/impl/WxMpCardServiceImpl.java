@@ -6,7 +6,7 @@ import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.reflect.TypeToken;
 import com.rolbel.common.bean.WxCardApiSignature;
-import com.rolbel.common.exception.WxErrorException;
+import com.rolbel.common.error.WxErrorException;
 import com.rolbel.common.util.RandomUtil;
 import com.rolbel.common.util.crypto.SHA1;
 import com.rolbel.common.util.http.SimpleGetRequestExecutor;

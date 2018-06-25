@@ -1,7 +1,7 @@
 package com.rolbel.open.api.impl;
 
-import com.rolbel.common.bean.result.WxError;
-import com.rolbel.common.exception.WxErrorException;
+import com.rolbel.common.error.WxError;
+import com.rolbel.common.error.WxErrorException;
 import com.rolbel.common.util.http.RequestExecutor;
 import com.rolbel.common.util.http.RequestHttp;
 import com.rolbel.open.api.WxOpenComponentService;

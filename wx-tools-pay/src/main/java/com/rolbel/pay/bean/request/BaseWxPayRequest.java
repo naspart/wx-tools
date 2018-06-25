@@ -1,6 +1,6 @@
 package com.rolbel.pay.bean.request;
 
-import com.rolbel.common.exception.WxErrorException;
+import com.rolbel.common.error.WxErrorException;
 import com.rolbel.common.util.BeanUtil;
 import com.rolbel.common.util.ToStringUtil;
 import com.rolbel.common.util.xml.XStreamInitializer;

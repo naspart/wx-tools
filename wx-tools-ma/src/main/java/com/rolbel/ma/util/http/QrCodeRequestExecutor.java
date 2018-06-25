@@ -1,12 +1,12 @@
 package com.rolbel.ma.util.http;
 
-import com.rolbel.common.bean.result.WxError;
-import com.rolbel.common.exception.WxErrorException;
+import com.rolbel.common.error.WxError;
+import com.rolbel.common.error.WxErrorException;
 import com.rolbel.common.util.fs.FileUtil;
-import com.rolbel.common.util.http.InputStreamResponseHandler;
+import com.rolbel.common.util.http.apache.InputStreamResponseHandler;
 import com.rolbel.common.util.http.RequestExecutor;
 import com.rolbel.common.util.http.RequestHttp;
-import com.rolbel.common.util.http.Utf8ResponseHandler;
+import com.rolbel.common.util.http.apache.Utf8ResponseHandler;
 import com.rolbel.ma.bean.AbstractWxMaQrcodeWrapper;
 import org.apache.http.Header;
 import org.apache.http.HttpHost;

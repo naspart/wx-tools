@@ -8,7 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import com.rolbel.common.util.ToStringUtils;
+import com.rolbel.common.util.ToStringUtil;
 import com.rolbel.common.util.xml.XStreamInitializer;
 import org.apache.commons.codec.binary.Base64;
 
@@ -79,7 +79,7 @@ public class WxPayRefundNotifyResult extends BaseWxPayResult implements Serializ
     public static class ReqInfo {
         @Override
         public String toString() {
-            return ToStringUtils.toSimpleString(this);
+            return ToStringUtil.toSimpleString(this);
         }
 
         /**

@@ -1,6 +1,6 @@
 package com.rolbel.mp.api;
 
-import com.rolbel.common.exception.WxErrorException;
+import com.rolbel.common.error.WxErrorException;
 import com.rolbel.mp.bean.user.WxMpUserQuery;
 import com.rolbel.mp.bean.user.WxMpUser;
 import com.rolbel.mp.bean.user.WxMpUserList;

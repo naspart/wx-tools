@@ -2,6 +2,8 @@ package com.rolbel.pay.api.impl;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.Maps;
+import com.rolbel.pay.api.EntPayService;
+import com.rolbel.pay.api.WxPayService;
 import com.rolbel.pay.bean.WxPayApiData;
 import com.rolbel.pay.bean.coupon.*;
 import com.rolbel.pay.bean.notify.WxPayOrderNotifyResult;
@@ -9,21 +11,19 @@ import com.rolbel.pay.bean.notify.WxPayRefundNotifyResult;
 import com.rolbel.pay.bean.notify.WxScanPayNotifyResult;
 import com.rolbel.pay.bean.order.WxPayAppOrderResult;
 import com.rolbel.pay.bean.order.WxPayMpOrderResult;
+import com.rolbel.pay.bean.order.WxPayMwebOrderResult;
 import com.rolbel.pay.bean.order.WxPayNativeOrderResult;
 import com.rolbel.pay.bean.request.*;
 import com.rolbel.pay.bean.result.*;
 import com.rolbel.pay.config.WxPayConfig;
 import com.rolbel.pay.constant.WxPayConstants;
 import com.rolbel.pay.exception.WxPayException;
-import com.rolbel.pay.api.EntPayService;
-import com.rolbel.pay.api.WxPayService;
 import com.rolbel.pay.util.SignUtil;
 import jodd.io.ZipUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -70,7 +70,7 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
 
     @Override
     public String getPayBaseUrl() {
-        if (this.getConfig().useSandbox()) {
+        if (this.getConfig().isUseSandboxEnv()) {
             return PAY_BASE_URL + "/sandboxnew";
         }
 
@@ -97,6 +97,11 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
         request.setOutRefundNo(StringUtils.trimToNull(outRefundNo));
         request.setRefundId(StringUtils.trimToNull(refundId));
 
+        return this.refundQuery(request);
+    }
+
+    @Override
+    public WxPayRefundQueryResult refundQuery(WxPayRefundQueryRequest request) throws WxPayException {
         request.checkAndSign(this.getConfig());
 
         String url = this.getPayBaseUrl() + "/pay/refundquery";
@@ -105,12 +110,6 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
         result.composeRefundRecords();
         result.checkResult(this, request.getSignType(), true);
         return result;
-    }
-
-    @Override
-    @Deprecated
-    public WxPayOrderNotifyResult getOrderNotifyResult(String xmlData) throws WxPayException {
-        return this.parseOrderNotifyResult(xmlData);
     }
 
     @Override
@@ -195,6 +194,12 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
         WxPayOrderQueryRequest request = new WxPayOrderQueryRequest();
         request.setOutTradeNo(StringUtils.trimToNull(outTradeNo));
         request.setTransactionId(StringUtils.trimToNull(transactionId));
+
+        return this.queryOrder(request);
+    }
+
+    @Override
+    public WxPayOrderQueryResult queryOrder(WxPayOrderQueryRequest request) throws WxPayException {
         request.checkAndSign(this.getConfig());
 
         String url = this.getPayBaseUrl() + "/pay/orderquery";
@@ -217,6 +222,12 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
 
         WxPayOrderCloseRequest request = new WxPayOrderCloseRequest();
         request.setOutTradeNo(StringUtils.trimToNull(outTradeNo));
+
+        return this.closeOrder(request);
+    }
+
+    @Override
+    public WxPayOrderCloseResult closeOrder(WxPayOrderCloseRequest request) throws WxPayException {
         request.checkAndSign(this.getConfig());
 
         String url = this.getPayBaseUrl() + "/pay/closeorder";
@@ -232,13 +243,17 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
         WxPayUnifiedOrderResult unifiedOrderResult = this.unifiedOrder(request);
         String prepayId = unifiedOrderResult.getPrepayId();
         if (StringUtils.isBlank(prepayId)) {
-            throw new RuntimeException(String.format("无法获取prepay id，错误代码： '%s'，信息：%s。",
+            throw new WxPayException(String.format("无法获取prepay id，错误代码： '%s'，信息：%s。",
                     unifiedOrderResult.getErrCode(), unifiedOrderResult.getErrCodeDes()));
         }
 
         Long timestamp = System.currentTimeMillis() / 1000;
         String nonceStr = String.valueOf(System.currentTimeMillis());
         switch (request.getTradeType()) {
+            case WxPayConstants.TradeType.MWEB: {
+                return (T) new WxPayMwebOrderResult(unifiedOrderResult.getMwebUrl(), request.getOutTradeNo());
+            }
+
             case WxPayConstants.TradeType.NATIVE: {
                 return (T) WxPayNativeOrderResult.builder()
                         .codeUrl(unifiedOrderResult.getCodeURL())
@@ -248,10 +263,20 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
 
             case WxPayConstants.TradeType.APP: {
                 // APP支付绑定的是微信开放平台上的账号，APPID为开放平台上绑定APP后发放的参数
-                String appId = this.getConfig().getAppId();
-                Map<String, String> configMap = new HashMap<>();
+                String appId = unifiedOrderResult.getAppid();
+                if (StringUtils.isNotEmpty(unifiedOrderResult.getSubAppId())) {
+                    appId = unifiedOrderResult.getSubAppId();
+                }
+
+                Map<String, String> configMap = new HashMap<>(8);
                 // 此map用于参与调起sdk支付的二次签名,格式全小写，timestamp只能是10位,格式固定，切勿修改
-                String partnerId = getConfig().getMchId();
+                String partnerId;
+                if (StringUtils.isEmpty(request.getMchId())) {
+                    partnerId = this.getConfig().getMchId();
+                } else {
+                    partnerId = request.getMchId();
+                }
+
                 configMap.put("prepayid", prepayId);
                 configMap.put("partnerid", partnerId);
                 String packageValue = "Sign=WXPay";
@@ -260,7 +285,7 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
                 configMap.put("noncestr", nonceStr);
                 configMap.put("appid", appId);
 
-                return (T) WxPayAppOrderResult.builder()
+                final WxPayAppOrderResult result = WxPayAppOrderResult.builder()
                         .sign(SignUtil.createSign(configMap, null, this.getConfig().getMchKey(), false))
                         .prepayId(prepayId)
                         .partnerId(partnerId)
@@ -270,25 +295,25 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
                         .nonceStr(nonceStr)
                         .outTradeNo(request.getOutTradeNo())
                         .build();
+                return (T) result;
             }
 
             case WxPayConstants.TradeType.JSAPI: {
                 String signType = WxPayConstants.SignType.MD5;
+                String appid = unifiedOrderResult.getAppid();
+                if (StringUtils.isNotEmpty(unifiedOrderResult.getSubAppId())) {
+                    appid = unifiedOrderResult.getSubAppId();
+                }
+
                 WxPayMpOrderResult payResult = WxPayMpOrderResult.builder()
-                        .appId(unifiedOrderResult.getAppid())
+                        .appId(appid)
                         .timeStamp(timestamp)
                         .nonceStr(nonceStr)
                         .packageValue("prepay_id=" + prepayId)
                         .signType(signType)
                         .build();
 
-                payResult.setPaySign(
-                        SignUtil.createSign(
-                                payResult,
-                                signType,
-                                this.getConfig().getMchKey(),
-                                false)
-                );
+                payResult.setPaySign(SignUtil.createSign(payResult, signType, this.getConfig().getMchKey(), false));
                 payResult.setOutTradeNo(request.getOutTradeNo());
 
                 return (T) payResult;
@@ -318,7 +343,7 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
         WxPayUnifiedOrderResult unifiedOrderResult = this.unifiedOrder(request);
         String prepayId = unifiedOrderResult.getPrepayId();
         if (StringUtils.isBlank(prepayId)) {
-            throw new RuntimeException(String.format("无法获取prepay id，错误代码： '%s'，信息：%s。",
+            throw new WxPayException(String.format("无法获取prepay id，错误代码： '%s'，信息：%s。",
                     unifiedOrderResult.getErrCode(), unifiedOrderResult.getErrCodeDes()));
         }
 
@@ -376,7 +401,7 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
         params.put("sign", sign);
 
         for (String key : params.keySet()) {
-            codeUrl.append(key + "=" + params.get(key) + "&");
+            codeUrl.append(key).append("=").append(params.get(key)).append("&");
         }
 
         String content = codeUrl.toString().substring(0, codeUrl.length() - 1);
@@ -406,12 +431,17 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
         request.setTarType(tarType);
         request.setDeviceInfo(deviceInfo);
 
+        return this.downloadBill(request);
+    }
+
+    @Override
+    public WxPayBillResult downloadBill(WxPayDownloadBillRequest request) throws WxPayException {
         request.checkAndSign(this.getConfig());
 
         String url = this.getPayBaseUrl() + "/pay/downloadbill";
 
         String responseContent;
-        if (WxPayConstants.TarType.GZIP.equals(tarType)) {
+        if (WxPayConstants.TarType.GZIP.equals(request.getTarType())) {
             responseContent = this.handleGzipBill(url, request.toXML());
         } else {
             responseContent = this.post(url, request.toXML(), false);
@@ -420,7 +450,7 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
             }
         }
 
-        return this.handleBill(billType, responseContent);
+        return this.handleBill(request.getBillType(), responseContent);
     }
 
     private WxPayBillResult handleBill(String billType, String responseContent) {
@@ -448,8 +478,8 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
                     this.log.error("解压zip文件出错", e);
                 }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            this.log.error("解析对账单文件时出错", e);
         }
         return null;
     }

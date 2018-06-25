@@ -1,10 +1,10 @@
 package com.rolbel.mp.api.impl;
 
 import com.rolbel.common.bean.WxAccessToken;
-import com.rolbel.common.bean.result.WxError;
-import com.rolbel.common.exception.WxErrorException;
-import com.rolbel.common.util.http.ApacheHttpClientBuilder;
-import com.rolbel.common.util.http.DefaultApacheHttpClientBuilder;
+import com.rolbel.common.error.WxError;
+import com.rolbel.common.error.WxErrorException;
+import com.rolbel.common.util.http.apache.ApacheHttpClientBuilder;
+import com.rolbel.common.util.http.apache.DefaultApacheHttpClientBuilder;
 import com.rolbel.common.util.http.HttpType;
 import com.rolbel.mp.api.WxMpConfigStorage;
 import com.rolbel.mp.api.WxMpService;

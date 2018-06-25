@@ -7,8 +7,8 @@ import com.rolbel.ma.bean.WxMaTemplateMessage;
 import com.rolbel.ma.constant.WxMaConstant;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.rolbel.common.bean.result.WxError;
-import com.rolbel.common.exception.WxErrorException;
+import com.rolbel.common.error.WxError;
+import com.rolbel.common.error.WxErrorException;
 
 /**
  * @author <a href="https://github.com/binarywang">Binary Wang</a>

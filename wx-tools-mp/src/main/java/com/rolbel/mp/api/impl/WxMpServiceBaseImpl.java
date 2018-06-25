@@ -5,10 +5,11 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.rolbel.common.bean.WxJsapiSignature;
-import com.rolbel.common.bean.result.WxError;
-import com.rolbel.common.exception.WxErrorException;
+import com.rolbel.common.error.WxError;
+import com.rolbel.common.error.WxErrorException;
 import com.rolbel.common.session.StandardSessionManager;
 import com.rolbel.common.session.WxSessionManager;
+import com.rolbel.common.util.DataUtil;
 import com.rolbel.common.util.RandomUtil;
 import com.rolbel.common.util.crypto.SHA1;
 import com.rolbel.common.util.http.*;
@@ -50,6 +51,8 @@ public abstract class WxMpServiceBaseImpl<H, P> implements WxMpService, RequestH
     private WxMpShakeService shakeService = new WxMpShakeServiceImpl(this);
     private WxMpMemberCardService memberCardService = new WxMpMemberCardServiceImpl(this);
     private WxMpMassMessageService massMessageService = new WxMpMassMessageServiceImpl(this);
+    private WxMpAiOpenService aiOpenService = new WxMpAiOpenServiceImpl(this);
+    private WxMpWifiService wifiService = new WxMpWifiServiceImpl(this);
 
     private int retrySleepMillis = 1000;
     private int maxRetryTimes = 5;
@@ -274,6 +277,8 @@ public abstract class WxMpServiceBaseImpl<H, P> implements WxMpService, RequestH
     }
 
     public <T, E> T executeInternal(RequestExecutor<T, E> executor, String uri, E data) throws WxErrorException {
+        E dataForLog = DataUtil.handleDataWithSecret(data);
+
         if (uri.contains("access_token=")) {
             throw new IllegalArgumentException("uri参数中不允许有access_token: " + uri);
         }
@@ -284,7 +289,7 @@ public abstract class WxMpServiceBaseImpl<H, P> implements WxMpService, RequestH
 
         try {
             T result = executor.execute(uriWithAccessToken, data);
-            this.log.debug("\n【请求地址】: {}\n【请求参数】：{}\n【响应数据】：{}", uriWithAccessToken, data, result);
+            this.log.debug("\n【请求地址】: {}\n【请求参数】：{}\n【响应数据】：{}", uriWithAccessToken, dataForLog, result);
 
             return result;
         } catch (WxErrorException e) {
@@ -304,12 +309,12 @@ public abstract class WxMpServiceBaseImpl<H, P> implements WxMpService, RequestH
             }
 
             if (error.getErrorCode() != 0) {
-                this.log.error("\n【请求地址】: {}\n【请求参数】：{}\n【错误信息】：{}", uriWithAccessToken, data, error);
+                this.log.error("\n【请求地址】: {}\n【请求参数】：{}\n【错误信息】：{}", uriWithAccessToken, dataForLog, error);
                 throw new WxErrorException(error, e);
             }
             return null;
         } catch (IOException e) {
-            this.log.error("\n【请求地址】: {}\n【请求参数】：{}\n【异常信息】：{}", uriWithAccessToken, data, e.getMessage());
+            this.log.error("\n【请求地址】: {}\n【请求参数】：{}\n【异常信息】：{}", uriWithAccessToken, dataForLog, e.getMessage());
             throw new WxErrorException(WxError.builder().errorMsg(e.getMessage()).build(), e);
         }
     }
@@ -503,5 +508,20 @@ public abstract class WxMpServiceBaseImpl<H, P> implements WxMpService, RequestH
     @Override
     public void setCardCodeService(WxMpCardCodeService cardCodeService) {
         this.cardCodeService = cardCodeService;
+    }
+
+    @Override
+    public WxMpAiOpenService getAiOpenService() {
+        return this.aiOpenService;
+    }
+
+    @Override
+    public void setAiOpenService(WxMpAiOpenService aiOpenService) {
+        this.aiOpenService = aiOpenService;
+    }
+
+    @Override
+    public WxMpWifiService getWifiService() {
+        return this.wifiService;
     }
 }

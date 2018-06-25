@@ -27,7 +27,7 @@ public interface InternalSession {
 
   /**
    * Perform the internal processing required to invalidate this session,
-   * without triggering an exception if the session has already expired.
+   * without triggering an error if the session has already expired.
    */
   void expire();
 

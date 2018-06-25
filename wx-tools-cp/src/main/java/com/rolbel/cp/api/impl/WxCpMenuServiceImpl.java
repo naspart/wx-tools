@@ -1,7 +1,7 @@
 package com.rolbel.cp.api.impl;
 
 import com.rolbel.common.bean.menu.WxMenu;
-import com.rolbel.common.exception.WxErrorException;
+import com.rolbel.common.error.WxErrorException;
 import com.rolbel.cp.api.WxCpMenuService;
 import com.rolbel.cp.api.WxCpService;
 import com.rolbel.cp.util.json.WxCpGsonBuilder;

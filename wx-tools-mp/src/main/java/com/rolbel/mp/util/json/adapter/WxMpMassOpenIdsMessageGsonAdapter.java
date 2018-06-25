@@ -3,6 +3,7 @@ package com.rolbel.mp.util.json.adapter;
 import com.google.gson.*;
 import com.rolbel.common.api.WxConstant;
 import com.rolbel.mp.bean.WxMpMassOpenIdsMessage;
+import org.apache.commons.lang3.StringUtils;
 
 import java.lang.reflect.Type;
 
@@ -45,6 +46,11 @@ public class WxMpMassOpenIdsMessageGsonAdapter implements JsonSerializer<WxMpMas
         }
         messageJson.addProperty("msgtype", message.getMsgType());
         messageJson.addProperty("send_ignore_reprint", message.isSendIgnoreReprint() ? 0 : 1);
+
+        if (StringUtils.isNotEmpty(message.getClientMsgId())) {
+            messageJson.addProperty("clientmsgid", message.getClientMsgId());
+        }
+
         return messageJson;
     }
 }

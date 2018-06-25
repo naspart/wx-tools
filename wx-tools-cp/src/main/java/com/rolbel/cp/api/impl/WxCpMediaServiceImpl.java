@@ -1,7 +1,7 @@
 package com.rolbel.cp.api.impl;
 
 import com.rolbel.common.bean.result.WxMediaUploadResult;
-import com.rolbel.common.exception.WxErrorException;
+import com.rolbel.common.error.WxErrorException;
 import com.rolbel.common.util.fs.FileUtil;
 import com.rolbel.common.util.http.BaseMediaDownloadRequestExecutor;
 import com.rolbel.common.util.http.MediaUploadRequestExecutor;
@@ -21,30 +21,30 @@ import java.util.UUID;
  * </pre>
  */
 public class WxCpMediaServiceImpl implements WxCpMediaService {
-  private WxCpService mainService;
+    private WxCpService mainService;
 
-  public WxCpMediaServiceImpl(WxCpService mainService) {
-    this.mainService = mainService;
-  }
+    public WxCpMediaServiceImpl(WxCpService mainService) {
+        this.mainService = mainService;
+    }
 
-  @Override
-  public WxMediaUploadResult upload(String mediaType, String fileType, InputStream inputStream)
-    throws WxErrorException, IOException {
-    return this.upload(mediaType, FileUtil.createTmpFile(inputStream, UUID.randomUUID().toString(), fileType));
-  }
+    @Override
+    public WxMediaUploadResult upload(String mediaType, String fileType, InputStream inputStream)
+            throws WxErrorException, IOException {
+        return this.upload(mediaType, FileUtil.createTmpFile(inputStream, UUID.randomUUID().toString(), fileType));
+    }
 
-  @Override
-  public WxMediaUploadResult upload(String mediaType, File file) throws WxErrorException {
-    String url = "https://qyapi.weixin.qq.com/cgi-bin/media/upload?type=" + mediaType;
-    return this.mainService.execute(MediaUploadRequestExecutor.create(this.mainService.getRequestHttp()), url, file);
-  }
+    @Override
+    public WxMediaUploadResult upload(String mediaType, File file) throws WxErrorException {
+        String url = "https://qyapi.weixin.qq.com/cgi-bin/media/upload?type=" + mediaType;
+        return this.mainService.execute(MediaUploadRequestExecutor.create(this.mainService.getRequestHttp()), url, file);
+    }
 
-  @Override
-  public File download(String mediaId) throws WxErrorException {
-    String url = "https://qyapi.weixin.qq.com/cgi-bin/media/get";
-    return this.mainService.execute(
-      BaseMediaDownloadRequestExecutor.create(this.mainService.getRequestHttp(),
-        this.mainService.getWxCpConfigStorage().getTmpDirFile()),
-      url, "media_id=" + mediaId);
-  }
+    @Override
+    public File download(String mediaId) throws WxErrorException {
+        String url = "https://qyapi.weixin.qq.com/cgi-bin/media/get";
+        return this.mainService.execute(
+                BaseMediaDownloadRequestExecutor.create(this.mainService.getRequestHttp(),
+                        this.mainService.getWxCpConfigStorage().getTmpDirFile()),
+                url, "media_id=" + mediaId);
+    }
 }

@@ -29,6 +29,8 @@ public class WxMpKefuMessage implements Serializable {
     private String kfAccount;
     private String cardId;
     private String mpNewsMediaId;
+    private String miniProgramAppId;
+    private String miniProgramPagePath;
     private List<WxArticle> articles = new ArrayList<>();
 
     /**
@@ -88,6 +90,13 @@ public class WxMpKefuMessage implements Serializable {
     }
 
     /**
+     * 小程序卡片
+     */
+    public static MiniProgramPageBuilder MINIPROGRAMPAGE() {
+        return new MiniProgramPageBuilder();
+    }
+
+    /**
      * <pre>
      * 请使用
      * {@link com.rolbel.common.api.WxConstant.KefuMsgType#TEXT}
@@ -98,6 +107,7 @@ public class WxMpKefuMessage implements Serializable {
      * {@link com.rolbel.common.api.WxConstant.KefuMsgType#NEWS}
      * {@link com.rolbel.common.api.WxConstant.KefuMsgType#MPNEWS}
      * {@link com.rolbel.common.api.WxConstant.KefuMsgType#WXCARD}
+     * {@link com.rolbel.common.api.WxConstant.KefuMsgType#MINIPROGRAMPAGE}
      * </pre>
      */
     public void setMsgType(String msgType) {

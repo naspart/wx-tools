@@ -7,7 +7,7 @@ import com.rolbel.ma.bean.WxMaQrcode;
 import com.rolbel.ma.bean.WxMaWxcode;
 import com.rolbel.ma.bean.WxMaWxcodeLimit;
 import com.rolbel.ma.util.http.QrCodeRequestExecutor;
-import com.rolbel.common.exception.WxErrorException;
+import com.rolbel.common.error.WxErrorException;
 
 import java.io.File;
 

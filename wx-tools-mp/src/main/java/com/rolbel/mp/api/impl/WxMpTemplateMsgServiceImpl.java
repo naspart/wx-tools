@@ -3,7 +3,7 @@ package com.rolbel.mp.api.impl;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
-import com.rolbel.common.exception.WxErrorException;
+import com.rolbel.common.error.WxErrorException;
 import com.rolbel.mp.api.WxMpService;
 import com.rolbel.mp.api.WxMpTemplateMsgService;
 import com.rolbel.mp.bean.template.WxMpTemplate;

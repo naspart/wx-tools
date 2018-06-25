@@ -1,7 +1,7 @@
 package com.rolbel.common.util.json;
 
 import com.google.gson.*;
-import com.rolbel.common.bean.result.WxError;
+import com.rolbel.common.error.WxError;
 
 import java.lang.reflect.Type;
 

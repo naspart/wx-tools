@@ -2,7 +2,7 @@ package com.rolbel.mp.bean.kefu.result;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.rolbel.common.util.ToStringUtils;
+import com.rolbel.common.util.ToStringUtil;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -79,7 +79,7 @@ public class WxMpKfInfo implements Serializable {
 
     @Override
     public String toString() {
-        return ToStringUtils.toSimpleString(this);
+        return ToStringUtil.toSimpleString(this);
     }
 
 }

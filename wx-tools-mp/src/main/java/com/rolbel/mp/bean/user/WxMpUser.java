@@ -3,7 +3,7 @@ package com.rolbel.mp.bean.user;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-import com.rolbel.common.util.ToStringUtils;
+import com.rolbel.common.util.ToStringUtil;
 import com.rolbel.mp.util.json.WxMpGsonBuilder;
 import lombok.Data;
 
@@ -56,6 +56,22 @@ public class WxMpUser implements Serializable {
      */
     private String[] privileges;
 
+    /**
+     * subscribe_scene 返回用户关注的渠道来源.
+     * ADD_SCENE_SEARCH 公众号搜索，ADD_SCENE_ACCOUNT_MIGRATION 公众号迁移，ADD_SCENE_PROFILE_CARD 名片分享，ADD_SCENE_QR_CODE 扫描二维码，ADD_SCENEPROFILE LINK 图文页内名称点击，ADD_SCENE_PROFILE_ITEM 图文页右上角菜单，ADD_SCENE_PAID 支付后关注，ADD_SCENE_OTHERS 其他
+     */
+    private String subscribeScene;
+
+    /**
+     * qr_scene 二维码扫码场景（开发者自定义）.
+     */
+    private String qrScene;
+
+    /**
+     * qr_scene_str 二维码扫码场景描述（开发者自定义）.
+     */
+    private String qrSceneStr;
+
     public static WxMpUser fromJson(String json) {
         return WxMpGsonBuilder.INSTANCE.create().fromJson(json, WxMpUser.class);
     }
@@ -70,6 +86,6 @@ public class WxMpUser implements Serializable {
 
     @Override
     public String toString() {
-        return ToStringUtils.toSimpleString(this);
+        return ToStringUtil.toSimpleString(this);
     }
 }

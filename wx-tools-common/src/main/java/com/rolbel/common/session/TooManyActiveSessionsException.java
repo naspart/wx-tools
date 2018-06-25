@@ -17,7 +17,7 @@
 package com.rolbel.common.session;
 
 /**
- * An exception that indicates the maximum number of active sessions has been
+ * An error that indicates the maximum number of active sessions has been
  * reached and the server is refusing to create any new sessions.
  */
 public class TooManyActiveSessionsException
@@ -32,7 +32,7 @@ public class TooManyActiveSessionsException
   /**
    * Creates a new TooManyActiveSessionsException.
    *
-   * @param message   A description for the exception.
+   * @param message   A description for the error.
    * @param maxActive The maximum number of active sessions allowed by the
    *                  session manager.
    */

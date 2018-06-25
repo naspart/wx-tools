@@ -1,6 +1,6 @@
 package com.rolbel.cp.message;
 
-import com.rolbel.common.exception.WxErrorException;
+import com.rolbel.common.error.WxErrorException;
 import com.rolbel.common.session.WxSessionManager;
 import com.rolbel.cp.api.WxCpService;
 import com.rolbel.cp.bean.WxCpXmlMessage;

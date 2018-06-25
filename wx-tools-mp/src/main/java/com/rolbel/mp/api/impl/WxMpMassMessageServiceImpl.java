@@ -1,7 +1,7 @@
 package com.rolbel.mp.api.impl;
 
 import com.google.gson.JsonObject;
-import com.rolbel.common.exception.WxErrorException;
+import com.rolbel.common.error.WxErrorException;
 import com.rolbel.mp.api.WxMpMassMessageService;
 import com.rolbel.mp.api.WxMpService;
 import com.rolbel.mp.bean.*;

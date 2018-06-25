@@ -6,7 +6,7 @@ import com.rolbel.ma.bean.WxMaJscode2SessionResult;
 import com.rolbel.ma.bean.WxMaPhoneNumberInfo;
 import com.rolbel.ma.bean.WxMaUserInfo;
 import com.rolbel.ma.util.crypt.WxMaCryptUtils;
-import com.rolbel.common.exception.WxErrorException;
+import com.rolbel.common.error.WxErrorException;
 import org.apache.commons.codec.digest.DigestUtils;
 
 /**

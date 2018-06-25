@@ -4,7 +4,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
 import com.rolbel.common.annotation.Required;
-import com.rolbel.common.util.ToStringUtils;
+import com.rolbel.common.util.ToStringUtil;
 import com.rolbel.mp.util.json.WxMpGsonBuilder;
 import lombok.Builder;
 import lombok.Data;
@@ -177,7 +177,7 @@ public class WxMpStoreBaseInfo implements Serializable {
 
     @Override
     public String toString() {
-        return ToStringUtils.toSimpleString(this);
+        return ToStringUtil.toSimpleString(this);
     }
 
     public String toJson() {

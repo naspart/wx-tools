@@ -1,6 +1,6 @@
 package com.rolbel.pay.converter;
 
-import com.google.common.base.Function;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.rolbel.pay.bean.notify.WxPayOrderNotifyCoupon;
 import com.rolbel.pay.bean.notify.WxPayOrderNotifyResult;
@@ -72,26 +72,27 @@ public class WxPayOrderNotifyResultConverter extends AbstractReflectionConverter
         fields.addAll(Arrays.asList(obj.getClass().getSuperclass().getDeclaredFields()));
         Map<String, Field> fieldMap = getFieldMap(fields);
 
-        List<WxPayOrderNotifyCoupon> coupons = new ArrayList<>(10);
+        Map<Integer, WxPayOrderNotifyCoupon> coupons = Maps.newTreeMap();
         while (reader.hasMoreChildren()) {
             reader.moveDown();
             if (fieldMap.containsKey(reader.getNodeName())) {
                 Field field = fieldMap.get(reader.getNodeName());
-                setFieldValue(context, obj, field);
+                this.setFieldValue(context, obj, field);
             } else if (StringUtils.startsWith(reader.getNodeName(), "coupon_id_")) {
                 String id = (String) context.convertAnother(obj, String.class);
-                getIndex(coupons, reader.getNodeName()).setCouponId(id);
+                this.getElement(coupons, reader.getNodeName()).setCouponId(id);
             } else if (StringUtils.startsWith(reader.getNodeName(), "coupon_type_")) {
                 String type = (String) context.convertAnother(obj, String.class);
-                getIndex(coupons, reader.getNodeName()).setCouponType(type);
+                this.getElement(coupons, reader.getNodeName()).setCouponType(type);
             } else if (StringUtils.startsWith(reader.getNodeName(), "coupon_fee_")) {
                 Integer fee = (Integer) context.convertAnother(obj, Integer.class);
-                getIndex(coupons, reader.getNodeName()).setCouponFee(fee);
+                this.getElement(coupons, reader.getNodeName()).setCouponFee(fee);
             }
             reader.moveUp();
         }
 
-        obj.setCouponList(coupons);
+        obj.setCouponList(Lists.newArrayList(coupons.values()));
+
         return obj;
     }
 
@@ -102,28 +103,25 @@ public class WxPayOrderNotifyResultConverter extends AbstractReflectionConverter
                 PropertyDescriptor pd = new PropertyDescriptor(field.getName(), obj.getClass());
                 pd.getWriteMethod().invoke(obj, val);
             }
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
     }
 
     private Map<String, Field> getFieldMap(List<Field> fields) {
-        Map<String, Field> fieldMap = Maps.uniqueIndex(fields, new Function<Field, String>() {
-            @Override
-            public String apply(Field field) {
-                if (field.isAnnotationPresent(XStreamAlias.class)) {
-                    return field.getAnnotation(XStreamAlias.class).value();
-                }
-                return field.getName();
+        return Maps.uniqueIndex(fields, field -> {
+            if (field.isAnnotationPresent(XStreamAlias.class)) {
+                return field.getAnnotation(XStreamAlias.class).value();
             }
+            return field.getName();
         });
-        return fieldMap;
     }
 
-    private WxPayOrderNotifyCoupon getIndex(List<WxPayOrderNotifyCoupon> coupons, String nodeName) {
-        Integer index = Integer.valueOf(StringUtils.substring(nodeName, nodeName.lastIndexOf("_") + 1));
-        if (index >= coupons.size() || coupons.get(index) == null) {
-            coupons.add(index, new WxPayOrderNotifyCoupon());
+    private WxPayOrderNotifyCoupon getElement(Map<Integer, WxPayOrderNotifyCoupon> coupons, String nodeName) {
+        Integer index = Integer.valueOf(StringUtils.substringAfterLast(nodeName, "_"));
+        if (coupons.get(index) == null) {
+            coupons.put(index, new WxPayOrderNotifyCoupon());
         }
+
         return coupons.get(index);
     }
 }

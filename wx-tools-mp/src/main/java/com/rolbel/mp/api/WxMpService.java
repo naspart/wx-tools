@@ -1,7 +1,7 @@
 package com.rolbel.mp.api;
 
 import com.rolbel.common.bean.WxJsapiSignature;
-import com.rolbel.common.exception.WxErrorException;
+import com.rolbel.common.error.WxErrorException;
 import com.rolbel.common.util.http.RequestExecutor;
 import com.rolbel.common.util.http.RequestHttp;
 import com.rolbel.mp.bean.WxMpSemanticQuery;
@@ -58,7 +58,7 @@ public interface WxMpService {
     /**
      * oauth2授权的url连接
      */
-    String CONNECT_OAUTH2_AUTHORIZE_URL = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=%s&redirect_uri=%s&response_type=code&scope=%s&state=%s#wechat_redirect";
+    String CONNECT_OAUTH2_AUTHORIZE_URL = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=%s&redirect_uri=%s&response_type=code&scope=%s&state=%s&connect_redirect=1#wechat_redirect";
 
     /**
      * 获取公众号的自动回复规则
@@ -408,6 +408,22 @@ public interface WxMpService {
      */
     WxMpMassMessageService getMassMessageService();
 
+    WxMpCardCodeService getCardCodeService();
+
+    /**
+     * 返回AI开放接口方法的实现类对象，以方便调用其各个接口
+     *
+     * @return WxMpAiOpenService
+     */
+    WxMpAiOpenService getAiOpenService();
+
+    /**
+     * 返回WIFI接口方法的实现类对象，以方便调用其各个接口
+     *
+     * @return WxMpWifiService
+     */
+    WxMpWifiService getWifiService();
+
     void setKefuService(WxMpKefuService kefuService);
 
     void setMaterialService(WxMpMaterialService materialService);
@@ -438,7 +454,7 @@ public interface WxMpService {
 
     void setMassMessageService(WxMpMassMessageService massMessageService);
 
-    WxMpCardCodeService getCardCodeService();
-
     void setCardCodeService(WxMpCardCodeService cardCodeService);
+
+    void setAiOpenService(WxMpAiOpenService aiOpenService);
 }

@@ -112,8 +112,8 @@ public abstract class BaseWxPayResult implements Serializable {
      *
      * @param fee 将要被转换为元的分的数值
      */
-    public static String feeToYuan(Integer fee) {
-        return new BigDecimal(Double.valueOf(fee) / 100).setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString();
+    public static String fenToYuan(Integer fen) {
+        return new BigDecimal(Double.valueOf(fen) / 100).setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString();
     }
 
     /**

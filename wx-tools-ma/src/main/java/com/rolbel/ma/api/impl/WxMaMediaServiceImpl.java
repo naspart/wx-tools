@@ -2,9 +2,9 @@ package com.rolbel.ma.api.impl;
 
 import com.rolbel.ma.api.WxMaMediaService;
 import com.rolbel.ma.api.WxMaService;
-import com.rolbel.common.bean.result.WxError;
+import com.rolbel.common.error.WxError;
 import com.rolbel.common.bean.result.WxMediaUploadResult;
-import com.rolbel.common.exception.WxErrorException;
+import com.rolbel.common.error.WxErrorException;
 import com.rolbel.common.util.fs.FileUtil;
 import com.rolbel.common.util.http.BaseMediaDownloadRequestExecutor;
 import com.rolbel.common.util.http.MediaUploadRequestExecutor;

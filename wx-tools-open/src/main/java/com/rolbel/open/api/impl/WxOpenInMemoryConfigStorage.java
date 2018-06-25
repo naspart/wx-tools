@@ -3,8 +3,8 @@ package com.rolbel.open.api.impl;
 
 import com.rolbel.ma.config.WxMaConfig;
 import com.rolbel.common.bean.WxAccessToken;
-import com.rolbel.common.util.ToStringUtils;
-import com.rolbel.common.util.http.ApacheHttpClientBuilder;
+import com.rolbel.common.util.ToStringUtil;
+import com.rolbel.common.util.http.apache.ApacheHttpClientBuilder;
 import com.rolbel.mp.api.WxMpConfigStorage;
 import com.rolbel.open.api.WxOpenConfigStorage;
 import com.rolbel.open.bean.WxOpenAuthorizerAccessToken;
@@ -392,7 +392,7 @@ public class WxOpenInMemoryConfigStorage implements WxOpenConfigStorage {
 
         @Override
         public String toString() {
-            return ToStringUtils.toSimpleString(this);
+            return ToStringUtil.toSimpleString(this);
         }
 
         @Override

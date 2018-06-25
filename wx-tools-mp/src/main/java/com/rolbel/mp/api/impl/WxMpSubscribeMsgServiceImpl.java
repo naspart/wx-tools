@@ -1,6 +1,6 @@
 package com.rolbel.mp.api.impl;
 
-import com.rolbel.common.exception.WxErrorException;
+import com.rolbel.common.error.WxErrorException;
 import com.rolbel.common.util.http.URIUtil;
 import com.rolbel.mp.api.WxMpConfigStorage;
 import com.rolbel.mp.api.WxMpService;

@@ -34,8 +34,8 @@ public class WxPayServiceApacheHttpImpl extends BaseWxPayServiceImpl {
         try {
             HttpClientBuilder httpClientBuilder = createHttpClientBuilder(useKey);
             HttpPost httpPost = this.createHttpPost(url, requestStr);
-            try (CloseableHttpClient httpclient = httpClientBuilder.build()) {
-                try (CloseableHttpResponse response = httpclient.execute(httpPost)) {
+            try (CloseableHttpClient httpClient = httpClientBuilder.build()) {
+                try (CloseableHttpResponse response = httpClient.execute(httpPost)) {
                     final byte[] bytes = EntityUtils.toByteArray(response.getEntity());
                     final String responseData = Base64.encodeBase64String(bytes);
                     this.log.info("\n【请求地址】：{}\n【请求数据】：{}\n【响应数据(Base64编码后)】：{}", url, requestStr, responseData);
@@ -57,8 +57,8 @@ public class WxPayServiceApacheHttpImpl extends BaseWxPayServiceImpl {
         try {
             HttpClientBuilder httpClientBuilder = this.createHttpClientBuilder(useKey);
             HttpPost httpPost = this.createHttpPost(url, requestStr);
-            try (CloseableHttpClient httpclient = httpClientBuilder.build()) {
-                try (CloseableHttpResponse response = httpclient.execute(httpPost)) {
+            try (CloseableHttpClient httpClient = httpClientBuilder.build()) {
+                try (CloseableHttpResponse response = httpClient.execute(httpPost)) {
                     String responseString = EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
                     this.log.info("\n【请求地址】：{}\n【请求数据】：{}\n【响应数据】：{}", url, requestStr, responseString);
                     wxApiData.set(new WxPayApiData(url, requestStr, responseString, null));
@@ -87,7 +87,7 @@ public class WxPayServiceApacheHttpImpl extends BaseWxPayServiceImpl {
     private HttpClientBuilder createHttpClientBuilder(boolean useKey) throws WxPayException {
         HttpClientBuilder httpClientBuilder = HttpClients.custom();
         if (useKey) {
-            this.setKey(httpClientBuilder);
+            this.initSSLContext(httpClientBuilder);
         }
 
         if (StringUtils.isNotBlank(this.getConfig().getHttpProxyHost())
@@ -115,15 +115,14 @@ public class WxPayServiceApacheHttpImpl extends BaseWxPayServiceImpl {
         return httpPost;
     }
 
-    private void setKey(HttpClientBuilder httpClientBuilder) throws WxPayException {
+    private void initSSLContext(HttpClientBuilder httpClientBuilder) throws WxPayException {
         SSLContext sslContext = this.getConfig().getSslContext();
         if (null == sslContext) {
             sslContext = this.getConfig().initSSLContext();
         }
 
-        SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(sslContext,
+        SSLConnectionSocketFactory connectionSocketFactory = new SSLConnectionSocketFactory(sslContext,
                 new String[]{"TLSv1"}, null, new DefaultHostnameVerifier());
-        httpClientBuilder.setSSLSocketFactory(sslsf);
+        httpClientBuilder.setSSLSocketFactory(connectionSocketFactory);
     }
-
 }

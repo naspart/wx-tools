@@ -40,6 +40,11 @@ public class EntPayQueryRequest extends BaseWxPayRequest {
     }
 
     @Override
+    protected boolean ignoreSignType() {
+        return true;
+    }
+
+    @Override
     public String toString() {
         return ToStringUtil.toSimpleString(this);
     }

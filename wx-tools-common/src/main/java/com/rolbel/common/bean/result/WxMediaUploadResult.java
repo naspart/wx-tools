@@ -1,6 +1,6 @@
 package com.rolbel.common.bean.result;
 
-import com.rolbel.common.util.ToStringUtils;
+import com.rolbel.common.util.ToStringUtil;
 import com.rolbel.common.util.json.WxGsonBuilder;
 import lombok.Data;
 
@@ -21,6 +21,6 @@ public class WxMediaUploadResult implements Serializable {
 
     @Override
     public String toString() {
-        return ToStringUtils.toSimpleString(this);
+        return ToStringUtil.toSimpleString(this);
     }
 }

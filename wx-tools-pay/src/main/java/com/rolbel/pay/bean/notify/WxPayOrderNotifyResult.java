@@ -8,7 +8,7 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import com.rolbel.common.util.ToStringUtils;
+import com.rolbel.common.util.ToStringUtil;
 import com.rolbel.common.util.xml.XStreamInitializer;
 
 import java.util.List;
@@ -268,6 +268,18 @@ public class WxPayOrderNotifyResult extends BaseWxPayResult {
     @XStreamAlias("time_end")
     private String timeEnd;
 
+    /**
+     * <pre>
+     * 字段名：接口版本号.
+     * 变量名：version
+     * 类型：String(32)
+     * 示例值：1.0
+     * 更多信息，详见文档：https://pay.weixin.qq.com/wiki/doc/api/danpin.php?chapter=9_101&index=1
+     * </pre>
+     */
+    @XStreamAlias("version")
+    private String version;
+
     public static WxPayOrderNotifyResult fromXML(String xmlString) {
         XStream xstream = XStreamInitializer.getInstance();
         xstream.processAnnotations(WxPayOrderNotifyResult.class);
@@ -291,6 +303,6 @@ public class WxPayOrderNotifyResult extends BaseWxPayResult {
 
     @Override
     public String toString() {
-        return ToStringUtils.toSimpleString(this);
+        return ToStringUtil.toSimpleString(this);
     }
 }

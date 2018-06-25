@@ -1,10 +1,10 @@
 package com.rolbel.open.api.impl;
 
-import com.rolbel.common.exception.WxErrorException;
+import com.rolbel.common.error.WxErrorException;
 import com.rolbel.common.util.http.HttpType;
 import com.rolbel.common.util.http.SimpleGetRequestExecutor;
 import com.rolbel.common.util.http.SimplePostRequestExecutor;
-import com.rolbel.common.util.http.DefaultApacheHttpClientBuilder;
+import com.rolbel.common.util.http.apache.DefaultApacheHttpClientBuilder;
 import org.apache.http.HttpHost;
 import org.apache.http.impl.client.CloseableHttpClient;
 

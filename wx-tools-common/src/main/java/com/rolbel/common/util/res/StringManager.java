@@ -195,12 +195,12 @@ public class StringManager {
         str = this.bundle.getString(key);
       }
     } catch (MissingResourceException mre) {
-      //bad: shouldn't mask an exception the following way:
+      //bad: shouldn't mask an error the following way:
       //   str = "[cannot find message associated with key '" + key +
       //         "' due to " + mre + "]";
       //     because it hides the fact that the String was missing
       //     from the calling code.
-      //good: could just throw the exception (or wrap it in another)
+      //good: could just throw the error (or wrap it in another)
       //      but that would probably cause much havoc on existing
       //      code.
       //better: consistent with container pattern to

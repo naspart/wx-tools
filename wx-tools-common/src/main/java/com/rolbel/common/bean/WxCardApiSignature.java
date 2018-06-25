@@ -1,6 +1,6 @@
 package com.rolbel.common.bean;
 
-import com.rolbel.common.util.ToStringUtils;
+import com.rolbel.common.util.ToStringUtil;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -32,7 +32,7 @@ public class WxCardApiSignature implements Serializable {
 
     @Override
     public String toString() {
-        return ToStringUtils.toSimpleString(this);
+        return ToStringUtil.toSimpleString(this);
     }
 
 }

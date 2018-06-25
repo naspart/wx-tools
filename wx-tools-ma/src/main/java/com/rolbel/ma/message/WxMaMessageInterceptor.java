@@ -2,7 +2,7 @@ package com.rolbel.ma.message;
 
 import com.rolbel.ma.api.WxMaService;
 import com.rolbel.ma.bean.WxMaMessage;
-import com.rolbel.common.exception.WxErrorException;
+import com.rolbel.common.error.WxErrorException;
 import com.rolbel.common.session.WxSessionManager;
 
 import java.util.Map;

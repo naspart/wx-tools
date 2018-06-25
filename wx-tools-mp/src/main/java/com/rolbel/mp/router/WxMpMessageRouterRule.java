@@ -1,7 +1,7 @@
 package com.rolbel.mp.router;
 
 import com.rolbel.common.api.WxErrorExceptionHandler;
-import com.rolbel.common.exception.WxErrorException;
+import com.rolbel.common.error.WxErrorException;
 import com.rolbel.common.session.WxSessionManager;
 import com.rolbel.mp.api.WxMpMessageRouter;
 import com.rolbel.mp.api.WxMpService;

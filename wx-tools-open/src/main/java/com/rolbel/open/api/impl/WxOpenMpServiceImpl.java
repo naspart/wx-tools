@@ -1,6 +1,6 @@
 package com.rolbel.open.api.impl;
 
-import com.rolbel.common.exception.WxErrorException;
+import com.rolbel.common.error.WxErrorException;
 import com.rolbel.mp.api.WxMpConfigStorage;
 import com.rolbel.mp.api.impl.WxMpServiceImpl;
 import com.rolbel.mp.bean.result.WxMpOAuth2AccessToken;

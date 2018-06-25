@@ -1,7 +1,7 @@
 package com.rolbel.cp.api;
 
 import com.rolbel.common.bean.WxJsapiSignature;
-import com.rolbel.common.exception.WxErrorException;
+import com.rolbel.common.error.WxErrorException;
 import com.rolbel.common.session.WxSession;
 import com.rolbel.common.session.WxSessionManager;
 import com.rolbel.common.util.http.MediaUploadRequestExecutor;

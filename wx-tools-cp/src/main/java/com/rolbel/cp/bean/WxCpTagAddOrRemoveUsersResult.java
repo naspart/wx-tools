@@ -3,7 +3,7 @@ package com.rolbel.cp.bean;
 import com.google.common.base.Splitter;
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
-import com.rolbel.common.util.ToStringUtils;
+import com.rolbel.common.util.ToStringUtil;
 import com.rolbel.cp.util.json.WxCpGsonBuilder;
 import org.apache.commons.lang3.StringUtils;
 
@@ -23,7 +23,7 @@ public class WxCpTagAddOrRemoveUsersResult implements Serializable {
 
   @Override
   public String toString() {
-    return ToStringUtils.toSimpleString(this);
+    return ToStringUtil.toSimpleString(this);
   }
 
   public static WxCpTagAddOrRemoveUsersResult fromJson(String json) {

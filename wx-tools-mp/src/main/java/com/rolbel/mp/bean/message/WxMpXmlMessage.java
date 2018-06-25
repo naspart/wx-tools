@@ -1,6 +1,6 @@
 package com.rolbel.mp.bean.message;
 
-import com.rolbel.common.util.ToStringUtils;
+import com.rolbel.common.util.ToStringUtil;
 import com.rolbel.common.util.xml.XStreamCDataConverter;
 import com.rolbel.mp.api.WxMpConfigStorage;
 import com.rolbel.mp.util.crypto.WxMpCryptUtil;
@@ -497,6 +497,6 @@ public class WxMpXmlMessage implements Serializable {
 
     @Override
     public String toString() {
-        return ToStringUtils.toSimpleString(this);
+        return ToStringUtil.toSimpleString(this);
     }
 }

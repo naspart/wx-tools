@@ -2,7 +2,7 @@ package com.rolbel.open.api;
 
 import com.rolbel.ma.api.WxMaService;
 import com.rolbel.ma.bean.WxMaJscode2SessionResult;
-import com.rolbel.common.exception.WxErrorException;
+import com.rolbel.common.error.WxErrorException;
 import com.rolbel.mp.api.WxMpService;
 import com.rolbel.mp.bean.result.WxMpOAuth2AccessToken;
 import com.rolbel.open.bean.message.WxOpenXmlMessage;

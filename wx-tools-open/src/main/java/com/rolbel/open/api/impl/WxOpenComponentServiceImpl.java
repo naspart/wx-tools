@@ -3,7 +3,7 @@ package com.rolbel.open.api.impl;
 import com.rolbel.ma.api.WxMaService;
 import com.rolbel.ma.bean.WxMaJscode2SessionResult;
 import com.google.gson.JsonObject;
-import com.rolbel.common.exception.WxErrorException;
+import com.rolbel.common.error.WxErrorException;
 import com.rolbel.common.util.crypto.SHA1;
 import com.rolbel.common.util.http.URIUtil;
 import com.rolbel.common.util.json.WxGsonBuilder;

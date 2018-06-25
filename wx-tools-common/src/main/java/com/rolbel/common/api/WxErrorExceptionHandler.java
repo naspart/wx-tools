@@ -1,6 +1,6 @@
 package com.rolbel.common.api;
 
-import com.rolbel.common.exception.WxErrorException;
+import com.rolbel.common.error.WxErrorException;
 
 /**
  * WxErrorException处理器.

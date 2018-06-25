@@ -2,8 +2,8 @@ package com.rolbel.common.util;
 
 import com.google.common.collect.Lists;
 import com.rolbel.common.annotation.Required;
-import com.rolbel.common.bean.result.WxError;
-import com.rolbel.common.exception.WxErrorException;
+import com.rolbel.common.error.WxError;
+import com.rolbel.common.error.WxErrorException;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

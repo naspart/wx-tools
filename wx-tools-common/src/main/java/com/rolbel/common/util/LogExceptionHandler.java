@@ -1,7 +1,7 @@
 package com.rolbel.common.util;
 
 import com.rolbel.common.api.WxErrorExceptionHandler;
-import com.rolbel.common.exception.WxErrorException;
+import com.rolbel.common.error.WxErrorException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

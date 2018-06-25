@@ -4,7 +4,7 @@ import com.rolbel.ma.bean.template.WxMaTemplateAddResult;
 import com.rolbel.ma.bean.template.WxMaTemplateLibraryGetResult;
 import com.rolbel.ma.bean.template.WxMaTemplateLibraryListResult;
 import com.rolbel.ma.bean.template.WxMaTemplateListResult;
-import com.rolbel.common.exception.WxErrorException;
+import com.rolbel.common.error.WxErrorException;
 
 import java.util.List;
 

@@ -2,7 +2,7 @@ package com.rolbel.ma.api;
 
 import com.rolbel.ma.bean.WxMaJscode2SessionResult;
 import com.rolbel.ma.config.WxMaConfig;
-import com.rolbel.common.exception.WxErrorException;
+import com.rolbel.common.error.WxErrorException;
 import com.rolbel.common.util.http.MediaUploadRequestExecutor;
 import com.rolbel.common.util.http.RequestExecutor;
 import com.rolbel.common.util.http.RequestHttp;

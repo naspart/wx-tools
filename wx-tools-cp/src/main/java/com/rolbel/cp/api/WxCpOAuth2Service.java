@@ -1,6 +1,6 @@
 package com.rolbel.cp.api;
 
-import com.rolbel.common.exception.WxErrorException;
+import com.rolbel.common.error.WxErrorException;
 
 /**
  * <pre>

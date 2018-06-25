@@ -1,7 +1,7 @@
 package com.rolbel.mp.api;
 
 import com.rolbel.common.bean.WxAccessToken;
-import com.rolbel.common.util.http.ApacheHttpClientBuilder;
+import com.rolbel.common.util.http.apache.ApacheHttpClientBuilder;
 
 import java.io.File;
 import java.util.concurrent.locks.Lock;

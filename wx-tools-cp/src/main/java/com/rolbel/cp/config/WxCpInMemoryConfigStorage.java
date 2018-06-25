@@ -1,8 +1,8 @@
 package com.rolbel.cp.config;
 
 import com.rolbel.common.bean.WxAccessToken;
-import com.rolbel.common.util.ToStringUtils;
-import com.rolbel.common.util.http.ApacheHttpClientBuilder;
+import com.rolbel.common.util.ToStringUtil;
+import com.rolbel.common.util.http.apache.ApacheHttpClientBuilder;
 
 import java.io.File;
 
@@ -201,7 +201,7 @@ public class WxCpInMemoryConfigStorage implements WxCpConfigStorage {
 
   @Override
   public String toString() {
-    return ToStringUtils.toSimpleString(this);
+    return ToStringUtil.toSimpleString(this);
   }
 
   @Override

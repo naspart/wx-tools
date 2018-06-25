@@ -1,6 +1,9 @@
 package com.rolbel.common.util.http;
 
 import com.rolbel.common.bean.result.WxMediaUploadResult;
+import com.rolbel.common.util.http.apache.ApacheMediaUploadRequestExecutor;
+import com.rolbel.common.util.http.jodd.JoddHttpMediaUploadRequestExecutor;
+import com.rolbel.common.util.http.okhttp.OkHttpMediaUploadRequestExecutor;
 
 import java.io.File;
 
@@ -20,6 +23,10 @@ public abstract class MediaUploadRequestExecutor<H, P> implements RequestExecuto
         switch (requestHttp.getRequestType()) {
             case APACHE_HTTP:
                 return new ApacheMediaUploadRequestExecutor(requestHttp);
+            case JODD_HTTP:
+                return new JoddHttpMediaUploadRequestExecutor(requestHttp);
+            case OK_HTTP:
+                return new OkHttpMediaUploadRequestExecutor(requestHttp);
             default:
                 return null;
         }

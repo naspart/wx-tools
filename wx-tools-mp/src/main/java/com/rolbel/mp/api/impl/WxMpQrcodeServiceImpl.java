@@ -1,12 +1,12 @@
 package com.rolbel.mp.api.impl;
 
 import com.google.gson.JsonObject;
-import com.rolbel.common.bean.result.WxError;
-import com.rolbel.common.exception.WxErrorException;
+import com.rolbel.common.error.WxError;
+import com.rolbel.common.error.WxErrorException;
 import com.rolbel.mp.api.WxMpQrcodeService;
 import com.rolbel.mp.api.WxMpService;
 import com.rolbel.mp.bean.result.WxMpQrCodeTicket;
-import com.rolbel.mp.util.http.QrCodeRequestExecutor;
+import com.rolbel.mp.util.request_executor.qrcode.QrCodeRequestExecutor;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;

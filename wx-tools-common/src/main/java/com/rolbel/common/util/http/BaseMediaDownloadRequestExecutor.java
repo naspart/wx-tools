@@ -1,5 +1,9 @@
 package com.rolbel.common.util.http;
 
+import com.rolbel.common.util.http.apache.ApacheMediaDownloadRequestExecutor;
+import com.rolbel.common.util.http.jodd.JoddHttpMediaDownloadRequestExecutor;
+import com.rolbel.common.util.http.okhttp.OkHttpMediaDownloadRequestExecutor;
+
 import java.io.File;
 
 /**
@@ -21,6 +25,10 @@ public abstract class BaseMediaDownloadRequestExecutor<H, P> implements RequestE
         switch (requestHttp.getRequestType()) {
             case APACHE_HTTP:
                 return new ApacheMediaDownloadRequestExecutor(requestHttp, tmpDirFile);
+            case JODD_HTTP:
+                return new JoddHttpMediaDownloadRequestExecutor(requestHttp, tmpDirFile);
+            case OK_HTTP:
+                return new OkHttpMediaDownloadRequestExecutor(requestHttp, tmpDirFile);
             default:
                 return null;
         }

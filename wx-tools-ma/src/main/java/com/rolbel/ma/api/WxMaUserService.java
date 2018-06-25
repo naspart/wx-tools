@@ -3,7 +3,7 @@ package com.rolbel.ma.api;
 import com.rolbel.ma.bean.WxMaJscode2SessionResult;
 import com.rolbel.ma.bean.WxMaPhoneNumberInfo;
 import com.rolbel.ma.bean.WxMaUserInfo;
-import com.rolbel.common.exception.WxErrorException;
+import com.rolbel.common.error.WxErrorException;
 
 /**
  * 用户信息相关操作接口.

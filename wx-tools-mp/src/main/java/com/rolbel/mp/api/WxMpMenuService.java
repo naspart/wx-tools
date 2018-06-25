@@ -1,7 +1,7 @@
 package com.rolbel.mp.api;
 
 import com.rolbel.common.bean.menu.WxMenu;
-import com.rolbel.common.exception.WxErrorException;
+import com.rolbel.common.error.WxErrorException;
 import com.rolbel.mp.bean.menu.WxMpGetSelfMenuInfoResult;
 import com.rolbel.mp.bean.menu.WxMpMenu;
 
