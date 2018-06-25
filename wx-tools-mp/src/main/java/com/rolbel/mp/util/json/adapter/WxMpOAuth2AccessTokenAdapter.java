@@ -2,7 +2,7 @@ package com.rolbel.mp.util.json.adapter;
 
 import com.google.gson.*;
 import com.rolbel.common.util.json.GsonHelper;
-import com.rolbel.mp.bean.result.WxMpOAuth2AccessToken;
+import com.rolbel.mp.bean.WxMpOAuth2AccessToken;
 
 import java.lang.reflect.Type;
 

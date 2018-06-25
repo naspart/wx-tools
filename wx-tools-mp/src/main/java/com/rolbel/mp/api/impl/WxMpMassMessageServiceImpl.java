@@ -5,8 +5,8 @@ import com.rolbel.common.error.WxErrorException;
 import com.rolbel.mp.api.WxMpMassMessageService;
 import com.rolbel.mp.api.WxMpService;
 import com.rolbel.mp.bean.*;
-import com.rolbel.mp.bean.result.WxMpMassSendResult;
-import com.rolbel.mp.bean.result.WxMpMassUploadResult;
+import com.rolbel.mp.bean.WxMpMassSendResult;
+import com.rolbel.mp.bean.WxMpMassUploadResult;
 
 /**
  * <pre>

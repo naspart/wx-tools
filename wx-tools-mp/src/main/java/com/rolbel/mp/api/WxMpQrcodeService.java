@@ -1,7 +1,7 @@
 package com.rolbel.mp.api;
 
 import com.rolbel.common.error.WxErrorException;
-import com.rolbel.mp.bean.result.WxMpQrCodeTicket;
+import com.rolbel.mp.bean.WxMpQrCodeTicket;
 
 import java.io.File;
 

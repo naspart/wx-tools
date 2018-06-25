@@ -1,4 +1,4 @@
-package com.rolbel.mp.bean.result;
+package com.rolbel.mp.bean;
 
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;

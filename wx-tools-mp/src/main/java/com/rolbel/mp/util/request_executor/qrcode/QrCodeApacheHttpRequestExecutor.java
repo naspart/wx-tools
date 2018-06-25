@@ -7,7 +7,7 @@ import com.rolbel.common.util.fs.FileUtil;
 import com.rolbel.common.util.http.RequestHttp;
 import com.rolbel.common.util.http.apache.InputStreamResponseHandler;
 import com.rolbel.common.util.http.apache.Utf8ResponseHandler;
-import com.rolbel.mp.bean.result.WxMpQrCodeTicket;
+import com.rolbel.mp.bean.WxMpQrCodeTicket;
 import org.apache.http.Header;
 import org.apache.http.HttpHost;
 import org.apache.http.client.config.RequestConfig;

@@ -10,7 +10,6 @@ import com.rolbel.mp.bean.kefu.WxMpKefuMessage;
 import com.rolbel.mp.bean.material.*;
 import com.rolbel.mp.bean.member_card.WxMpMemberCardUpdateResult;
 import com.rolbel.mp.bean.member_card.WxMpMemberCardUserInfoResult;
-import com.rolbel.mp.bean.result.*;
 import com.rolbel.mp.bean.subscribe.WxMpSubscribeMessage;
 import com.rolbel.mp.bean.template.WxMpTemplateIndustry;
 import com.rolbel.mp.bean.template.WxMpTemplateMessage;

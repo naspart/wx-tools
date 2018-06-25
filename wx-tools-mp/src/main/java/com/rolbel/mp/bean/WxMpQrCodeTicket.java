@@ -1,4 +1,4 @@
-package com.rolbel.mp.bean.result;
+package com.rolbel.mp.bean;
 
 import com.rolbel.mp.util.json.WxMpGsonBuilder;
 import lombok.Data;

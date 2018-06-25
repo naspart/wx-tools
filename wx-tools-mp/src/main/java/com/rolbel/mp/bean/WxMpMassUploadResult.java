@@ -1,4 +1,4 @@
-package com.rolbel.mp.bean.result;
+package com.rolbel.mp.bean;
 
 import com.rolbel.common.util.ToStringUtil;
 import com.rolbel.mp.util.json.WxMpGsonBuilder;

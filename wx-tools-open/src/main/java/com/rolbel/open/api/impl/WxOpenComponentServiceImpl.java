@@ -11,7 +11,7 @@ import com.rolbel.common.util.crypto.SHA1;
 import com.rolbel.common.util.http.URIUtil;
 import com.rolbel.common.util.json.WxGsonBuilder;
 import com.rolbel.mp.api.WxMpService;
-import com.rolbel.mp.bean.result.WxMpOAuth2AccessToken;
+import com.rolbel.mp.bean.WxMpOAuth2AccessToken;
 import com.rolbel.open.api.WxOpenComponentService;
 import com.rolbel.open.api.WxOpenConfigStorage;
 import com.rolbel.open.api.WxOpenService;

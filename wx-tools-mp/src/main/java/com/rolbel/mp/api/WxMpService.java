@@ -5,9 +5,9 @@ import com.rolbel.common.error.WxErrorException;
 import com.rolbel.common.util.http.RequestExecutor;
 import com.rolbel.common.util.http.RequestHttp;
 import com.rolbel.mp.bean.WxMpSemanticQuery;
-import com.rolbel.mp.bean.result.WxMpCurrentAutoReplyInfo;
-import com.rolbel.mp.bean.result.WxMpOAuth2AccessToken;
-import com.rolbel.mp.bean.result.WxMpSemanticQueryResult;
+import com.rolbel.mp.bean.WxMpCurrentAutoReplyInfo;
+import com.rolbel.mp.bean.WxMpOAuth2AccessToken;
+import com.rolbel.mp.bean.WxMpSemanticQueryResult;
 import com.rolbel.mp.bean.user.WxMpUser;
 import com.rolbel.common.util.http.MediaUploadRequestExecutor;
 

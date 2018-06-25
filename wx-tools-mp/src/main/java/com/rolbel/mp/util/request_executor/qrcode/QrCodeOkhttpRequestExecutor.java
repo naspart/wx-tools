@@ -6,7 +6,7 @@ import com.rolbel.common.error.WxErrorException;
 import com.rolbel.common.util.fs.FileUtil;
 import com.rolbel.common.util.http.RequestHttp;
 import com.rolbel.common.util.http.okhttp.OkHttpProxyInfo;
-import com.rolbel.mp.bean.result.WxMpQrCodeTicket;
+import com.rolbel.mp.bean.WxMpQrCodeTicket;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;

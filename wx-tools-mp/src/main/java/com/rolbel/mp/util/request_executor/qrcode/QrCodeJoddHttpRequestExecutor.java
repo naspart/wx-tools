@@ -5,7 +5,7 @@ import com.rolbel.common.error.WxError;
 import com.rolbel.common.error.WxErrorException;
 import com.rolbel.common.util.fs.FileUtil;
 import com.rolbel.common.util.http.RequestHttp;
-import com.rolbel.mp.bean.result.WxMpQrCodeTicket;
+import com.rolbel.mp.bean.WxMpQrCodeTicket;
 import jodd.http.HttpConnectionProvider;
 import jodd.http.HttpRequest;
 import jodd.http.HttpResponse;
