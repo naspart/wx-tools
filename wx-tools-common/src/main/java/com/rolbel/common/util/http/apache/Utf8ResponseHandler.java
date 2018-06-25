@@ -12,8 +12,6 @@ import java.io.IOException;
 
 /**
  * copy from {@link org.apache.http.impl.client.BasicResponseHandler}
- *
- * @author Daniel Qian
  */
 public class Utf8ResponseHandler implements ResponseHandler<String> {
 

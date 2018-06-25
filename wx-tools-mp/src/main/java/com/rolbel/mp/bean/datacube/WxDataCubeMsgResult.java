@@ -11,8 +11,7 @@ import java.util.List;
 /**
  * 消息分析数据接口返回结果对象.
  * Created by Binary Wang on 2016/8/29.
- *
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
+
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

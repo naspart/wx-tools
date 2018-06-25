@@ -5,9 +5,6 @@ import lombok.Data;
 
 import java.io.Serializable;
 
-/**
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
- */
 @Data
 public class WxMaUserInfo implements Serializable {
   private static final long serialVersionUID = 6719822331555402137L;

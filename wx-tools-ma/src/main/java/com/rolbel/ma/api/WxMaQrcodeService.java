@@ -13,8 +13,6 @@ import java.io.File;
  *
  * 文档地址：https://mp.weixin.qq.com/debug/wxadoc/dev/api/qrcode.html
  * </pre>
- *
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
  */
 public interface WxMaQrcodeService {
   String CREATE_QRCODE_URL = "https://api.weixin.qq.com/cgi-bin/wxaapp/createwxaqrcode";

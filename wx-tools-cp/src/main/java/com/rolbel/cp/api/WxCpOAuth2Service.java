@@ -7,8 +7,7 @@ import com.rolbel.common.error.WxErrorException;
  * OAuth2相关管理接口
  *  Created by BinaryWang on 2017/6/24.
  * </pre>
- *
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
+
  */
 public interface WxCpOAuth2Service {
   /**

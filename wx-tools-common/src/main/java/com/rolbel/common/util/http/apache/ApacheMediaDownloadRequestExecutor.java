@@ -40,8 +40,7 @@ public class ApacheMediaDownloadRequestExecutor extends BaseMediaDownloadRequest
         }
 
         try (CloseableHttpResponse response = requestHttp.getRequestHttpClient().execute(httpGet);
-             InputStream inputStream = InputStreamResponseHandler.INSTANCE
-                     .handleResponse(response)) {
+             InputStream inputStream = InputStreamResponseHandler.INSTANCE.handleResponse(response)) {
             Header[] contentTypeHeader = response.getHeaders("Content-Type");
             if (contentTypeHeader != null && contentTypeHeader.length > 0) {
                 if (contentTypeHeader[0].getValue().startsWith(ContentType.APPLICATION_JSON.getMimeType())) {

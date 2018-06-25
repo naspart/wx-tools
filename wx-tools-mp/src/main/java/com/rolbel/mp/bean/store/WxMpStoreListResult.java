@@ -13,8 +13,7 @@ import java.util.List;
  * 门店列表结果类
  * Created by Binary Wang on 2016-09-27.
  * </pre>
- *
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
+
  */
 @Data
 public class WxMpStoreListResult implements Serializable {

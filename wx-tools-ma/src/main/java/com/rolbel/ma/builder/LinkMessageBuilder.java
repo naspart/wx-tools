@@ -6,8 +6,6 @@ import static com.rolbel.ma.constant.WxMaConstant.KefuMsgType;
 
 /**
  * 图文链接消息builder
- *
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
  */
 public class LinkMessageBuilder extends BaseBuilder<LinkMessageBuilder> {
   private String title;

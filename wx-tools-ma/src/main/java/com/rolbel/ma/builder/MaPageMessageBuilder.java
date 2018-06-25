@@ -6,8 +6,6 @@ import static com.rolbel.ma.constant.WxMaConstant.KefuMsgType;
 
 /**
  * 小程序卡片消息builder
- *
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
  */
 public class MaPageMessageBuilder extends BaseBuilder<MaPageMessageBuilder> {
   private String title;

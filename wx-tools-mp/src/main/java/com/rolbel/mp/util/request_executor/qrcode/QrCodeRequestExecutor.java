@@ -10,8 +10,6 @@ import java.io.File;
 
 /**
  * 获得QrCode图片 请求执行器
- *
- * @author chanjarster
  */
 public abstract class QrCodeRequestExecutor<H, P> implements RequestExecutor<File, WxMpQrCodeTicket> {
     protected RequestHttp<H, P> requestHttp;

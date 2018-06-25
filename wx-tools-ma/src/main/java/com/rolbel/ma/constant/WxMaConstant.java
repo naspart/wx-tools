@@ -4,8 +4,6 @@ package com.rolbel.ma.constant;
  * <pre>
  *  小程序常量.
  * </pre>
- *
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
  */
 public class WxMaConstant {
   /**

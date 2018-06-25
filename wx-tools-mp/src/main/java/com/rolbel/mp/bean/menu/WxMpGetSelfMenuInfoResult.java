@@ -11,8 +11,7 @@ import java.io.Serializable;
  * <pre>
  * Created by Binary Wang on 2016-11-25.
  * </pre>
- *
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
+
  */
 @Data
 public class WxMpGetSelfMenuInfoResult implements Serializable {

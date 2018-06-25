@@ -17,9 +17,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Map;
 
-/**
- * Created by ecoolper on 2017/5/5.
- */
 public class MaterialUploadOkhttpRequestExecutor extends MaterialUploadRequestExecutor<OkHttpClient, OkHttpProxyInfo> {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 

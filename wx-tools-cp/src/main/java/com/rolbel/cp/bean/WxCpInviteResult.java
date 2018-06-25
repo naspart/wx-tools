@@ -14,8 +14,7 @@ import java.util.List;
 /**
  * 邀请成员的结果对象类.
  * Created by Binary Wang on 2018-5-13.
- *
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
+
  */
 @Data
 public class WxCpInviteResult implements Serializable {

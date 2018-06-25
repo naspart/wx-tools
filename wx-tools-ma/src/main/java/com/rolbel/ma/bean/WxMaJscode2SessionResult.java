@@ -13,7 +13,6 @@ import java.io.Serializable;
  * 文档地址：https://mp.weixin.qq.com/debug/wxadoc/dev/api/api-login.html#wxloginobject
  * 微信返回报文：{"session_key":"nzoqhc3OnwHzeTxJs+inbQ==","openid":"oVBkZ0aYgDMDIywRdgPW8-joxXc4"}
  * </pre>
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

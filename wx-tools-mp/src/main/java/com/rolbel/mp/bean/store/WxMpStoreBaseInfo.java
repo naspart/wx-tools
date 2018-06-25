@@ -18,8 +18,7 @@ import java.util.List;
  *  门店基础信息
  *  Created by Binary Wang on 2016-09-23.
  * </pre>
- *
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
+
  */
 @Data
 @Builder

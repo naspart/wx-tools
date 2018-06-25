@@ -11,8 +11,7 @@ import java.io.File;
  * https://mp.weixin.qq.com/wiki?t=resource/res_main&id=21516712282KzWVE
  *  Created by BinaryWang on 2018/6/9.
  * </pre>
- *
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
+
  */
 public interface WxMpAiOpenService {
     String VOICE_UPLOAD_URL = "http://api.weixin.qq.com/cgi-bin/media/voice/addvoicetorecofortext?format=%s&voice_id=%s&lang=%s";

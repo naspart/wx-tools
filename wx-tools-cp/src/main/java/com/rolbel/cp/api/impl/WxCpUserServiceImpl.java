@@ -18,8 +18,7 @@ import java.util.Map;
  * <pre>
  *  Created by BinaryWang on 2017/6/24.
  * </pre>
- *
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
+
  */
 public class WxCpUserServiceImpl implements WxCpUserService {
     private WxCpService mainService;

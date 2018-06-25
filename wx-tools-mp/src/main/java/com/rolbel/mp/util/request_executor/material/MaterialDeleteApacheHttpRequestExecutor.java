@@ -17,9 +17,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by ecoolper on 2017/5/5.
- */
 public class MaterialDeleteApacheHttpRequestExecutor extends MaterialDeleteRequestExecutor<CloseableHttpClient, HttpHost> {
     public MaterialDeleteApacheHttpRequestExecutor(RequestHttp requestHttp) {
         super(requestHttp);
