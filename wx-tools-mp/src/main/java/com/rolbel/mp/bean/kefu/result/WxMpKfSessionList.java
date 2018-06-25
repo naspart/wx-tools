@@ -8,9 +8,6 @@ import lombok.Data;
 import java.io.Serializable;
 import java.util.List;
 
-/**
- * @author Binary Wang
- */
 @Data
 public class WxMpKfSessionList implements Serializable {
     private static final long serialVersionUID = -7680371346226640206L;

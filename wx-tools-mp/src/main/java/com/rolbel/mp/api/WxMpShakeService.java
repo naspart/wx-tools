@@ -2,7 +2,7 @@ package com.rolbel.mp.api;
 
 import com.rolbel.common.error.WxError;
 import com.rolbel.common.error.WxErrorException;
-import com.rolbel.mp.bean.shake.*;
+import com.rolbel.mp.bean.shake_around.*;
 
 /**
  * 摇一摇周边的相关接口
@@ -15,11 +15,11 @@ public interface WxMpShakeService {
     String SHAKE_DEVICE_BIND_PAGE_URL = "https://api.weixin.qq.com/shakearound/device/bindpage";
     String SHAKE_DEVICE_APPLY_URL = "https://api.weixin.qq.com/shakearound/device/applyid";
 
-    void registerShake(WxMpShakeRegisterRequest wxMpShakeRegisterRequest) throws WxErrorException;
+    void registerShake(WxMpShakeAroundRegisterRequest wxMpShakeAroundRegisterRequest) throws WxErrorException;
 
-    WxMpShakeRegisterQueryResult registerStatusQuery() throws WxErrorException;
+    WxMpShakeAroundRegisterQueryResult registerStatusQuery() throws WxErrorException;
 
-    WxMpShakeDeviceApplyResult applyDevice(WxMpShakeDeviceApplyRequest wxMpShakeDeviceApplyRequest) throws WxErrorException;
+    WxMpShakeAroundDeviceApplyResult applyDevice(WxMpShakeAroundDeviceApplyRequest wxMpShakeAroundDeviceApplyRequest) throws WxErrorException;
 
     /**
      * <pre>
@@ -30,9 +30,9 @@ public interface WxMpShakeService {
      * 接口地址：https://api.weixin.qq.com/shakearound/user/getshakeinfo?access_token=ACCESS_TOKE
      * </pre>
      *
-     * @param wxMpShakeQuery 查询参数
+     * @param wxMpShakeAroundQuery 查询参数
      */
-    WxMpShakeInfoResult getShakeInfo(WxMpShakeQuery wxMpShakeQuery) throws WxErrorException;
+    WxMpShakeAroundInfoResult getShakeInfo(WxMpShakeAroundQuery wxMpShakeAroundQuery) throws WxErrorException;
 
     /**
      * <pre>

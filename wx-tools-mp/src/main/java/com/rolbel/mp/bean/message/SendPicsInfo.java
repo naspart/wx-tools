@@ -10,13 +10,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * <pre>
- *  Created by BinaryWang on 2017/5/4.
- * </pre>
- *
- * @author Binary Wang
- */
 @XStreamAlias("SendPicsInfo")
 @Data
 public class SendPicsInfo implements Serializable {

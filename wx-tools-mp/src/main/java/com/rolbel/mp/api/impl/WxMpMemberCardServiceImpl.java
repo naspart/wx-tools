@@ -8,19 +8,19 @@ import com.google.gson.reflect.TypeToken;
 import com.rolbel.common.error.WxErrorException;
 import com.rolbel.mp.api.WxMpMemberCardService;
 import com.rolbel.mp.api.WxMpService;
-import com.rolbel.mp.bean.membercard.WxMpMemberCardActivatedMessage;
-import com.rolbel.mp.bean.membercard.WxMpMemberCardUpdateMessage;
-import com.rolbel.mp.bean.membercard.WxMpMemberCardUpdateResult;
-import com.rolbel.mp.bean.membercard.WxMpMemberCardUserInfoResult;
+import com.rolbel.mp.bean.member_card.WxMpMemberCardActivatedMessage;
+import com.rolbel.mp.bean.member_card.WxMpMemberCardUpdateMessage;
+import com.rolbel.mp.bean.member_card.WxMpMemberCardUpdateResult;
+import com.rolbel.mp.bean.member_card.WxMpMemberCardUserInfoResult;
 import com.rolbel.mp.util.json.WxMpGsonBuilder;
 
 /**
  * 会员卡相关接口的实现类
  */
 public class WxMpMemberCardServiceImpl implements WxMpMemberCardService {
-    private static final String MEMBER_CARD_ACTIVATE = "https://api.weixin.qq.com/wx_card/membercard/activate";
-    private static final String MEMBER_CARD_USER_INFO_GET = "https://api.weixin.qq.com/wx_card/membercard/userinfo/get";
-    private static final String MEMBER_CARD_UPDATE_USER = "https://api.weixin.qq.com/wx_card/membercard/updateuser";
+    private static final String MEMBER_CARD_ACTIVATE = "https://api.weixin.qq.com/card/member_card/activate";
+    private static final String MEMBER_CARD_USER_INFO_GET = "https://api.weixin.qq.com/card/member_card/userinfo/get";
+    private static final String MEMBER_CARD_UPDATE_USER = "https://api.weixin.qq.com/card/member_card/updateuser";
 
     private WxMpService wxMpService;
 

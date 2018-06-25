@@ -3,13 +3,13 @@ package com.rolbel.mp.util.json;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.rolbel.mp.bean.*;
-import com.rolbel.mp.bean.wx_card.WxMpCardInfo;
-import com.rolbel.mp.bean.datacube.WxDataCubeUserCumulate;
-import com.rolbel.mp.bean.datacube.WxDataCubeUserSummary;
+import com.rolbel.mp.bean.card.WxMpCardInfo;
+import com.rolbel.mp.bean.data_cube.WxMpDataCubeUserCumulate;
+import com.rolbel.mp.bean.data_cube.WxMpDataCubeUserSummary;
 import com.rolbel.mp.bean.kefu.WxMpKefuMessage;
 import com.rolbel.mp.bean.material.*;
-import com.rolbel.mp.bean.membercard.WxMpMemberCardUpdateResult;
-import com.rolbel.mp.bean.membercard.WxMpMemberCardUserInfoResult;
+import com.rolbel.mp.bean.member_card.WxMpMemberCardUpdateResult;
+import com.rolbel.mp.bean.member_card.WxMpMemberCardUserInfoResult;
 import com.rolbel.mp.bean.result.*;
 import com.rolbel.mp.bean.subscribe.WxMpSubscribeMessage;
 import com.rolbel.mp.bean.template.WxMpTemplateIndustry;
@@ -17,6 +17,7 @@ import com.rolbel.mp.bean.template.WxMpTemplateMessage;
 import com.rolbel.mp.bean.user.WxMpUser;
 import com.rolbel.mp.bean.user.WxMpUserBlacklistGetResult;
 import com.rolbel.mp.bean.user.WxMpUserList;
+import com.rolbel.mp.bean.card.result.WxMpCardResult;
 import com.rolbel.mp.util.json.adapter.*;
 
 public class WxMpGsonBuilder {
@@ -39,8 +40,8 @@ public class WxMpGsonBuilder {
         INSTANCE.registerTypeAdapter(WxMpSubscribeMessage.class, new WxMpSubscribeMessageGsonAdapter());
         INSTANCE.registerTypeAdapter(WxMpSemanticQueryResult.class, new WxMpSemanticQueryResultAdapter());
         INSTANCE.registerTypeAdapter(WxMpOAuth2AccessToken.class, new WxMpOAuth2AccessTokenAdapter());
-        INSTANCE.registerTypeAdapter(WxDataCubeUserSummary.class, new WxMpUserSummaryGsonAdapter());
-        INSTANCE.registerTypeAdapter(WxDataCubeUserCumulate.class, new WxMpUserCumulateGsonAdapter());
+        INSTANCE.registerTypeAdapter(WxMpDataCubeUserSummary.class, new WxMpUserSummaryGsonAdapter());
+        INSTANCE.registerTypeAdapter(WxMpDataCubeUserCumulate.class, new WxMpUserCumulateGsonAdapter());
         INSTANCE.registerTypeAdapter(WxMpMaterialUploadResult.class, new WxMpMaterialUploadResultAdapter());
         INSTANCE.registerTypeAdapter(WxMpMaterialVideoInfoResult.class, new WxMpMaterialVideoInfoResultAdapter());
         INSTANCE.registerTypeAdapter(WxMpMassNews.WxMpMassNewsArticle.class, new WxMpMassNewsArticleGsonAdapter());

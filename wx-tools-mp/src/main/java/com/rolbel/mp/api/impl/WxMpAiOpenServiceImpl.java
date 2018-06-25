@@ -12,12 +12,6 @@ import com.rolbel.mp.util.request_executor.voice.VoiceUploadRequestExecutor;
 
 import java.io.File;
 
-/**
- * <pre>
- *  Created by BinaryWang on 2018/6/9.
- * </pre>
-
- */
 public class WxMpAiOpenServiceImpl implements WxMpAiOpenService {
 
     private static final JsonParser JSON_PARSER = new JsonParser();

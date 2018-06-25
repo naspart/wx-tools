@@ -8,13 +8,6 @@ import lombok.Data;
 
 import java.io.Serializable;
 
-/**
- * <pre>
- *  Created by BinaryWang on 2017/5/4.
- * </pre>
- *
- * @author Binary Wang
- */
 @XStreamAlias("ScanCodeInfo")
 @Data
 public class ScanCodeInfo implements Serializable {
@@ -23,6 +16,7 @@ public class ScanCodeInfo implements Serializable {
     @XStreamAlias("ScanType")
     @XStreamConverter(value = XStreamCDataConverter.class)
     private String scanType;
+    
     @XStreamAlias("ScanResult")
     @XStreamConverter(value = XStreamCDataConverter.class)
     private String scanResult;

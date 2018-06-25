@@ -2,9 +2,9 @@ package com.rolbel.mp.util.json.adapter;
 
 import com.google.gson.*;
 import com.rolbel.common.util.json.GsonHelper;
-import com.rolbel.mp.bean.membercard.MemberCardUserInfo;
-import com.rolbel.mp.bean.membercard.NameValues;
-import com.rolbel.mp.bean.membercard.WxMpMemberCardUserInfoResult;
+import com.rolbel.mp.bean.member_card.WxMpMemberCardUserInfo;
+import com.rolbel.mp.bean.member_card.NameValues;
+import com.rolbel.mp.bean.member_card.WxMpMemberCardUserInfoResult;
 
 import java.lang.reflect.Type;
 
@@ -34,7 +34,7 @@ public class WxMpMemberCardUserInfoResultGsonAdapter implements JsonDeserializer
         result.setHasActive(GsonHelper.getBoolean(jsonObject, "has_active"));
 
         JsonObject userInfoJsonObject = jsonObject.getAsJsonObject("user_info");
-        MemberCardUserInfo cardUserInfo = new MemberCardUserInfo();
+        WxMpMemberCardUserInfo cardUserInfo = new WxMpMemberCardUserInfo();
 
         JsonArray commonFieldListObj = userInfoJsonObject.getAsJsonArray("common_field_list");
         NameValues[] commonFieldListValues = new NameValues[commonFieldListObj.size()];

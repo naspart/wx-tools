@@ -12,11 +12,11 @@ import com.rolbel.common.util.crypto.SHA1;
 import com.rolbel.common.util.http.SimpleGetRequestExecutor;
 import com.rolbel.mp.api.WxMpCardService;
 import com.rolbel.mp.api.WxMpService;
-import com.rolbel.mp.bean.wx_card.base.WxMpCardCreateRequest;
-import com.rolbel.mp.bean.wx_card.request.WxMpWxCardCreateLandingPage;
-import com.rolbel.mp.bean.wx_card.result.WxMpCreateCardResult;
-import com.rolbel.mp.bean.wx_card.result.WxMpCreateLandingPageResult;
-import com.rolbel.mp.bean.wx_card.result.WxMpGetUserCardResult;
+import com.rolbel.mp.bean.card.request.WxMpCard;
+import com.rolbel.mp.bean.card.request.WxMpCardCreateLandingPage;
+import com.rolbel.mp.bean.card.result.WxMpCardCreateCardResult;
+import com.rolbel.mp.bean.card.result.WxMpCardCreateLandingPageResult;
+import com.rolbel.mp.bean.card.result.WxMpCardGetUserCardResult;
 import com.rolbel.mp.util.json.WxMpGsonBuilder;
 import org.apache.commons.lang3.StringUtils;
 
@@ -42,17 +42,17 @@ public class WxMpCardServiceImpl implements WxMpCardService {
      *     详情请见：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1451025056
      * </pre>
      *
-     * @param wxMpGrouponCard 卡券详情
+     * @param card 卡券详情
      * @return 卡券card_id
      * @throws WxErrorException
      */
     @Override
-    public WxMpCreateCardResult createCard(WxMpCardCreateRequest wxMpGrouponCard) throws WxErrorException {
-        String responseContent = this.wxMpService.post(WxMpCardService.CARD_CREATE_URL, wxMpGrouponCard.toJson());
+    public WxMpCardCreateCardResult createCard(WxMpCard card) throws WxErrorException {
+        String responseContent = this.wxMpService.post(WxMpCardService.CARD_CREATE_URL, card.toJson());
 
         return WxMpGsonBuilder.INSTANCE.create().fromJson(
                 new JsonParser().parse(responseContent),
-                new TypeToken<WxMpCreateCardResult>() {
+                new TypeToken<WxMpCardCreateCardResult>() {
                 }.getType());
     }
 
@@ -124,12 +124,12 @@ public class WxMpCardServiceImpl implements WxMpCardService {
      * </pre>
      */
     @Override
-    public WxMpCreateLandingPageResult createCardLandingPage(WxMpWxCardCreateLandingPage request) throws WxErrorException {
+    public WxMpCardCreateLandingPageResult createCardLandingPage(WxMpCardCreateLandingPage request) throws WxErrorException {
         String responseContent = this.wxMpService.post(CARD_LANDING_PAGE_CREATE_URL, request.toJson());
 
         return WxMpGsonBuilder.INSTANCE.create().fromJson(
                 new JsonParser().parse(responseContent),
-                new TypeToken<WxMpCreateLandingPageResult>() {
+                new TypeToken<WxMpCardCreateLandingPageResult>() {
                 }.getType());
     }
 
@@ -268,7 +268,7 @@ public class WxMpCardServiceImpl implements WxMpCardService {
      * @throws WxErrorException
      */
     @Override
-    public WxMpGetUserCardResult getUserCardList(String openId, String cardId) throws WxErrorException {
+    public WxMpCardGetUserCardResult getUserCardList(String openId, String cardId) throws WxErrorException {
         JsonObject param = new JsonObject();
         param.addProperty("openid", openId);
 
@@ -280,7 +280,7 @@ public class WxMpCardServiceImpl implements WxMpCardService {
 
         return WxMpGsonBuilder.INSTANCE.create().fromJson(
                 new JsonParser().parse(responseContent),
-                new TypeToken<WxMpGetUserCardResult>() {
+                new TypeToken<WxMpCardGetUserCardResult>() {
                 }.getType());
     }
 }

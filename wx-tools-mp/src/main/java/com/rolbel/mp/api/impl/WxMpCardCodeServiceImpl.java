@@ -8,9 +8,9 @@ import com.google.gson.reflect.TypeToken;
 import com.rolbel.common.error.WxErrorException;
 import com.rolbel.mp.api.WxMpCardCodeService;
 import com.rolbel.mp.api.WxMpService;
-import com.rolbel.mp.bean.wx_card.request.WxMpImportCardCode;
-import com.rolbel.mp.bean.wx_card.result.WxMpCheckCodeResult;
-import com.rolbel.mp.bean.result.WxMpCardResult;
+import com.rolbel.mp.bean.card.request.WxMpCardImportCardCode;
+import com.rolbel.mp.bean.card.result.WxMpCardCheckCodeResult;
+import com.rolbel.mp.bean.card.result.WxMpCardResult;
 import com.rolbel.mp.util.json.WxMpGsonBuilder;
 import org.apache.commons.lang3.StringUtils;
 
@@ -119,7 +119,7 @@ public class WxMpCardCodeServiceImpl implements WxMpCardCodeService {
      * </pre>
      */
     @Override
-    public void importCardCode(WxMpImportCardCode request) throws WxErrorException {
+    public void importCardCode(WxMpCardImportCardCode request) throws WxErrorException {
         this.wxMpService.post(CARD_CODE_DEPOSIT_URL, request.toJson());
     }
 
@@ -160,12 +160,12 @@ public class WxMpCardCodeServiceImpl implements WxMpCardCodeService {
      * @throws WxErrorException
      */
     @Override
-    public WxMpCheckCodeResult checkCode(WxMpImportCardCode request) throws WxErrorException {
+    public WxMpCardCheckCodeResult checkCode(WxMpCardImportCardCode request) throws WxErrorException {
         String responseContent = this.wxMpService.post(CARD_CODE_CHECK_URL, request.toJson());
 
         return WxMpGsonBuilder.INSTANCE.create().fromJson(
                 new JsonParser().parse(responseContent),
-                new TypeToken<WxMpCheckCodeResult>() {
+                new TypeToken<WxMpCardCheckCodeResult>() {
                 }.getType());
     }
 

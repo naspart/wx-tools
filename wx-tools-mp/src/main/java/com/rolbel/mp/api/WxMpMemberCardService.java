@@ -1,10 +1,10 @@
 package com.rolbel.mp.api;
 
 import com.rolbel.common.error.WxErrorException;
-import com.rolbel.mp.bean.membercard.WxMpMemberCardActivatedMessage;
-import com.rolbel.mp.bean.membercard.WxMpMemberCardUpdateMessage;
-import com.rolbel.mp.bean.membercard.WxMpMemberCardUpdateResult;
-import com.rolbel.mp.bean.membercard.WxMpMemberCardUserInfoResult;
+import com.rolbel.mp.bean.member_card.WxMpMemberCardActivatedMessage;
+import com.rolbel.mp.bean.member_card.WxMpMemberCardUpdateMessage;
+import com.rolbel.mp.bean.member_card.WxMpMemberCardUpdateResult;
+import com.rolbel.mp.bean.member_card.WxMpMemberCardUserInfoResult;
 
 /**
  * 会员卡相关接口

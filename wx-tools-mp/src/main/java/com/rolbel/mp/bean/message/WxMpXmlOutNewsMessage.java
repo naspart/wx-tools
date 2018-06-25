@@ -19,6 +19,7 @@ public class WxMpXmlOutNewsMessage extends WxMpXmlOutMessage {
 
     @XStreamAlias("Articles")
     protected final List<Item> articles = new ArrayList<>();
+
     @XStreamAlias("ArticleCount")
     protected int articleCount;
 

@@ -9,9 +9,7 @@ import java.io.File;
  * <pre>
  * 微信AI开放接口（语音识别，微信翻译）.
  * https://mp.weixin.qq.com/wiki?t=resource/res_main&id=21516712282KzWVE
- *  Created by BinaryWang on 2018/6/9.
  * </pre>
-
  */
 public interface WxMpAiOpenService {
     String VOICE_UPLOAD_URL = "http://api.weixin.qq.com/cgi-bin/media/voice/addvoicetorecofortext?format=%s&voice_id=%s&lang=%s";

@@ -4,7 +4,7 @@ import com.google.gson.JsonObject;
 import com.rolbel.common.error.WxErrorException;
 import com.rolbel.mp.api.WxMpDataCubeService;
 import com.rolbel.mp.api.WxMpService;
-import com.rolbel.mp.bean.datacube.*;
+import com.rolbel.mp.bean.data_cube.*;
 import org.apache.commons.lang3.time.FastDateFormat;
 
 import java.text.Format;
@@ -22,98 +22,98 @@ public class WxMpDataCubeServiceImpl implements WxMpDataCubeService {
     }
 
     @Override
-    public List<WxDataCubeUserSummary> getUserSummary(Date beginDate, Date endDate) throws WxErrorException {
+    public List<WxMpDataCubeUserSummary> getUserSummary(Date beginDate, Date endDate) throws WxErrorException {
         String responseContent = this.wxMpService.post(GET_USER_SUMMARY, buildParams(beginDate, endDate));
-        return WxDataCubeUserSummary.fromJson(responseContent);
+        return WxMpDataCubeUserSummary.fromJson(responseContent);
     }
 
     @Override
-    public List<WxDataCubeUserCumulate> getUserCumulate(Date beginDate, Date endDate) throws WxErrorException {
+    public List<WxMpDataCubeUserCumulate> getUserCumulate(Date beginDate, Date endDate) throws WxErrorException {
         String responseContent = this.wxMpService.post(GET_USER_CUMULATE, buildParams(beginDate, endDate));
 
-        return WxDataCubeUserCumulate.fromJson(responseContent);
+        return WxMpDataCubeUserCumulate.fromJson(responseContent);
     }
 
     @Override
-    public List<WxDataCubeArticleResult> getArticleSummary(Date beginDate, Date endDate) throws WxErrorException {
+    public List<WxMpMpDataCubeArticleResult> getArticleSummary(Date beginDate, Date endDate) throws WxErrorException {
         return this.getArticleResults(GET_ARTICLE_SUMMARY, beginDate, endDate);
     }
 
     @Override
-    public List<WxDataCubeArticleTotal> getArticleTotal(Date beginDate, Date endDate) throws WxErrorException {
+    public List<WxMpMpDataCubeArticleTotal> getArticleTotal(Date beginDate, Date endDate) throws WxErrorException {
         String responseContent = this.wxMpService.post(GET_ARTICLE_TOTAL, buildParams(beginDate, endDate));
-        return WxDataCubeArticleTotal.fromJson(responseContent);
+        return WxMpMpDataCubeArticleTotal.fromJson(responseContent);
     }
 
     @Override
-    public List<WxDataCubeArticleResult> getUserRead(Date beginDate, Date endDate) throws WxErrorException {
+    public List<WxMpMpDataCubeArticleResult> getUserRead(Date beginDate, Date endDate) throws WxErrorException {
         return this.getArticleResults(GET_USER_READ, beginDate, endDate);
     }
 
     @Override
-    public List<WxDataCubeArticleResult> getUserReadHour(Date beginDate, Date endDate) throws WxErrorException {
+    public List<WxMpMpDataCubeArticleResult> getUserReadHour(Date beginDate, Date endDate) throws WxErrorException {
         return this.getArticleResults(GET_USER_READ_HOUR, beginDate, endDate);
     }
 
     @Override
-    public List<WxDataCubeArticleResult> getUserShare(Date beginDate, Date endDate) throws WxErrorException {
+    public List<WxMpMpDataCubeArticleResult> getUserShare(Date beginDate, Date endDate) throws WxErrorException {
         return this.getArticleResults(GET_USER_SHARE, beginDate, endDate);
     }
 
     @Override
-    public List<WxDataCubeArticleResult> getUserShareHour(Date beginDate, Date endDate) throws WxErrorException {
+    public List<WxMpMpDataCubeArticleResult> getUserShareHour(Date beginDate, Date endDate) throws WxErrorException {
         return this.getArticleResults(GET_USER_SHARE_HOUR, beginDate, endDate);
     }
 
-    private List<WxDataCubeArticleResult> getArticleResults(String url, Date beginDate, Date endDate) throws WxErrorException {
+    private List<WxMpMpDataCubeArticleResult> getArticleResults(String url, Date beginDate, Date endDate) throws WxErrorException {
         String responseContent = this.wxMpService.post(url, buildParams(beginDate, endDate));
-        return WxDataCubeArticleResult.fromJson(responseContent);
+        return WxMpMpDataCubeArticleResult.fromJson(responseContent);
     }
 
     @Override
-    public List<WxDataCubeMsgResult> getUpstreamMsg(Date beginDate, Date endDate) throws WxErrorException {
+    public List<WxMpDataCubeMsgResult> getUpstreamMsg(Date beginDate, Date endDate) throws WxErrorException {
         return this.getUpstreamMsg(GET_UPSTREAM_MSG, beginDate, endDate);
     }
 
     @Override
-    public List<WxDataCubeMsgResult> getUpstreamMsgHour(Date beginDate, Date endDate) throws WxErrorException {
+    public List<WxMpDataCubeMsgResult> getUpstreamMsgHour(Date beginDate, Date endDate) throws WxErrorException {
         return this.getUpstreamMsg(GET_UPSTREAM_MSG_HOUR, beginDate, endDate);
     }
 
     @Override
-    public List<WxDataCubeMsgResult> getUpstreamMsgWeek(Date beginDate, Date endDate) throws WxErrorException {
+    public List<WxMpDataCubeMsgResult> getUpstreamMsgWeek(Date beginDate, Date endDate) throws WxErrorException {
         return this.getUpstreamMsg(GET_UPSTREAM_MSG_WEEK, beginDate, endDate);
     }
 
     @Override
-    public List<WxDataCubeMsgResult> getUpstreamMsgMonth(Date beginDate, Date endDate) throws WxErrorException {
+    public List<WxMpDataCubeMsgResult> getUpstreamMsgMonth(Date beginDate, Date endDate) throws WxErrorException {
         return this.getUpstreamMsg(GET_UPSTREAM_MSG_MONTH, beginDate, endDate);
     }
 
     @Override
-    public List<WxDataCubeMsgResult> getUpstreamMsgDist(Date beginDate, Date endDate) throws WxErrorException {
+    public List<WxMpDataCubeMsgResult> getUpstreamMsgDist(Date beginDate, Date endDate) throws WxErrorException {
         return this.getUpstreamMsg(GET_UPSTREAM_MSG_DIST, beginDate, endDate);
     }
 
     @Override
-    public List<WxDataCubeMsgResult> getUpstreamMsgDistWeek(Date beginDate, Date endDate) throws WxErrorException {
+    public List<WxMpDataCubeMsgResult> getUpstreamMsgDistWeek(Date beginDate, Date endDate) throws WxErrorException {
         return this.getUpstreamMsg(GET_UPSTREAM_MSG_DIST_WEEK, beginDate, endDate);
     }
 
     @Override
-    public List<WxDataCubeMsgResult> getUpstreamMsgDistMonth(Date beginDate, Date endDate) throws WxErrorException {
+    public List<WxMpDataCubeMsgResult> getUpstreamMsgDistMonth(Date beginDate, Date endDate) throws WxErrorException {
         return this.getUpstreamMsg(GET_UPSTREAM_MSG_DIST_MONTH, beginDate, endDate);
     }
 
-    private List<WxDataCubeMsgResult> getUpstreamMsg(String url, Date beginDate, Date endDate) throws WxErrorException {
+    private List<WxMpDataCubeMsgResult> getUpstreamMsg(String url, Date beginDate, Date endDate) throws WxErrorException {
         String responseContent = this.wxMpService.post(url, buildParams(beginDate, endDate));
-        return WxDataCubeMsgResult.fromJson(responseContent);
+        return WxMpDataCubeMsgResult.fromJson(responseContent);
     }
 
     @Override
-    public List<WxDataCubeInterfaceResult> getInterfaceSummary(Date beginDate, Date endDate) throws WxErrorException {
+    public List<WxMpDataCubeInterfaceResult> getInterfaceSummary(Date beginDate, Date endDate) throws WxErrorException {
         String responseContent = this.wxMpService.post(GET_INTERFACE_SUMMARY, buildParams(beginDate, endDate));
-        return WxDataCubeInterfaceResult.fromJson(responseContent);
+        return WxMpDataCubeInterfaceResult.fromJson(responseContent);
     }
 
     private String buildParams(Date beginDate, Date endDate) {
@@ -124,8 +124,8 @@ public class WxMpDataCubeServiceImpl implements WxMpDataCubeService {
     }
 
     @Override
-    public List<WxDataCubeInterfaceResult> getInterfaceSummaryHour(Date beginDate, Date endDate) throws WxErrorException {
+    public List<WxMpDataCubeInterfaceResult> getInterfaceSummaryHour(Date beginDate, Date endDate) throws WxErrorException {
         String responseContent = this.wxMpService.post(GET_INTERFACE_SUMMARY_HOUR, buildParams(beginDate, endDate));
-        return WxDataCubeInterfaceResult.fromJson(responseContent);
+        return WxMpDataCubeInterfaceResult.fromJson(responseContent);
     }
 }

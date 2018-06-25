@@ -10,8 +10,6 @@ import java.util.List;
 
 /**
  * 客服消息
- *
- * @author chanjarster
  */
 @Data
 public class WxMpKefuMessage implements Serializable {

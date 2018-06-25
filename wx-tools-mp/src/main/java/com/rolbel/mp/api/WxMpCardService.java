@@ -2,25 +2,25 @@ package com.rolbel.mp.api;
 
 import com.rolbel.common.bean.WxCardApiSignature;
 import com.rolbel.common.error.WxErrorException;
-import com.rolbel.mp.bean.wx_card.base.WxMpCardCreateRequest;
-import com.rolbel.mp.bean.wx_card.request.WxMpWxCardCreateLandingPage;
-import com.rolbel.mp.bean.wx_card.result.WxMpCreateCardResult;
-import com.rolbel.mp.bean.wx_card.result.WxMpCreateLandingPageResult;
-import com.rolbel.mp.bean.wx_card.result.WxMpGetUserCardResult;
+import com.rolbel.mp.bean.card.request.WxMpCard;
+import com.rolbel.mp.bean.card.request.WxMpCardCreateLandingPage;
+import com.rolbel.mp.bean.card.result.WxMpCardCreateCardResult;
+import com.rolbel.mp.bean.card.result.WxMpCardCreateLandingPageResult;
+import com.rolbel.mp.bean.card.result.WxMpCardGetUserCardResult;
 
 /**
  * 卡券相关接口
  */
 public interface WxMpCardService {
-    String CARD_CREATE_URL = "https://api.weixin.qq.com/wx_card/create";
-    String CARD_PAYCELL_SET_URL = "https://api.weixin.qq.com/wx_card/paycell/set";
-    String CARD_SELF_CONSUME_CELL_SET_URL = "https://api.weixin.qq.com/wx_card/selfconsumecell/set";
-    String CARD_QRCODE_CREATE_URL = "https://api.weixin.qq.com/wx_card/qrcode/create";
-    String CARD_LANDING_PAGE_CREATE_URL = "https://api.weixin.qq.com/wx_card/landingpage/create";
-    String CARD_MP_NEWS_DISTRIBUTE_URL = "https://api.weixin.qq.com/wx_card/mpnews/gethtml";
-    String CARD_GET_DETAIL_URL = "https://api.weixin.qq.com/wx_card/get";
-    String CARD_GET_TICKET_URL = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?type=wx_card";
-    String CARD_GET_USER_CARD_LIST_URL = "https://api.weixin.qq.com/wx_card/user/getcardlist";
+    String CARD_CREATE_URL = "https://api.weixin.qq.com/card/create";
+    String CARD_PAYCELL_SET_URL = "https://api.weixin.qq.com/card/paycell/set";
+    String CARD_SELF_CONSUME_CELL_SET_URL = "https://api.weixin.qq.com/card/selfconsumecell/set";
+    String CARD_QRCODE_CREATE_URL = "https://api.weixin.qq.com/card/qrcode/create";
+    String CARD_LANDING_PAGE_CREATE_URL = "https://api.weixin.qq.com/card/landingpage/create";
+    String CARD_MP_NEWS_DISTRIBUTE_URL = "https://api.weixin.qq.com/card/mpnews/gethtml";
+    String CARD_GET_DETAIL_URL = "https://api.weixin.qq.com/card/get";
+    String CARD_GET_TICKET_URL = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?type=card";
+    String CARD_GET_USER_CARD_LIST_URL = "https://api.weixin.qq.com/card/user/getcardlist";
 
     /**
      * 得到WxMpService
@@ -38,7 +38,7 @@ public interface WxMpCardService {
      * @return 卡券card_id
      * @throws WxErrorException
      */
-    WxMpCreateCardResult createCard(WxMpCardCreateRequest request) throws WxErrorException;
+    WxMpCardCreateCardResult createCard(WxMpCard request) throws WxErrorException;
 
     /**
      * <pre>
@@ -91,7 +91,7 @@ public interface WxMpCardService {
      * @return 创建货架的结果
      * @throws WxErrorException
      */
-    WxMpCreateLandingPageResult createCardLandingPage(WxMpWxCardCreateLandingPage request) throws WxErrorException;
+    WxMpCardCreateLandingPageResult createCardLandingPage(WxMpCardCreateLandingPage request) throws WxErrorException;
 
     String wxMpNewsDistributeCard(String cardId) throws WxErrorException;
 
@@ -142,5 +142,5 @@ public interface WxMpCardService {
      */
     String getCardDetail(String cardId) throws WxErrorException;
 
-    WxMpGetUserCardResult getUserCardList(String openId, String cardId) throws WxErrorException;
+    WxMpCardGetUserCardResult getUserCardList(String openId, String cardId) throws WxErrorException;
 }

@@ -20,5 +20,4 @@ public class WxMpXmlOutTextMessage extends WxMpXmlOutMessage {
   public WxMpXmlOutTextMessage() {
     this.msgType = WxConstant.XmlMsgType.TEXT;
   }
-
 }

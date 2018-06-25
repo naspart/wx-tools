@@ -6,7 +6,7 @@ import com.rolbel.common.error.WxError;
 import com.rolbel.common.error.WxErrorException;
 import com.rolbel.mp.api.WxMpService;
 import com.rolbel.mp.api.WxMpShakeService;
-import com.rolbel.mp.bean.shake.*;
+import com.rolbel.mp.bean.shake_around.*;
 import com.rolbel.mp.util.json.WxMpGsonBuilder;
 
 public class WxMpShakeServiceImpl implements WxMpShakeService {
@@ -17,8 +17,8 @@ public class WxMpShakeServiceImpl implements WxMpShakeService {
     }
 
     @Override
-    public void registerShake(WxMpShakeRegisterRequest wxMpShakeRegisterRequest) throws WxErrorException {
-        this.wxMpService.post(SHAKE_ACCOUNT_REGISTER_URL, wxMpShakeRegisterRequest.toJson());
+    public void registerShake(WxMpShakeAroundRegisterRequest wxMpShakeAroundRegisterRequest) throws WxErrorException {
+        this.wxMpService.post(SHAKE_ACCOUNT_REGISTER_URL, wxMpShakeAroundRegisterRequest.toJson());
     }
 
     /**
@@ -30,22 +30,22 @@ public class WxMpShakeServiceImpl implements WxMpShakeService {
      * @throws WxErrorException
      */
     @Override
-    public WxMpShakeRegisterQueryResult registerStatusQuery() throws WxErrorException {
+    public WxMpShakeAroundRegisterQueryResult registerStatusQuery() throws WxErrorException {
         String response = this.wxMpService.post(SHAKE_ACCOUNT_REGISTER_QUERY_URL, null);
 
         return WxMpGsonBuilder.create().fromJson(
                 new JsonParser().parse(response).getAsJsonObject().get("data"),
-                new TypeToken<WxMpShakeRegisterQueryResult>() {
+                new TypeToken<WxMpShakeAroundRegisterQueryResult>() {
                 }.getType());
     }
 
     @Override
-    public WxMpShakeDeviceApplyResult applyDevice(WxMpShakeDeviceApplyRequest wxMpShakeDeviceApplyRequest) throws WxErrorException {
-        String response = this.wxMpService.post(SHAKE_DEVICE_APPLY_URL, wxMpShakeDeviceApplyRequest.toJson());
+    public WxMpShakeAroundDeviceApplyResult applyDevice(WxMpShakeAroundDeviceApplyRequest wxMpShakeAroundDeviceApplyRequest) throws WxErrorException {
+        String response = this.wxMpService.post(SHAKE_DEVICE_APPLY_URL, wxMpShakeAroundDeviceApplyRequest.toJson());
 
         return WxMpGsonBuilder.create().fromJson(
                 new JsonParser().parse(response).getAsJsonObject().get("data"),
-                new TypeToken<WxMpShakeDeviceApplyResult>() {
+                new TypeToken<WxMpShakeAroundDeviceApplyResult>() {
                 }.getType());
     }
 
@@ -58,13 +58,13 @@ public class WxMpShakeServiceImpl implements WxMpShakeService {
      * 接口地址：https://api.weixin.qq.com/shakearound/user/getshakeinfo?access_token=ACCESS_TOKE
      * </pre>
      *
-     * @param wxMpShakeQuery 查询参数
+     * @param wxMpShakeAroundQuery 查询参数
      */
     @Override
-    public WxMpShakeInfoResult getShakeInfo(WxMpShakeQuery wxMpShakeQuery) throws WxErrorException {
-        String responseContent = this.wxMpService.post(GET_SHAKE_INFO_URL, wxMpShakeQuery.toJson());
+    public WxMpShakeAroundInfoResult getShakeInfo(WxMpShakeAroundQuery wxMpShakeAroundQuery) throws WxErrorException {
+        String responseContent = this.wxMpService.post(GET_SHAKE_INFO_URL, wxMpShakeAroundQuery.toJson());
 
-        return WxMpShakeInfoResult.fromJson(responseContent);
+        return WxMpShakeAroundInfoResult.fromJson(responseContent);
     }
 
     @Override

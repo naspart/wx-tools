@@ -9,8 +9,6 @@ import java.io.Serializable;
  * 语义理解查询结果对象
  * <p>
  * http://mp.weixin.qq.com/wiki/index.php?title=语义理解
- *
- * @author Daniel Qian
  */
 @Data
 public class WxMpSemanticQueryResult implements Serializable {

@@ -2,7 +2,7 @@ package com.rolbel.mp.util.json.adapter;
 
 import com.google.gson.*;
 import com.rolbel.common.util.json.GsonHelper;
-import com.rolbel.mp.bean.datacube.WxDataCubeUserCumulate;
+import com.rolbel.mp.bean.data_cube.WxMpDataCubeUserCumulate;
 import org.apache.commons.lang3.time.FastDateFormat;
 
 import java.lang.reflect.Type;
@@ -11,14 +11,14 @@ import java.text.ParseException;
 /**
  * @author Daniel Qian
  */
-public class WxMpUserCumulateGsonAdapter implements JsonDeserializer<WxDataCubeUserCumulate> {
+public class WxMpUserCumulateGsonAdapter implements JsonDeserializer<WxMpDataCubeUserCumulate> {
 
     private static final FastDateFormat DATE_FORMAT = FastDateFormat
             .getInstance("yyyy-MM-dd");
 
     @Override
-    public WxDataCubeUserCumulate deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-        WxDataCubeUserCumulate cumulate = new WxDataCubeUserCumulate();
+    public WxMpDataCubeUserCumulate deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+        WxMpDataCubeUserCumulate cumulate = new WxMpDataCubeUserCumulate();
         JsonObject summaryJsonObject = json.getAsJsonObject();
 
         try {

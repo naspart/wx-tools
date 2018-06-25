@@ -8,13 +8,6 @@ import lombok.Data;
 
 import java.io.Serializable;
 
-/**
- * <pre>
- *  Created by BinaryWang on 2017/5/4.
- * </pre>
- *
- * @author Binary Wang
- */
 @XStreamAlias("HardWare")
 @Data
 public class HardWare implements Serializable {

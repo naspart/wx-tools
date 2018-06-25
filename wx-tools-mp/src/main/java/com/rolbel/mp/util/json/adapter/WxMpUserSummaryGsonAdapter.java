@@ -2,21 +2,21 @@ package com.rolbel.mp.util.json.adapter;
 
 import com.google.gson.*;
 import com.rolbel.common.util.json.GsonHelper;
-import com.rolbel.mp.bean.datacube.WxDataCubeUserSummary;
+import com.rolbel.mp.bean.data_cube.WxMpDataCubeUserSummary;
 import org.apache.commons.lang3.time.FastDateFormat;
 
 import java.lang.reflect.Type;
 import java.text.ParseException;
 
-public class WxMpUserSummaryGsonAdapter implements JsonDeserializer<WxDataCubeUserSummary> {
+public class WxMpUserSummaryGsonAdapter implements JsonDeserializer<WxMpDataCubeUserSummary> {
 
     private static final FastDateFormat DATE_FORMAT = FastDateFormat
             .getInstance("yyyy-MM-dd");
 
     @Override
-    public WxDataCubeUserSummary deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+    public WxMpDataCubeUserSummary deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
             throws JsonParseException {
-        WxDataCubeUserSummary summary = new WxDataCubeUserSummary();
+        WxMpDataCubeUserSummary summary = new WxMpDataCubeUserSummary();
         JsonObject summaryJsonObject = json.getAsJsonObject();
 
         try {

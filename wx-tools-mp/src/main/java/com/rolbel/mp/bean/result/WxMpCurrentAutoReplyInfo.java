@@ -15,8 +15,6 @@ import java.util.List;
 /**
  * <pre>
  * 公众号的自动回复规则
- * Created by Binary Wang on 2017-7-8.
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
  * </pre>
  */
 @Data
