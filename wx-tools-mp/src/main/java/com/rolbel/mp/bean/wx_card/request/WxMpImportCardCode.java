@@ -1,4 +1,4 @@
-package com.rolbel.mp.bean.card.request;
+package com.rolbel.mp.bean.wx_card.request;
 
 import com.google.gson.annotations.SerializedName;
 import com.rolbel.mp.util.json.WxMpGsonBuilder;

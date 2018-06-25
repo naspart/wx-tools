@@ -15,8 +15,8 @@ import java.io.Serializable;
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @XStreamAlias("xml")
-public class WxPaySendRedpackResult extends BaseWxPayResult implements Serializable {
-    private static final long serialVersionUID = -4837415036337132073L;
+public class WxPaySendRedpackResult extends BaseWxPayResult {
+    private static final long serialVersionUID = -4671305666824750061L;
 
     @XStreamAlias("mch_billno")
     private String mchBillno;

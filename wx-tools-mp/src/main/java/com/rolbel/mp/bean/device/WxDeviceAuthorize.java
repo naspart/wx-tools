@@ -8,10 +8,6 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- * @author keungtung
- * @date 10/12/2016
- */
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class WxDeviceAuthorize extends AbstractDeviceBean {

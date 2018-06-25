@@ -5,10 +5,6 @@ import com.rolbel.common.util.ToStringUtil;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-/**
- * @author keungtung.
- * @date 10/12/2016
- */
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class WxDeviceMsg extends AbstractDeviceBean {

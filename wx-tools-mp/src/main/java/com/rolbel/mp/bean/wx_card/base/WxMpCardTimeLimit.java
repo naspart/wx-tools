@@ -1,13 +1,15 @@
-package com.rolbel.mp.bean.card.base;
+package com.rolbel.mp.bean.wx_card.base;
 
 import com.google.gson.annotations.SerializedName;
 import lombok.Builder;
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
 @Builder
-public class WxMpCardTimeLimit {
-    private static final long serialVersionUID = -4152457856217811778L;
+public class WxMpCardTimeLimit implements Serializable {
+    private static final long serialVersionUID = 4167887956533869476L;
 
     /**
      * 限制类型枚举值：支持填入 MONDAY 周一 TUESDAY 周二 WEDNESDAY 周三 THURSDAY 周四 FRIDAY 周五 SATURDAY 周六 SUNDAY 周日 此处只控制显示， 不控制实际使用逻辑，不填默认不显示

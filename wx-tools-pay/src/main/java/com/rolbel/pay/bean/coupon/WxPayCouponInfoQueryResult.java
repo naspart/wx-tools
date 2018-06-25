@@ -16,6 +16,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @XStreamAlias("xml")
 public class WxPayCouponInfoQueryResult extends BaseWxPayResult {
+    private static final long serialVersionUID = -6045566581872430841L;
+
     /**
      * <pre>
      * 字段名：设备号.

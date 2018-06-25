@@ -37,6 +37,8 @@ import java.util.Map;
  */
 @Data
 public abstract class BaseWxPayResult implements Serializable {
+    private static final long serialVersionUID = -383109628310281720L;
+
     /**
      * 返回状态码.
      */
@@ -110,7 +112,7 @@ public abstract class BaseWxPayResult implements Serializable {
     /**
      * 将单位分转换成单位圆.
      *
-     * @param fee 将要被转换为元的分的数值
+     * @param fen 将要被转换为元的分的数值
      */
     public static String fenToYuan(Integer fen) {
         return new BigDecimal(Double.valueOf(fen) / 100).setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString();

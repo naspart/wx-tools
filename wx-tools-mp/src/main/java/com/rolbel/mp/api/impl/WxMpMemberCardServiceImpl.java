@@ -18,9 +18,9 @@ import com.rolbel.mp.util.json.WxMpGsonBuilder;
  * 会员卡相关接口的实现类
  */
 public class WxMpMemberCardServiceImpl implements WxMpMemberCardService {
-    private static final String MEMBER_CARD_ACTIVATE = "https://api.weixin.qq.com/card/membercard/activate";
-    private static final String MEMBER_CARD_USER_INFO_GET = "https://api.weixin.qq.com/card/membercard/userinfo/get";
-    private static final String MEMBER_CARD_UPDATE_USER = "https://api.weixin.qq.com/card/membercard/updateuser";
+    private static final String MEMBER_CARD_ACTIVATE = "https://api.weixin.qq.com/wx_card/membercard/activate";
+    private static final String MEMBER_CARD_USER_INFO_GET = "https://api.weixin.qq.com/wx_card/membercard/userinfo/get";
+    private static final String MEMBER_CARD_UPDATE_USER = "https://api.weixin.qq.com/wx_card/membercard/updateuser";
 
     private WxMpService wxMpService;
 

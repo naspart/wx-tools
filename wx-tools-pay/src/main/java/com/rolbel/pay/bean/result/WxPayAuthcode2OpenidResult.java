@@ -15,16 +15,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @XStreamAlias("xml")
 public class WxPayAuthcode2OpenidResult extends BaseWxPayResult {
-  /**
-   * <pre>
-   *   用户标识.
-   *   openid
-   *   是
-   *   String(128)
-   *   用户在商户appid下的唯一标识
-   * </pre>
-   */
-  @XStreamAlias("openid")
-  private String openid;
+    private static final long serialVersionUID = -6596006199067209361L;
+
+    /**
+     * <pre>
+     *   用户标识.
+     *   openid
+     *   是
+     *   String(128)
+     *   用户在商户appid下的唯一标识
+     * </pre>
+     */
+    @XStreamAlias("openid")
+    private String openid;
 
 }

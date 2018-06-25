@@ -1,13 +1,15 @@
-package com.rolbel.mp.bean.card.base;
+package com.rolbel.mp.bean.wx_card.base;
 
 import com.google.gson.annotations.SerializedName;
 import lombok.Builder;
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
 @Builder
-public class WxMpCardUseCondition {
-    private static final long serialVersionUID = 5356177306278854046L;
+public class WxMpCardUseCondition implements Serializable {
+    private static final long serialVersionUID = -7527429886941251794L;
 
     /**
      * 指定可用的商品类目，仅用于代金券类型 ，填入后将在券面拼写适用于xxx

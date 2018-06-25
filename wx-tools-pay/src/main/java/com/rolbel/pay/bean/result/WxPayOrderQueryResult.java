@@ -24,6 +24,7 @@ import java.util.List;
 @NoArgsConstructor
 @XStreamAlias("xml")
 public class WxPayOrderQueryResult extends BaseWxPayResult {
+    private static final long serialVersionUID = -6220455280154979988L;
 
     /**
      * <pre>

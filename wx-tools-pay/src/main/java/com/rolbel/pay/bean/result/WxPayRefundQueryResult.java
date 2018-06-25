@@ -16,6 +16,8 @@ import java.util.List;
 @NoArgsConstructor
 @XStreamAlias("xml")
 public class WxPayRefundQueryResult extends BaseWxPayResult {
+    private static final long serialVersionUID = 5271899663221666858L;
+
     /**
      * <pre>
      * 字段名：设备号.

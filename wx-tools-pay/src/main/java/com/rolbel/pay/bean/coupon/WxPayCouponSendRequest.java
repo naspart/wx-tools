@@ -18,6 +18,8 @@ import lombok.*;
 @AllArgsConstructor
 @XStreamAlias("xml")
 public class WxPayCouponSendRequest extends BaseWxPayRequest {
+    private static final long serialVersionUID = -5345612656778204841L;
+
     /**
      * <pre>
      * 字段名：代金券批次id

@@ -10,4 +10,5 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 @XStreamAlias("xml")
 public class WxPayCommonResult extends BaseWxPayResult {
+    private static final long serialVersionUID = 5362136767850534684L;
 }

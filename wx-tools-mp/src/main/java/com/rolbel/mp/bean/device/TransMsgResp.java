@@ -5,10 +5,6 @@ import com.rolbel.common.util.json.WxGsonBuilder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-/**
- * @author keungtung.
- * @date 14/12/2016
- */
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class TransMsgResp extends AbstractDeviceBean {

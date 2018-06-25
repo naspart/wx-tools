@@ -15,11 +15,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @XStreamAlias("xml")
 public class WxPayOrderCloseResult extends BaseWxPayResult {
+    private static final long serialVersionUID = 2316872039394065737L;
 
-  /**
-   * 业务结果描述
-   */
-  @XStreamAlias("result_msg")
-  private String resultMsg;
-
+    /**
+     * 业务结果描述
+     */
+    @XStreamAlias("result_msg")
+    private String resultMsg;
 }

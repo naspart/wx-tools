@@ -12,7 +12,6 @@ import org.apache.commons.lang3.StringUtils;
  * <pre>
  * 统一下单请求参数对象.
  * 参考文档：https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=9_1
- * Created by Binary Wang on 2016/9/25.
  * </pre>
 
  */

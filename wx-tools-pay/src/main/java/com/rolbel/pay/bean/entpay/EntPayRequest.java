@@ -19,6 +19,8 @@ import lombok.*;
 @AllArgsConstructor
 @XStreamAlias("xml")
 public class EntPayRequest extends BaseWxPayRequest {
+    private static final long serialVersionUID = 916179930135470261L;
+
     /**
      * <pre>
      * 字段名：公众账号appid.

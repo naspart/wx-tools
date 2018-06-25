@@ -1,15 +1,16 @@
-package com.rolbel.mp.bean.card.base;
+package com.rolbel.mp.bean.wx_card.base;
 
 import com.google.gson.annotations.SerializedName;
 import lombok.Builder;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Data
 @Builder
-public class WxMpCardAbstract {
-    private static final long serialVersionUID = -3410325000294773725L;
+public class WxMpCardAbstract implements Serializable {
+    private static final long serialVersionUID = -9091676379767880852L;
 
     /**
      * 封面摘要简介。

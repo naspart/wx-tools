@@ -1,4 +1,4 @@
-package com.rolbel.mp.bean.card;
+package com.rolbel.mp.bean.wx_card;
 
 
 import com.rolbel.common.util.ToStringUtil;

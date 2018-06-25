@@ -1,7 +1,7 @@
 package com.rolbel.mp.bean.result;
 
 import com.rolbel.common.util.ToStringUtil;
-import com.rolbel.mp.bean.card.WxMpCardInfo;
+import com.rolbel.mp.bean.wx_card.WxMpCardInfo;
 import lombok.Data;
 
 import java.io.Serializable;

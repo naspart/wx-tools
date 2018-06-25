@@ -15,21 +15,22 @@ import lombok.*;
 @AllArgsConstructor
 @XStreamAlias("xml")
 public class WxPayAuthcode2OpenidRequest extends BaseWxPayRequest {
+    private static final long serialVersionUID = -2369123085579815677L;
 
-  /**
-   * <pre>
-   *     授权码
-   *     auth_code
-   *     是
-   *     String(128)
-   *     扫码支付授权码，设备读取用户微信中的条码或者二维码信息
-   * </pre>
-   */
-  @XStreamAlias("auth_code")
-  private String authCode;
+    /**
+     * <pre>
+     *     授权码
+     *     auth_code
+     *     是
+     *     String(128)
+     *     扫码支付授权码，设备读取用户微信中的条码或者二维码信息
+     * </pre>
+     */
+    @XStreamAlias("auth_code")
+    private String authCode;
 
-  @Override
-  protected void checkConstraints() {
-    // nothing to do
-  }
+    @Override
+    protected void checkConstraints() {
+        // nothing to do
+    }
 }

@@ -11,8 +11,6 @@ import java.util.List;
 /**
  * 图文分析数据接口返回结果对象
  * <p>
- * Created by Binary Wang on 2016/8/24.
-
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

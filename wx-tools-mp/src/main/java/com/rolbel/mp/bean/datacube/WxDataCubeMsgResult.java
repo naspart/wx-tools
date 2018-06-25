@@ -10,8 +10,6 @@ import java.util.List;
 
 /**
  * 消息分析数据接口返回结果对象.
- * Created by Binary Wang on 2016/8/29.
-
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

@@ -12,11 +12,11 @@ import com.rolbel.common.util.crypto.SHA1;
 import com.rolbel.common.util.http.SimpleGetRequestExecutor;
 import com.rolbel.mp.api.WxMpCardService;
 import com.rolbel.mp.api.WxMpService;
-import com.rolbel.mp.bean.card.base.WxMpCardCreateRequest;
-import com.rolbel.mp.bean.card.request.WxMpCreateLandingPage;
-import com.rolbel.mp.bean.card.result.WxMpCreateCardResult;
-import com.rolbel.mp.bean.card.result.WxMpCreateLandingPageResult;
-import com.rolbel.mp.bean.card.result.WxMpGetUserCardResult;
+import com.rolbel.mp.bean.wx_card.base.WxMpCardCreateRequest;
+import com.rolbel.mp.bean.wx_card.request.WxMpWxCardCreateLandingPage;
+import com.rolbel.mp.bean.wx_card.result.WxMpCreateCardResult;
+import com.rolbel.mp.bean.wx_card.result.WxMpCreateLandingPageResult;
+import com.rolbel.mp.bean.wx_card.result.WxMpGetUserCardResult;
 import com.rolbel.mp.util.json.WxMpGsonBuilder;
 import org.apache.commons.lang3.StringUtils;
 
@@ -124,7 +124,7 @@ public class WxMpCardServiceImpl implements WxMpCardService {
      * </pre>
      */
     @Override
-    public WxMpCreateLandingPageResult createCardLandingPage(WxMpCreateLandingPage request) throws WxErrorException {
+    public WxMpCreateLandingPageResult createCardLandingPage(WxMpWxCardCreateLandingPage request) throws WxErrorException {
         String responseContent = this.wxMpService.post(CARD_LANDING_PAGE_CREATE_URL, request.toJson());
 
         return WxMpGsonBuilder.INSTANCE.create().fromJson(

@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @XStreamAlias("xml")
 public class WxPayOrderReverseResult extends BaseWxPayResult {
+    private static final long serialVersionUID = 9117523974011507262L;
 
     /**
      * <pre>

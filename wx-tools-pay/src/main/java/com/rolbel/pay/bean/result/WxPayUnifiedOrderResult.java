@@ -16,6 +16,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @XStreamAlias("xml")
 public class WxPayUnifiedOrderResult extends BaseWxPayResult {
+    private static final long serialVersionUID = 8840821442578089495L;
 
     /**
      * 微信生成的预支付回话标识，用于后续接口调用中使用，该值有效期为2小时
@@ -40,5 +41,4 @@ public class WxPayUnifiedOrderResult extends BaseWxPayResult {
      */
     @XStreamAlias("code_url")
     private String codeURL;
-
 }

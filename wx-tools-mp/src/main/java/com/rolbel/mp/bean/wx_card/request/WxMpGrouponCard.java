@@ -1,8 +1,8 @@
-package com.rolbel.mp.bean.card.request;
+package com.rolbel.mp.bean.wx_card.request;
 
 import com.google.gson.annotations.SerializedName;
 import com.rolbel.common.error.WxErrorException;
-import com.rolbel.mp.bean.card.base.*;
+import com.rolbel.mp.bean.wx_card.base.*;
 import com.rolbel.mp.util.json.WxMpGsonBuilder;
 import lombok.Builder;
 import lombok.Data;

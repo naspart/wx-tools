@@ -1,4 +1,4 @@
-package com.rolbel.mp.bean.card.request;
+package com.rolbel.mp.bean.wx_card.request;
 
 import com.google.gson.annotations.SerializedName;
 import com.rolbel.mp.util.json.WxMpGsonBuilder;
@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Data
-public class WxMpCreateLandingPage implements Serializable {
+public class WxMpWxCardCreateLandingPage implements Serializable {
     private static final long serialVersionUID = -6029986883670054478L;
 
     @SerializedName(value = "banner")

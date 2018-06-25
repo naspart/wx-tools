@@ -15,6 +15,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @XStreamAlias("xml")
 public class WxPayShorturlResult extends BaseWxPayResult {
+    private static final long serialVersionUID = -9133016091343441701L;
+
     /**
      * <pre>
      * URL链接
@@ -27,5 +29,4 @@ public class WxPayShorturlResult extends BaseWxPayResult {
      */
     @XStreamAlias("short_url")
     private String shortUrl;
-
 }

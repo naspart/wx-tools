@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @XStreamAlias("xml")
 public class WxPaySandboxSignKeyResult extends BaseWxPayResult {
+    private static final long serialVersionUID = -487000235165851593L;
 
     /**
      * <pre>
@@ -23,5 +24,4 @@ public class WxPaySandboxSignKeyResult extends BaseWxPayResult {
      */
     @XStreamAlias("sandbox_signkey")
     private String sandboxSignKey;
-
 }

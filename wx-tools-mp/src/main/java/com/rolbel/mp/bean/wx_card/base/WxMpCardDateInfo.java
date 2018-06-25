@@ -1,17 +1,19 @@
-package com.rolbel.mp.bean.card.base;
+package com.rolbel.mp.bean.wx_card.base;
 
 import com.google.gson.annotations.SerializedName;
 import com.rolbel.common.annotation.Required;
 import lombok.Builder;
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * 使用日期，有效期的信息
  */
 @Data
 @Builder
-public class WxMpCardDateInfo {
-    private static final long serialVersionUID = -5727050894724872291L;
+public class WxMpCardDateInfo implements Serializable {
+    private static final long serialVersionUID = 8859736181595225997L;
 
     /**
      * 使用时间的类型，旧文档采用的1和2依然生效

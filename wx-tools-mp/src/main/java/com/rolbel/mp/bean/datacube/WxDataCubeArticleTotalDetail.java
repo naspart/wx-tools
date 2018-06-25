@@ -8,8 +8,6 @@ import java.io.Serializable;
 /**
  * 获取图文群发总数据接口(getarticletotal)中的详细字段
  * <p>
- * Created by Binary Wang on 2016/8/24.
-
  */
 @Data
 public class WxDataCubeArticleTotalDetail implements Serializable {

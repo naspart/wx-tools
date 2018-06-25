@@ -9,8 +9,10 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
  */
 @XStreamAlias("xml")
 public class WxPayDefaultRequest extends BaseWxPayRequest {
-  @Override
-  protected void checkConstraints() {
-    //do nothing
-  }
+    private static final long serialVersionUID = 1492497380324798949L;
+
+    @Override
+    protected void checkConstraints() {
+        //do nothing
+    }
 }

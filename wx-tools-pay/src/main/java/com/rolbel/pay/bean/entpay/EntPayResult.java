@@ -16,6 +16,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @XStreamAlias("xml")
 public class EntPayResult extends BaseWxPayResult {
+    private static final long serialVersionUID = -7496982029055755284L;
 
     /**
      * 商户appid

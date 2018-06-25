@@ -1,4 +1,4 @@
-package com.rolbel.mp.bean.card.base;
+package com.rolbel.mp.bean.wx_card.base;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -14,7 +14,7 @@ import java.util.List;
 @Data
 @Builder
 public class WxMpCardBaseInfo implements Serializable {
-    private static final long serialVersionUID = -5345805620475047226L;
+    private static final long serialVersionUID = -4610122756571645231L;
 
     /**
      * 卡券的商户logo，建议像素为300*300

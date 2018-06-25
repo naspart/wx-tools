@@ -1,4 +1,4 @@
-package com.rolbel.mp.bean.card.result;
+package com.rolbel.mp.bean.wx_card.result;
 
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;

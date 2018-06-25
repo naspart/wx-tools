@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 import com.rolbel.common.util.xml.XStreamCDataConverter;
 import com.rolbel.common.util.xml.XStreamInitializer;
 
+import java.io.Serializable;
+
 /**
  * 微信支付订单和退款的异步通知共用的响应类
  */
@@ -19,7 +21,9 @@ import com.rolbel.common.util.xml.XStreamInitializer;
 @NoArgsConstructor
 @AllArgsConstructor
 @XStreamAlias("xml")
-public class WxPayNotifyResponse {
+public class WxPayNotifyResponse implements Serializable {
+    private static final long serialVersionUID = 4890976552441454029L;
+
     @XStreamOmitField
     private transient static final String FAIL = "FAIL";
     @XStreamOmitField

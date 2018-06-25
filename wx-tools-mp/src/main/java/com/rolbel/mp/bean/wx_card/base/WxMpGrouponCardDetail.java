@@ -1,4 +1,4 @@
-package com.rolbel.mp.bean.card.base;
+package com.rolbel.mp.bean.wx_card.base;
 
 import com.google.gson.annotations.SerializedName;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import java.io.Serializable;
 @Data
 @Builder
 public class WxMpGrouponCardDetail implements Serializable {
-    private static final long serialVersionUID = -1103433073416775068L;
+    private static final long serialVersionUID = -8531346552690393844L;
 
     @SerializedName("base_info")
     private WxMpCardBaseInfo baseInfo;

@@ -20,7 +20,8 @@ import java.util.List;
 @NoArgsConstructor
 @XStreamAlias("xml")
 public class WxPayRefundResult extends BaseWxPayResult implements Serializable {
-    private static final long serialVersionUID = 3386701498550205038L;
+    private static final long serialVersionUID = 1628731136663989718L;
+
     /**
      * 微信订单号.
      */

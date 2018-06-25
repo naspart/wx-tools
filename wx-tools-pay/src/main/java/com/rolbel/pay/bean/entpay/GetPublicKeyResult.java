@@ -14,6 +14,8 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @XStreamAlias("xml")
 public class GetPublicKeyResult extends BaseWxPayResult {
+    private static final long serialVersionUID = -5372894002871178374L;
+
     /**
      * 商户号.
      */

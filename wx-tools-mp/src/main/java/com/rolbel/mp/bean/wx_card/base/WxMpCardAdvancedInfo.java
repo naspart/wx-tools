@@ -1,4 +1,4 @@
-package com.rolbel.mp.bean.card.base;
+package com.rolbel.mp.bean.wx_card.base;
 
 import com.google.gson.annotations.SerializedName;
 import lombok.Builder;
@@ -10,7 +10,7 @@ import java.util.List;
 @Data
 @Builder
 public class WxMpCardAdvancedInfo implements Serializable {
-    private static final long serialVersionUID = 607224853342225387L;
+    private static final long serialVersionUID = 1420247024116250321L;
 
     /**
      * 使用门槛（条件）字段，若不填写使用条件则在券面拼写 ：无最低消费限制，全场通用，不限品类；并在使用说明显示： 可与其他优惠共享

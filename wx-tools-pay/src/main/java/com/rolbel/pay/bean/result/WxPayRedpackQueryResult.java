@@ -13,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @XStreamAlias("xml")
 public class WxPayRedpackQueryResult extends BaseWxPayResult {
-    private static final long serialVersionUID = -3849864122189552906L;
+    private static final long serialVersionUID = 704082465767899651L;
 
     /**
      * <pre>

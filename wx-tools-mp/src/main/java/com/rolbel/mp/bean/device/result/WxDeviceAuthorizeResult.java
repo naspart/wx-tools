@@ -8,10 +8,6 @@ import lombok.EqualsAndHashCode;
 
 import java.util.List;
 
-/**
- * @author keungtung.
- * @date 10/12/2016
- */
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class WxDeviceAuthorizeResult extends AbstractDeviceBean {
