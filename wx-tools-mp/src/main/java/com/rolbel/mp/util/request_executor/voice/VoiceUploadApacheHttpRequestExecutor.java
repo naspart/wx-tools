@@ -18,13 +18,6 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import java.io.File;
 import java.io.IOException;
 
-/**
- * <pre>
- *  Created by BinaryWang on 2018/6/9.
- * </pre>
- *
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
- */
 public class VoiceUploadApacheHttpRequestExecutor extends VoiceUploadRequestExecutor<CloseableHttpClient, HttpHost> {
     public VoiceUploadApacheHttpRequestExecutor(RequestHttp requestHttp) {
         super(requestHttp);

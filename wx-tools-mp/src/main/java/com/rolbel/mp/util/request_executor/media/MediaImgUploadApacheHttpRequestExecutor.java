@@ -19,11 +19,6 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import java.io.File;
 import java.io.IOException;
 
-/**
- * Created by ecoolper on 2017/5/5.
- *
- * @author ecoolper
- */
 public class MediaImgUploadApacheHttpRequestExecutor extends MediaImgUploadRequestExecutor<CloseableHttpClient, HttpHost> {
     public MediaImgUploadApacheHttpRequestExecutor(RequestHttp requestHttp) {
         super(requestHttp);

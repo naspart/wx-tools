@@ -6,9 +6,6 @@ import com.rolbel.ma.config.WxMaConfig;
 import com.rolbel.common.error.WxErrorException;
 import com.rolbel.open.api.WxOpenComponentService;
 
-/**
- * @author <a href="https://github.com/007gzs">007</a>
- */
 /* package */ class WxOpenMaServiceImpl extends WxMaServiceImpl {
     private WxOpenComponentService wxOpenComponentService;
     private WxMaConfig wxMaConfig;
@@ -35,5 +32,4 @@ import com.rolbel.open.api.WxOpenComponentService;
     public String getAccessToken(boolean forceRefresh) throws WxErrorException {
         return wxOpenComponentService.getAuthorizerAccessToken(appId, forceRefresh);
     }
-
 }

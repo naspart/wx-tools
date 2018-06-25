@@ -10,9 +10,6 @@ import com.google.gson.JsonParser;
 import com.rolbel.common.error.WxError;
 import com.rolbel.common.error.WxErrorException;
 
-/**
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
- */
 public class WxMaMsgServiceImpl implements WxMaMsgService {
     private static final JsonParser JSON_PARSER = new JsonParser();
     private WxMaService wxMaService;

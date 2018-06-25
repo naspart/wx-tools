@@ -4,7 +4,7 @@ import lombok.Data;
 import com.rolbel.common.api.WxConstant;
 import com.rolbel.cp.bean.article.MpnewsArticle;
 import com.rolbel.cp.bean.article.NewArticle;
-import com.rolbel.cp.bean.messagebuilder.*;
+import com.rolbel.cp.bean.message_builder.*;
 import com.rolbel.cp.util.json.WxCpGsonBuilder;
 
 import java.io.Serializable;

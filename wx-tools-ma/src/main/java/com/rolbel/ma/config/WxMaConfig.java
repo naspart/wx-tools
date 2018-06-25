@@ -7,8 +7,6 @@ import java.util.concurrent.locks.Lock;
 
 /**
  * 小程序配置
- *
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
  */
 public interface WxMaConfig {
 

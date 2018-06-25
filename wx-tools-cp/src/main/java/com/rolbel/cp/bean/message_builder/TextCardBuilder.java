@@ -1,4 +1,4 @@
-package com.rolbel.cp.bean.messagebuilder;
+package com.rolbel.cp.bean.message_builder;
 
 import com.rolbel.common.api.WxConstant;
 import com.rolbel.cp.bean.WxCpMessage;
@@ -9,8 +9,7 @@ import com.rolbel.cp.bean.WxCpMessage;
  * 用法: WxCustomMessage m = WxCustomMessage.TEXTCARD().title(...)....toUser(...).build();
  * Created by Binary Wang on 2017-7-2.
  * </pre>
- *
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
+
  */
 public class TextCardBuilder extends BaseBuilder<TextCardBuilder> {
   private String title;

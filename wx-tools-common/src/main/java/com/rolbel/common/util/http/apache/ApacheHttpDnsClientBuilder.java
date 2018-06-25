@@ -30,8 +30,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 /**
  * httpclient 连接管理器 自带DNS解析.
  * <p>大部分代码拷贝自：DefaultApacheHttpClientBuilder</p>
- *
- * @author Andy.Huo
  */
 public class ApacheHttpDnsClientBuilder implements ApacheHttpClientBuilder {
     protected final Logger log = LoggerFactory.getLogger(ApacheHttpDnsClientBuilder.class);

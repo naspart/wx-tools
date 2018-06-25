@@ -13,9 +13,6 @@ import org.slf4j.LoggerFactory;
 
 import java.io.*;
 
-/**
- * Created by ecoolper on 2017/5/5.
- */
 public class MaterialVoiceAndImageDownloadOkhttpRequestExecutor extends MaterialVoiceAndImageDownloadRequestExecutor<OkHttpClient, OkHttpProxyInfo> {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 

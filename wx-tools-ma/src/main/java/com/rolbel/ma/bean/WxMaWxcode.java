@@ -7,10 +7,6 @@ import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 
-/**
- * @author Element
- * @date 2017/7/27
- */
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class WxMaWxcode extends AbstractWxMaQrcodeWrapper implements Serializable {

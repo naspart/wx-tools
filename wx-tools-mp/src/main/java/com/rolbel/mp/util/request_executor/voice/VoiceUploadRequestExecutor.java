@@ -5,13 +5,6 @@ import com.rolbel.common.util.http.RequestHttp;
 
 import java.io.File;
 
-/**
- * <pre>
- *  Created by BinaryWang on 2018/6/9.
- * </pre>
- *
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
- */
 public abstract class VoiceUploadRequestExecutor<H, P> implements RequestExecutor<Boolean, File> {
     protected RequestHttp<H, P> requestHttp;
 

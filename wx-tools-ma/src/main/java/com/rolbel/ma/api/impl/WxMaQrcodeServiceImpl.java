@@ -11,9 +11,6 @@ import com.rolbel.common.error.WxErrorException;
 
 import java.io.File;
 
-/**
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
- */
 public class WxMaQrcodeServiceImpl implements WxMaQrcodeService {
   private WxMaService wxMaService;
 

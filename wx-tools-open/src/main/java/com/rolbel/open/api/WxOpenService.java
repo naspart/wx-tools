@@ -2,9 +2,6 @@ package com.rolbel.open.api;
 
 import com.rolbel.common.error.WxErrorException;
 
-/**
- * @author <a href="https://github.com/007gzs">007</a>
- */
 public interface WxOpenService {
   WxOpenComponentService getWxOpenComponentService();
 

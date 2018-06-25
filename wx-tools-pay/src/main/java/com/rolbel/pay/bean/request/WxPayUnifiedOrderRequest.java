@@ -14,8 +14,7 @@ import org.apache.commons.lang3.StringUtils;
  * 参考文档：https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=9_1
  * Created by Binary Wang on 2016/9/25.
  * </pre>
- *
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
+
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

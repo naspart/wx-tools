@@ -20,9 +20,6 @@ import java.io.InputStream;
 import java.net.URLEncoder;
 import java.util.UUID;
 
-/**
- * Created by ecoolper on 2017/5/5.
- */
 public class QrCodeJoddHttpRequestExecutor extends QrCodeRequestExecutor<HttpConnectionProvider, ProxyInfo> {
     public QrCodeJoddHttpRequestExecutor(RequestHttp requestHttp) {
         super(requestHttp);

@@ -10,8 +10,7 @@ import com.rolbel.mp.bean.wifi.WxMpWifiShopListResult;
  * <pre>
  *  Created by BinaryWang on 2018/6/10.
  * </pre>
- *
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
+
  */
 public class WxMpWifiServiceImpl implements WxMpWifiService {
     private WxMpService wxMpService;

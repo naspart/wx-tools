@@ -8,8 +8,7 @@ import com.rolbel.mp.bean.wifi.WxMpWifiShopListResult;
  *  微信连接WI-FI接口.
  *  Created by BinaryWang on 2018/6/10.
  * </pre>
- *
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
+
  */
 public interface WxMpWifiService {
     /**

@@ -15,8 +15,7 @@ import com.rolbel.common.annotation.Required;
  * <li>示例值
  * <li>描述
  * </pre>
- *
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
+
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

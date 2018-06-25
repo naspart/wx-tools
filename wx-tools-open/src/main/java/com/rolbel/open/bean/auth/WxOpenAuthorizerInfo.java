@@ -7,9 +7,6 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-/**
- * @author <a href="https://github.com/007gzs">007</a>
- */
 @Data
 public class WxOpenAuthorizerInfo implements Serializable {
   private static final long serialVersionUID = -5327886953416394738L;

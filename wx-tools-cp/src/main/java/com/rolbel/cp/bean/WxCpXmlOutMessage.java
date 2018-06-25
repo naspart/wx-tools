@@ -4,7 +4,7 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
 import lombok.Data;
 import com.rolbel.common.util.xml.XStreamCDataConverter;
-import com.rolbel.cp.bean.outxmlbuilder.*;
+import com.rolbel.cp.bean.outxml_builder.*;
 import com.rolbel.cp.config.WxCpConfigStorage;
 import com.rolbel.cp.util.crypto.WxCpCryptUtil;
 import com.rolbel.cp.util.xml.XStreamTransformer;

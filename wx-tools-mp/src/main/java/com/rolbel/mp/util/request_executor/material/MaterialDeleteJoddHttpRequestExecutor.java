@@ -12,9 +12,6 @@ import com.rolbel.common.util.http.RequestHttp;
 
 import java.io.IOException;
 
-/**
- * Created by ecoolper on 2017/5/5.
- */
 public class MaterialDeleteJoddHttpRequestExecutor extends MaterialDeleteRequestExecutor<HttpConnectionProvider, ProxyInfo> {
     public MaterialDeleteJoddHttpRequestExecutor(RequestHttp requestHttp) {
         super(requestHttp);

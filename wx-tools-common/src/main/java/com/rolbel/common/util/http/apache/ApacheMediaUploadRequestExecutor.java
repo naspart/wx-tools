@@ -1,6 +1,5 @@
 package com.rolbel.common.util.http.apache;
 
-
 import com.rolbel.common.error.WxError;
 import com.rolbel.common.error.WxErrorException;
 import com.rolbel.common.bean.result.WxMediaUploadResult;
@@ -18,9 +17,6 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import java.io.File;
 import java.io.IOException;
 
-/**
- * Created by ecoolper on 2017/5/5.
- */
 public class ApacheMediaUploadRequestExecutor extends MediaUploadRequestExecutor<CloseableHttpClient, HttpHost> {
     public ApacheMediaUploadRequestExecutor(RequestHttp requestHttp) {
         super(requestHttp);

@@ -1,4 +1,4 @@
-package com.rolbel.cp.bean.outxmlbuilder;
+package com.rolbel.cp.bean.outxml_builder;
 
 import com.rolbel.cp.bean.WxCpXmlOutImageMessage;
 

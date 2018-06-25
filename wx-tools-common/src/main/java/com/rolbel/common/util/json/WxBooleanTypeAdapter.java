@@ -14,8 +14,7 @@ import java.io.IOException;
  * Gson 布尔类型类型转换器
  * Created by Binary Wang on 2017-7-8.
  * </pre>
- *
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
+
  */
 public class WxBooleanTypeAdapter extends TypeAdapter<Boolean> {
     @Override

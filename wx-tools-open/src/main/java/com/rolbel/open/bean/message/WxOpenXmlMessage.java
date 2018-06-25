@@ -15,9 +15,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 
-/**
- * @author <a href="https://github.com/007gzs">007</a>
- */
 @XStreamAlias("xml")
 @Data
 public class WxOpenXmlMessage implements Serializable {

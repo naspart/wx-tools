@@ -26,9 +26,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.locks.Lock;
 
-/**
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
- */
 public class WxMaServiceImpl implements WxMaService, RequestHttp<CloseableHttpClient, HttpHost> {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 

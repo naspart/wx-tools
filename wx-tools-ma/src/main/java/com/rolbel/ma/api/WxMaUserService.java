@@ -7,8 +7,6 @@ import com.rolbel.common.error.WxErrorException;
 
 /**
  * 用户信息相关操作接口.
- *
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
  */
 public interface WxMaUserService {
 

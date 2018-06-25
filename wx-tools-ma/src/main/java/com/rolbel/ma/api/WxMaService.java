@@ -7,9 +7,6 @@ import com.rolbel.common.util.http.MediaUploadRequestExecutor;
 import com.rolbel.common.util.http.RequestExecutor;
 import com.rolbel.common.util.http.RequestHttp;
 
-/**
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
- */
 public interface WxMaService {
   /**
    * 获取access_token.

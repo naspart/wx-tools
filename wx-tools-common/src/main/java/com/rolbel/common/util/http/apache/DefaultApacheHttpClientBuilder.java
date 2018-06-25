@@ -32,8 +32,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * httpclient 连接管理器
- *
- * @author kakotor
  */
 public class DefaultApacheHttpClientBuilder implements ApacheHttpClientBuilder {
     protected final Logger log = LoggerFactory.getLogger(DefaultApacheHttpClientBuilder.class);

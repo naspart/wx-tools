@@ -24,9 +24,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Map;
 
-/**
- * Created by ecoolper on 2017/5/5.
- */
 public class MaterialUploadApacheHttpRequestExecutor extends MaterialUploadRequestExecutor<CloseableHttpClient, HttpHost> {
     public MaterialUploadApacheHttpRequestExecutor(RequestHttp requestHttp) {
         super(requestHttp);

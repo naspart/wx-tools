@@ -16,9 +16,6 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.util.UUID;
 
-/**
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
- */
 public class WxMaMediaServiceImpl implements WxMaMediaService {
     private WxMaService wxMaService;
 

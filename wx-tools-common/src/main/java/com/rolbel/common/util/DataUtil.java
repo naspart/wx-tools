@@ -7,8 +7,7 @@ import org.apache.commons.lang3.StringUtils;
  *  数据处理工具类
  *  Created by BinaryWang on 2018/5/8.
  * </pre>
- *
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
+
  */
 public class DataUtil {
     /**

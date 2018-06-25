@@ -10,8 +10,7 @@ import com.rolbel.common.annotation.Required;
  *  拉取订单评价数据接口的请求参数封装类
  *  Created by BinaryWang on 2017/9/2.
  * </pre>
- *
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
+
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

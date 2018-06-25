@@ -6,9 +6,6 @@ import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 
-/**
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
- */
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class WxMaQrcode extends AbstractWxMaQrcodeWrapper implements Serializable {

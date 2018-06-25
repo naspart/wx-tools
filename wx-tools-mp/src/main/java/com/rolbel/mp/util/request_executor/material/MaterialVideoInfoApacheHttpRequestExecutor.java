@@ -18,9 +18,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by ecoolper on 2017/5/5.
- */
 public class MaterialVideoInfoApacheHttpRequestExecutor extends MaterialVideoInfoRequestExecutor<CloseableHttpClient, HttpHost> {
     public MaterialVideoInfoApacheHttpRequestExecutor(RequestHttp requestHttp) {
         super(requestHttp);

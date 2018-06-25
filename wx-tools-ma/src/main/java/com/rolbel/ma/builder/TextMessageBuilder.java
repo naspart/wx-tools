@@ -6,8 +6,6 @@ import static com.rolbel.ma.constant.WxMaConstant.KefuMsgType;
 
 /**
  * 文本消息builder.
- *
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
  */
 public final class TextMessageBuilder extends BaseBuilder<TextMessageBuilder> {
     private String content;

@@ -16,8 +16,7 @@ import java.util.Arrays;
  * 微信支付-申请退款请求参数
  * Created by Binary Wang on 2016-10-08.
  * </pre>
- *
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
+
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

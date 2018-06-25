@@ -18,9 +18,6 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
-/**
- * Created by ecoolper on 2017/5/5.
- */
 public class MaterialNewsInfoJoddHttpRequestExecutor extends MaterialNewsInfoRequestExecutor<HttpConnectionProvider, ProxyInfo> {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 

@@ -2,9 +2,6 @@ package com.rolbel.ma.builder;
 
 import com.rolbel.ma.bean.WxMaKefuMessage;
 
-/**
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
- */
 public class BaseBuilder<T> {
   protected String msgType;
   protected String toUser;

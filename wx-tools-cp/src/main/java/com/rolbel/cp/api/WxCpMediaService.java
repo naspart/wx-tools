@@ -12,8 +12,7 @@ import java.io.InputStream;
  *  媒体管理接口
  *  Created by BinaryWang on 2017/6/24.
  * </pre>
- *
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
+
  */
 public interface WxCpMediaService {
 

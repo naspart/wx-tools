@@ -6,8 +6,6 @@ import static com.rolbel.ma.constant.WxMaConstant.KefuMsgType;
 
 /**
  * 图片消息builder.
- *
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
  */
 public final class ImageMessageBuilder extends BaseBuilder<ImageMessageBuilder> {
     private String mediaId;

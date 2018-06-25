@@ -1,10 +1,8 @@
 package com.rolbel.mp.util.request_executor.material;
 
-
 import com.rolbel.common.util.http.RequestExecutor;
 import com.rolbel.common.util.http.RequestHttp;
 import com.rolbel.mp.bean.material.WxMpMaterialVideoInfoResult;
-
 
 public abstract class MaterialVideoInfoRequestExecutor<H, P> implements RequestExecutor<WxMpMaterialVideoInfoResult, String> {
     protected RequestHttp<H, P> requestHttp;

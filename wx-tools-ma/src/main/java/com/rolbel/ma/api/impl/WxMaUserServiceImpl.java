@@ -9,9 +9,6 @@ import com.rolbel.ma.util.crypt.WxMaCryptUtils;
 import com.rolbel.common.error.WxErrorException;
 import org.apache.commons.codec.digest.DigestUtils;
 
-/**
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
- */
 public class WxMaUserServiceImpl implements WxMaUserService {
   private WxMaService service;
 

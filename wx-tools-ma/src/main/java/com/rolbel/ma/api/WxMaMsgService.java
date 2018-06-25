@@ -8,8 +8,6 @@ import com.rolbel.common.error.WxErrorException;
  * <pre>
  * 消息发送接口
  * </pre>
- *
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
  */
 public interface WxMaMsgService {
   String KEFU_MESSAGE_SEND_URL = "https://api.weixin.qq.com/cgi-bin/message/custom/send";

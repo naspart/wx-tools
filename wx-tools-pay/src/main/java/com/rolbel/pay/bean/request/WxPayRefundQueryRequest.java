@@ -9,8 +9,7 @@ import org.apache.commons.lang3.StringUtils;
  * <pre>
  * Created by Binary Wang on 2016-11-24.
  * </pre>
- *
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
+
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

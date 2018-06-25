@@ -5,9 +5,6 @@ import com.rolbel.common.util.http.RequestHttp;
 import com.rolbel.mp.bean.material.WxMpMaterial;
 import com.rolbel.mp.bean.material.WxMpMaterialUploadResult;
 
-/**
- * @author codepiano
- */
 public abstract class MaterialUploadRequestExecutor<H, P> implements RequestExecutor<WxMpMaterialUploadResult, WxMpMaterial> {
     protected RequestHttp<H, P> requestHttp;
 

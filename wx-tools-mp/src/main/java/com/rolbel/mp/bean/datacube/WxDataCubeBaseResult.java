@@ -12,8 +12,7 @@ import java.io.Serializable;
  *  统计接口的共用属性类.
  *  Created by Binary Wang on 2016/8/25.
  * </pre>
- *
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
+
  */
 @Data
 public abstract class WxDataCubeBaseResult implements Serializable {

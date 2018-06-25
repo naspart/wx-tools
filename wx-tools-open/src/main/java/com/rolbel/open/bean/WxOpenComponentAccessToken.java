@@ -4,9 +4,6 @@ import com.rolbel.open.util.json.WxOpenGsonBuilder;
 
 import java.io.Serializable;
 
-/**
- * @author <a href="https://github.com/007gzs">007</a>
- */
 public class WxOpenComponentAccessToken implements Serializable {
   private static final long serialVersionUID = 2134550135400443725L;
 

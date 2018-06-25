@@ -18,9 +18,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Map;
 
-/**
- * Created by ecoolper on 2017/5/5.
- */
 public class MaterialUploadJoddHttpRequestExecutor extends MaterialUploadRequestExecutor<HttpConnectionProvider, ProxyInfo> {
     public MaterialUploadJoddHttpRequestExecutor(RequestHttp requestHttp) {
         super(requestHttp);

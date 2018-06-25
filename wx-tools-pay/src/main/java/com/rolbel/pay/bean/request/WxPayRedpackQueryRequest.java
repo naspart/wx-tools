@@ -14,8 +14,7 @@ import lombok.*;
  *   说明
  * Created by Binary Wang on 2016-11-28.
  * </pre>
- *
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
+
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

@@ -5,8 +5,7 @@ package com.rolbel.mp.constant;
  * 微信公众号事件的相关常量
  * Created by Binary Wang on 2017-5-10.
  * </pre>
- *
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
+
  */
 public class WxMpEventConstant {
     /**

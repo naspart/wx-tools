@@ -1,4 +1,4 @@
-package com.rolbel.cp.bean.messagebuilder;
+package com.rolbel.cp.bean.message_builder;
 
 import com.rolbel.common.api.WxConstant;
 import com.rolbel.cp.bean.WxCpMessage;
