@@ -6,9 +6,6 @@ import com.rolbel.mp.api.impl.WxMpServiceImpl;
 import com.rolbel.mp.bean.WxMpOAuth2AccessToken;
 import com.rolbel.open.api.WxOpenComponentService;
 
-/**
- * @author <a href="https://github.com/007gzs">007</a>
- */
 /* package */ class WxOpenMpServiceImpl extends WxMpServiceImpl {
     private WxOpenComponentService wxOpenComponentService;
     private WxMpConfigStorage wxMpConfigStorage;

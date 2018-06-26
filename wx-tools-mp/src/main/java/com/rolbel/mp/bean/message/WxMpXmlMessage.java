@@ -1,9 +1,9 @@
 package com.rolbel.mp.bean.message;
 
-import com.rolbel.common.util.ToStringUtil;
+import com.rolbel.common.util.ToStringUtils;
 import com.rolbel.common.util.xml.XStreamCDataConverter;
 import com.rolbel.mp.api.WxMpConfigStorage;
-import com.rolbel.mp.util.crypto.WxMpCryptUtil;
+import com.rolbel.mp.util.crypto.WxMpCryptUtils;
 import com.rolbel.mp.util.xml.XStreamTransformer;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
@@ -447,7 +447,7 @@ public class WxMpXmlMessage implements Serializable {
     public static WxMpXmlMessage fromEncryptedXml(String encryptedXml,
                                                   WxMpConfigStorage wxMpConfigStorage, String timestamp, String nonce,
                                                   String msgSignature) {
-        WxMpCryptUtil cryptUtil = new WxMpCryptUtil(wxMpConfigStorage);
+        WxMpCryptUtils cryptUtil = new WxMpCryptUtils(wxMpConfigStorage);
         String plainText = cryptUtil.decrypt(msgSignature, timestamp, nonce,
                 encryptedXml);
         return fromXml(plainText);
@@ -497,6 +497,6 @@ public class WxMpXmlMessage implements Serializable {
 
     @Override
     public String toString() {
-        return ToStringUtil.toSimpleString(this);
+        return ToStringUtils.toSimpleString(this);
     }
 }

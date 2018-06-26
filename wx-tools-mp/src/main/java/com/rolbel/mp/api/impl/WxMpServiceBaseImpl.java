@@ -9,8 +9,8 @@ import com.rolbel.common.error.WxError;
 import com.rolbel.common.error.WxErrorException;
 import com.rolbel.common.session.StandardSessionManager;
 import com.rolbel.common.session.WxSessionManager;
-import com.rolbel.common.util.DataUtil;
-import com.rolbel.common.util.RandomUtil;
+import com.rolbel.common.util.DataUtils;
+import com.rolbel.common.util.RandomUtils;
 import com.rolbel.common.util.crypto.SHA1;
 import com.rolbel.common.util.http.*;
 import com.rolbel.mp.api.*;
@@ -27,7 +27,7 @@ import java.io.IOException;
 import java.util.concurrent.locks.Lock;
 
 public abstract class WxMpServiceBaseImpl<H, P> implements WxMpService, RequestHttp<H, P> {
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
+    protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private static final JsonParser JSON_PARSER = new JsonParser();
 
@@ -63,7 +63,7 @@ public abstract class WxMpServiceBaseImpl<H, P> implements WxMpService, RequestH
             return SHA1.gen(this.getWxMpConfigStorage().getToken(), timestamp, nonce)
                     .equals(signature);
         } catch (Exception e) {
-            this.log.error("Checking signature failed, and the reason is :" + e.getMessage());
+            this.logger.error("Checking signature failed, and the reason is :" + e.getMessage());
             return false;
         }
     }
@@ -100,7 +100,7 @@ public abstract class WxMpServiceBaseImpl<H, P> implements WxMpService, RequestH
     @Override
     public WxJsapiSignature createJsapiSignature(String url) throws WxErrorException {
         long timestamp = System.currentTimeMillis() / 1000;
-        String randomStr = RandomUtil.getRandomStr();
+        String randomStr = RandomUtils.getRandomStr();
         String jsapiTicket = getJsapiTicket(false);
         String signature = SHA1.genWithAmple("jsapi_ticket=" + jsapiTicket, "noncestr=" + randomStr, "timestamp=" + timestamp, "url=" + url);
 
@@ -251,7 +251,7 @@ public abstract class WxMpServiceBaseImpl<H, P> implements WxMpService, RequestH
                 return this.executeInternal(executor, uri, data);
             } catch (WxErrorException e) {
                 if (retryTimes + 1 > this.maxRetryTimes) {
-                    this.log.warn("重试达到最大次数【{}】", maxRetryTimes);
+                    this.logger.warn("重试达到最大次数【{}】", maxRetryTimes);
                     //最后一次重试失败后，直接抛出异常，不再等待
                     throw new RuntimeException("微信服务端异常，超出重试次数");
                 }
@@ -261,7 +261,7 @@ public abstract class WxMpServiceBaseImpl<H, P> implements WxMpService, RequestH
                 if (error.getErrorCode() == -1) {
                     int sleepMillis = this.retrySleepMillis * (1 << retryTimes);
                     try {
-                        this.log.warn("微信系统繁忙，{} ms 后重试(第{}次)", sleepMillis, retryTimes + 1);
+                        this.logger.warn("微信系统繁忙，{} ms 后重试(第{}次)", sleepMillis, retryTimes + 1);
                         Thread.sleep(sleepMillis);
                     } catch (InterruptedException e1) {
                         throw new RuntimeException(e1);
@@ -272,12 +272,12 @@ public abstract class WxMpServiceBaseImpl<H, P> implements WxMpService, RequestH
             }
         } while (retryTimes++ < this.maxRetryTimes);
 
-        this.log.warn("重试达到最大次数【{}】", this.maxRetryTimes);
+        this.logger.warn("重试达到最大次数【{}】", this.maxRetryTimes);
         throw new RuntimeException("微信服务端异常，超出重试次数");
     }
 
     public <T, E> T executeInternal(RequestExecutor<T, E> executor, String uri, E data) throws WxErrorException {
-        E dataForLog = DataUtil.handleDataWithSecret(data);
+        E dataForLog = DataUtils.handleDataWithSecret(data);
 
         if (uri.contains("access_token=")) {
             throw new IllegalArgumentException("uri参数中不允许有access_token: " + uri);
@@ -289,7 +289,7 @@ public abstract class WxMpServiceBaseImpl<H, P> implements WxMpService, RequestH
 
         try {
             T result = executor.execute(uriWithAccessToken, data);
-            this.log.debug("\n【请求地址】: {}\n【请求参数】：{}\n【响应数据】：{}", uriWithAccessToken, dataForLog, result);
+            this.logger.debug("\n【请求地址】: {}\n【请求参数】：{}\n【响应数据】：{}", uriWithAccessToken, dataForLog, result);
 
             return result;
         } catch (WxErrorException e) {
@@ -309,12 +309,12 @@ public abstract class WxMpServiceBaseImpl<H, P> implements WxMpService, RequestH
             }
 
             if (error.getErrorCode() != 0) {
-                this.log.error("\n【请求地址】: {}\n【请求参数】：{}\n【错误信息】：{}", uriWithAccessToken, dataForLog, error);
+                this.logger.error("\n【请求地址】: {}\n【请求参数】：{}\n【错误信息】：{}", uriWithAccessToken, dataForLog, error);
                 throw new WxErrorException(error, e);
             }
             return null;
         } catch (IOException e) {
-            this.log.error("\n【请求地址】: {}\n【请求参数】：{}\n【异常信息】：{}", uriWithAccessToken, dataForLog, e.getMessage());
+            this.logger.error("\n【请求地址】: {}\n【请求参数】：{}\n【异常信息】：{}", uriWithAccessToken, dataForLog, e.getMessage());
             throw new WxErrorException(WxError.builder().errorMsg(e.getMessage()).build(), e);
         }
     }

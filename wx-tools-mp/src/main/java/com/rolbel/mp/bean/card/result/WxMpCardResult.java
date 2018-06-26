@@ -1,6 +1,6 @@
 package com.rolbel.mp.bean.card.result;
 
-import com.rolbel.common.util.ToStringUtil;
+import com.rolbel.common.util.ToStringUtils;
 import com.rolbel.mp.bean.card.WxMpCardInfo;
 import lombok.Data;
 
@@ -23,6 +23,6 @@ public class WxMpCardResult implements Serializable {
 
     @Override
     public String toString() {
-        return ToStringUtil.toSimpleString(this);
+        return ToStringUtils.toSimpleString(this);
     }
 }

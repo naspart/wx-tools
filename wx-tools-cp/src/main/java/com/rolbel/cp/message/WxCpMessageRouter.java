@@ -54,200 +54,190 @@ import java.util.concurrent.Future;
  */
 public class WxCpMessageRouter {
 
-  private static final int DEFAULT_THREAD_POOL_SIZE = 100;
-  protected final Logger log = LoggerFactory.getLogger(WxCpMessageRouter.class);
-  private final List<WxCpMessageRouterRule> rules = new ArrayList<>();
+    private static final int DEFAULT_THREAD_POOL_SIZE = 100;
+    protected final Logger log = LoggerFactory.getLogger(WxCpMessageRouter.class);
+    private final List<WxCpMessageRouterRule> rules = new ArrayList<>();
 
-  private final WxCpService wxCpService;
+    private final WxCpService wxCpService;
 
-  private ExecutorService executorService;
+    private ExecutorService executorService;
 
-  private WxMessageDuplicateChecker messageDuplicateChecker;
+    private WxMessageDuplicateChecker messageDuplicateChecker;
 
-  private WxSessionManager sessionManager;
+    private WxSessionManager sessionManager;
 
-  private WxErrorExceptionHandler exceptionHandler;
+    private WxErrorExceptionHandler exceptionHandler;
 
-  public WxCpMessageRouter(WxCpService wxCpService) {
-    this.wxCpService = wxCpService;
-    this.executorService = Executors.newFixedThreadPool(DEFAULT_THREAD_POOL_SIZE);
-    this.messageDuplicateChecker = new WxMessageInMemoryDuplicateChecker();
-    this.sessionManager = new StandardSessionManager();
-    this.exceptionHandler = new LogExceptionHandler();
-  }
-
-  /**
-   * <pre>
-   * 设置自定义的 {@link ExecutorService}
-   * 如果不调用该方法，默认使用 Executors.newFixedThreadPool(100)
-   * </pre>
-   *
-   * @param executorService
-   */
-  public void setExecutorService(ExecutorService executorService) {
-    this.executorService = executorService;
-  }
-
-  /**
-   * <pre>
-   * 设置自定义的 {@link com.rolbel.common.api.WxMessageDuplicateChecker}
-   * 如果不调用该方法，默认使用 {@link com.rolbel.common.api.WxMessageInMemoryDuplicateChecker}
-   * </pre>
-   *
-   * @param messageDuplicateChecker
-   */
-  public void setMessageDuplicateChecker(WxMessageDuplicateChecker messageDuplicateChecker) {
-    this.messageDuplicateChecker = messageDuplicateChecker;
-  }
-
-  /**
-   * <pre>
-   * 设置自定义的{@link com.rolbel.common.session.WxSessionManager}
-   * 如果不调用该方法，默认使用 {@link com.rolbel.common.session.StandardSessionManager}
-   * </pre>
-   *
-   * @param sessionManager
-   */
-  public void setSessionManager(WxSessionManager sessionManager) {
-    this.sessionManager = sessionManager;
-  }
-
-  /**
-   * <pre>
-   * 设置自定义的{@link com.rolbel.common.api.WxErrorExceptionHandler}
-   * 如果不调用该方法，默认使用 {@link com.rolbel.common.util.LogExceptionHandler}
-   * </pre>
-   *
-   * @param exceptionHandler
-   */
-  public void setExceptionHandler(WxErrorExceptionHandler exceptionHandler) {
-    this.exceptionHandler = exceptionHandler;
-  }
-
-  List<WxCpMessageRouterRule> getRules() {
-    return this.rules;
-  }
-
-  /**
-   * 开始一个新的Route规则
-   */
-  public WxCpMessageRouterRule rule() {
-    return new WxCpMessageRouterRule(this);
-  }
-
-  /**
-   * 处理微信消息
-   *
-   * @param wxMessage
-   * @param context
-   */
-  public WxCpXmlOutMessage route(final WxCpXmlMessage wxMessage, final Map<String, Object> context) {
-    if (isDuplicateMessage(wxMessage)) {
-      // 如果是重复消息，那么就不做处理
-      return null;
+    public WxCpMessageRouter(WxCpService wxCpService) {
+        this.wxCpService = wxCpService;
+        this.executorService = Executors.newFixedThreadPool(DEFAULT_THREAD_POOL_SIZE);
+        this.messageDuplicateChecker = new WxMessageInMemoryDuplicateChecker();
+        this.sessionManager = new StandardSessionManager();
+        this.exceptionHandler = new LogExceptionHandler();
     }
 
-    final List<WxCpMessageRouterRule> matchRules = new ArrayList<>();
-    // 收集匹配的规则
-    for (final WxCpMessageRouterRule rule : this.rules) {
-      if (rule.test(wxMessage)) {
-        matchRules.add(rule);
-        if (!rule.isReEnter()) {
-          break;
+    /**
+     * <pre>
+     * 设置自定义的 {@link ExecutorService}
+     * 如果不调用该方法，默认使用 Executors.newFixedThreadPool(100)
+     * </pre>
+     *
+     * @param executorService
+     */
+    public void setExecutorService(ExecutorService executorService) {
+        this.executorService = executorService;
+    }
+
+    /**
+     * <pre>
+     * 设置自定义的 {@link com.rolbel.common.api.WxMessageDuplicateChecker}
+     * 如果不调用该方法，默认使用 {@link com.rolbel.common.api.WxMessageInMemoryDuplicateChecker}
+     * </pre>
+     *
+     * @param messageDuplicateChecker
+     */
+    public void setMessageDuplicateChecker(WxMessageDuplicateChecker messageDuplicateChecker) {
+        this.messageDuplicateChecker = messageDuplicateChecker;
+    }
+
+    /**
+     * <pre>
+     * 设置自定义的{@link com.rolbel.common.session.WxSessionManager}
+     * 如果不调用该方法，默认使用 {@link com.rolbel.common.session.StandardSessionManager}
+     * </pre>
+     *
+     * @param sessionManager
+     */
+    public void setSessionManager(WxSessionManager sessionManager) {
+        this.sessionManager = sessionManager;
+    }
+
+    /**
+     * <pre>
+     * 设置自定义的{@link com.rolbel.common.api.WxErrorExceptionHandler}
+     * 如果不调用该方法，默认使用 {@link com.rolbel.common.util.LogExceptionHandler}
+     * </pre>
+     *
+     * @param exceptionHandler
+     */
+    public void setExceptionHandler(WxErrorExceptionHandler exceptionHandler) {
+        this.exceptionHandler = exceptionHandler;
+    }
+
+    List<WxCpMessageRouterRule> getRules() {
+        return this.rules;
+    }
+
+    /**
+     * 开始一个新的Route规则
+     */
+    public WxCpMessageRouterRule rule() {
+        return new WxCpMessageRouterRule(this);
+    }
+
+    /**
+     * 处理微信消息
+     *
+     * @param wxMessage
+     * @param context
+     */
+    public WxCpXmlOutMessage route(final WxCpXmlMessage wxMessage, final Map<String, Object> context) {
+        if (isDuplicateMessage(wxMessage)) {
+            // 如果是重复消息，那么就不做处理
+            return null;
         }
-      }
-    }
 
-    if (matchRules.size() == 0) {
-      return null;
-    }
-
-    WxCpXmlOutMessage res = null;
-    final List<Future> futures = new ArrayList<>();
-    for (final WxCpMessageRouterRule rule : matchRules) {
-      // 返回最后一个非异步的rule的执行结果
-      if (rule.isAsync()) {
-        futures.add(
-          this.executorService.submit(new Runnable() {
-            @Override
-            public void run() {
-              rule.service(wxMessage, context, WxCpMessageRouter.this.wxCpService, WxCpMessageRouter.this.sessionManager, WxCpMessageRouter.this.exceptionHandler);
+        final List<WxCpMessageRouterRule> matchRules = new ArrayList<>();
+        // 收集匹配的规则
+        for (final WxCpMessageRouterRule rule : this.rules) {
+            if (rule.test(wxMessage)) {
+                matchRules.add(rule);
+                if (!rule.isReEnter()) {
+                    break;
+                }
             }
-          })
-        );
-      } else {
-        res = rule.service(wxMessage, context, this.wxCpService, this.sessionManager, this.exceptionHandler);
-        // 在同步操作结束，session访问结束
-        this.log.debug("End session access: async=false, sessionId={}", wxMessage.getFromUserName());
-        sessionEndAccess(wxMessage);
-      }
-    }
-
-    if (futures.size() > 0) {
-      this.executorService.submit(new Runnable() {
-        @Override
-        public void run() {
-          for (Future future : futures) {
-            try {
-              future.get();
-              WxCpMessageRouter.this.log.debug("End session access: async=true, sessionId={}", wxMessage.getFromUserName());
-              // 异步操作结束，session访问结束
-              sessionEndAccess(wxMessage);
-            } catch (InterruptedException e) {
-              WxCpMessageRouter.this.log.error("Error happened when wait task finish", e);
-            } catch (ExecutionException e) {
-              WxCpMessageRouter.this.log.error("Error happened when wait task finish", e);
-            }
-          }
         }
-      });
-    }
-    return res;
-  }
 
+        if (matchRules.size() == 0) {
+            return null;
+        }
 
-  /**
-   * 处理微信消息
-   *
-   * @param wxMessage
-   */
-  public WxCpXmlOutMessage route(final WxCpXmlMessage wxMessage) {
-    return this.route(wxMessage, new HashMap<String, Object>());
-  }
+        WxCpXmlOutMessage res = null;
+        final List<Future> futures = new ArrayList<>();
+        for (final WxCpMessageRouterRule rule : matchRules) {
+            // 返回最后一个非异步的rule的执行结果
+            if (rule.isAsync()) {
+                futures.add(
+                        this.executorService.submit(() -> {
+                            rule.service(wxMessage, context, this.wxCpService, this.sessionManager, this.exceptionHandler);
+                        })
+                );
+            } else {
+                res = rule.service(wxMessage, context, this.wxCpService, this.sessionManager, this.exceptionHandler);
+                // 在同步操作结束，session访问结束
+                this.log.debug("End session access: async=false, sessionId={}", wxMessage.getFromUserName());
+                sessionEndAccess(wxMessage);
+            }
+        }
 
-  protected boolean isDuplicateMessage(WxCpXmlMessage wxMessage) {
-    String messageId;
-    if (wxMessage.getMsgId() == null) {
-      messageId = String.valueOf(wxMessage.getCreateTime())
-        + "-" + StringUtils.trimToEmpty(String.valueOf(wxMessage.getAgentId()))
-        + "-" + wxMessage.getFromUserName()
-        + "-" + StringUtils.trimToEmpty(wxMessage.getEventKey())
-        + "-" + StringUtils.trimToEmpty(wxMessage.getEvent())
-      ;
-    } else {
-      messageId = new StringBuilder().append(wxMessage.getMsgId())
-        .append("-").append(wxMessage.getCreateTime())
-        .append("-").append(wxMessage.getFromUserName())
-        .toString();
-    }
-
-    return this.messageDuplicateChecker.isDuplicate(messageId);
-
-  }
-
-  /**
-   * 对session的访问结束
-   *
-   * @param wxMessage
-   */
-  protected void sessionEndAccess(WxCpXmlMessage wxMessage) {
-
-    InternalSession session = ((InternalSessionManager) this.sessionManager).findSession(wxMessage.getFromUserName());
-    if (session != null) {
-      session.endAccess();
+        if (futures.size() > 0) {
+            this.executorService.submit(() -> {
+                for (Future future : futures) {
+                    try {
+                        future.get();
+                        this.log.debug("End session access: async=true, sessionId={}", wxMessage.getFromUserName());
+                        // 异步操作结束，session访问结束
+                        sessionEndAccess(wxMessage);
+                    } catch (InterruptedException | ExecutionException e) {
+                        this.log.error("Error happened when wait task finish", e);
+                    }
+                }
+            });
+        }
+        return res;
     }
 
-  }
 
+    /**
+     * 处理微信消息
+     *
+     * @param wxMessage
+     */
+    public WxCpXmlOutMessage route(final WxCpXmlMessage wxMessage) {
+        return this.route(wxMessage, new HashMap<>());
+    }
 
+    protected boolean isDuplicateMessage(WxCpXmlMessage wxMessage) {
+        String messageId;
+        if (wxMessage.getMsgId() == null) {
+            messageId = String.valueOf(wxMessage.getCreateTime())
+                    + "-" + StringUtils.trimToEmpty(String.valueOf(wxMessage.getAgentId()))
+                    + "-" + wxMessage.getFromUserName()
+                    + "-" + StringUtils.trimToEmpty(wxMessage.getEventKey())
+                    + "-" + StringUtils.trimToEmpty(wxMessage.getEvent())
+            ;
+        } else {
+            messageId = new StringBuilder().append(wxMessage.getMsgId())
+                    .append("-").append(wxMessage.getCreateTime())
+                    .append("-").append(wxMessage.getFromUserName())
+                    .toString();
+        }
+
+        return this.messageDuplicateChecker.isDuplicate(messageId);
+
+    }
+
+    /**
+     * 对session的访问结束
+     *
+     * @param wxMessage
+     */
+    protected void sessionEndAccess(WxCpXmlMessage wxMessage) {
+
+        InternalSession session = ((InternalSessionManager) this.sessionManager).findSession(wxMessage.getFromUserName());
+        if (session != null) {
+            session.endAccess();
+        }
+
+    }
 }

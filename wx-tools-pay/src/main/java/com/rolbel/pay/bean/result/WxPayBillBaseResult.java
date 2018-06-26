@@ -2,7 +2,7 @@ package com.rolbel.pay.bean.result;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import com.rolbel.common.util.ToStringUtil;
+import com.rolbel.common.util.ToStringUtils;
 
 import java.io.Serializable;
 
@@ -18,7 +18,7 @@ public class WxPayBillBaseResult implements Serializable {
 
     @Override
     public String toString() {
-        return ToStringUtil.toSimpleString(this);
+        return ToStringUtils.toSimpleString(this);
     }
 
     /**

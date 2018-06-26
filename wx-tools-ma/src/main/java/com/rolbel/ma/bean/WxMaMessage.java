@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
 import lombok.Data;
-import com.rolbel.common.util.ToStringUtil;
+import com.rolbel.common.util.ToStringUtils;
 import com.rolbel.common.util.xml.XStreamCDataConverter;
 import org.apache.commons.io.IOUtils;
 
@@ -140,7 +140,7 @@ public class WxMaMessage implements Serializable {
 
   @Override
   public String toString() {
-    return ToStringUtil.toSimpleString(this);
+    return ToStringUtils.toSimpleString(this);
   }
 
   public String toJson() {

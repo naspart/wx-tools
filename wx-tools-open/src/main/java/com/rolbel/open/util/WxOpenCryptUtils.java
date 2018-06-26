@@ -6,13 +6,13 @@ import org.apache.commons.codec.binary.Base64;
 /**
  * @author <a href="https://github.com/007gzs">007</a>
  */
-public class WxOpenCryptUtil extends com.rolbel.common.util.crypto.WxCryptUtil {
+public class WxOpenCryptUtils extends com.rolbel.common.util.crypto.WxCryptUtil {
   /**
    * 构造函数
    *
    * @param wxOpenConfigStorage
    */
-  public WxOpenCryptUtil(WxOpenConfigStorage wxOpenConfigStorage) {
+  public WxOpenCryptUtils(WxOpenConfigStorage wxOpenConfigStorage) {
     /*
      * @param token          公众平台上，开发者设置的token
      * @param encodingAesKey 公众平台上，开发者设置的EncodingAESKey

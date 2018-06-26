@@ -2,7 +2,7 @@ package com.rolbel.mp.bean;
 
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.rolbel.common.util.ToStringUtil;
+import com.rolbel.common.util.ToStringUtils;
 import com.rolbel.common.util.json.WxBooleanTypeAdapter;
 import com.rolbel.common.util.json.WxDateTypeAdapter;
 import com.rolbel.mp.util.json.WxMpGsonBuilder;
@@ -23,7 +23,7 @@ public class WxMpCurrentAutoReplyInfo implements Serializable {
 
     @Override
     public String toString() {
-        return ToStringUtil.toSimpleString(this);
+        return ToStringUtils.toSimpleString(this);
     }
 
     public static WxMpCurrentAutoReplyInfo fromJson(String json) {
@@ -53,7 +53,7 @@ public class WxMpCurrentAutoReplyInfo implements Serializable {
 
         @Override
         public String toString() {
-            return ToStringUtil.toSimpleString(this);
+            return ToStringUtils.toSimpleString(this);
         }
 
         @SerializedName("rule_name")
@@ -80,7 +80,7 @@ public class WxMpCurrentAutoReplyInfo implements Serializable {
 
         @Override
         public String toString() {
-            return ToStringUtil.toSimpleString(this);
+            return ToStringUtils.toSimpleString(this);
         }
 
         private String type;
@@ -97,7 +97,7 @@ public class WxMpCurrentAutoReplyInfo implements Serializable {
 
         @Override
         public String toString() {
-            return ToStringUtil.toSimpleString(this);
+            return ToStringUtils.toSimpleString(this);
         }
 
         private List<NewsItem> list;
@@ -110,7 +110,7 @@ public class WxMpCurrentAutoReplyInfo implements Serializable {
 
         @Override
         public String toString() {
-            return ToStringUtil.toSimpleString(this);
+            return ToStringUtils.toSimpleString(this);
         }
 
         @SerializedName("cover_url")
@@ -134,7 +134,7 @@ public class WxMpCurrentAutoReplyInfo implements Serializable {
 
         @Override
         public String toString() {
-            return ToStringUtil.toSimpleString(this);
+            return ToStringUtils.toSimpleString(this);
         }
 
         private String type;
@@ -150,7 +150,7 @@ public class WxMpCurrentAutoReplyInfo implements Serializable {
 
         @Override
         public String toString() {
-            return ToStringUtil.toSimpleString(this);
+            return ToStringUtils.toSimpleString(this);
         }
 
         private List<AutoReplyRule> list;
@@ -162,7 +162,7 @@ public class WxMpCurrentAutoReplyInfo implements Serializable {
 
         @Override
         public String toString() {
-            return ToStringUtil.toSimpleString(this);
+            return ToStringUtils.toSimpleString(this);
         }
 
         private String type;

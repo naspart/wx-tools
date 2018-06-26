@@ -3,7 +3,7 @@ package com.rolbel.cp.bean;
 import com.google.common.base.Splitter;
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
-import com.rolbel.common.util.ToStringUtil;
+import com.rolbel.common.util.ToStringUtils;
 import com.rolbel.cp.util.json.WxCpGsonBuilder;
 import org.apache.commons.lang3.StringUtils;
 
@@ -22,7 +22,7 @@ public class WxCpMessageSendResult implements Serializable {
 
   @Override
   public String toString() {
-    return ToStringUtil.toSimpleString(this);
+    return ToStringUtils.toSimpleString(this);
   }
 
   public static WxCpMessageSendResult fromJson(String json) {

@@ -3,11 +3,11 @@ package com.rolbel.pay.bean.result;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.rolbel.common.util.ToStringUtil;
+import com.rolbel.common.util.ToStringUtils;
 import com.rolbel.common.util.xml.XStreamInitializer;
 import com.rolbel.pay.exception.WxPayException;
 import com.rolbel.pay.api.WxPayService;
-import com.rolbel.pay.util.SignUtil;
+import com.rolbel.pay.util.SignUtils;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import lombok.Data;
@@ -135,7 +135,7 @@ public abstract class BaseWxPayResult implements Serializable {
 
     @Override
     public String toString() {
-        return ToStringUtil.toSimpleString(this);
+        return ToStringUtils.toSimpleString(this);
     }
 
     /**
@@ -222,7 +222,7 @@ public abstract class BaseWxPayResult implements Serializable {
     public void checkResult(WxPayService wxPayService, String signType, boolean checkSuccess) throws WxPayException {
         //校验返回结果签名
         Map<String, String> map = toMap();
-        if (getSign() != null && !SignUtil.checkSign(map, signType, wxPayService.getConfig().getMchKey())) {
+        if (getSign() != null && !SignUtils.checkSign(map, signType, wxPayService.getConfig().getMchKey())) {
             this.getLogger().debug("校验结果签名失败，参数：{}", map);
             throw new WxPayException("参数格式校验错误！");
         }

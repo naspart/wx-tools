@@ -25,8 +25,8 @@ import java.util.*;
  * 签名相关工具类.
  * </pre>
  */
-public class SignUtil {
-    private static final Logger log = LoggerFactory.getLogger(SignUtil.class);
+public class SignUtils {
+    private static final Logger log = LoggerFactory.getLogger(SignUtils.class);
 
     /**
      * 请参考并使用 {@link #createSign(Object, String, String, boolean)}.

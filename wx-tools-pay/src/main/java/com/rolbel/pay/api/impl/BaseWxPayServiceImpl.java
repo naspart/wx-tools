@@ -18,7 +18,7 @@ import com.rolbel.pay.bean.result.*;
 import com.rolbel.pay.config.WxPayConfig;
 import com.rolbel.pay.constant.WxPayConstants;
 import com.rolbel.pay.exception.WxPayException;
-import com.rolbel.pay.util.SignUtil;
+import com.rolbel.pay.util.SignUtils;
 import jodd.io.ZipUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -286,7 +286,7 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
                 configMap.put("appid", appId);
 
                 final WxPayAppOrderResult result = WxPayAppOrderResult.builder()
-                        .sign(SignUtil.createSign(configMap, null, this.getConfig().getMchKey(), false))
+                        .sign(SignUtils.createSign(configMap, null, this.getConfig().getMchKey(), false))
                         .prepayId(prepayId)
                         .partnerId(partnerId)
                         .appId(appId)
@@ -313,7 +313,7 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
                         .signType(signType)
                         .build();
 
-                payResult.setPaySign(SignUtil.createSign(payResult, signType, this.getConfig().getMchKey(), false));
+                payResult.setPaySign(SignUtils.createSign(payResult, signType, this.getConfig().getMchKey(), false));
                 payResult.setOutTradeNo(request.getOutTradeNo());
 
                 return (T) payResult;
@@ -366,7 +366,7 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
             configMap.put("noncestr", nonceStr);
             configMap.put("appid", appId);
             // 此map用于客户端与微信服务器交互
-            payInfo.put("sign", SignUtil.createSign(configMap, null, this.getConfig().getMchKey(), false));
+            payInfo.put("sign", SignUtils.createSign(configMap, null, this.getConfig().getMchKey(), false));
             payInfo.put("prepayId", prepayId);
             payInfo.put("partnerId", partnerId);
             payInfo.put("appId", appId);
@@ -380,7 +380,7 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
             payInfo.put("nonceStr", nonceStr);
             payInfo.put("package", "prepay_id=" + prepayId);
             payInfo.put("signType", WxPayConstants.SignType.MD5);
-            payInfo.put("paySign", SignUtil.createSign(payInfo, null, this.getConfig().getMchKey(), false));
+            payInfo.put("paySign", SignUtils.createSign(payInfo, null, this.getConfig().getMchKey(), false));
         }
 
         return payInfo;
@@ -397,7 +397,7 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
         params.put("time_stamp", String.valueOf(System.currentTimeMillis() / 1000));//这里需要秒，10位数字
         params.put("nonce_str", String.valueOf(System.currentTimeMillis()));
 
-        String sign = SignUtil.createSign(params, null, this.getConfig().getMchKey(), false);
+        String sign = SignUtils.createSign(params, null, this.getConfig().getMchKey(), false);
         params.put("sign", sign);
 
         for (String key : params.keySet()) {

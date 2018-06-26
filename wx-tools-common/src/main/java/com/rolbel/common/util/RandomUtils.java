@@ -1,6 +1,6 @@
 package com.rolbel.common.util;
 
-public class RandomUtil {
+public class RandomUtils {
 
     private static final String RANDOM_STR = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 

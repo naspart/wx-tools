@@ -1,7 +1,7 @@
 package com.rolbel.ma.config;
 
 import com.rolbel.common.bean.WxAccessToken;
-import com.rolbel.common.util.ToStringUtil;
+import com.rolbel.common.util.ToStringUtils;
 import com.rolbel.common.util.http.apache.ApacheHttpClientBuilder;
 
 import java.io.File;
@@ -156,7 +156,7 @@ public class WxMaInMemoryConfig implements WxMaConfig {
 
     @Override
     public String toString() {
-        return ToStringUtil.toSimpleString(this);
+        return ToStringUtils.toSimpleString(this);
     }
 
     @Override

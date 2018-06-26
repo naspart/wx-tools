@@ -9,7 +9,7 @@ import org.apache.commons.lang3.StringUtils;
  * </pre>
 
  */
-public class DataUtil {
+public class DataUtils {
     /**
      * 将数据中包含的secret字符使用星号替换，防止日志打印时被输出
      */

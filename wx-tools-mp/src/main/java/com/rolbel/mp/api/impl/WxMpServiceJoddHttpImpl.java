@@ -70,6 +70,7 @@ public class WxMpServiceJoddHttpImpl extends WxMpServiceBaseImpl<HttpConnectionP
                 String resultContent = response.bodyText();
                 WxError error = WxError.fromJson(resultContent, WxType.MP);
                 if (error.getErrorCode() != 0) {
+                    this.logger.error("\n【请求地址】: {}\n【请求参数】：{}\n【错误信息】：{}", url, null, error);
                     throw new WxErrorException(error);
                 }
                 WxAccessToken accessToken = WxAccessToken.fromJson(resultContent);

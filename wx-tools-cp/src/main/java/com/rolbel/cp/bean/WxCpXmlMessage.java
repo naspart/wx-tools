@@ -4,7 +4,7 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
 import lombok.Data;
 import com.rolbel.common.api.WxConstant;
-import com.rolbel.common.util.ToStringUtil;
+import com.rolbel.common.util.ToStringUtils;
 import com.rolbel.common.util.xml.XStreamCDataConverter;
 import com.rolbel.cp.config.WxCpConfigStorage;
 import com.rolbel.cp.util.crypto.WxCpCryptUtil;
@@ -233,7 +233,7 @@ public class WxCpXmlMessage implements Serializable {
 
   @Override
   public String toString() {
-    return ToStringUtil.toSimpleString(this);
+    return ToStringUtils.toSimpleString(this);
   }
 
   @Data

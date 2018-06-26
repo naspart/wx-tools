@@ -8,7 +8,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * <pre>
  * 自定义的ToString方法，用于产生去掉空值属性的字符串
  */
-public class ToStringUtil {
+public class ToStringUtils {
     public static final ToStringStyle THE_STYLE = new SimpleMultiLineToStringStyle();
 
     /**

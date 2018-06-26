@@ -7,7 +7,7 @@ import com.rolbel.common.util.xml.XStreamCDataConverter;
 import com.rolbel.mp.bean.message.WxMpXmlMessage;
 import com.rolbel.mp.bean.message.WxMpXmlOutMessage;
 import com.rolbel.open.api.WxOpenConfigStorage;
-import com.rolbel.open.util.WxOpenCryptUtil;
+import com.rolbel.open.util.WxOpenCryptUtils;
 import com.rolbel.open.util.xml.XStreamTransformer;
 import org.apache.commons.io.IOUtils;
 
@@ -52,7 +52,7 @@ public class WxOpenXmlMessage implements Serializable {
 
   public static String wxMpOutXmlMessageToEncryptedXml(WxMpXmlOutMessage message, WxOpenConfigStorage wxOpenConfigStorage) {
     String plainXml = message.toXml();
-    WxOpenCryptUtil pc = new WxOpenCryptUtil(wxOpenConfigStorage);
+    WxOpenCryptUtils pc = new WxOpenCryptUtils(wxOpenConfigStorage);
     return pc.encrypt(plainXml);
   }
 
@@ -78,7 +78,7 @@ public class WxOpenXmlMessage implements Serializable {
   public static WxOpenXmlMessage fromEncryptedXml(String encryptedXml,
                                                   WxOpenConfigStorage wxOpenConfigStorage, String timestamp, String nonce,
                                                   String msgSignature) {
-    WxOpenCryptUtil cryptUtil = new WxOpenCryptUtil(wxOpenConfigStorage);
+    WxOpenCryptUtils cryptUtil = new WxOpenCryptUtils(wxOpenConfigStorage);
     String plainText = cryptUtil.decrypt(msgSignature, timestamp, nonce,
       encryptedXml);
     return fromXml(plainText);
@@ -87,7 +87,7 @@ public class WxOpenXmlMessage implements Serializable {
   public static WxMpXmlMessage fromEncryptedMpXml(String encryptedXml,
                                                   WxOpenConfigStorage wxOpenConfigStorage, String timestamp, String nonce,
                                                   String msgSignature) {
-    WxOpenCryptUtil cryptUtil = new WxOpenCryptUtil(wxOpenConfigStorage);
+    WxOpenCryptUtils cryptUtil = new WxOpenCryptUtils(wxOpenConfigStorage);
     String plainText = cryptUtil.decrypt(msgSignature, timestamp, nonce,
       encryptedXml);
     return WxMpXmlMessage.fromXml(plainText);

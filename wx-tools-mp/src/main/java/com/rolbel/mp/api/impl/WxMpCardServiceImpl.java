@@ -7,7 +7,7 @@ import com.google.gson.JsonPrimitive;
 import com.google.gson.reflect.TypeToken;
 import com.rolbel.common.bean.WxCardApiSignature;
 import com.rolbel.common.error.WxErrorException;
-import com.rolbel.common.util.RandomUtil;
+import com.rolbel.common.util.RandomUtils;
 import com.rolbel.common.util.crypto.SHA1;
 import com.rolbel.common.util.http.SimpleGetRequestExecutor;
 import com.rolbel.mp.api.WxMpCardService;
@@ -220,7 +220,7 @@ public class WxMpCardServiceImpl implements WxMpCardService {
     @Override
     public WxCardApiSignature createCardApiSignature(String... optionalSignParam) throws WxErrorException {
         long timestamp = System.currentTimeMillis() / 1000;
-        String nonceStr = RandomUtil.getRandomStr();
+        String nonceStr = RandomUtils.getRandomStr();
         String cardApiTicket = getCardApiTicket(false);
 
         String[] signParam = Arrays.copyOf(optionalSignParam, optionalSignParam.length + 3);

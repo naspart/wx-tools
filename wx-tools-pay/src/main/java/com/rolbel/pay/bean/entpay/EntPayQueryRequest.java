@@ -1,7 +1,7 @@
 package com.rolbel.pay.bean.entpay;
 
 import com.rolbel.common.annotation.Required;
-import com.rolbel.common.util.ToStringUtil;
+import com.rolbel.common.util.ToStringUtils;
 import com.rolbel.pay.bean.request.BaseWxPayRequest;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import lombok.*;
@@ -46,6 +46,6 @@ public class EntPayQueryRequest extends BaseWxPayRequest {
 
     @Override
     public String toString() {
-        return ToStringUtil.toSimpleString(this);
+        return ToStringUtils.toSimpleString(this);
     }
 }

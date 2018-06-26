@@ -1,6 +1,6 @@
 package com.rolbel.common.bean.menu;
 
-import com.rolbel.common.util.ToStringUtil;
+import com.rolbel.common.util.ToStringUtils;
 import com.rolbel.common.util.json.WxGsonBuilder;
 import lombok.Data;
 
@@ -45,6 +45,6 @@ public class WxMenu implements Serializable {
 
     @Override
     public String toString() {
-        return ToStringUtil.toSimpleString(this);
+        return ToStringUtils.toSimpleString(this);
     }
 }

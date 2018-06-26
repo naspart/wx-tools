@@ -5,7 +5,7 @@ import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.rolbel.common.error.WxError;
 import com.rolbel.common.error.WxErrorException;
-import com.rolbel.common.util.BeanUtil;
+import com.rolbel.common.util.BeanUtils;
 import com.rolbel.mp.api.WxMpService;
 import com.rolbel.mp.api.WxMpStoreService;
 import com.rolbel.mp.bean.store.WxMpStoreBaseInfo;
@@ -24,7 +24,7 @@ public class WxMpStoreServiceImpl implements WxMpStoreService {
 
     @Override
     public void add(WxMpStoreBaseInfo request) throws WxErrorException {
-        BeanUtil.checkRequiredFields(request);
+        BeanUtils.checkRequiredFields(request);
 
         this.wxMpService.post(POI_ADD_URL, request.toJson());
     }

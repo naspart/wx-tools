@@ -2,7 +2,7 @@ package com.rolbel.mp.bean.data_cube;
 
 import com.google.gson.JsonParser;
 import com.google.gson.annotations.SerializedName;
-import com.rolbel.common.util.ToStringUtil;
+import com.rolbel.common.util.ToStringUtils;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -27,6 +27,6 @@ public abstract class WxMpDataCubeBaseResult implements Serializable {
 
     @Override
     public String toString() {
-        return ToStringUtil.toSimpleString(this);
+        return ToStringUtils.toSimpleString(this);
     }
 }

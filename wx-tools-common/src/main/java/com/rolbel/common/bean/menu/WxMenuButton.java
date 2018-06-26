@@ -1,7 +1,7 @@
 package com.rolbel.common.bean.menu;
 
 import com.google.gson.annotations.SerializedName;
-import com.rolbel.common.util.ToStringUtil;
+import com.rolbel.common.util.ToStringUtils;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -76,6 +76,6 @@ public class WxMenuButton implements Serializable {
 
     @Override
     public String toString() {
-        return ToStringUtil.toSimpleString(this);
+        return ToStringUtils.toSimpleString(this);
     }
 }

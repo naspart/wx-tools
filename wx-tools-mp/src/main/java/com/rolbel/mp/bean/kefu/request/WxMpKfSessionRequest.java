@@ -1,7 +1,7 @@
 package com.rolbel.mp.bean.kefu.request;
 
 import com.google.gson.annotations.SerializedName;
-import com.rolbel.common.util.ToStringUtil;
+import com.rolbel.common.util.ToStringUtils;
 import com.rolbel.mp.util.json.WxMpGsonBuilder;
 import lombok.Data;
 
@@ -30,7 +30,7 @@ public class WxMpKfSessionRequest implements Serializable {
 
     @Override
     public String toString() {
-        return ToStringUtil.toSimpleString(this);
+        return ToStringUtils.toSimpleString(this);
     }
 
     public String toJson() {

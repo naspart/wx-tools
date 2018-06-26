@@ -1,12 +1,12 @@
 package com.rolbel.pay.bean.request;
 
 import com.rolbel.common.error.WxErrorException;
-import com.rolbel.common.util.BeanUtil;
-import com.rolbel.common.util.ToStringUtil;
+import com.rolbel.common.util.BeanUtils;
+import com.rolbel.common.util.ToStringUtils;
 import com.rolbel.common.util.xml.XStreamInitializer;
 import com.rolbel.pay.config.WxPayConfig;
 import com.rolbel.pay.exception.WxPayException;
-import com.rolbel.pay.util.SignUtil;
+import com.rolbel.pay.util.SignUtils;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import lombok.Data;
@@ -127,7 +127,7 @@ public abstract class BaseWxPayRequest implements Serializable {
     private void checkFields() throws WxPayException {
         //check required fields
         try {
-            BeanUtil.checkRequiredFields(this);
+            BeanUtils.checkRequiredFields(this);
         } catch (WxErrorException e) {
             throw new WxPayException(e.getError().getErrorMsg(), e);
         }
@@ -170,7 +170,7 @@ public abstract class BaseWxPayRequest implements Serializable {
 
     @Override
     public String toString() {
-        return ToStringUtil.toSimpleString(this);
+        return ToStringUtils.toSimpleString(this);
     }
 
     public String toXML() {
@@ -243,7 +243,7 @@ public abstract class BaseWxPayRequest implements Serializable {
         }
 
         //设置签名字段的值
-        this.setSign(SignUtil.createSign(this, this.getSignType(), config.getMchKey(),
+        this.setSign(SignUtils.createSign(this, this.getSignType(), config.getMchKey(),
                 this.ignoreSignType()));
     }
 }

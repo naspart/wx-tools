@@ -9,14 +9,14 @@ import com.rolbel.common.util.crypto.WxCryptUtil;
 import com.rolbel.mp.api.WxMpConfigStorage;
 import org.apache.commons.codec.binary.Base64;
 
-public class WxMpCryptUtil extends WxCryptUtil {
+public class WxMpCryptUtils extends WxCryptUtil {
 
     /**
      * 构造函数
      *
      * @param wxMpConfigStorage
      */
-    public WxMpCryptUtil(WxMpConfigStorage wxMpConfigStorage) {
+    public WxMpCryptUtils(WxMpConfigStorage wxMpConfigStorage) {
         /*
          * @param token          公众平台上，开发者设置的token
          * @param encodingAesKey 公众平台上，开发者设置的EncodingAESKey

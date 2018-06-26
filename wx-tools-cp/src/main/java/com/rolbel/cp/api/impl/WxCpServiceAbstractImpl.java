@@ -10,7 +10,7 @@ import com.rolbel.common.error.WxErrorException;
 import com.rolbel.common.session.StandardSessionManager;
 import com.rolbel.common.session.WxSession;
 import com.rolbel.common.session.WxSessionManager;
-import com.rolbel.common.util.RandomUtil;
+import com.rolbel.common.util.RandomUtils;
 import com.rolbel.common.util.crypto.SHA1;
 import com.rolbel.common.util.http.RequestExecutor;
 import com.rolbel.common.util.http.RequestHttp;
@@ -103,7 +103,7 @@ public abstract class WxCpServiceAbstractImpl<H, P> implements WxCpService, Requ
   @Override
   public WxJsapiSignature createJsapiSignature(String url) throws WxErrorException {
     long timestamp = System.currentTimeMillis() / 1000;
-    String noncestr = RandomUtil.getRandomStr();
+    String noncestr = RandomUtils.getRandomStr();
     String jsapiTicket = getJsapiTicket(false);
     String signature = SHA1.genWithAmple(
       "jsapi_ticket=" + jsapiTicket,

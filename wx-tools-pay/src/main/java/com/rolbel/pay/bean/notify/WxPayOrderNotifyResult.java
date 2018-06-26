@@ -2,13 +2,13 @@ package com.rolbel.pay.bean.notify;
 
 import com.rolbel.pay.bean.result.BaseWxPayResult;
 import com.rolbel.pay.converter.WxPayOrderNotifyResultConverter;
-import com.rolbel.pay.util.SignUtil;
+import com.rolbel.pay.util.SignUtils;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import com.rolbel.common.util.ToStringUtil;
+import com.rolbel.common.util.ToStringUtils;
 import com.rolbel.common.util.xml.XStreamInitializer;
 
 import java.util.List;
@@ -291,7 +291,7 @@ public class WxPayOrderNotifyResult extends BaseWxPayResult {
 
     @Override
     public Map<String, String> toMap() {
-        Map<String, String> resultMap = SignUtil.xmlBean2Map(this);
+        Map<String, String> resultMap = SignUtils.xmlBean2Map(this);
         if (this.getCouponCount() != null && this.getCouponCount() > 0) {
             for (int i = 0; i < this.getCouponCount(); i++) {
                 WxPayOrderNotifyCoupon coupon = couponList.get(i);
@@ -303,6 +303,6 @@ public class WxPayOrderNotifyResult extends BaseWxPayResult {
 
     @Override
     public String toString() {
-        return ToStringUtil.toSimpleString(this);
+        return ToStringUtils.toSimpleString(this);
     }
 }

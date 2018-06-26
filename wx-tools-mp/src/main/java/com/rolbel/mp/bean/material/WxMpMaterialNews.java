@@ -1,6 +1,6 @@
 package com.rolbel.mp.bean.material;
 
-import com.rolbel.common.util.ToStringUtil;
+import com.rolbel.common.util.ToStringUtils;
 import com.rolbel.mp.util.json.WxMpGsonBuilder;
 import lombok.Data;
 
@@ -110,7 +110,7 @@ public class WxMpMaterialNews implements Serializable {
 
         @Override
         public String toString() {
-            return ToStringUtil.toSimpleString(this);
+            return ToStringUtils.toSimpleString(this);
         }
     }
 }

@@ -21,8 +21,8 @@ import java.util.List;
  *
  * @author <a href="https://github.com/binarywang">binarywang(Binary Wang)</a>
  */
-public class BeanUtil {
-    private static Logger log = LoggerFactory.getLogger(BeanUtil.class);
+public class BeanUtils {
+    private static Logger log = LoggerFactory.getLogger(BeanUtils.class);
 
     /**
      * 检查bean里标记为@Required的field是否为空，为空则抛异常

@@ -3,7 +3,7 @@ package com.rolbel.mp.bean.message;
 import com.rolbel.common.util.xml.XStreamCDataConverter;
 import com.rolbel.mp.api.WxMpConfigStorage;
 import com.rolbel.mp.builder.outxml.*;
-import com.rolbel.mp.util.crypto.WxMpCryptUtil;
+import com.rolbel.mp.util.crypto.WxMpCryptUtils;
 import com.rolbel.mp.util.xml.XStreamTransformer;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
@@ -90,7 +90,7 @@ public abstract class WxMpXmlOutMessage implements Serializable {
      */
     public String toEncryptedXml(WxMpConfigStorage wxMpConfigStorage) {
         String plainXml = toXml();
-        WxMpCryptUtil pc = new WxMpCryptUtil(wxMpConfigStorage);
+        WxMpCryptUtils pc = new WxMpCryptUtils(wxMpConfigStorage);
         return pc.encrypt(plainXml);
     }
 }

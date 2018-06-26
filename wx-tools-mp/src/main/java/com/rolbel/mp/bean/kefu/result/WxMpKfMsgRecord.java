@@ -1,7 +1,7 @@
 package com.rolbel.mp.bean.kefu.result;
 
 import com.google.gson.annotations.SerializedName;
-import com.rolbel.common.util.ToStringUtil;
+import com.rolbel.common.util.ToStringUtils;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -42,6 +42,6 @@ public class WxMpKfMsgRecord implements Serializable {
 
     @Override
     public String toString() {
-        return ToStringUtil.toSimpleString(this);
+        return ToStringUtils.toSimpleString(this);
     }
 }

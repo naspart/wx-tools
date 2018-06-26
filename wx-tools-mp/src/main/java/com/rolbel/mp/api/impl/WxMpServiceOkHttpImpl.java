@@ -22,8 +22,6 @@ import java.util.concurrent.locks.Lock;
  * okhttp实现
  */
 public class WxMpServiceOkHttpImpl extends WxMpServiceBaseImpl<OkHttpClient, OkHttpProxyInfo> {
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
     private OkHttpClient httpClient;
     private OkHttpProxyInfo httpProxy;
 
@@ -58,11 +56,12 @@ public class WxMpServiceOkHttpImpl extends WxMpServiceBaseImpl<OkHttpClient, OkH
                 String resultContent = response.body().string();
                 WxError error = WxError.fromJson(resultContent, WxType.MP);
                 if (error.getErrorCode() != 0) {
+                    this.logger.error("\n【请求地址】: {}\n【请求参数】：{}\n【错误信息】：{}", url, null, error);
                     throw new WxErrorException(error);
                 }
+
                 WxAccessToken accessToken = WxAccessToken.fromJson(resultContent);
-                this.getWxMpConfigStorage().updateAccessToken(accessToken.getAccessToken(),
-                        accessToken.getExpiresIn());
+                this.getWxMpConfigStorage().updateAccessToken(accessToken.getAccessToken(), accessToken.getExpiresIn());
             }
         } catch (IOException e) {
             this.logger.error(e.getMessage(), e);

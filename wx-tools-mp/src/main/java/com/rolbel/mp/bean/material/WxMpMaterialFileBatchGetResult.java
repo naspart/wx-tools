@@ -1,6 +1,6 @@
 package com.rolbel.mp.bean.material;
 
-import com.rolbel.common.util.ToStringUtil;
+import com.rolbel.common.util.ToStringUtils;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -17,7 +17,7 @@ public class WxMpMaterialFileBatchGetResult implements Serializable {
 
   @Override
   public String toString() {
-    return ToStringUtil.toSimpleString(this);
+    return ToStringUtils.toSimpleString(this);
   }
 
   @Data
@@ -29,7 +29,7 @@ public class WxMpMaterialFileBatchGetResult implements Serializable {
 
     @Override
     public String toString() {
-      return ToStringUtil.toSimpleString(this);
+      return ToStringUtils.toSimpleString(this);
     }
   }
 }

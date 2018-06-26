@@ -59,23 +59,20 @@ public class WxMessageInMemoryDuplicateChecker implements WxMessageDuplicateChec
         if (this.backgroundProcessStarted.getAndSet(true)) {
             return;
         }
-        Thread t = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    while (true) {
-                        Thread.sleep(WxMessageInMemoryDuplicateChecker.this.clearPeriod);
-                        Long now = System.currentTimeMillis();
-                        for (Map.Entry<String, Long> entry :
-                                WxMessageInMemoryDuplicateChecker.this.msgId2Timestamp.entrySet()) {
-                            if (now - entry.getValue() > WxMessageInMemoryDuplicateChecker.this.timeToLive) {
-                                WxMessageInMemoryDuplicateChecker.this.msgId2Timestamp.entrySet().remove(entry);
-                            }
+
+        Thread t = new Thread(() -> {
+            try {
+                while (true) {
+                    Thread.sleep(this.clearPeriod);
+                    Long now = System.currentTimeMillis();
+                    for (Map.Entry<String, Long> entry : this.msgId2Timestamp.entrySet()) {
+                        if (now - entry.getValue() > this.timeToLive) {
+                            this.msgId2Timestamp.entrySet().remove(entry);
                         }
                     }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
                 }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         });
         t.setDaemon(true);
@@ -87,8 +84,10 @@ public class WxMessageInMemoryDuplicateChecker implements WxMessageDuplicateChec
         if (messageId == null) {
             return false;
         }
+
         checkBackgroundProcessStarted();
         Long timestamp = this.msgId2Timestamp.putIfAbsent(messageId, System.currentTimeMillis());
+        
         return timestamp != null;
     }
 }

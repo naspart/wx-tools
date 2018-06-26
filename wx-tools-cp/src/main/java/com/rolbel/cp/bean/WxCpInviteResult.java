@@ -2,7 +2,7 @@ package com.rolbel.cp.bean;
 
 import com.google.common.base.Splitter;
 import com.google.gson.annotations.SerializedName;
-import com.rolbel.common.util.ToStringUtil;
+import com.rolbel.common.util.ToStringUtils;
 import com.rolbel.cp.util.json.WxCpGsonBuilder;
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
@@ -22,7 +22,7 @@ public class WxCpInviteResult implements Serializable {
 
     @Override
     public String toString() {
-        return ToStringUtil.toSimpleString(this);
+        return ToStringUtils.toSimpleString(this);
     }
 
     public static WxCpInviteResult fromJson(String json) {
