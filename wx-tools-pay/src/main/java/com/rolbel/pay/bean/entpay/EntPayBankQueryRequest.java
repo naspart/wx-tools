@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @XStreamAlias("xml")
 public class EntPayBankQueryRequest extends EntPayQueryRequest {
-  private static final long serialVersionUID = -479088843124447119L;
+  private static final long serialVersionUID = -5611308431953444742L;
 
   @Override
   protected boolean ignoreAppid() {

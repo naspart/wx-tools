@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 @Data
 public class WxMpShakeAroundDeviceApplyRequest implements Serializable {
-    private static final long serialVersionUID = -131930743086311538L;
+    private static final long serialVersionUID = 31993142554133673L;
 
     @SerializedName(value = "quantity")
     private Integer quantity;

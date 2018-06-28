@@ -10,7 +10,7 @@ import java.io.Serializable;
  */
 @Data
 public class WxMpQrCodeTicket implements Serializable {
-    private static final long serialVersionUID = 5777119669111011584L;
+    private static final long serialVersionUID = -9149256745095958781L;
 
     protected String ticket;
     /**

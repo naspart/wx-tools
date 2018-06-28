@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 @Data
 public class WxMpTemplateIndustry implements Serializable {
-    private static final long serialVersionUID = -7700398224795914722L;
+    private static final long serialVersionUID = 8118513995171969321L;
 
     private Industry primaryIndustry;
     private Industry secondIndustry;
@@ -36,12 +36,12 @@ public class WxMpTemplateIndustry implements Serializable {
     }
 
     /**
-     * @author miller
      * 官方文档中，创建和获取的数据结构不一样。所以采用冗余字段的方式，实现相应的接口
      */
     @Data
     public static class Industry implements Serializable {
-        private static final long serialVersionUID = -1707184885588012142L;
+        private static final long serialVersionUID = 5616263017215880343L;
+
         private String id;
         private String firstClass;
         private String secondClass;

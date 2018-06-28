@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 @Data
 public class WxMpShakeAroundRelationSearchQuery implements Serializable {
-    private static final long serialVersionUID = 2868046934284659614L;
+    private static final long serialVersionUID = 1475479638337587468L;
 
     private int type;
     private Integer pageId;

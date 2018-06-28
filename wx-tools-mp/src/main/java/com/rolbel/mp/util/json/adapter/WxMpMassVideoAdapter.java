@@ -8,9 +8,6 @@ import com.rolbel.mp.bean.WxMpMassVideo;
 
 import java.lang.reflect.Type;
 
-/**
- * @author Daniel Qian
- */
 public class WxMpMassVideoAdapter implements JsonSerializer<WxMpMassVideo> {
 
     @Override

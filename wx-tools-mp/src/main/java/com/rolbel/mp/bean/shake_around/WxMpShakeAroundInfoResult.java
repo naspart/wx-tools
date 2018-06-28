@@ -10,7 +10,7 @@ import java.io.Serializable;
  */
 @Data
 public class WxMpShakeAroundInfoResult implements Serializable {
-    private static final long serialVersionUID = -1604561297395395468L;
+    private static final long serialVersionUID = 7668529576097374482L;
 
     private int errCode;
 
@@ -24,7 +24,7 @@ public class WxMpShakeAroundInfoResult implements Serializable {
 
     @Data
     public class ShakeInfoData implements Serializable {
-        private static final long serialVersionUID = -4828142206067489488L;
+        private static final long serialVersionUID = 3258743065587369482L;
 
         private String page_id;
 
@@ -38,7 +38,7 @@ public class WxMpShakeAroundInfoResult implements Serializable {
 
         @Data
         public class BeaconInfo implements Serializable {
-            private static final long serialVersionUID = -8995733049982933362L;
+            private static final long serialVersionUID = 3006009201031545494L;
 
             private double distance;
 

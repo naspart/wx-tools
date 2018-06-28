@@ -8,9 +8,6 @@ import org.apache.commons.lang3.time.FastDateFormat;
 import java.lang.reflect.Type;
 import java.text.ParseException;
 
-/**
- * @author Daniel Qian
- */
 public class WxMpUserCumulateGsonAdapter implements JsonDeserializer<WxMpDataCubeUserCumulate> {
 
     private static final FastDateFormat DATE_FORMAT = FastDateFormat

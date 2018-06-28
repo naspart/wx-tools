@@ -4,10 +4,13 @@ import com.google.gson.annotations.SerializedName;
 import com.rolbel.mp.util.json.WxMpGsonBuilder;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Data
-public class WxMpShakeAroundRegisterRequest {
+public class WxMpShakeAroundRegisterRequest implements Serializable {
+    private static final long serialVersionUID = -7416704713520443372L;
+
     @SerializedName(value = "name")
     private String name;
 

@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 @Data
 public class NameValues implements Serializable {
-    private static final long serialVersionUID = -8529369702944594330L;
+    private static final long serialVersionUID = 4071738833820103342L;
 
     private String name;
 

@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 @Data
 public class WxMpKfSession implements Serializable {
-    private static final long serialVersionUID = 7804332813164994062L;
+    private static final long serialVersionUID = -7671347034590170625L;
 
     /**
      * kf_account 正在接待的客服，为空表示没有人在接待

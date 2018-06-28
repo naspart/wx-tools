@@ -6,9 +6,6 @@ import com.rolbel.mp.bean.WxMpMassSendResult;
 
 import java.lang.reflect.Type;
 
-/**
- * @author Daniel Qian
- */
 public class WxMpMassSendResultAdapter implements JsonDeserializer<WxMpMassSendResult> {
 
     @Override

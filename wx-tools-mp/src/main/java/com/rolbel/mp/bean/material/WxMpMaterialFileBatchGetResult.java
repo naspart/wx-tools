@@ -9,27 +9,27 @@ import java.util.List;
 
 @Data
 public class WxMpMaterialFileBatchGetResult implements Serializable {
-  private static final long serialVersionUID = -560388368297267884L;
+    private static final long serialVersionUID = 5060550760100826344L;
 
-  private int totalCount;
-  private int itemCount;
-  private List<WxMaterialFileBatchGetNewsItem> items;
-
-  @Override
-  public String toString() {
-    return ToStringUtils.toSimpleString(this);
-  }
-
-  @Data
-  public static class WxMaterialFileBatchGetNewsItem {
-    private String mediaId;
-    private Date updateTime;
-    private String name;
-    private String url;
+    private int totalCount;
+    private int itemCount;
+    private List<WxMaterialFileBatchGetNewsItem> items;
 
     @Override
     public String toString() {
-      return ToStringUtils.toSimpleString(this);
+        return ToStringUtils.toSimpleString(this);
     }
-  }
+
+    @Data
+    public static class WxMaterialFileBatchGetNewsItem {
+        private String mediaId;
+        private Date updateTime;
+        private String name;
+        private String url;
+
+        @Override
+        public String toString() {
+            return ToStringUtils.toSimpleString(this);
+        }
+    }
 }

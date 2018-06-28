@@ -11,13 +11,12 @@ import java.util.List;
 /**
  * <pre>
  * 门店列表结果类
- * Created by Binary Wang on 2016-09-27.
  * </pre>
 
  */
 @Data
 public class WxMpStoreListResult implements Serializable {
-    private static final long serialVersionUID = 5388907559949538663L;
+    private static final long serialVersionUID = -1008106965498372052L;
 
     /**
      * 错误码，0为正常

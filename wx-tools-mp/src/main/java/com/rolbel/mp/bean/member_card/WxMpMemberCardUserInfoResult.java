@@ -12,14 +12,10 @@ import java.io.Serializable;
  *
  * 字段格式参考https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1451025283  6.2.1小节的步骤5
  * </pre>
- *
- * @author YuJian
- * @version 2017/7/9
  */
 @Data
 public class WxMpMemberCardUserInfoResult implements Serializable {
-
-    private static final long serialVersionUID = 9084777967442098311L;
+    private static final long serialVersionUID = 3071964029224827676L;
 
     private String errorCode;
 

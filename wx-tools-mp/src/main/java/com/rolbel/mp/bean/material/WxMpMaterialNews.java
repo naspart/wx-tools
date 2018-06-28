@@ -11,7 +11,7 @@ import java.util.List;
 
 @Data
 public class WxMpMaterialNews implements Serializable {
-    private static final long serialVersionUID = -3283203652013494976L;
+    private static final long serialVersionUID = -7623108600551081847L;
 
     private Date createdTime;
     private Date updatedTime;

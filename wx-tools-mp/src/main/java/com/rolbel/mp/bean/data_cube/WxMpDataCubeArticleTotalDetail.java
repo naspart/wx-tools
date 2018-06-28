@@ -11,7 +11,7 @@ import java.io.Serializable;
  */
 @Data
 public class WxMpDataCubeArticleTotalDetail implements Serializable {
-    private static final long serialVersionUID = -5136169129771430052L;
+    private static final long serialVersionUID = -9072346068273518157L;
 
     /**
      * stat_date

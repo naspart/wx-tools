@@ -12,7 +12,7 @@ import java.io.Serializable;
  */
 @Data
 public class WxMpSemanticQueryResult implements Serializable {
-    private static final long serialVersionUID = 4811088544804441365L;
+    private static final long serialVersionUID = 8767191806089105446L;
 
     private String query;
     private String type;

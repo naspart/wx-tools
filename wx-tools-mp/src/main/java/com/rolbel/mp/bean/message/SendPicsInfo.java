@@ -13,7 +13,7 @@ import java.util.List;
 @XStreamAlias("SendPicsInfo")
 @Data
 public class SendPicsInfo implements Serializable {
-    private static final long serialVersionUID = -4572837013294199227L;
+    private static final long serialVersionUID = -6272220093933504379L;
 
     @XStreamAlias("PicList")
     protected final List<Item> picList = new ArrayList<>();

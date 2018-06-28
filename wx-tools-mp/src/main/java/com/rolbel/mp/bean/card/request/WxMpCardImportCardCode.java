@@ -9,7 +9,7 @@ import java.util.List;
 
 @Data
 public class WxMpCardImportCardCode implements Serializable {
-    private static final long serialVersionUID = -4621334062349943093L;
+    private static final long serialVersionUID = -5529185252856834197L;
 
     @SerializedName(value = "card_id")
     private String cardId;

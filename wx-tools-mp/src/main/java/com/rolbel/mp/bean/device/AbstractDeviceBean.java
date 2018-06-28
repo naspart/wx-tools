@@ -9,7 +9,7 @@ import java.io.Serializable;
  * 设备抽象类.
  */
 public abstract class AbstractDeviceBean implements Serializable {
-    private static final long serialVersionUID = 4359729626772515385L;
+    private static final long serialVersionUID = 6845949711246382910L;
 
     public String toJson() {
         return WxGsonBuilder.create().toJson(this);

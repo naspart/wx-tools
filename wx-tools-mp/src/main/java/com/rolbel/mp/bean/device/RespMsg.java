@@ -7,10 +7,11 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class RespMsg extends AbstractDeviceBean {
-    private static final long serialVersionUID = -4241272701707684136L;
+    private static final long serialVersionUID = -4780047179096604528L;
 
     @SerializedName("ret_code")
     private Integer retCode;
+
     @SerializedName("error_info")
     private String errorInfo;
 }

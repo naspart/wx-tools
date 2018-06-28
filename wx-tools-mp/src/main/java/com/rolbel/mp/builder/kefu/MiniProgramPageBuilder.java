@@ -9,8 +9,6 @@ import com.rolbel.mp.bean.kefu.WxMpKefuMessage;
  * 用法:
  * WxMpKefuMessage m = WxMpKefuMessage.MINIPROGRAMPAGE().title("xxxx").thumbMediaId("xxxxx").appId("xxxx").pagePath("****").toUser(...).build();
  * </pre>
- *
- * @author boris.bao
  */
 public final class MiniProgramPageBuilder extends BaseBuilder<MiniProgramPageBuilder> {
 

@@ -7,7 +7,8 @@ import java.io.Serializable;
 
 @Data
 public class WxMediaImgUploadResult implements Serializable {
-    private static final long serialVersionUID = 1996392453428768829L;
+    private static final long serialVersionUID = 3301119355459796141L;
+
     private String url;
 
     public static WxMediaImgUploadResult fromJson(String json) {

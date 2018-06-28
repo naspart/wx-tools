@@ -11,7 +11,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class WxMpXmlOutVoiceMessage extends WxMpXmlOutMessage {
-    private static final long serialVersionUID = 240367390249860551L;
+    private static final long serialVersionUID = 7981836282368814443L;
 
     @XStreamAlias("Voice")
     @XStreamConverter(value = XStreamMediaIdConverter.class)

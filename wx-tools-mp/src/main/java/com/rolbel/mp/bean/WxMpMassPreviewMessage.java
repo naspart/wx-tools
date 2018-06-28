@@ -5,12 +5,9 @@ import lombok.Data;
 
 import java.io.Serializable;
 
-/**
- * @author miller
- */
 @Data
 public class WxMpMassPreviewMessage implements Serializable {
-    private static final long serialVersionUID = 9095211638358424020L;
+    private static final long serialVersionUID = -4799557136351680732L;
 
     private String toWxUserName;
     private String toWxUserOpenid;

@@ -6,9 +6,9 @@ import java.io.Serializable;
 
 @Data
 public class WxOpenAuthorizerOptionResult implements Serializable {
-  private static final long serialVersionUID = 4477837353654658179L;
+    private static final long serialVersionUID = 7828631388652213745L;
 
-  String authorizerAppid;
-  String optionName;
-  String optionValue;
+    String authorizerAppid;
+    String optionName;
+    String optionValue;
 }

@@ -6,9 +6,6 @@ import com.rolbel.mp.bean.WxMpQrCodeTicket;
 
 import java.lang.reflect.Type;
 
-/**
- * @author Daniel Qian
- */
 public class WxQrCodeTicketAdapter implements JsonDeserializer<WxMpQrCodeTicket> {
 
     @Override

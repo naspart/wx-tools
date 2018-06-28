@@ -9,7 +9,7 @@ import java.util.List;
 
 @Data
 public class WxMpMaterialNewsBatchGetResult implements Serializable {
-    private static final long serialVersionUID = -1617952797921001666L;
+    private static final long serialVersionUID = -5892455617384597691L;
 
     private int totalCount;
     private int itemCount;

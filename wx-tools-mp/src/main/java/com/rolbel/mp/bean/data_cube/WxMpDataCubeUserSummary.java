@@ -18,7 +18,7 @@ import java.util.List;
  */
 @Data
 public class WxMpDataCubeUserSummary implements Serializable {
-    private static final long serialVersionUID = -2336654489906694173L;
+    private static final long serialVersionUID = -3095797582452319793L;
 
     private static final JsonParser JSON_PARSER = new JsonParser();
 

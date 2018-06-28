@@ -10,7 +10,7 @@ import java.io.Serializable;
 @Data
 @Builder
 public class WxMpCardCreateCardResult implements Serializable {
-    private static final long serialVersionUID = 9200314196853749072L;
+    private static final long serialVersionUID = -2392742543657208575L;
 
     @SerializedName(value = "card_id")
     private String cardId;

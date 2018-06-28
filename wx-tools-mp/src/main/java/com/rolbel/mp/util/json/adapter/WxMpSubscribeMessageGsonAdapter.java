@@ -8,10 +8,6 @@ import com.rolbel.mp.bean.subscribe.WxMpSubscribeMessage;
 
 import java.lang.reflect.Type;
 
-/**
- * @author Mklaus
- * @date 2018-01-22 下午12:31
- */
 public class WxMpSubscribeMessageGsonAdapter implements JsonSerializer<WxMpSubscribeMessage> {
 
     @Override

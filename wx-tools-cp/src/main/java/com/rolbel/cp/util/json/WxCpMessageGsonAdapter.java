@@ -17,110 +17,107 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.lang.reflect.Type;
 
-/**
- * @author Daniel Qian
- */
 public class WxCpMessageGsonAdapter implements JsonSerializer<WxCpMessage> {
 
-  @Override
-  public JsonElement serialize(WxCpMessage message, Type typeOfSrc, JsonSerializationContext context) {
-    JsonObject messageJson = new JsonObject();
-    messageJson.addProperty("agentid", message.getAgentId());
-    if (StringUtils.isNotBlank(message.getToUser())) {
-      messageJson.addProperty("touser", message.getToUser());
-    }
-    messageJson.addProperty("msgtype", message.getMsgType());
+    @Override
+    public JsonElement serialize(WxCpMessage message, Type typeOfSrc, JsonSerializationContext context) {
+        JsonObject messageJson = new JsonObject();
+        messageJson.addProperty("agentid", message.getAgentId());
+        if (StringUtils.isNotBlank(message.getToUser())) {
+            messageJson.addProperty("touser", message.getToUser());
+        }
+        messageJson.addProperty("msgtype", message.getMsgType());
 
-    if (StringUtils.isNotBlank(message.getToParty())) {
-      messageJson.addProperty("toparty", message.getToParty());
-    }
-    if (StringUtils.isNotBlank(message.getToTag())) {
-      messageJson.addProperty("totag", message.getToTag());
-    }
-    if (WxConstant.KefuMsgType.TEXT.equals(message.getMsgType())) {
-      JsonObject text = new JsonObject();
-      text.addProperty("content", message.getContent());
-      messageJson.add("text", text);
-    }
-
-    if (WxConstant.KefuMsgType.TEXTCARD.equals(message.getMsgType())) {
-      JsonObject text = new JsonObject();
-      text.addProperty("title", message.getTitle());
-      text.addProperty("description", message.getDescription());
-      text.addProperty("url", message.getUrl());
-      messageJson.add("textcard", text);
-    }
-
-    if (WxConstant.KefuMsgType.IMAGE.equals(message.getMsgType())) {
-      JsonObject image = new JsonObject();
-      image.addProperty("media_id", message.getMediaId());
-      messageJson.add("image", image);
-    }
-
-    if (WxConstant.KefuMsgType.FILE.equals(message.getMsgType())) {
-      JsonObject image = new JsonObject();
-      image.addProperty("media_id", message.getMediaId());
-      messageJson.add("file", image);
-    }
-
-    if (WxConstant.KefuMsgType.VOICE.equals(message.getMsgType())) {
-      JsonObject voice = new JsonObject();
-      voice.addProperty("media_id", message.getMediaId());
-      messageJson.add("voice", voice);
-    }
-
-    if (StringUtils.isNotBlank(message.getSafe())) {
-      messageJson.addProperty("safe", message.getSafe());
-    }
-
-    if (WxConstant.KefuMsgType.VIDEO.equals(message.getMsgType())) {
-      JsonObject video = new JsonObject();
-      video.addProperty("media_id", message.getMediaId());
-      video.addProperty("thumb_media_id", message.getThumbMediaId());
-      video.addProperty("title", message.getTitle());
-      video.addProperty("description", message.getDescription());
-      messageJson.add("video", video);
-    }
-
-    if (WxConstant.KefuMsgType.NEWS.equals(message.getMsgType())) {
-      JsonObject newsJsonObject = new JsonObject();
-      JsonArray articleJsonArray = new JsonArray();
-      for (NewArticle article : message.getArticles()) {
-        JsonObject articleJson = new JsonObject();
-        articleJson.addProperty("title", article.getTitle());
-        articleJson.addProperty("description", article.getDescription());
-        articleJson.addProperty("url", article.getUrl());
-        articleJson.addProperty("picurl", article.getPicUrl());
-        articleJsonArray.add(articleJson);
-      }
-      newsJsonObject.add("articles", articleJsonArray);
-      messageJson.add("news", newsJsonObject);
-    }
-
-    if (WxConstant.KefuMsgType.MPNEWS.equals(message.getMsgType())) {
-      JsonObject newsJsonObject = new JsonObject();
-      if (message.getMediaId() != null) {
-        newsJsonObject.addProperty("media_id", message.getMediaId());
-      } else {
-        JsonArray articleJsonArray = new JsonArray();
-        for (MpnewsArticle article : message.getMpnewsArticles()) {
-          JsonObject articleJson = new JsonObject();
-          articleJson.addProperty("title", article.getTitle());
-          articleJson.addProperty("thumb_media_id", article.getThumbMediaId());
-          articleJson.addProperty("author", article.getAuthor());
-          articleJson.addProperty("content_source_url", article.getContentSourceUrl());
-          articleJson.addProperty("content", article.getContent());
-          articleJson.addProperty("digest", article.getDigest());
-          articleJson.addProperty("show_cover_pic", article.getShowCoverPic());
-          articleJsonArray.add(articleJson);
+        if (StringUtils.isNotBlank(message.getToParty())) {
+            messageJson.addProperty("toparty", message.getToParty());
+        }
+        if (StringUtils.isNotBlank(message.getToTag())) {
+            messageJson.addProperty("totag", message.getToTag());
+        }
+        if (WxConstant.KefuMsgType.TEXT.equals(message.getMsgType())) {
+            JsonObject text = new JsonObject();
+            text.addProperty("content", message.getContent());
+            messageJson.add("text", text);
         }
 
-        newsJsonObject.add("articles", articleJsonArray);
-      }
-      messageJson.add("mpnews", newsJsonObject);
-    }
+        if (WxConstant.KefuMsgType.TEXTCARD.equals(message.getMsgType())) {
+            JsonObject text = new JsonObject();
+            text.addProperty("title", message.getTitle());
+            text.addProperty("description", message.getDescription());
+            text.addProperty("url", message.getUrl());
+            messageJson.add("textcard", text);
+        }
 
-    return messageJson;
-  }
+        if (WxConstant.KefuMsgType.IMAGE.equals(message.getMsgType())) {
+            JsonObject image = new JsonObject();
+            image.addProperty("media_id", message.getMediaId());
+            messageJson.add("image", image);
+        }
+
+        if (WxConstant.KefuMsgType.FILE.equals(message.getMsgType())) {
+            JsonObject image = new JsonObject();
+            image.addProperty("media_id", message.getMediaId());
+            messageJson.add("file", image);
+        }
+
+        if (WxConstant.KefuMsgType.VOICE.equals(message.getMsgType())) {
+            JsonObject voice = new JsonObject();
+            voice.addProperty("media_id", message.getMediaId());
+            messageJson.add("voice", voice);
+        }
+
+        if (StringUtils.isNotBlank(message.getSafe())) {
+            messageJson.addProperty("safe", message.getSafe());
+        }
+
+        if (WxConstant.KefuMsgType.VIDEO.equals(message.getMsgType())) {
+            JsonObject video = new JsonObject();
+            video.addProperty("media_id", message.getMediaId());
+            video.addProperty("thumb_media_id", message.getThumbMediaId());
+            video.addProperty("title", message.getTitle());
+            video.addProperty("description", message.getDescription());
+            messageJson.add("video", video);
+        }
+
+        if (WxConstant.KefuMsgType.NEWS.equals(message.getMsgType())) {
+            JsonObject newsJsonObject = new JsonObject();
+            JsonArray articleJsonArray = new JsonArray();
+            for (NewArticle article : message.getArticles()) {
+                JsonObject articleJson = new JsonObject();
+                articleJson.addProperty("title", article.getTitle());
+                articleJson.addProperty("description", article.getDescription());
+                articleJson.addProperty("url", article.getUrl());
+                articleJson.addProperty("picurl", article.getPicUrl());
+                articleJsonArray.add(articleJson);
+            }
+            newsJsonObject.add("articles", articleJsonArray);
+            messageJson.add("news", newsJsonObject);
+        }
+
+        if (WxConstant.KefuMsgType.MPNEWS.equals(message.getMsgType())) {
+            JsonObject newsJsonObject = new JsonObject();
+            if (message.getMediaId() != null) {
+                newsJsonObject.addProperty("media_id", message.getMediaId());
+            } else {
+                JsonArray articleJsonArray = new JsonArray();
+                for (MpnewsArticle article : message.getMpnewsArticles()) {
+                    JsonObject articleJson = new JsonObject();
+                    articleJson.addProperty("title", article.getTitle());
+                    articleJson.addProperty("thumb_media_id", article.getThumbMediaId());
+                    articleJson.addProperty("author", article.getAuthor());
+                    articleJson.addProperty("content_source_url", article.getContentSourceUrl());
+                    articleJson.addProperty("content", article.getContent());
+                    articleJson.addProperty("digest", article.getDigest());
+                    articleJson.addProperty("show_cover_pic", article.getShowCoverPic());
+                    articleJsonArray.add(articleJson);
+                }
+
+                newsJsonObject.add("articles", articleJsonArray);
+            }
+            messageJson.add("mpnews", newsJsonObject);
+        }
+
+        return messageJson;
+    }
 
 }

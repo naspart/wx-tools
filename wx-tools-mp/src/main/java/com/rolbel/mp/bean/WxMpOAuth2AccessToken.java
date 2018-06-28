@@ -11,7 +11,7 @@ import java.io.Serializable;
  */
 @Data
 public class WxMpOAuth2AccessToken implements Serializable {
-    private static final long serialVersionUID = -1345910558078620805L;
+    private static final long serialVersionUID = -9001062763739697835L;
 
     private String accessToken;
 

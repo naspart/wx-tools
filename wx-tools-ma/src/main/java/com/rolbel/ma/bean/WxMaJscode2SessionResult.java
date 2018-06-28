@@ -17,19 +17,19 @@ import java.io.Serializable;
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class WxMaJscode2SessionResult implements Serializable {
-  private static final long serialVersionUID = -1060216618475607933L;
+    private static final long serialVersionUID = 6140768758715619547L;
 
-  @SerializedName("session_key")
-  private String sessionKey;
+    @SerializedName("session_key")
+    private String sessionKey;
 
-  @SerializedName("openid")
-  private String openid;
+    @SerializedName("openid")
+    private String openid;
 
-  @SerializedName("unionid")
-  private String unionid;
+    @SerializedName("unionid")
+    private String unionid;
 
-  public static WxMaJscode2SessionResult fromJson(String json) {
-    return WxMaGsonBuilder.create().fromJson(json, WxMaJscode2SessionResult.class);
-  }
+    public static WxMaJscode2SessionResult fromJson(String json) {
+        return WxMaGsonBuilder.create().fromJson(json, WxMaJscode2SessionResult.class);
+    }
 
 }

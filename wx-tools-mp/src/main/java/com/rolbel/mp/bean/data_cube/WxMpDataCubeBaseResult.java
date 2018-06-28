@@ -11,12 +11,12 @@ import java.io.Serializable;
  * <pre>
  *  统计接口的共用属性类.
  * </pre>
-
  */
 @Data
 public abstract class WxMpDataCubeBaseResult implements Serializable {
-    private static final long serialVersionUID = 8780389911053297600L;
     protected static final JsonParser JSON_PARSER = new JsonParser();
+
+    private static final long serialVersionUID = -7819479233765685788L;
 
     /**
      * ref_date.

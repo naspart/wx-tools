@@ -10,7 +10,7 @@ import java.util.List;
 
 @Data
 public class WxMpKfSessionWaitCaseList implements Serializable {
-    private static final long serialVersionUID = 2432132626631361922L;
+    private static final long serialVersionUID = -5891813073619972919L;
 
     /**
      * count 未接入会话数量

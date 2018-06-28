@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 @Data
 public class WxMpMaterialArticleUpdate implements Serializable {
-    private static final long serialVersionUID = -7611963949517780270L;
+    private static final long serialVersionUID = -3864915053361945078L;
 
     private String mediaId;
     private int index;

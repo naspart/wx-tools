@@ -15,8 +15,6 @@ import com.rolbel.mp.bean.kefu.WxMpKefuMessage;
  *                              .toUser(...)
  *                              .build();
  * </pre>
- *
- * @author chanjarster
  */
 public final class VideoBuilder extends BaseBuilder<VideoBuilder> {
     private String mediaId;

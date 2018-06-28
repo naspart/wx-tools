@@ -7,8 +7,7 @@ import java.io.Serializable;
 
 @Data
 public class WxMpShakeAroundRegisterQueryResult implements Serializable {
-
-    private static final long serialVersionUID = -1187267899860330620L;
+    private static final long serialVersionUID = -931421913092732544L;
 
     @SerializedName(value = "apply_time")
     private Long applyTime;
@@ -21,6 +20,4 @@ public class WxMpShakeAroundRegisterQueryResult implements Serializable {
 
     @SerializedName(value = "audit_time")
     private Long auditTime;
-
-
 }

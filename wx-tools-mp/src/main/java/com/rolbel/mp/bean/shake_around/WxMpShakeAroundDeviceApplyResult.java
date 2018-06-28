@@ -7,8 +7,7 @@ import java.io.Serializable;
 
 @Data
 public class WxMpShakeAroundDeviceApplyResult implements Serializable {
-
-    private static final long serialVersionUID = -3426978194996632490L;
+    private static final long serialVersionUID = 1555647572710073375L;
 
     @SerializedName(value = "apply_id")
     private Long applyId;

@@ -8,8 +8,6 @@ import com.rolbel.mp.bean.kefu.WxMpKefuMessage;
  * <pre>
  * 用法: WxMpKefuMessage m = WxMpKefuMessage.IMAGE().mediaId(...).toUser(...).build();
  * </pre>
- *
- * @author chanjarster
  */
 public final class ImageBuilder extends BaseBuilder<ImageBuilder> {
     private String mediaId;

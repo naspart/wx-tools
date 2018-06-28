@@ -9,12 +9,10 @@ import java.util.List;
 
 /**
  * openid列表群发的消息
- *
- * @author chanjarster
  */
 @Data
 public class WxMpMassOpenIdsMessage implements Serializable {
-    private static final long serialVersionUID = -8022910911104788999L;
+    private static final long serialVersionUID = -3003696483304554335L;
 
     /**
      * openid列表，最多支持10,000个

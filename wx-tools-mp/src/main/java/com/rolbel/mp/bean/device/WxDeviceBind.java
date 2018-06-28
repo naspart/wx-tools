@@ -7,7 +7,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class WxDeviceBind extends AbstractDeviceBean {
-    private static final long serialVersionUID = 467559769037590880L;
+    private static final long serialVersionUID = 8058566958108097523L;
 
     private String ticket;
 

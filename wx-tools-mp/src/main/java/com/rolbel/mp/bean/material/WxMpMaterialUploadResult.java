@@ -8,7 +8,8 @@ import java.io.Serializable;
 
 @Data
 public class WxMpMaterialUploadResult implements Serializable {
-    private static final long serialVersionUID = -128818731449449537L;
+    private static final long serialVersionUID = 5707419878819595025L;
+
     private String mediaId;
     private String url;
     private Integer errCode;

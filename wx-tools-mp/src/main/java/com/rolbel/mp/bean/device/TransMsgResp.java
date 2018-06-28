@@ -8,13 +8,16 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class TransMsgResp extends AbstractDeviceBean {
-    private static final long serialVersionUID = 5386954916622816491L;
+    private static final long serialVersionUID = -3230969939687962522L;
 
     private Integer ret;
+
     @SerializedName("ret_info")
     private String retInfo;
+
     @SerializedName("errcode")
     private Integer errCode;
+
     @SerializedName("errmsg")
     private String errMsg;
 

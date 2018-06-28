@@ -22,7 +22,7 @@ import java.util.Map;
 @NoArgsConstructor
 @XStreamAlias("xml")
 public class WxPayOrderNotifyResult extends BaseWxPayResult {
-    private static final long serialVersionUID = 5389718115223345496L;
+    private static final long serialVersionUID = 3216788180872521781L;
 
     /**
      * <pre>

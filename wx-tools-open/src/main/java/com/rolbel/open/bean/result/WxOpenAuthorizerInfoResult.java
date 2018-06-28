@@ -8,12 +8,12 @@ import java.io.Serializable;
 
 @Data
 public class WxOpenAuthorizerInfoResult implements Serializable {
-  private static final long serialVersionUID = 3166298050833019785L;
+    private static final long serialVersionUID = -683189005364547959L;
 
-  private WxOpenAuthorizationInfo authorizationInfo;
-  private WxOpenAuthorizerInfo authorizerInfo;
+    private WxOpenAuthorizationInfo authorizationInfo;
+    private WxOpenAuthorizerInfo authorizerInfo;
 
-  public boolean isMiniProgram() {
-    return authorizerInfo != null && authorizerInfo.getMiniProgramInfo() != null;
-  }
+    public boolean isMiniProgram() {
+        return authorizerInfo != null && authorizerInfo.getMiniProgramInfo() != null;
+    }
 }

@@ -8,25 +8,23 @@ import com.rolbel.cp.bean.WxCpMessage;
  * <pre>
  * 用法: WxCustomMessage m = WxCustomMessage.TEXT().content(...).toUser(...).build();
  * </pre>
- *
- * @author Daniel Qian
  */
 public final class TextBuilder extends BaseBuilder<TextBuilder> {
-  private String content;
+    private String content;
 
-  public TextBuilder() {
-    this.msgType = WxConstant.KefuMsgType.TEXT;
-  }
+    public TextBuilder() {
+        this.msgType = WxConstant.KefuMsgType.TEXT;
+    }
 
-  public TextBuilder content(String content) {
-    this.content = content;
-    return this;
-  }
+    public TextBuilder content(String content) {
+        this.content = content;
+        return this;
+    }
 
-  @Override
-  public WxCpMessage build() {
-    WxCpMessage m = super.build();
-    m.setContent(this.content);
-    return m;
-  }
+    @Override
+    public WxCpMessage build() {
+        WxCpMessage m = super.build();
+        m.setContent(this.content);
+        return m;
+    }
 }

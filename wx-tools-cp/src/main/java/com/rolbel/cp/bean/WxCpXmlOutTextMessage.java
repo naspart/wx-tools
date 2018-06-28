@@ -11,14 +11,13 @@ import com.rolbel.common.util.xml.XStreamCDataConverter;
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class WxCpXmlOutTextMessage extends WxCpXmlOutMessage {
-  private static final long serialVersionUID = 2569239617185930232L;
+    private static final long serialVersionUID = -3626286721717627979L;
 
-  @XStreamAlias("Content")
-  @XStreamConverter(value = XStreamCDataConverter.class)
-  private String content;
+    @XStreamAlias("Content")
+    @XStreamConverter(value = XStreamCDataConverter.class)
+    private String content;
 
-  public WxCpXmlOutTextMessage() {
-    this.msgType = WxConstant.XmlMsgType.TEXT;
-  }
-
+    public WxCpXmlOutTextMessage() {
+        this.msgType = WxConstant.XmlMsgType.TEXT;
+    }
 }

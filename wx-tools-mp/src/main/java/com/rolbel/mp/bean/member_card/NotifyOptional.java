@@ -15,7 +15,7 @@ import java.io.Serializable;
  */
 @Data
 public class NotifyOptional implements Serializable {
-    private static final long serialVersionUID = 4488842021504939176L;
+    private static final long serialVersionUID = -5443364609671310047L;
 
     /**
      * 积分变动时是否触发系统模板消息，默认为true

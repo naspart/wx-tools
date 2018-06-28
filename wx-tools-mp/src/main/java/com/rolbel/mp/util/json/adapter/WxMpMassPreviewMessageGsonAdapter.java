@@ -9,9 +9,6 @@ import com.rolbel.mp.bean.WxMpMassPreviewMessage;
 
 import java.lang.reflect.Type;
 
-/**
- * @author miller
- */
 public class WxMpMassPreviewMessageGsonAdapter implements JsonSerializer<WxMpMassPreviewMessage> {
     @Override
     public JsonElement serialize(WxMpMassPreviewMessage wxMpMassPreviewMessage, Type type, JsonSerializationContext jsonSerializationContext) {

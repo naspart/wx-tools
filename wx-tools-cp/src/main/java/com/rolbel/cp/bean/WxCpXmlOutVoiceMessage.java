@@ -11,14 +11,13 @@ import com.rolbel.common.util.xml.XStreamMediaIdConverter;
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class WxCpXmlOutVoiceMessage extends WxCpXmlOutMessage {
-  private static final long serialVersionUID = -7947384031546099340L;
+    private static final long serialVersionUID = -2407927683903221420L;
 
-  @XStreamAlias("Voice")
-  @XStreamConverter(value = XStreamMediaIdConverter.class)
-  private String mediaId;
+    @XStreamAlias("Voice")
+    @XStreamConverter(value = XStreamMediaIdConverter.class)
+    private String mediaId;
 
-  public WxCpXmlOutVoiceMessage() {
-    this.msgType = WxConstant.XmlMsgType.VOICE;
-  }
-
+    public WxCpXmlOutVoiceMessage() {
+        this.msgType = WxConstant.XmlMsgType.VOICE;
+    }
 }

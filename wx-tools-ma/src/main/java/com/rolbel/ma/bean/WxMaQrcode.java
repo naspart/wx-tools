@@ -9,21 +9,22 @@ import java.io.Serializable;
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class WxMaQrcode extends AbstractWxMaQrcodeWrapper implements Serializable {
-  private static final long serialVersionUID = 5777119669111011584L;
-  private String path;
-  private int width = 430;
+    private static final long serialVersionUID = 7905288490530414267L;
 
-  public WxMaQrcode(String path, int width) {
-    this.path = path;
-    this.width = width;
-  }
+    private String path;
+    private int width = 430;
 
-  public static WxMaQrcode fromJson(String json) {
-    return WxMaGsonBuilder.create().fromJson(json, WxMaQrcode.class);
-  }
+    public WxMaQrcode(String path, int width) {
+        this.path = path;
+        this.width = width;
+    }
 
-  @Override
-  public String toString() {
-    return WxMaGsonBuilder.create().toJson(this);
-  }
+    public static WxMaQrcode fromJson(String json) {
+        return WxMaGsonBuilder.create().fromJson(json, WxMaQrcode.class);
+    }
+
+    @Override
+    public String toString() {
+        return WxMaGsonBuilder.create().toJson(this);
+    }
 }

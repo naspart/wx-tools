@@ -3,7 +3,6 @@ package com.rolbel.mp.constant;
 /**
  * <pre>
  * 微信公众号事件的相关常量
- * Created by Binary Wang on 2017-5-10.
  * </pre>
 
  */

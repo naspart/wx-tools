@@ -6,9 +6,6 @@ import com.rolbel.mp.bean.material.WxMediaImgUploadResult;
 
 import java.lang.reflect.Type;
 
-/**
- * @author miller
- */
 public class WxMediaImgUploadResultGsonAdapter implements JsonDeserializer<WxMediaImgUploadResult> {
     @Override
     public WxMediaImgUploadResult deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {

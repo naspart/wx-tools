@@ -16,14 +16,12 @@ import java.util.List;
 /**
  * <pre>
  *  门店基础信息
- *  Created by Binary Wang on 2016-09-23.
  * </pre>
-
  */
 @Data
 @Builder
 public class WxMpStoreBaseInfo implements Serializable {
-    private static final long serialVersionUID = 829577606838118218L;
+    private static final long serialVersionUID = 4000248814962524001L;
 
     /**
      * sid

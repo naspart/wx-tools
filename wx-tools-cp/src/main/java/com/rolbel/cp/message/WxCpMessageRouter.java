@@ -49,8 +49,6 @@ import java.util.concurrent.Future;
  * router.route(message);
  *
  * </pre>
- *
- * @author Daniel Qian
  */
 public class WxCpMessageRouter {
 

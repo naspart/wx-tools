@@ -12,7 +12,8 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
-public class WxMpSubscribeMessage {
+public class WxMpSubscribeMessage implements Serializable{
+    private static final long serialVersionUID = 3550609326339241891L;
 
     /**
      * 接收者openid.
@@ -69,7 +70,7 @@ public class WxMpSubscribeMessage {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class MiniProgram implements Serializable {
-        private static final long serialVersionUID = -7945254706501974849L;
+        private static final long serialVersionUID = -8534420790629359360L;
 
         private String appid;
         private String pagePath;

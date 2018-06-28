@@ -5,21 +5,12 @@ import com.google.gson.annotations.SerializedName;
 import com.rolbel.mp.util.json.WxMpGsonBuilder;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.List;
 
-/**
- * <pre>
- *  Created by BinaryWang on 2018/6/10.
- * </pre>
-
- */
 @Data
-public class WxMpWifiShopListResult {
-    public static WxMpWifiShopListResult fromJson(String json) {
-        return WxMpGsonBuilder.create().fromJson(
-                new JsonParser().parse(json).getAsJsonObject().get("data"),
-                WxMpWifiShopListResult.class);
-    }
+public class WxMpWifiShopListResult implements Serializable {
+    private static final long serialVersionUID = -4237069571294067635L;
 
     /**
      * 总数
@@ -41,9 +32,16 @@ public class WxMpWifiShopListResult {
 
     private List<Record> records;
 
-    @Data
-    public static class Record {
+    public static WxMpWifiShopListResult fromJson(String json) {
+        return WxMpGsonBuilder.create().fromJson(
+                new JsonParser().parse(json).getAsJsonObject().get("data"),
+                WxMpWifiShopListResult.class);
+    }
 
+    @Data
+    public static class Record implements Serializable {
+        private static final long serialVersionUID = -2470115279107143352L;
+        
         /**
          * 门店ID（适用于微信连Wi-Fi业务）
          */

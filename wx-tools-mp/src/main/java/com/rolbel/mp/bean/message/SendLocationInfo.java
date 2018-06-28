@@ -11,7 +11,7 @@ import java.io.Serializable;
 @XStreamAlias("SendLocationInfo")
 @Data
 public class SendLocationInfo implements Serializable {
-    private static final long serialVersionUID = 6633214140499161130L;
+    private static final long serialVersionUID = -3527287141164911724L;
 
     @XStreamAlias("Location_X")
     @XStreamConverter(value = XStreamCDataConverter.class)

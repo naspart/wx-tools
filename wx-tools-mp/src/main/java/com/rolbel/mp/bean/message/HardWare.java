@@ -11,7 +11,7 @@ import java.io.Serializable;
 @XStreamAlias("HardWare")
 @Data
 public class HardWare implements Serializable {
-    private static final long serialVersionUID = -1295785297354896461L;
+    private static final long serialVersionUID = -7123957483821694505L;
 
     /**
      * 消息展示，目前支持myrank(排行榜)

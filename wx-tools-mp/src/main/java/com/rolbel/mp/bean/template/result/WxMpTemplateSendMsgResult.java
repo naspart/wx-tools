@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 @Data
 public class WxMpTemplateSendMsgResult implements Serializable {
-    private static final long serialVersionUID = 6312234904671397843L;
+    private static final long serialVersionUID = 3664966911493915063L;
 
     @SerializedName(value = "msgid")
     private String msgId;

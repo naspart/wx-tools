@@ -21,8 +21,6 @@ import java.io.Serializable;
  * <a href="http://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140453&token=&lang=zh_CN">接收普通消息</a>
  * <a href="http://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140454&token=&lang=zh_CN">接收事件推送</a>
  * </pre>
- *
- * @author chanjarster
  */
 @XStreamAlias("xml")
 @Data

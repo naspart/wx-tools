@@ -7,14 +7,14 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-public class WxMpStoreInfo implements Serializable{
-  private static final long serialVersionUID = 7300598931768355461L;
+public class WxMpStoreInfo implements Serializable {
+    private static final long serialVersionUID = 4374180254887280741L;
 
-  @SerializedName("base_info")
-  private WxMpStoreBaseInfo baseInfo;
+    @SerializedName("base_info")
+    private WxMpStoreBaseInfo baseInfo;
 
-  @Override
-  public String toString() {
-    return ToStringUtils.toSimpleString(this);
-  }
+    @Override
+    public String toString() {
+        return ToStringUtils.toSimpleString(this);
+    }
 }

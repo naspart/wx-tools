@@ -4,26 +4,26 @@ import com.rolbel.cp.bean.WxCpXmlOutMessage;
 
 public abstract class BaseBuilder<BuilderType, ValueType> {
 
-  protected String toUserName;
+    protected String toUserName;
 
-  protected String fromUserName;
+    protected String fromUserName;
 
-  public BuilderType toUser(String touser) {
-    this.toUserName = touser;
-    return (BuilderType) this;
-  }
+    public BuilderType toUser(String touser) {
+        this.toUserName = touser;
+        return (BuilderType) this;
+    }
 
-  public BuilderType fromUser(String fromusername) {
-    this.fromUserName = fromusername;
-    return (BuilderType) this;
-  }
+    public BuilderType fromUser(String fromusername) {
+        this.fromUserName = fromusername;
+        return (BuilderType) this;
+    }
 
-  public abstract ValueType build();
+    public abstract ValueType build();
 
-  public void setCommon(WxCpXmlOutMessage m) {
-    m.setToUserName(this.toUserName);
-    m.setFromUserName(this.fromUserName);
-    m.setCreateTime(System.currentTimeMillis() / 1000L);
-  }
+    public void setCommon(WxCpXmlOutMessage m) {
+        m.setToUserName(this.toUserName);
+        m.setFromUserName(this.fromUserName);
+        m.setCreateTime(System.currentTimeMillis() / 1000L);
+    }
 
 }

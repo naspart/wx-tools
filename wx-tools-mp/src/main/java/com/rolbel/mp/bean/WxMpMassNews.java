@@ -10,12 +10,10 @@ import java.util.List;
 
 /**
  * 群发时用到的图文消息素材
- *
- * @author chanjarster
  */
 @Data
 public class WxMpMassNews implements Serializable {
-    private static final long serialVersionUID = 565937155013581016L;
+    private static final long serialVersionUID = 8159416004525945743L;
 
     private List<WxMpMassNewsArticle> articles = new ArrayList<>();
 
@@ -51,7 +49,9 @@ public class WxMpMassNews implements Serializable {
      * @author chanjarster
      */
     @Data
-    public static class WxMpMassNewsArticle {
+    public static class WxMpMassNewsArticle implements Serializable {
+        private static final long serialVersionUID = -642556939475404682L;
+
         /**
          * (必填) 图文消息缩略图的media_id，可以在基础支持-上传多媒体文件接口中获得
          */

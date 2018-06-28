@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 @Data
 public class WxMpMaterialVideoInfoResult implements Serializable {
-    private static final long serialVersionUID = 1269131745333792202L;
+    private static final long serialVersionUID = -7248793143909439903L;
 
     private String title;
     private String description;

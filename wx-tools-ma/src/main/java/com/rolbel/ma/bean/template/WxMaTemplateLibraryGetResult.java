@@ -8,24 +8,25 @@ import java.io.Serializable;
 import java.util.List;
 
 @Data
-public class WxMaTemplateLibraryGetResult implements Serializable{
+public class WxMaTemplateLibraryGetResult implements Serializable {
+    private static final long serialVersionUID = -4592685211700904092L;
 
-  private static final long serialVersionUID = -190847592776636744L;
-  private String id;
-  private String title;
-  @SerializedName("keyword_list")
-  private List<KeywordInfo> keywordList;
+    private String id;
+    private String title;
+    @SerializedName("keyword_list")
+    private List<KeywordInfo> keywordList;
 
-  @Data
-  public static class KeywordInfo{
+    @Data
+    public static class KeywordInfo implements Serializable {
+        private static final long serialVersionUID = 5148095862706995534L;
 
-    @SerializedName("keyword_id")
-    private int keywordId;
-    private String name;
-    private String example;
-  }
+        @SerializedName("keyword_id")
+        private int keywordId;
+        private String name;
+        private String example;
+    }
 
-  public static WxMaTemplateLibraryGetResult fromJson(String json){
-    return WxGsonBuilder.create().fromJson(json, WxMaTemplateLibraryGetResult.class);
-  }
+    public static WxMaTemplateLibraryGetResult fromJson(String json) {
+        return WxGsonBuilder.create().fromJson(json, WxMaTemplateLibraryGetResult.class);
+    }
 }

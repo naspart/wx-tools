@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 @Data
 public class WxOpenQueryAuthResult implements Serializable {
-  private static final long serialVersionUID = 2394736235020206855L;
+    private static final long serialVersionUID = -5386454555298722801L;
 
-  private WxOpenAuthorizationInfo authorizationInfo;
+    private WxOpenAuthorizationInfo authorizationInfo;
 }

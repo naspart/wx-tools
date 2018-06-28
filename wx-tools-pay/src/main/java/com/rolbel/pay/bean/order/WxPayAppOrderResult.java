@@ -3,6 +3,8 @@ package com.rolbel.pay.bean.order;
 import lombok.Builder;
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * <pre>
  * APP支付调用统一下单接口后的组装所需参数的实现类
@@ -11,7 +13,9 @@ import lombok.Data;
  */
 @Data
 @Builder
-public class WxPayAppOrderResult {
+public class WxPayAppOrderResult implements Serializable {
+    private static final long serialVersionUID = -858011633066143129L;
+
     private String sign;
     private String prepayId;
     private String partnerId;

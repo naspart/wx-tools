@@ -10,14 +10,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 批量查询用户信息查询参数 <br>
- * Created by LiuJunGuang on 2016/8/31.
- *
- * @author LiuJunGuang
+ * 批量查询用户信息查询参数
  */
 @Data
 public class WxMpUserQuery implements Serializable {
-    private static final long serialVersionUID = -1344224837373149313L;
+    private static final long serialVersionUID = 2150707999957525956L;
 
     private List<WxMpUserQueryParam> queryParamList = new ArrayList<>();
 
@@ -114,7 +111,8 @@ public class WxMpUserQuery implements Serializable {
     // 查询参数封装
     @Data
     public class WxMpUserQueryParam implements Serializable {
-        private static final long serialVersionUID = -6863571795702385319L;
+        private static final long serialVersionUID = -6540734455654145733L;
+
         private String openid;
         private String lang;
 
@@ -135,7 +133,5 @@ public class WxMpUserQuery implements Serializable {
         private WxMpUserQuery getOuterType() {
             return WxMpUserQuery.this;
         }
-
     }
-
 }

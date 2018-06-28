@@ -11,7 +11,7 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class WxDeviceAuthorizeResult extends AbstractDeviceBean {
-    private static final long serialVersionUID = 9105294570912249811L;
+    private static final long serialVersionUID = -3635715387098325784L;
 
     private List<BaseResp> resp;
 

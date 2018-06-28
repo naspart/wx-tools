@@ -6,9 +6,6 @@ import com.rolbel.mp.bean.material.WxMpMaterialCountResult;
 
 import java.lang.reflect.Type;
 
-/**
- * @author codepiano
- */
 public class WxMpMaterialCountResultAdapter implements JsonDeserializer<WxMpMaterialCountResult> {
 
     @Override

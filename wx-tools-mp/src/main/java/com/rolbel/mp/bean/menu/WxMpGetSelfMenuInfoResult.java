@@ -7,15 +7,9 @@ import lombok.Data;
 
 import java.io.Serializable;
 
-/**
- * <pre>
- * Created by Binary Wang on 2016-11-25.
- * </pre>
-
- */
 @Data
 public class WxMpGetSelfMenuInfoResult implements Serializable {
-    private static final long serialVersionUID = -5612495636936835166L;
+    private static final long serialVersionUID = -6952637585152528604L;
 
     @SerializedName("selfmenu_info")
     private WxMpSelfMenuInfo selfMenuInfo;

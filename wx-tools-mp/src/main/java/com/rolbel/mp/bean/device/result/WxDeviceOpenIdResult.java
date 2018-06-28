@@ -12,14 +12,17 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class WxDeviceOpenIdResult extends AbstractDeviceBean {
-    private static final long serialVersionUID = 4980885167833836220L;
+    private static final long serialVersionUID = -4236200511765355732L;
 
     @SerializedName("errcode")
     private Integer errCode;
+
     @SerializedName("errmsg")
     private String errMsg;
+
     @SerializedName("open_id")
     private List<String> openIds;
+
     @SerializedName("resp_msg")
     private RespMsg respMsg;
 

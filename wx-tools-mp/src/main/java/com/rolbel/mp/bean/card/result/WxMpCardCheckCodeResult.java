@@ -8,7 +8,7 @@ import java.util.List;
 
 @Data
 public class WxMpCardCheckCodeResult implements Serializable {
-    private static final long serialVersionUID = 6451236723637814882L;
+    private static final long serialVersionUID = 2338838603529402089L;
 
     @SerializedName(value = "exist_code")
     private List<String> existCode;

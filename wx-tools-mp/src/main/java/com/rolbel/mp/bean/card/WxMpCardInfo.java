@@ -11,7 +11,7 @@ import java.io.Serializable;
  */
 @Data
 public class WxMpCardInfo implements Serializable {
-    private static final long serialVersionUID = 9214301870017772921L;
+    private static final long serialVersionUID = 3244026875512622190L;
 
     private String cardId;
 

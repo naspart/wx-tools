@@ -14,31 +14,29 @@ import java.util.List;
  * 用法:
  * WxCustomMessage m = WxCustomMessage.NEWS().addArticle(article).toUser(...).build();
  * </pre>
- *
- * @author Daniel Qian
  */
 public final class NewsBuilder extends BaseBuilder<NewsBuilder> {
 
-  private List<NewArticle> articles = new ArrayList<>();
+    private List<NewArticle> articles = new ArrayList<>();
 
-  public NewsBuilder() {
-    this.msgType = WxConstant.KefuMsgType.NEWS;
-  }
+    public NewsBuilder() {
+        this.msgType = WxConstant.KefuMsgType.NEWS;
+    }
 
-  public NewsBuilder addArticle(NewArticle... articles) {
-    Collections.addAll(this.articles, articles);
-    return this;
-  }
+    public NewsBuilder addArticle(NewArticle... articles) {
+        Collections.addAll(this.articles, articles);
+        return this;
+    }
 
-  public NewsBuilder articles(List<NewArticle> articles) {
-    this.articles = articles;
-    return this;
-  }
+    public NewsBuilder articles(List<NewArticle> articles) {
+        this.articles = articles;
+        return this;
+    }
 
-  @Override
-  public WxCpMessage build() {
-    WxCpMessage m = super.build();
-    m.setArticles(this.articles);
-    return m;
-  }
+    @Override
+    public WxCpMessage build() {
+        WxCpMessage m = super.build();
+        m.setArticles(this.articles);
+        return m;
+    }
 }

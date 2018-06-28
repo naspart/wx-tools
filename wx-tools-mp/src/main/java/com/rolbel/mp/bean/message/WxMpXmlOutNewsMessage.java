@@ -15,7 +15,7 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class WxMpXmlOutNewsMessage extends WxMpXmlOutMessage {
-    private static final long serialVersionUID = -4604402850905714772L;
+    private static final long serialVersionUID = -4960068054849530487L;
 
     @XStreamAlias("Articles")
     protected final List<Item> articles = new ArrayList<>();
@@ -35,7 +35,7 @@ public class WxMpXmlOutNewsMessage extends WxMpXmlOutMessage {
     @XStreamAlias("item")
     @Data
     public static class Item implements Serializable {
-        private static final long serialVersionUID = -4971456355028904754L;
+        private static final long serialVersionUID = 5117627702623713113L;
 
         @XStreamAlias("Title")
         @XStreamConverter(value = XStreamCDataConverter.class)

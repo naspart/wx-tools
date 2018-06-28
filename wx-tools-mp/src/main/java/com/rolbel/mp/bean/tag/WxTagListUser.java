@@ -11,13 +11,12 @@ import java.util.List;
 /**
  * <pre>
  * 获取标签下粉丝列表的结果对象
- * Created by Binary Wang on 2016-09-19.
  * </pre>
 
  */
 @Data
 public class WxTagListUser implements Serializable {
-    private static final long serialVersionUID = -4551768374200676112L;
+    private static final long serialVersionUID = -2150407207528379383L;
 
     /**
      * "count":2,这次获取的粉丝数量
@@ -50,7 +49,7 @@ public class WxTagListUser implements Serializable {
 
     @Data
     public static class WxTagListUserData implements Serializable {
-        private static final long serialVersionUID = -8584537400336245701L;
+        private static final long serialVersionUID = 5075771603975269377L;
 
         /**
          * openid 列表

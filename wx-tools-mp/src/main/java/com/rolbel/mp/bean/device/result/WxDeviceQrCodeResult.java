@@ -10,7 +10,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class WxDeviceQrCodeResult extends AbstractDeviceBean {
-    private static final long serialVersionUID = -4312858303060918266L;
+    private static final long serialVersionUID = -3622630858847210199L;
 
     @SerializedName("deviceid")
     private String deviceId;

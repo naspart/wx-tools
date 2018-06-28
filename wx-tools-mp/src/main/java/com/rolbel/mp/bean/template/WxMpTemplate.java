@@ -17,8 +17,9 @@ import java.util.List;
  */
 @Data
 public class WxMpTemplate implements Serializable {
+    private static final long serialVersionUID = -7858312295839131426L;
+
     private static final JsonParser JSON_PARSER = new JsonParser();
-    private static final long serialVersionUID = -7366474522571199372L;
 
     /**
      * template_id

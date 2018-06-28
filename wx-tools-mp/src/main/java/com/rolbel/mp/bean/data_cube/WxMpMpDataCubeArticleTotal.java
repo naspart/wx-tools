@@ -14,7 +14,7 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class WxMpMpDataCubeArticleTotal extends WxMpDataCubeBaseResult {
-    private static final long serialVersionUID = -7634365687303052699L;
+    private static final long serialVersionUID = -3454415655254631140L;
 
     /**
      * msgid.

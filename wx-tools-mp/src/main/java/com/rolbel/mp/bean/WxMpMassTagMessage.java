@@ -12,7 +12,7 @@ import java.io.Serializable;
  */
 @Data
 public class WxMpMassTagMessage implements Serializable {
-    private static final long serialVersionUID = -6625914040986749286L;
+    private static final long serialVersionUID = -143801651558185480L;
 
     /**
      * 标签id，如果不设置则就意味着发给所有用户

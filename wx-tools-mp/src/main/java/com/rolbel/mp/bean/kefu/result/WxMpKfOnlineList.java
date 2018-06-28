@@ -10,7 +10,7 @@ import java.util.List;
 
 @Data
 public class WxMpKfOnlineList implements Serializable {
-    private static final long serialVersionUID = -6154705288500854617L;
+    private static final long serialVersionUID = -5318774739467087299L;
 
     @SerializedName("kf_online_list")
     private List<WxMpKfInfo> kfOnlineList;

@@ -6,9 +6,6 @@ import com.rolbel.mp.bean.user.WxMpUserBlacklistGetResult;
 
 import java.lang.reflect.Type;
 
-/**
- * @author miller
- */
 public class WxUserBlacklistGetResultGsonAdapter implements JsonDeserializer<WxMpUserBlacklistGetResult> {
     @Override
     public WxMpUserBlacklistGetResult deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {

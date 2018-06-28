@@ -12,7 +12,7 @@ import java.io.Serializable;
  */
 @Data
 public class WxMpKfInfo implements Serializable {
-    private static final long serialVersionUID = -5877300750666022290L;
+    private static final long serialVersionUID = 7112041570388382545L;
 
     /**
      * kf_account 完整客服账号，格式为：账号前缀@公众号微信号

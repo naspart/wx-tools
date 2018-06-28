@@ -13,12 +13,10 @@ import java.util.List;
 
 /**
  * 邀请成员的结果对象类.
- * Created by Binary Wang on 2018-5-13.
-
  */
 @Data
 public class WxCpInviteResult implements Serializable {
-    private static final long serialVersionUID = 1420065684270213578L;
+    private static final long serialVersionUID = -1066012277804368378L;
 
     @Override
     public String toString() {

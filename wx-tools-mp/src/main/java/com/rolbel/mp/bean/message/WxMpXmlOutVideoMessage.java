@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class WxMpXmlOutVideoMessage extends WxMpXmlOutMessage {
-    private static final long serialVersionUID = 1745902309380113978L;
+    private static final long serialVersionUID = -6766994411172376561L;
 
     @XStreamAlias("Video")
     protected final Video video = new Video();
@@ -25,7 +25,7 @@ public class WxMpXmlOutVideoMessage extends WxMpXmlOutMessage {
     @XStreamAlias("Video")
     @Data
     public static class Video implements Serializable {
-        private static final long serialVersionUID = -6445448977569651183L;
+        private static final long serialVersionUID = 1537264178740972563L;
 
         @XStreamAlias("MediaId")
         @XStreamConverter(value = XStreamCDataConverter.class)

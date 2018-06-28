@@ -13,44 +13,41 @@ import java.util.List;
 
 /**
  * 为标签添加或移除用户结果对象类.
- * Created by Binary Wang on 2017-6-22.
-
  */
 @Data
 public class WxCpTagAddOrRemoveUsersResult implements Serializable {
-  private static final long serialVersionUID = 1420065684270213578L;
+    private static final long serialVersionUID = -7590442571634192058L;
 
-  @Override
-  public String toString() {
-    return ToStringUtils.toSimpleString(this);
-  }
-
-  public static WxCpTagAddOrRemoveUsersResult fromJson(String json) {
-    return WxCpGsonBuilder.INSTANCE.create().fromJson(json, WxCpTagAddOrRemoveUsersResult.class);
-  }
-
-  @SerializedName("errcode")
-  private Integer errCode;
-
-  @SerializedName("errmsg")
-  private String errMsg;
-
-  @SerializedName("invalidlist")
-  private String invalidUsers;
-
-  @SerializedName("invalidparty")
-  private String[] invalidParty;
-
-  public List<String> getInvalidUserList() {
-    return this.content2List(this.invalidUsers);
-  }
-
-  private List<String> content2List(String content) {
-    if (StringUtils.isBlank(content)) {
-      return Collections.emptyList();
+    @Override
+    public String toString() {
+        return ToStringUtils.toSimpleString(this);
     }
 
-    return Splitter.on("|").splitToList(content);
-  }
+    public static WxCpTagAddOrRemoveUsersResult fromJson(String json) {
+        return WxCpGsonBuilder.INSTANCE.create().fromJson(json, WxCpTagAddOrRemoveUsersResult.class);
+    }
 
+    @SerializedName("errcode")
+    private Integer errCode;
+
+    @SerializedName("errmsg")
+    private String errMsg;
+
+    @SerializedName("invalidlist")
+    private String invalidUsers;
+
+    @SerializedName("invalidparty")
+    private String[] invalidParty;
+
+    public List<String> getInvalidUserList() {
+        return this.content2List(this.invalidUsers);
+    }
+
+    private List<String> content2List(String content) {
+        if (StringUtils.isBlank(content)) {
+            return Collections.emptyList();
+        }
+
+        return Splitter.on("|").splitToList(content);
+    }
 }

@@ -14,7 +14,7 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class WxMpDataCubeMsgResult extends WxMpDataCubeBaseResult {
-    private static final long serialVersionUID = 6932121822150573659L;
+    private static final long serialVersionUID = -7375402569360648717L;
 
     /**
      * ref_hour.

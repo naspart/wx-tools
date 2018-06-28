@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 @Data
 public class WxMpMemberCardUserInfo implements Serializable {
-    private static final long serialVersionUID = -4259196162619282129L;
+    private static final long serialVersionUID = 8981571843174575750L;
 
     private NameValues[] commonFieldList;
 

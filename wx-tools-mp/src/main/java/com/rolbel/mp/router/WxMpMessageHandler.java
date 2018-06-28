@@ -10,8 +10,6 @@ import java.util.Map;
 
 /**
  * 处理微信推送消息的处理器接口
- *
- * @author Daniel Qian
  */
 public interface WxMpMessageHandler {
 

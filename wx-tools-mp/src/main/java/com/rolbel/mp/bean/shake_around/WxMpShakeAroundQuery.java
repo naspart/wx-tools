@@ -9,7 +9,7 @@ import java.util.Map;
 
 @Data
 public class WxMpShakeAroundQuery implements Serializable {
-    private static final long serialVersionUID = 4316527352035275412L;
+    private static final long serialVersionUID = 846937413800835466L;
 
     private String ticket;
 

@@ -9,6 +9,8 @@ import java.io.Serializable;
 
 @Data
 public class WxMpShakeAroundPageAddResult implements Serializable {
+    private static final long serialVersionUID = -8427134312669855977L;
+
     private Integer errorCode;
     private String errorMsg;
     private Integer pageId;

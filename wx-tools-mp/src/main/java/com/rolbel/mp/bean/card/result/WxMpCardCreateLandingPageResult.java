@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 @Data
 public class WxMpCardCreateLandingPageResult implements Serializable {
-    private static final long serialVersionUID = 1996084688506383553L;
+    private static final long serialVersionUID = 441978798862027409L;
 
     @SerializedName(value = "url")
     private String url;

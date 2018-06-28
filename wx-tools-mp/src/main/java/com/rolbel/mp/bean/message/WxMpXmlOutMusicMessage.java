@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class WxMpXmlOutMusicMessage extends WxMpXmlOutMessage {
-    private static final long serialVersionUID = -4159937804975448945L;
+    private static final long serialVersionUID = 4844634374337427257L;
 
     @XStreamAlias("Music")
     protected final Music music = new Music();
@@ -25,7 +25,7 @@ public class WxMpXmlOutMusicMessage extends WxMpXmlOutMessage {
     @XStreamAlias("Music")
     @Data
     public static class Music implements Serializable {
-        private static final long serialVersionUID = -5492592401691895334L;
+        private static final long serialVersionUID = -5393244675372053725L;
 
         @XStreamAlias("Title")
         @XStreamConverter(value = XStreamCDataConverter.class)

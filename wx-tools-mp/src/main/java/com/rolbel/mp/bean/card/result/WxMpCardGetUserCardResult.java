@@ -8,7 +8,7 @@ import java.util.List;
 
 @Data
 public class WxMpCardGetUserCardResult implements Serializable {
-    private static final long serialVersionUID = 388952601107900004L;
+    private static final long serialVersionUID = -907891657106802108L;
 
     @SerializedName(value = "has_share_card")
     private boolean hasShareCard;
@@ -18,7 +18,7 @@ public class WxMpCardGetUserCardResult implements Serializable {
 
     @Data
     public static class CardInfo implements Serializable {
-        private static final long serialVersionUID = -2842291988956899616L;
+        private static final long serialVersionUID = -7516484025597109592L;
 
         @SerializedName(value = "card_id")
         private String cardId;

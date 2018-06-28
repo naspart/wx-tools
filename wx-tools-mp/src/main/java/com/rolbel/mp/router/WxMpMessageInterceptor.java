@@ -9,8 +9,6 @@ import java.util.Map;
 
 /**
  * 微信消息拦截器，可以用来做验证
- *
- * @author Daniel Qian
  */
 public interface WxMpMessageInterceptor {
 

@@ -11,7 +11,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class WxMpXmlOutImageMessage extends WxMpXmlOutMessage {
-    private static final long serialVersionUID = -2684778597067990723L;
+    private static final long serialVersionUID = -658583560425544792L;
 
     @XStreamAlias("Image")
     @XStreamConverter(value = XStreamMediaIdConverter.class)

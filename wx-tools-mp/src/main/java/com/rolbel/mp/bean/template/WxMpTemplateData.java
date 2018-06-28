@@ -8,7 +8,7 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 public class WxMpTemplateData implements Serializable {
-    private static final long serialVersionUID = 6301835292940277870L;
+    private static final long serialVersionUID = 5327936714226944612L;
 
     private String name;
     private String value;

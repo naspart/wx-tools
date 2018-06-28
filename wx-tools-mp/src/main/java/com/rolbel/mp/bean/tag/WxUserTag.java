@@ -12,13 +12,12 @@ import java.util.List;
 /**
  * <pre>
  *  用户标签对象
- *  Created by Binary Wang on 2016/9/2.
  * </pre>
 
  */
 @Data
 public class WxUserTag implements Serializable {
-    private static final long serialVersionUID = -7722428695667031252L;
+    private static final long serialVersionUID = 8181024173675141873L;
 
     /**
      * id	标签id，由微信分配

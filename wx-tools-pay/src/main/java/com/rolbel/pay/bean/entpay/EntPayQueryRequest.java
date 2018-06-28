@@ -18,7 +18,7 @@ import lombok.*;
 @AllArgsConstructor
 @XStreamAlias("xml")
 public class EntPayQueryRequest extends BaseWxPayRequest {
-    private static final long serialVersionUID = 1972288742207813985L;
+    private static final long serialVersionUID = 1623126516734029809L;
 
     /**
      * <pre>

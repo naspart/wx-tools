@@ -14,24 +14,20 @@ import com.rolbel.cp.bean.WxCpTag;
 
 import java.lang.reflect.Type;
 
-/**
- * @author Daniel Qian
- */
 public class WxCpTagGsonAdapter implements JsonSerializer<WxCpTag>, JsonDeserializer<WxCpTag> {
 
-  @Override
-  public JsonElement serialize(WxCpTag tag, Type typeOfSrc, JsonSerializationContext context) {
-    JsonObject o = new JsonObject();
-    o.addProperty("tagid", tag.getId());
-    o.addProperty("tagname", tag.getName());
-    return o;
-  }
+    @Override
+    public JsonElement serialize(WxCpTag tag, Type typeOfSrc, JsonSerializationContext context) {
+        JsonObject o = new JsonObject();
+        o.addProperty("tagid", tag.getId());
+        o.addProperty("tagname", tag.getName());
+        return o;
+    }
 
-  @Override
-  public WxCpTag deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
-    throws JsonParseException {
-    JsonObject jsonObject = json.getAsJsonObject();
-    return new WxCpTag(GsonHelper.getString(jsonObject, "tagid"), GsonHelper.getString(jsonObject, "tagname"));
-  }
-
+    @Override
+    public WxCpTag deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+            throws JsonParseException {
+        JsonObject jsonObject = json.getAsJsonObject();
+        return new WxCpTag(GsonHelper.getString(jsonObject, "tagid"), GsonHelper.getString(jsonObject, "tagname"));
+    }
 }

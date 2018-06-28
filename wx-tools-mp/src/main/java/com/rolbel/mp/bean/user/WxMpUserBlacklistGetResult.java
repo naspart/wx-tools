@@ -7,12 +7,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author miller
- */
 @Data
 public class WxMpUserBlacklistGetResult implements Serializable {
-    private static final long serialVersionUID = -8780216463588687626L;
+    private static final long serialVersionUID = 1900461876081603186L;
 
     protected int total = -1;
     protected int count = -1;

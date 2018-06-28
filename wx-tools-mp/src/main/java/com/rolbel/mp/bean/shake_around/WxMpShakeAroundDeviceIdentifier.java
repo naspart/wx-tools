@@ -7,6 +7,8 @@ import java.io.Serializable;
 
 @Data
 public class WxMpShakeAroundDeviceIdentifier implements Serializable {
+    private static final long serialVersionUID = -1913501758497273484L;
+
     private Integer device_id;
     private String uuid;
     private Integer page_id;

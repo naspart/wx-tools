@@ -7,13 +7,6 @@ import com.rolbel.common.annotation.Required;
 /**
  * <pre>
  * 微信支付-交易保障请求参数
- * 注释中各行每个字段描述对应如下：
- * <li>字段名
- * <li>变量名
- * <li>是否必填
- * <li>类型
- * <li>示例值
- * <li>描述
  * </pre>
  */
 @Data

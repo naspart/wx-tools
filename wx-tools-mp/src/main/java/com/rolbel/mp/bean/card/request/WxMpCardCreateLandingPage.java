@@ -9,7 +9,7 @@ import java.util.List;
 
 @Data
 public class WxMpCardCreateLandingPage implements Serializable {
-    private static final long serialVersionUID = -6029986883670054478L;
+    private static final long serialVersionUID = -4372683014582332448L;
 
     @SerializedName(value = "banner")
     private String banner;

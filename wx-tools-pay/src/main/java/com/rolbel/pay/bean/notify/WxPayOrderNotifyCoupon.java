@@ -14,7 +14,7 @@ import java.util.Map;
 @Data
 @NoArgsConstructor
 public class WxPayOrderNotifyCoupon implements Serializable {
-    private static final long serialVersionUID = -4165343733538156097L;
+    private static final long serialVersionUID = -5779557703231905901L;
 
     private String couponId;
     private String couponType;

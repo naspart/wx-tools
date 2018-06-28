@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Builder
 @AllArgsConstructor
 public class WxMpKfAccountRequest implements Serializable {
-    private static final long serialVersionUID = -5451863610674856927L;
+    private static final long serialVersionUID = 5427006690004796198L;
 
     /**
      * kf_account.

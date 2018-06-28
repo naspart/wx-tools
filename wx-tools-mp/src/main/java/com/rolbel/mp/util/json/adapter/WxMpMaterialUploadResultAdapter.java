@@ -6,9 +6,6 @@ import com.rolbel.mp.bean.material.WxMpMaterialUploadResult;
 
 import java.lang.reflect.Type;
 
-/**
- * @author codepiano
- */
 public class WxMpMaterialUploadResultAdapter implements JsonDeserializer<WxMpMaterialUploadResult> {
 
     @Override

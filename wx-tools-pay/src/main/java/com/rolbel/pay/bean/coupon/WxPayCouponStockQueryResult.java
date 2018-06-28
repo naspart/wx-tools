@@ -188,5 +188,4 @@ public class WxPayCouponStockQueryResult extends BaseWxPayResult {
      */
     @XStreamAlias("coupon_budget")
     private Integer couponBudget;
-
 }

@@ -17,7 +17,7 @@ import java.io.Serializable;
 @Data
 @Builder
 public class WxError implements Serializable {
-    private static final long serialVersionUID = 4751082771383143447L;
+    private static final long serialVersionUID = 4783384637951402575L;
 
     /**
      * 微信错误代码.

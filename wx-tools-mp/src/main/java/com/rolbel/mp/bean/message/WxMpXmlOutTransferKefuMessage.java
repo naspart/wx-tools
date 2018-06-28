@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class WxMpXmlOutTransferKefuMessage extends WxMpXmlOutMessage {
-    private static final long serialVersionUID = 1850903037285841322L;
+    private static final long serialVersionUID = -1409026923648216923L;
 
     @XStreamAlias("TransInfo")
     protected TransInfo transInfo;
@@ -25,7 +25,7 @@ public class WxMpXmlOutTransferKefuMessage extends WxMpXmlOutMessage {
     @XStreamAlias("TransInfo")
     @Data
     public static class TransInfo implements Serializable {
-        private static final long serialVersionUID = -6317885617135706056L;
+        private static final long serialVersionUID = -6966766949105259525L;
 
         @XStreamAlias("KfAccount")
         @XStreamConverter(value = XStreamCDataConverter.class)

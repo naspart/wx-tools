@@ -7,11 +7,11 @@ import java.util.List;
 
 @Data
 public class WxOpenAuthorizationInfo implements Serializable {
-  private static final long serialVersionUID = -8713680081354754208L;
+    private static final long serialVersionUID = 5702750883845830969L;
 
-  private String authorizerAppid;
-  private String authorizerAccessToken;
-  private int expiresIn;
-  private String authorizerRefreshToken;
-  private List<Integer> funcInfo;
+    private String authorizerAppid;
+    private String authorizerAccessToken;
+    private int expiresIn;
+    private String authorizerRefreshToken;
+    private List<Integer> funcInfo;
 }

@@ -29,7 +29,7 @@ import java.security.MessageDigest;
 @AllArgsConstructor
 @XStreamAlias("xml")
 public class WxPayRefundNotifyResult extends BaseWxPayResult implements Serializable {
-    private static final long serialVersionUID = 4651725860079259186L;
+    private static final long serialVersionUID = 4574135696659487958L;
 
     /**
      * 从xml字符串创建bean对象

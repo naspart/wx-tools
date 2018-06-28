@@ -8,15 +8,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * <pre>
- * Created by Binary Wang on 2016-11-25.
- * </pre>
-
- */
 @Data
 public class WxMpSelfMenuInfo implements Serializable {
-    private static final long serialVersionUID = -81203094124202901L;
+    private static final long serialVersionUID = -1788752746048089739L;
 
     /**
      * 菜单按钮

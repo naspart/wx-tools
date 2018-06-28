@@ -11,13 +11,13 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class WxMpXmlOutTextMessage extends WxMpXmlOutMessage {
-  private static final long serialVersionUID = -3972786455288763361L;
+    private static final long serialVersionUID = -6354764352878371915L;
 
-  @XStreamAlias("Content")
-  @XStreamConverter(value = XStreamCDataConverter.class)
-  private String content;
+    @XStreamAlias("Content")
+    @XStreamConverter(value = XStreamCDataConverter.class)
+    private String content;
 
-  public WxMpXmlOutTextMessage() {
-    this.msgType = WxConstant.XmlMsgType.TEXT;
-  }
+    public WxMpXmlOutTextMessage() {
+        this.msgType = WxConstant.XmlMsgType.TEXT;
+    }
 }

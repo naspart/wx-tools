@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 @Data
 public class WxMpKfMsgRecord implements Serializable {
-    private static final long serialVersionUID = -280692188908528688L;
+    private static final long serialVersionUID = 5526853871433698661L;
 
     /**
      * worker	完整客服帐号，格式为：帐号前缀@公众号微信号

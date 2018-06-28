@@ -6,9 +6,6 @@ import com.rolbel.mp.bean.WxMpSemanticQueryResult;
 
 import java.lang.reflect.Type;
 
-/**
- * @author Daniel Qian
- */
 public class WxMpSemanticQueryResultAdapter implements JsonDeserializer<WxMpSemanticQueryResult> {
 
     @Override

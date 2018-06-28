@@ -10,7 +10,7 @@ import java.util.List;
 
 @Data
 public class WxMenuButton implements Serializable {
-    private static final long serialVersionUID = -1070939403109776555L;
+    private static final long serialVersionUID = 1231410025974464313L;
 
     /**
      * <pre>

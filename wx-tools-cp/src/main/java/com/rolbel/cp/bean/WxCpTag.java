@@ -7,26 +7,22 @@ import com.rolbel.cp.util.json.WxCpGsonBuilder;
 
 import java.io.Serializable;
 
-/**
- * Created by Daniel Qian.
- */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class WxCpTag implements Serializable {
-  private static final long serialVersionUID = -7243320279646928402L;
+    private static final long serialVersionUID = -4322742608017066400L;
 
-  private String id;
+    private String id;
 
-  private String name;
+    private String name;
 
 
-  public static WxCpTag fromJson(String json) {
-    return WxCpGsonBuilder.create().fromJson(json, WxCpTag.class);
-  }
+    public static WxCpTag fromJson(String json) {
+        return WxCpGsonBuilder.create().fromJson(json, WxCpTag.class);
+    }
 
-  public String toJson() {
-    return WxCpGsonBuilder.create().toJson(this);
-  }
-
+    public String toJson() {
+        return WxCpGsonBuilder.create().toJson(this);
+    }
 }

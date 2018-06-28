@@ -26,12 +26,14 @@ public class WxPayNotifyResponse implements Serializable {
 
     @XStreamOmitField
     private transient static final String FAIL = "FAIL";
+
     @XStreamOmitField
     private transient static final String SUCCESS = "SUCCESS";
 
     @XStreamAlias("return_code")
     @XStreamConverter(value = XStreamCDataConverter.class)
     private String returnCode;
+
     @XStreamConverter(value = XStreamCDataConverter.class)
     @XStreamAlias("return_msg")
     private String returnMsg;

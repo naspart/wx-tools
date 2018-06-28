@@ -13,55 +13,53 @@ import java.util.List;
 
 /**
  * 消息发送结果对象类.
- * Created by Binary Wang on 2017-6-22.
-
  */
 @Data
 public class WxCpMessageSendResult implements Serializable {
-  private static final long serialVersionUID = 916455987193190004L;
+    private static final long serialVersionUID = -4207822037514409797L;
 
-  @Override
-  public String toString() {
-    return ToStringUtils.toSimpleString(this);
-  }
-
-  public static WxCpMessageSendResult fromJson(String json) {
-    return WxCpGsonBuilder.INSTANCE.create().fromJson(json, WxCpMessageSendResult.class);
-  }
-
-  @SerializedName("errcode")
-  private Integer errCode;
-
-  @SerializedName("errmsg")
-  private String errMsg;
-
-  @SerializedName("invaliduser")
-  private String invalidUser;
-
-  @SerializedName("invalidparty")
-  private String invalidParty;
-
-  @SerializedName("invalidtag")
-  private String invalidTag;
-
-
-  public List<String> getInvalidUserList() {
-    return this.content2List(this.invalidUser);
-  }
-
-  private List<String> content2List(String content) {
-    if (StringUtils.isBlank(content)) {
-      return Collections.emptyList();
+    @Override
+    public String toString() {
+        return ToStringUtils.toSimpleString(this);
     }
 
-    return Splitter.on("|").splitToList(content);
-  }
+    public static WxCpMessageSendResult fromJson(String json) {
+        return WxCpGsonBuilder.INSTANCE.create().fromJson(json, WxCpMessageSendResult.class);
+    }
 
-  public List<String> getInvalidPartyList() {
-    return this.content2List(this.invalidParty);
-  }
+    @SerializedName("errcode")
+    private Integer errCode;
 
-  public List<String> getInvalidTagList() {
-    return this.content2List(this.invalidTag);
-  }
+    @SerializedName("errmsg")
+    private String errMsg;
+
+    @SerializedName("invaliduser")
+    private String invalidUser;
+
+    @SerializedName("invalidparty")
+    private String invalidParty;
+
+    @SerializedName("invalidtag")
+    private String invalidTag;
+
+
+    public List<String> getInvalidUserList() {
+        return this.content2List(this.invalidUser);
+    }
+
+    private List<String> content2List(String content) {
+        if (StringUtils.isBlank(content)) {
+            return Collections.emptyList();
+        }
+
+        return Splitter.on("|").splitToList(content);
+    }
+
+    public List<String> getInvalidPartyList() {
+        return this.content2List(this.invalidParty);
+    }
+
+    public List<String> getInvalidTagList() {
+        return this.content2List(this.invalidTag);
+    }
 }

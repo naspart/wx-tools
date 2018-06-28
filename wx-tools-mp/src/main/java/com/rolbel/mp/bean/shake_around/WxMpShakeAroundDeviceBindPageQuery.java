@@ -4,10 +4,13 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 @Data
-public class WxMpShakeAroundDeviceBindPageQuery {
+public class WxMpShakeAroundDeviceBindPageQuery implements Serializable {
+    private static final long serialVersionUID = 4171971033248730427L;
+
     private WxMpShakeAroundDeviceIdentifier deviceIdentifier;
     private Collection<Integer> pageIds;
 

@@ -7,7 +7,8 @@ import java.io.Serializable;
 
 @Data
 public class WxOpenMaCodeTemplate implements Serializable {
-    private static final long serialVersionUID = -3278116984473619010L;
+    private static final long serialVersionUID = 3506618339129616323L;
+
     /**
      * 草稿id
      */

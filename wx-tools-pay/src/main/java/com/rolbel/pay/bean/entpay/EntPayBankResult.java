@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @XStreamAlias("xml")
 public class EntPayBankResult extends BaseWxPayResult {
-    private static final long serialVersionUID = 3449707749935227689L;
+    private static final long serialVersionUID = 955976258318456771L;
 
     /**
      * 代付金额.

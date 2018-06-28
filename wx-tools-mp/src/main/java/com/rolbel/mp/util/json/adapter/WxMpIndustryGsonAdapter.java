@@ -6,9 +6,6 @@ import com.rolbel.mp.bean.template.WxMpTemplateIndustry;
 
 import java.lang.reflect.Type;
 
-/**
- * @author miller
- */
 public class WxMpIndustryGsonAdapter
         implements JsonSerializer<WxMpTemplateIndustry>, JsonDeserializer<WxMpTemplateIndustry> {
     private static WxMpTemplateIndustry.Industry convertFromJson(JsonObject json) {

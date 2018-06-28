@@ -24,7 +24,7 @@ import static com.rolbel.pay.constant.WxPayConstants.SignType.ALL_SIGN_TYPES;
  */
 @Data
 public abstract class BaseWxPayRequest implements Serializable {
-    private static final long serialVersionUID = -4766915659779847060L;
+    private static final long serialVersionUID = 6137562792431764113L;
 
     /**
      * <pre>

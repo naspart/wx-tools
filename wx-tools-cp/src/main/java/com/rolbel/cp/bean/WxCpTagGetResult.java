@@ -12,15 +12,13 @@ import java.util.List;
 /**
  * <pre>
  *  管理企业号应用-测试
- *  Created by huansinho on 2018/4/16.
  * </pre>
- *
- * @author <a href="https://github.com/huansinho">huansinho</a>
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class WxCpTagGetResult implements Serializable {
+    private static final long serialVersionUID = 8860919890992563733L;
 
     @SerializedName("errcode")
     private Integer errcode;

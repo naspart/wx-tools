@@ -11,7 +11,7 @@ import java.io.Serializable;
 @XStreamAlias("ScanCodeInfo")
 @Data
 public class ScanCodeInfo implements Serializable {
-    private static final long serialVersionUID = 4745181270645050122L;
+    private static final long serialVersionUID = 6439894539942046381L;
 
     @XStreamAlias("ScanType")
     @XStreamConverter(value = XStreamCDataConverter.class)

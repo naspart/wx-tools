@@ -17,92 +17,92 @@ import java.io.Serializable;
  */
 @Data
 public class WxMaKefuMessage implements Serializable {
-  private static final long serialVersionUID = -9196732086954365246L;
+    private static final long serialVersionUID = -4188201515691319917L;
 
-  @SerializedName("touser")
-  private String toUser;
+    @SerializedName("touser")
+    private String toUser;
 
-  @SerializedName("msgtype")
-  private String msgType;
+    @SerializedName("msgtype")
+    private String msgType;
 
-  @SerializedName("text")
-  private KfText text;
+    @SerializedName("text")
+    private KfText text;
 
-  @SerializedName("image")
-  private KfImage image;
+    @SerializedName("image")
+    private KfImage image;
 
-  @SerializedName("link")
-  private KfLink link;
+    @SerializedName("link")
+    private KfLink link;
 
-  @SerializedName("miniprogrampage")
-  private KfMaPage maPage;
+    @SerializedName("miniprogrampage")
+    private KfMaPage maPage;
 
-  @Data
-  @AllArgsConstructor
-  public static class KfText {
-    private String content;
-  }
+    @Data
+    @AllArgsConstructor
+    public static class KfText {
+        private String content;
+    }
 
-  @Data
-  @AllArgsConstructor
-  public static class KfImage {
-    @SerializedName("media_id")
-    private String mediaId;
-  }
+    @Data
+    @AllArgsConstructor
+    public static class KfImage {
+        @SerializedName("media_id")
+        private String mediaId;
+    }
 
-  @Data
-  @Builder
-  public static class KfLink {
-    private String title;
-    private String description;
-    private String url;
+    @Data
+    @Builder
+    public static class KfLink {
+        private String title;
+        private String description;
+        private String url;
 
-    @SerializedName("thumb_url")
-    private String thumbUrl;
-  }
+        @SerializedName("thumb_url")
+        private String thumbUrl;
+    }
 
-  @Data
-  @Builder
-  public static class KfMaPage {
-    private String title;
+    @Data
+    @Builder
+    public static class KfMaPage {
+        private String title;
 
-    @SerializedName("pagepath")
-    private String pagePath;
+        @SerializedName("pagepath")
+        private String pagePath;
 
-    @SerializedName("thumb_media_id")
-    private String thumbMediaId;
-  }
+        @SerializedName("thumb_media_id")
+        private String thumbMediaId;
+    }
 
-  /**
-   * 获得文本消息builder.
-   */
-  public static TextMessageBuilder newTextBuilder() {
-    return new TextMessageBuilder();
-  }
+    /**
+     * 获得文本消息builder.
+     */
+    public static TextMessageBuilder newTextBuilder() {
+        return new TextMessageBuilder();
+    }
 
-  /**
-   * 获得图片消息builder.
-   */
-  public static ImageMessageBuilder newImageBuilder() {
-    return new ImageMessageBuilder();
-  }
+    /**
+     * 获得图片消息builder.
+     */
+    public static ImageMessageBuilder newImageBuilder() {
+        return new ImageMessageBuilder();
+    }
 
-  /**
-   * 获得图文链接消息builder.
-   */
-  public static LinkMessageBuilder newLinkBuilder() {
-    return new LinkMessageBuilder();
-  }
+    /**
+     * 获得图文链接消息builder.
+     */
+    public static LinkMessageBuilder newLinkBuilder() {
+        return new LinkMessageBuilder();
+    }
 
-  /**
-   * 获得图文链接消息builder.
-   */
-  public static MaPageMessageBuilder newMaPageBuilder() {
-    return new MaPageMessageBuilder();
-  }
+    /**
+     * 获得图文链接消息builder.
+     */
+    public static MaPageMessageBuilder newMaPageBuilder() {
+        return new MaPageMessageBuilder();
+    }
 
-  public String toJson() {
-    return new GsonBuilder().create().toJson(this);
-  }
+    public String toJson() {
+        return new GsonBuilder().create().toJson(this);
+    }
 
 }

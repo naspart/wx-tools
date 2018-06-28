@@ -7,13 +7,10 @@ import java.io.Serializable;
 
 /**
  * 会员卡激活接口的参数
- *
- * @author YuJian(mgcnrx11 @ hotmail.com)
- * @version 2017/7/8
  */
 @Data
 public class WxMpMemberCardActivatedMessage implements Serializable {
-    private static final long serialVersionUID = -5972713484594266480L;
+    private static final long serialVersionUID = -3141328954370907861L;
 
     /**
      * 会员卡编号，由开发者填入，作为序列号显示在用户的卡包里。可与Code码保持等值。

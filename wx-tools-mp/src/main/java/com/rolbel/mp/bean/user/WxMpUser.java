@@ -13,12 +13,10 @@ import java.util.List;
 
 /**
  * 微信用户信息.
- *
- * @author chanjarster
  */
 @Data
 public class WxMpUser implements Serializable {
-    private static final long serialVersionUID = 5788154322646488738L;
+    private static final long serialVersionUID = -1576206496108768310L;
 
     private Boolean subscribe;
     private String openId;

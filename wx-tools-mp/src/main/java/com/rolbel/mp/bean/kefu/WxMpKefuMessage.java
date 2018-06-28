@@ -13,7 +13,7 @@ import java.util.List;
  */
 @Data
 public class WxMpKefuMessage implements Serializable {
-    private static final long serialVersionUID = -9196732086954365246L;
+    private static final long serialVersionUID = -6803197351739316092L;
 
     private String toUser;
     private String msgType;

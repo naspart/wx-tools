@@ -11,14 +11,10 @@ import java.io.Serializable;
  * 用于 `7 更新会员信息` 的接口调用后的返回结果
  * https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1451025283
  * </pre>
- *
- * @author YuJian(mgcnrx11 @ gmail.com)
- * @version 2017/7/15
  */
 @Data
 public class WxMpMemberCardUpdateResult implements Serializable {
-
-    private static final long serialVersionUID = 9084886191442098311L;
+    private static final long serialVersionUID = 3915428471134678866L;
 
     private String errorCode;
 

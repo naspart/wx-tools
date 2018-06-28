@@ -10,13 +10,11 @@ import java.util.List;
 /**
  * <pre>
  * 企业号应用信息.
- * Created by huansinho on 2018/4/13.
  * </pre>
- *
- * @author <a href="https://github.com/huansinho">huansinho</a>
  */
 @Data
 public class WxCpAgent implements Serializable {
+    private static final long serialVersionUID = 3233003414120536060L;
 
     @SerializedName("errcode")
     private Integer errcode;

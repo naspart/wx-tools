@@ -8,21 +8,23 @@ import java.io.Serializable;
 import java.util.List;
 
 @Data
-public class WxMaTemplateLibraryListResult implements Serializable{
-  private static final long serialVersionUID = -2780782521447602209L;
+public class WxMaTemplateLibraryListResult implements Serializable {
+    private static final long serialVersionUID = -679028108953283855L;
 
-  @SerializedName("total_count")
-  private int totalCount;
-  private List<TemplateItem> list;
+    @SerializedName("total_count")
+    private int totalCount;
 
-  public static WxMaTemplateLibraryListResult fromJson(String json){
-    return WxGsonBuilder.create().fromJson(json, WxMaTemplateLibraryListResult.class);
-  }
+    private List<TemplateItem> list;
 
-  @Data
-  public static class TemplateItem{
+    public static WxMaTemplateLibraryListResult fromJson(String json) {
+        return WxGsonBuilder.create().fromJson(json, WxMaTemplateLibraryListResult.class);
+    }
 
-    private String id;
-    private String title;
-  }
+    @Data
+    public static class TemplateItem implements Serializable {
+        private static final long serialVersionUID = -6655912396517433818L;
+
+        private String id;
+        private String title;
+    }
 }

@@ -9,7 +9,7 @@ import java.util.Map;
 
 @Data
 public class WxMpMaterial implements Serializable {
-    private static final long serialVersionUID = -1651816949780969485L;
+    private static final long serialVersionUID = -4148834023792198034L;
 
     private String name;
     private File file;

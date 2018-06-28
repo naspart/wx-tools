@@ -13,13 +13,10 @@ import java.io.Serializable;
  * add_bonus作为积分变动消息中的变量值，而bonus作为卡面上的总积分额度显示。余额变动同理。
  * 2.开发者可以传入is_notify_bonus控制特殊的积分对账变动不发送消息，余额变动同理。
  * </pre>
- *
- * @author YuJian(mgcnrx11 @ gmail.com)
- * @version 2017/7/15
  */
 @Data
 public class WxMpMemberCardUpdateMessage implements Serializable {
-    private static final long serialVersionUID = 4953923160718911058L;
+    private static final long serialVersionUID = -5002695849242396122L;
 
     /**
      * 领取会员卡用户获得的code
