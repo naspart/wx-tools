@@ -16,8 +16,6 @@ import java.io.Serializable;
 public abstract class WxMpDataCubeBaseResult implements Serializable {
     protected static final JsonParser JSON_PARSER = new JsonParser();
 
-    private static final long serialVersionUID = -7819479233765685788L;
-
     /**
      * ref_date.
      * 数据的日期，需在begin_date和end_date之间

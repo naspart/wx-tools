@@ -37,8 +37,6 @@ import java.util.Map;
  */
 @Data
 public abstract class BaseWxPayResult implements Serializable {
-    private static final long serialVersionUID = -383109628310281720L;
-
     /**
      * 返回状态码.
      */
