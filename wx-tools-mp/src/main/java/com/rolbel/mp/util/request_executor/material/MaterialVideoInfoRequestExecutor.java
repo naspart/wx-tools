@@ -7,10 +7,11 @@ import com.rolbel.mp.bean.material.WxMpMaterialVideoInfoResult;
 public abstract class MaterialVideoInfoRequestExecutor<H, P> implements RequestExecutor<WxMpMaterialVideoInfoResult, String> {
     protected RequestHttp<H, P> requestHttp;
 
-    public MaterialVideoInfoRequestExecutor(RequestHttp requestHttp) {
+    public MaterialVideoInfoRequestExecutor(RequestHttp<H, P> requestHttp) {
         this.requestHttp = requestHttp;
     }
 
+    @SuppressWarnings("unchecked")
     public static RequestExecutor<WxMpMaterialVideoInfoResult, String> create(RequestHttp requestHttp) {
         switch (requestHttp.getRequestType()) {
             case APACHE_HTTP:

@@ -8,21 +8,17 @@ import com.rolbel.common.util.http.okhttp.OkHttpProxyInfo;
 import okhttp3.*;
 import okio.BufferedSink;
 import okio.Okio;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.*;
 
 public class MaterialVoiceAndImageDownloadOkhttpRequestExecutor extends MaterialVoiceAndImageDownloadRequestExecutor<OkHttpClient, OkHttpProxyInfo> {
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
-    public MaterialVoiceAndImageDownloadOkhttpRequestExecutor(RequestHttp requestHttp, File tmpDirFile) {
+    public MaterialVoiceAndImageDownloadOkhttpRequestExecutor(RequestHttp<OkHttpClient, OkHttpProxyInfo> requestHttp, File tmpDirFile) {
         super(requestHttp, tmpDirFile);
     }
 
     @Override
     public InputStream execute(String uri, String materialId) throws WxErrorException, IOException {
-        logger.debug("MaterialVoiceAndImageDownloadOkhttpRequestExecutor is running");
+        super.logger.debug("MaterialVoiceAndImageDownloadOkhttpRequestExecutor is running");
         OkHttpClient client = requestHttp.getRequestHttpClient();
         RequestBody requestBody = new FormBody.Builder().add("media_id", materialId).build();
         Request request = new Request.Builder().url(uri).get().post(requestBody).build();

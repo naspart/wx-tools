@@ -24,7 +24,7 @@ import java.io.IOException;
 public class OkHttpMediaDownloadRequestExecutor extends BaseMediaDownloadRequestExecutor<OkHttpClient, OkHttpProxyInfo> {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    public OkHttpMediaDownloadRequestExecutor(RequestHttp requestHttp, File tmpDirFile) {
+    public OkHttpMediaDownloadRequestExecutor(RequestHttp<OkHttpClient, OkHttpProxyInfo> requestHttp, File tmpDirFile) {
         super(requestHttp, tmpDirFile);
     }
 

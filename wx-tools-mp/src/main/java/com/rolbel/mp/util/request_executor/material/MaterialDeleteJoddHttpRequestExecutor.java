@@ -13,7 +13,7 @@ import com.rolbel.common.util.http.RequestHttp;
 import java.io.IOException;
 
 public class MaterialDeleteJoddHttpRequestExecutor extends MaterialDeleteRequestExecutor<HttpConnectionProvider, ProxyInfo> {
-    public MaterialDeleteJoddHttpRequestExecutor(RequestHttp requestHttp) {
+    public MaterialDeleteJoddHttpRequestExecutor(RequestHttp<HttpConnectionProvider, ProxyInfo> requestHttp) {
         super(requestHttp);
     }
 

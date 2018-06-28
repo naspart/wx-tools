@@ -2,20 +2,23 @@ package com.rolbel.mp.util.request_executor.material;
 
 import com.rolbel.common.util.http.RequestExecutor;
 import com.rolbel.common.util.http.RequestHttp;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.InputStream;
 
-public abstract class MaterialVoiceAndImageDownloadRequestExecutor<H, P>
-        implements RequestExecutor<InputStream, String> {
+public abstract class MaterialVoiceAndImageDownloadRequestExecutor<H, P> implements RequestExecutor<InputStream, String> {
+    protected final Logger logger = LoggerFactory.getLogger(this.getClass());
     protected RequestHttp<H, P> requestHttp;
     protected File tmpDirFile;
 
-    public MaterialVoiceAndImageDownloadRequestExecutor(RequestHttp requestHttp, File tmpDirFile) {
+    public MaterialVoiceAndImageDownloadRequestExecutor(RequestHttp<H, P> requestHttp, File tmpDirFile) {
         this.requestHttp = requestHttp;
         this.tmpDirFile = tmpDirFile;
     }
 
+    @SuppressWarnings("unchecked")
     public static RequestExecutor<InputStream, String> create(RequestHttp requestHttp, File tmpDirFile) {
         switch (requestHttp.getRequestType()) {
             case APACHE_HTTP:

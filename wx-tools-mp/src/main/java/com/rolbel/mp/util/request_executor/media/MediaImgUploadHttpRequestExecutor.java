@@ -15,7 +15,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class MediaImgUploadHttpRequestExecutor extends MediaImgUploadRequestExecutor<HttpConnectionProvider, ProxyInfo> {
-    public MediaImgUploadHttpRequestExecutor(RequestHttp requestHttp) {
+    public MediaImgUploadHttpRequestExecutor(RequestHttp<HttpConnectionProvider, ProxyInfo> requestHttp) {
         super(requestHttp);
     }
 

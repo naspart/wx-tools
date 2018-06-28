@@ -15,19 +15,14 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
 /**
  * httpclient 实现的素材请求执行器.
  */
-public class MaterialNewsInfoApacheHttpRequestExecutor
-        extends MaterialNewsInfoRequestExecutor<CloseableHttpClient, HttpHost> {
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
-    public MaterialNewsInfoApacheHttpRequestExecutor(RequestHttp requestHttp) {
+public class MaterialNewsInfoApacheHttpRequestExecutor extends MaterialNewsInfoRequestExecutor<CloseableHttpClient, HttpHost> {
+    public MaterialNewsInfoApacheHttpRequestExecutor(RequestHttp<CloseableHttpClient, HttpHost> requestHttp) {
         super(requestHttp);
     }
 
@@ -42,7 +37,7 @@ public class MaterialNewsInfoApacheHttpRequestExecutor
         httpPost.setEntity(new StringEntity(WxGsonBuilder.create().toJson(ImmutableMap.of("media_id", materialId))));
         try (CloseableHttpResponse response = requestHttp.getRequestHttpClient().execute(httpPost)) {
             String responseContent = Utf8ResponseHandler.INSTANCE.handleResponse(response);
-            this.logger.debug("响应原始数据：{}", responseContent);
+            super.logger.debug("响应原始数据：{}", responseContent);
             WxError error = WxError.fromJson(responseContent, WxType.MP);
             if (error.getErrorCode() != 0) {
                 throw new WxErrorException(error);

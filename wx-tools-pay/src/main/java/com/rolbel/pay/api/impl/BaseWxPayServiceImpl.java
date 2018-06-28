@@ -239,6 +239,7 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T> T createOrder(WxPayUnifiedOrderRequest request) throws WxPayException {
         WxPayUnifiedOrderResult unifiedOrderResult = this.unifiedOrder(request);
         String prepayId = unifiedOrderResult.getPrepayId();

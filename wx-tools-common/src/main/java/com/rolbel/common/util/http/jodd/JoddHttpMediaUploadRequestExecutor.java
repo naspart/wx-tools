@@ -14,11 +14,8 @@ import jodd.util.StringPool;
 import java.io.File;
 import java.io.IOException;
 
-/**
- * Created by ecoolper on 2017/5/5.
- */
 public class JoddHttpMediaUploadRequestExecutor extends MediaUploadRequestExecutor<HttpConnectionProvider, ProxyInfo> {
-    public JoddHttpMediaUploadRequestExecutor(RequestHttp requestHttp) {
+    public JoddHttpMediaUploadRequestExecutor(RequestHttp<HttpConnectionProvider, ProxyInfo> requestHttp) {
         super(requestHttp);
     }
 

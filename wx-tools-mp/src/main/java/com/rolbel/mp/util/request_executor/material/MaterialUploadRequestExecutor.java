@@ -8,10 +8,11 @@ import com.rolbel.mp.bean.material.WxMpMaterialUploadResult;
 public abstract class MaterialUploadRequestExecutor<H, P> implements RequestExecutor<WxMpMaterialUploadResult, WxMpMaterial> {
     protected RequestHttp<H, P> requestHttp;
 
-    public MaterialUploadRequestExecutor(RequestHttp requestHttp) {
+    public MaterialUploadRequestExecutor(RequestHttp<H, P> requestHttp) {
         this.requestHttp = requestHttp;
     }
 
+    @SuppressWarnings("unchecked")
     public static RequestExecutor<WxMpMaterialUploadResult, WxMpMaterial> create(RequestHttp requestHttp) {
         switch (requestHttp.getRequestType()) {
             case APACHE_HTTP:

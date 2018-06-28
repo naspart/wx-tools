@@ -19,7 +19,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class VoiceUploadApacheHttpRequestExecutor extends VoiceUploadRequestExecutor<CloseableHttpClient, HttpHost> {
-    public VoiceUploadApacheHttpRequestExecutor(RequestHttp requestHttp) {
+    public VoiceUploadApacheHttpRequestExecutor(RequestHttp<CloseableHttpClient, HttpHost> requestHttp) {
         super(requestHttp);
     }
 

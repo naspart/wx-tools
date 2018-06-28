@@ -18,7 +18,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class ApacheMediaUploadRequestExecutor extends MediaUploadRequestExecutor<CloseableHttpClient, HttpHost> {
-    public ApacheMediaUploadRequestExecutor(RequestHttp requestHttp) {
+    public ApacheMediaUploadRequestExecutor(RequestHttp<CloseableHttpClient, HttpHost> requestHttp) {
         super(requestHttp);
     }
 

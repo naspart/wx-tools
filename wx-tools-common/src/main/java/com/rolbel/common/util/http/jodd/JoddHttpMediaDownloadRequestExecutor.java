@@ -19,11 +19,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
-/**
- * Created by ecoolper on 2017/5/5.
- */
 public class JoddHttpMediaDownloadRequestExecutor extends BaseMediaDownloadRequestExecutor<HttpConnectionProvider, ProxyInfo> {
-    public JoddHttpMediaDownloadRequestExecutor(RequestHttp requestHttp, File tmpDirFile) {
+    public JoddHttpMediaDownloadRequestExecutor(RequestHttp<HttpConnectionProvider, ProxyInfo> requestHttp, File tmpDirFile) {
         super(requestHttp, tmpDirFile);
     }
 

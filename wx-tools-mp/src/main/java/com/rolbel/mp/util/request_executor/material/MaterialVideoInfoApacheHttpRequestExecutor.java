@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MaterialVideoInfoApacheHttpRequestExecutor extends MaterialVideoInfoRequestExecutor<CloseableHttpClient, HttpHost> {
-    public MaterialVideoInfoApacheHttpRequestExecutor(RequestHttp requestHttp) {
+    public MaterialVideoInfoApacheHttpRequestExecutor(RequestHttp<CloseableHttpClient, HttpHost> requestHttp) {
         super(requestHttp);
     }
 

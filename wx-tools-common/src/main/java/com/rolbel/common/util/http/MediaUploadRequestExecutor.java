@@ -9,16 +9,15 @@ import java.io.File;
 
 /**
  * 上传媒体文件请求执行器，请求的参数是File, 返回的结果是String
- *
- * @author Daniel Qian
  */
 public abstract class MediaUploadRequestExecutor<H, P> implements RequestExecutor<WxMediaUploadResult, File> {
     protected RequestHttp<H, P> requestHttp;
 
-    public MediaUploadRequestExecutor(RequestHttp requestHttp) {
+    public MediaUploadRequestExecutor(RequestHttp<H, P> requestHttp) {
         this.requestHttp = requestHttp;
     }
 
+    @SuppressWarnings("unchecked")
     public static RequestExecutor<WxMediaUploadResult, File> create(RequestHttp requestHttp) {
         switch (requestHttp.getRequestType()) {
             case APACHE_HTTP:
@@ -28,7 +27,7 @@ public abstract class MediaUploadRequestExecutor<H, P> implements RequestExecuto
             case OK_HTTP:
                 return new OkHttpMediaUploadRequestExecutor(requestHttp);
             default:
-                return null;
+                throw new IllegalArgumentException("非法请求参数");
         }
     }
 }

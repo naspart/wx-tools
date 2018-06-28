@@ -14,7 +14,6 @@ import java.util.Map;
  * --------------------------------------------
  * 适用于服务器端调用微信服务器需要开通出口防火墙情况
  * <p>
- * Created by Andy Huo on 17/03/28.
  */
 public class WxDnsResolver implements DnsResolver {
 

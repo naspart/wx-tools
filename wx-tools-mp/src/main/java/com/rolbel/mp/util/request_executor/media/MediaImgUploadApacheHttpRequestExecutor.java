@@ -6,6 +6,8 @@ import com.rolbel.common.error.WxErrorException;
 import com.rolbel.common.util.http.RequestHttp;
 import com.rolbel.common.util.http.apache.Utf8ResponseHandler;
 import com.rolbel.mp.bean.material.WxMediaImgUploadResult;
+import jodd.http.HttpConnectionProvider;
+import jodd.http.ProxyInfo;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
 import org.apache.http.client.config.RequestConfig;
@@ -20,7 +22,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class MediaImgUploadApacheHttpRequestExecutor extends MediaImgUploadRequestExecutor<CloseableHttpClient, HttpHost> {
-    public MediaImgUploadApacheHttpRequestExecutor(RequestHttp requestHttp) {
+    public MediaImgUploadApacheHttpRequestExecutor(RequestHttp<CloseableHttpClient, HttpHost> requestHttp) {
         super(requestHttp);
     }
 

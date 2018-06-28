@@ -9,12 +9,9 @@ import jodd.util.StringPool;
 
 import java.io.IOException;
 
-/**
- * Created by ecoolper on 2017/5/4.
- */
 public class JoddHttpSimpleGetRequestExecutor extends SimpleGetRequestExecutor<HttpConnectionProvider, ProxyInfo> {
 
-    public JoddHttpSimpleGetRequestExecutor(RequestHttp requestHttp) {
+    public JoddHttpSimpleGetRequestExecutor(RequestHttp<HttpConnectionProvider, ProxyInfo> requestHttp) {
         super(requestHttp);
     }
 

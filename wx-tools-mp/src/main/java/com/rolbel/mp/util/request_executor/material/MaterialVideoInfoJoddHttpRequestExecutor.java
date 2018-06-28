@@ -14,7 +14,7 @@ import com.rolbel.common.util.http.RequestHttp;
 import java.io.IOException;
 
 public class MaterialVideoInfoJoddHttpRequestExecutor extends MaterialVideoInfoRequestExecutor<HttpConnectionProvider, ProxyInfo> {
-    public MaterialVideoInfoJoddHttpRequestExecutor(RequestHttp requestHttp) {
+    public MaterialVideoInfoJoddHttpRequestExecutor(RequestHttp<HttpConnectionProvider, ProxyInfo> requestHttp) {
         super(requestHttp);
     }
 

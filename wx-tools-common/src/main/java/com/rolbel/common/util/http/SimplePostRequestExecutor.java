@@ -7,16 +7,15 @@ import com.rolbel.common.util.http.okhttp.OkHttpSimplePostRequestExecutor;
 /**
  * 用装饰模式实现
  * 简单的POST请求执行器，请求的参数是String, 返回的结果也是String
- *
- * @author Daniel Qian
  */
 public abstract class SimplePostRequestExecutor<H, P> implements RequestExecutor<String, String> {
     protected RequestHttp<H, P> requestHttp;
 
-    public SimplePostRequestExecutor(RequestHttp requestHttp) {
+    public SimplePostRequestExecutor(RequestHttp<H, P> requestHttp) {
         this.requestHttp = requestHttp;
     }
 
+    @SuppressWarnings("unchecked")
     public static RequestExecutor<String, String> create(RequestHttp requestHttp) {
         switch (requestHttp.getRequestType()) {
             case APACHE_HTTP:
@@ -26,7 +25,7 @@ public abstract class SimplePostRequestExecutor<H, P> implements RequestExecutor
             case OK_HTTP:
                 return new OkHttpSimplePostRequestExecutor(requestHttp);
             default:
-                return null;
+                throw new IllegalArgumentException("非法请求参数");
         }
     }
 }

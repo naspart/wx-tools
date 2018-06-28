@@ -9,10 +9,11 @@ import java.io.File;
 public abstract class MediaImgUploadRequestExecutor<H, P> implements RequestExecutor<WxMediaImgUploadResult, File> {
     protected RequestHttp<H, P> requestHttp;
 
-    public MediaImgUploadRequestExecutor(RequestHttp requestHttp) {
+    public MediaImgUploadRequestExecutor(RequestHttp<H, P> requestHttp) {
         this.requestHttp = requestHttp;
     }
 
+    @SuppressWarnings("unchecked")
     public static RequestExecutor<WxMediaImgUploadResult, File> create(RequestHttp requestHttp) {
         switch (requestHttp.getRequestType()) {
             case APACHE_HTTP:

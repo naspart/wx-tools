@@ -25,7 +25,7 @@ import java.io.IOException;
 import java.util.Map;
 
 public class MaterialUploadApacheHttpRequestExecutor extends MaterialUploadRequestExecutor<CloseableHttpClient, HttpHost> {
-    public MaterialUploadApacheHttpRequestExecutor(RequestHttp requestHttp) {
+    public MaterialUploadApacheHttpRequestExecutor(RequestHttp<CloseableHttpClient, HttpHost> requestHttp) {
         super(requestHttp);
     }
 

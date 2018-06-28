@@ -22,13 +22,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.UUID;
 
-/**
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
- */
 public class QrCodeRequestExecutor implements RequestExecutor<File, AbstractWxMaQrcodeWrapper> {
     protected RequestHttp<CloseableHttpClient, HttpHost> requestHttp;
 
-    public QrCodeRequestExecutor(RequestHttp requestHttp) {
+    public QrCodeRequestExecutor(RequestHttp<CloseableHttpClient, HttpHost> requestHttp) {
         this.requestHttp = requestHttp;
     }
 

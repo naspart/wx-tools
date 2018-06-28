@@ -16,7 +16,7 @@ import java.io.IOException;
 public class OkHttpSimpleGetRequestExecutor extends SimpleGetRequestExecutor<OkHttpClient, OkHttpProxyInfo> {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    public OkHttpSimpleGetRequestExecutor(RequestHttp requestHttp) {
+    public OkHttpSimpleGetRequestExecutor(RequestHttp<OkHttpClient, OkHttpProxyInfo> requestHttp) {
         super(requestHttp);
     }
 

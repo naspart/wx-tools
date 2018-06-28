@@ -8,10 +8,11 @@ import java.io.File;
 public abstract class VoiceUploadRequestExecutor<H, P> implements RequestExecutor<Boolean, File> {
     protected RequestHttp<H, P> requestHttp;
 
-    public VoiceUploadRequestExecutor(RequestHttp requestHttp) {
+    public VoiceUploadRequestExecutor(RequestHttp<H, P> requestHttp) {
         this.requestHttp = requestHttp;
     }
 
+    @SuppressWarnings("unchecked")
     public static RequestExecutor<Boolean, File> create(RequestHttp requestHttp) {
         switch (requestHttp.getRequestType()) {
             case APACHE_HTTP:

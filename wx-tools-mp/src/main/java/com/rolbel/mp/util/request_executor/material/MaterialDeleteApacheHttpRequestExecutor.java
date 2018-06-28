@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MaterialDeleteApacheHttpRequestExecutor extends MaterialDeleteRequestExecutor<CloseableHttpClient, HttpHost> {
-    public MaterialDeleteApacheHttpRequestExecutor(RequestHttp requestHttp) {
+    public MaterialDeleteApacheHttpRequestExecutor(RequestHttp<CloseableHttpClient, HttpHost> requestHttp) {
         super(requestHttp);
     }
 

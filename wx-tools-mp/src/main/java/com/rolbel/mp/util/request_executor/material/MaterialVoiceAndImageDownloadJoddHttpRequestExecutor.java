@@ -18,7 +18,7 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 
 public class MaterialVoiceAndImageDownloadJoddHttpRequestExecutor extends MaterialVoiceAndImageDownloadRequestExecutor<HttpConnectionProvider, ProxyInfo> {
-    public MaterialVoiceAndImageDownloadJoddHttpRequestExecutor(RequestHttp requestHttp, File tmpDirFile) {
+    public MaterialVoiceAndImageDownloadJoddHttpRequestExecutor(RequestHttp<HttpConnectionProvider, ProxyInfo> requestHttp, File tmpDirFile) {
         super(requestHttp, tmpDirFile);
     }
 

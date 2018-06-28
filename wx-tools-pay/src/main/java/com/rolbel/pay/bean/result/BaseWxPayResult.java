@@ -121,6 +121,7 @@ public abstract class BaseWxPayResult implements Serializable {
     /**
      * 从xml字符串创建bean对象.
      */
+    @SuppressWarnings("unchecked")
     public static <T extends BaseWxPayResult> T fromXML(String xmlString, Class<T> clz) {
         XStream xstream = XStreamInitializer.getInstance();
         xstream.processAnnotations(clz);

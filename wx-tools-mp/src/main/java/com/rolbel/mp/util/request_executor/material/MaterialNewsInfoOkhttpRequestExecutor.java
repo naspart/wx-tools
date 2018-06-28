@@ -10,15 +10,11 @@ import com.rolbel.common.util.json.WxGsonBuilder;
 import com.rolbel.mp.bean.material.WxMpMaterialNews;
 import com.rolbel.mp.util.json.WxMpGsonBuilder;
 import okhttp3.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
 public class MaterialNewsInfoOkhttpRequestExecutor extends MaterialNewsInfoRequestExecutor<OkHttpClient, OkHttpProxyInfo> {
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
-    public MaterialNewsInfoOkhttpRequestExecutor(RequestHttp requestHttp) {
+    public MaterialNewsInfoOkhttpRequestExecutor(RequestHttp<OkHttpClient, OkHttpProxyInfo> requestHttp) {
         super(requestHttp);
     }
 

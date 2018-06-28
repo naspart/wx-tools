@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.util.Map;
 
 public class MaterialUploadJoddHttpRequestExecutor extends MaterialUploadRequestExecutor<HttpConnectionProvider, ProxyInfo> {
-    public MaterialUploadJoddHttpRequestExecutor(RequestHttp requestHttp) {
+    public MaterialUploadJoddHttpRequestExecutor(RequestHttp<HttpConnectionProvider, ProxyInfo> requestHttp) {
         super(requestHttp);
     }
 

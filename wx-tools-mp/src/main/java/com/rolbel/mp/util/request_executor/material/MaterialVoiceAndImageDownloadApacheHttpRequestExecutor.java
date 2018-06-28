@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MaterialVoiceAndImageDownloadApacheHttpRequestExecutor extends MaterialVoiceAndImageDownloadRequestExecutor<CloseableHttpClient, HttpHost> {
-    public MaterialVoiceAndImageDownloadApacheHttpRequestExecutor(RequestHttp requestHttp, File tmpDirFile) {
+    public MaterialVoiceAndImageDownloadApacheHttpRequestExecutor(RequestHttp<CloseableHttpClient, HttpHost> requestHttp, File tmpDirFile) {
         super(requestHttp, tmpDirFile);
     }
 

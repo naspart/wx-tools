@@ -13,15 +13,11 @@ import jodd.http.HttpRequest;
 import jodd.http.HttpResponse;
 import jodd.http.ProxyInfo;
 import jodd.util.StringPool;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
 public class MaterialNewsInfoJoddHttpRequestExecutor extends MaterialNewsInfoRequestExecutor<HttpConnectionProvider, ProxyInfo> {
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
-    public MaterialNewsInfoJoddHttpRequestExecutor(RequestHttp requestHttp) {
+    public MaterialNewsInfoJoddHttpRequestExecutor(RequestHttp<HttpConnectionProvider, ProxyInfo> requestHttp) {
         super(requestHttp);
     }
 
@@ -38,7 +34,7 @@ public class MaterialNewsInfoJoddHttpRequestExecutor extends MaterialNewsInfoReq
         response.charset(StringPool.UTF_8);
 
         String responseContent = response.bodyText();
-        this.logger.debug("响应原始数据：{}", responseContent);
+        super.logger.debug("响应原始数据：{}", responseContent);
         WxError error = WxError.fromJson(responseContent, WxType.MP);
         if (error.getErrorCode() != 0) {
             throw new WxErrorException(error);
