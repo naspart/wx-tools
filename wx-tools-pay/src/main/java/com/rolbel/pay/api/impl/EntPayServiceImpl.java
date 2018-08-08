@@ -55,6 +55,7 @@ public class EntPayServiceImpl implements EntPayService {
         String responseContent = this.payService.post(url, request.toXML(), true);
         EntPayQueryResult result = BaseWxPayResult.fromXML(responseContent, EntPayQueryResult.class);
         result.checkResult(this.payService, request.getSignType(), true);
+
         return result;
     }
 
@@ -70,6 +71,7 @@ public class EntPayServiceImpl implements EntPayService {
         String responseContent = this.payService.post(url, request.toXML(), true);
         GetPublicKeyResult result = BaseWxPayResult.fromXML(responseContent, GetPublicKeyResult.class);
         result.checkResult(this.payService, request.getSignType(), true);
+
         return result.getPubKey();
     }
 

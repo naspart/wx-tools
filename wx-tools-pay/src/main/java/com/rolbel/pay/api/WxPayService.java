@@ -150,6 +150,10 @@ public interface WxPayService {
     @Deprecated
     Map<String, String> getPayInfo(WxPayUnifiedOrderRequest request) throws WxPayException;
 
+    PapPayService getPapPayService();
+
+    void setPapPayService(PapPayService papPayService);
+
     /**
      * 获取配置.
      */
@@ -189,7 +193,7 @@ public interface WxPayService {
      * @param refundId      微信退款单号
      * @return 退款信息
      */
-    WxPayRefundQueryResult refundQuery(String transactionId, String outTradeNo, String outRefundNo, String refundId)
+    WxPayRefundQueryResult queryRefund(String transactionId, String outTradeNo, String outRefundNo, String refundId)
             throws WxPayException;
 
     /**
@@ -205,7 +209,7 @@ public interface WxPayService {
      * @param request 微信退款单号
      * @return 退款信息
      */
-    WxPayRefundQueryResult refundQuery(WxPayRefundQueryRequest request) throws WxPayException;
+    WxPayRefundQueryResult queryRefund(WxPayRefundQueryRequest request) throws WxPayException;
 
     /**
      * 解析支付结果通知.

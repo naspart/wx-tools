@@ -3,6 +3,7 @@ package com.rolbel.pay.api.impl;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Maps;
 import com.rolbel.pay.api.EntPayService;
+import com.rolbel.pay.api.PapPayService;
 import com.rolbel.pay.api.WxPayService;
 import com.rolbel.pay.bean.WxPayApiData;
 import com.rolbel.pay.bean.coupon.*;
@@ -45,6 +46,7 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
     static ThreadLocal<WxPayApiData> wxApiData = new ThreadLocal<>();
 
     private EntPayService entPayService = new EntPayServiceImpl(this);
+    private PapPayService papPayService = new PapPayServiceImpl(this);
 
     private WxPayConfig config;
 
@@ -56,6 +58,16 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
     @Override
     public void setEntPayService(EntPayService entPayService) {
         this.entPayService = entPayService;
+    }
+
+    @Override
+    public PapPayService getPapPayService() {
+        return papPayService;
+    }
+
+    @Override
+    public void setPapPayService(PapPayService papPayService) {
+        this.papPayService = papPayService;
     }
 
     @Override
@@ -89,7 +101,7 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
     }
 
     @Override
-    public WxPayRefundQueryResult refundQuery(String transactionId, String outTradeNo, String outRefundNo, String refundId)
+    public WxPayRefundQueryResult queryRefund(String transactionId, String outTradeNo, String outRefundNo, String refundId)
             throws WxPayException {
         WxPayRefundQueryRequest request = new WxPayRefundQueryRequest();
         request.setOutTradeNo(StringUtils.trimToNull(outTradeNo));
@@ -97,11 +109,11 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
         request.setOutRefundNo(StringUtils.trimToNull(outRefundNo));
         request.setRefundId(StringUtils.trimToNull(refundId));
 
-        return this.refundQuery(request);
+        return this.queryRefund(request);
     }
 
     @Override
-    public WxPayRefundQueryResult refundQuery(WxPayRefundQueryRequest request) throws WxPayException {
+    public WxPayRefundQueryResult queryRefund(WxPayRefundQueryRequest request) throws WxPayException {
         request.checkAndSign(this.getConfig());
 
         String url = this.getPayBaseUrl() + "/pay/refundquery";
