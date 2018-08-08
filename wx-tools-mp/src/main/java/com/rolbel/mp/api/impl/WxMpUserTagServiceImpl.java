@@ -17,7 +17,7 @@ import java.util.List;
 public class WxMpUserTagServiceImpl implements WxMpUserTagService {
     private WxMpService wxMpService;
 
-    public WxMpUserTagServiceImpl(WxMpService wxMpService) {
+    WxMpUserTagServiceImpl(WxMpService wxMpService) {
         this.wxMpService = wxMpService;
     }
 

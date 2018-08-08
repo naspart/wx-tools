@@ -17,7 +17,7 @@ public class WxMpDataCubeServiceImpl implements WxMpDataCubeService {
 
     private WxMpService wxMpService;
 
-    public WxMpDataCubeServiceImpl(WxMpService wxMpService) {
+    WxMpDataCubeServiceImpl(WxMpService wxMpService) {
         this.wxMpService = wxMpService;
     }
 

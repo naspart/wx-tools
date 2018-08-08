@@ -18,7 +18,7 @@ import java.util.List;
 public class WxMpStoreServiceImpl implements WxMpStoreService {
     private WxMpService wxMpService;
 
-    public WxMpStoreServiceImpl(WxMpService wxMpService) {
+    WxMpStoreServiceImpl(WxMpService wxMpService) {
         this.wxMpService = wxMpService;
     }
 

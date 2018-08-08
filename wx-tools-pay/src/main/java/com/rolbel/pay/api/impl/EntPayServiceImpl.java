@@ -30,7 +30,7 @@ import java.security.Security;
 public class EntPayServiceImpl implements EntPayService {
     private WxPayService payService;
 
-    public EntPayServiceImpl(WxPayService payService) {
+    EntPayServiceImpl(WxPayService payService) {
         this.payService = payService;
     }
 

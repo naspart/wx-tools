@@ -26,7 +26,7 @@ import java.util.concurrent.locks.Lock;
 public class WxMpCardServiceImpl implements WxMpCardService {
     private WxMpService wxMpService;
 
-    public WxMpCardServiceImpl(WxMpService wxMpService) {
+    WxMpCardServiceImpl(WxMpService wxMpService) {
         this.wxMpService = wxMpService;
     }
 

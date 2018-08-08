@@ -22,15 +22,17 @@ import java.util.List;
 public class WxCpDepartmentServiceImpl implements WxCpDepartmentService {
     private WxCpService mainService;
 
-    public WxCpDepartmentServiceImpl(WxCpService mainService) {
+    WxCpDepartmentServiceImpl(WxCpService mainService) {
         this.mainService = mainService;
     }
 
     @Override
     public Integer create(WxCpDepart depart) throws WxErrorException {
         String url = "https://qyapi.weixin.qq.com/cgi-bin/department/create";
+
         String responseContent = this.mainService.post(url, depart.toJson());
         JsonElement tmpJsonElement = new JsonParser().parse(responseContent);
+
         return GsonHelper.getAsInteger(tmpJsonElement.getAsJsonObject().get("id"));
     }
 

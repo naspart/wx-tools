@@ -19,7 +19,7 @@ import java.util.List;
 public class WxMpTemplateMsgServiceImpl implements WxMpTemplateMsgService {
     private WxMpService wxMpService;
 
-    public WxMpTemplateMsgServiceImpl(WxMpService wxMpService) {
+    WxMpTemplateMsgServiceImpl(WxMpService wxMpService) {
         this.wxMpService = wxMpService;
     }
 

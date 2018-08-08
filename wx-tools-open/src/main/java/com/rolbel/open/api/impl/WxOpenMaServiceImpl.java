@@ -6,12 +6,12 @@ import com.rolbel.ma.config.WxMaConfig;
 import com.rolbel.common.error.WxErrorException;
 import com.rolbel.open.api.WxOpenComponentService;
 
-/* package */ class WxOpenMaServiceImpl extends WxMaServiceImpl {
+public class WxOpenMaServiceImpl extends WxMaServiceImpl {
     private WxOpenComponentService wxOpenComponentService;
     private WxMaConfig wxMaConfig;
     private String appId;
 
-    public WxOpenMaServiceImpl(WxOpenComponentService wxOpenComponentService, String appId, WxMaConfig wxMaConfig) {
+    WxOpenMaServiceImpl(WxOpenComponentService wxOpenComponentService, String appId, WxMaConfig wxMaConfig) {
         this.wxOpenComponentService = wxOpenComponentService;
         this.appId = appId;
         this.wxMaConfig = wxMaConfig;

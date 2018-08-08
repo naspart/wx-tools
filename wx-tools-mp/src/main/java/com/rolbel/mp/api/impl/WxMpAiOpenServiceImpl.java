@@ -15,10 +15,10 @@ import java.io.File;
 public class WxMpAiOpenServiceImpl implements WxMpAiOpenService {
 
     private static final JsonParser JSON_PARSER = new JsonParser();
-    public static final String TRANSLATE_URL = "http://api.weixin.qq.com/cgi-bin/media/voice/translatecontent?lfrom=%s&lto=%s";
+    private static final String TRANSLATE_URL = "http://api.weixin.qq.com/cgi-bin/media/voice/translatecontent?lfrom=%s&lto=%s";
     private WxMpService wxMpService;
 
-    public WxMpAiOpenServiceImpl(WxMpService wxMpService) {
+    WxMpAiOpenServiceImpl(WxMpService wxMpService) {
         this.wxMpService = wxMpService;
     }
 

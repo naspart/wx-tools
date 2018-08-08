@@ -18,7 +18,7 @@ import java.util.Date;
 public class WxMpKefuServiceImpl implements WxMpKefuService {
     private WxMpService wxMpService;
 
-    public WxMpKefuServiceImpl(WxMpService wxMpService) {
+    WxMpKefuServiceImpl(WxMpService wxMpService) {
         this.wxMpService = wxMpService;
     }
 

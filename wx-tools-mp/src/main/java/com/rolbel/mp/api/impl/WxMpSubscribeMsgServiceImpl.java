@@ -10,7 +10,7 @@ import com.rolbel.mp.bean.subscribe.WxMpSubscribeMessage;
 public class WxMpSubscribeMsgServiceImpl implements WxMpSubscribeMsgService {
     private WxMpService wxMpService;
 
-    public WxMpSubscribeMsgServiceImpl(WxMpService wxMpService) {
+    WxMpSubscribeMsgServiceImpl(WxMpService wxMpService) {
         this.wxMpService = wxMpService;
     }
 

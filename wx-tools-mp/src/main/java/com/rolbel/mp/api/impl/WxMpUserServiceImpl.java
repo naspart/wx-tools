@@ -13,7 +13,7 @@ import java.util.List;
 public class WxMpUserServiceImpl implements WxMpUserService {
     private WxMpService wxMpService;
 
-    public WxMpUserServiceImpl(WxMpService wxMpService) {
+    WxMpUserServiceImpl(WxMpService wxMpService) {
         this.wxMpService = wxMpService;
     }
 

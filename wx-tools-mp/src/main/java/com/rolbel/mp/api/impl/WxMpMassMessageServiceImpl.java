@@ -16,7 +16,7 @@ import com.rolbel.mp.bean.WxMpMassUploadResult;
 public class WxMpMassMessageServiceImpl implements WxMpMassMessageService {
     private WxMpService wxMpService;
 
-    public WxMpMassMessageServiceImpl(WxMpService wxMpService) {
+    WxMpMassMessageServiceImpl(WxMpService wxMpService) {
         this.wxMpService = wxMpService;
     }
 

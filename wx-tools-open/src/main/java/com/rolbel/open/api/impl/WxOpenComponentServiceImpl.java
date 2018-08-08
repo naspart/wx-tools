@@ -41,7 +41,7 @@ public class WxOpenComponentServiceImpl implements WxOpenComponentService {
 
     private WxOpenService wxOpenService;
 
-    public WxOpenComponentServiceImpl(WxOpenService wxOpenService) {
+    WxOpenComponentServiceImpl(WxOpenService wxOpenService) {
         this.wxOpenService = wxOpenService;
     }
 

@@ -12,7 +12,7 @@ import com.rolbel.mp.util.json.WxMpGsonBuilder;
 public class WxMpShakeServiceImpl implements WxMpShakeService {
     private WxMpService wxMpService;
 
-    public WxMpShakeServiceImpl(WxMpService wxMpService) {
+    WxMpShakeServiceImpl(WxMpService wxMpService) {
         this.wxMpService = wxMpService;
     }
 

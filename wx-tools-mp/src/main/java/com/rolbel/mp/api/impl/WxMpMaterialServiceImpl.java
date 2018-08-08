@@ -26,7 +26,7 @@ public class WxMpMaterialServiceImpl implements WxMpMaterialService {
 
     private WxMpService wxMpService;
 
-    public WxMpMaterialServiceImpl(WxMpService wxMpService) {
+    WxMpMaterialServiceImpl(WxMpService wxMpService) {
         this.wxMpService = wxMpService;
     }
 

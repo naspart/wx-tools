@@ -14,7 +14,7 @@ import java.util.Map;
 public class WxMpUserBlacklistServiceImpl implements WxMpUserBlacklistService {
     private WxMpService wxMpService;
 
-    public WxMpUserBlacklistServiceImpl(WxMpService wxMpService) {
+    WxMpUserBlacklistServiceImpl(WxMpService wxMpService) {
         this.wxMpService = wxMpService;
     }
 

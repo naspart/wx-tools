@@ -18,7 +18,7 @@ public class WxMpQrcodeServiceImpl implements WxMpQrcodeService {
     private static final String API_URL_PREFIX = "https://api.weixin.qq.com/cgi-bin/qrcode";
     private WxMpService wxMpService;
 
-    public WxMpQrcodeServiceImpl(WxMpService wxMpService) {
+    WxMpQrcodeServiceImpl(WxMpService wxMpService) {
         this.wxMpService = wxMpService;
     }
 

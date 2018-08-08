@@ -6,12 +6,12 @@ import com.rolbel.mp.api.impl.WxMpServiceImpl;
 import com.rolbel.mp.bean.WxMpOAuth2AccessToken;
 import com.rolbel.open.api.WxOpenComponentService;
 
-/* package */ class WxOpenMpServiceImpl extends WxMpServiceImpl {
+public class WxOpenMpServiceImpl extends WxMpServiceImpl {
     private WxOpenComponentService wxOpenComponentService;
     private WxMpConfigStorage wxMpConfigStorage;
     private String appId;
 
-    public WxOpenMpServiceImpl(WxOpenComponentService wxOpenComponentService, String appId, WxMpConfigStorage wxMpConfigStorage) {
+    WxOpenMpServiceImpl(WxOpenComponentService wxOpenComponentService, String appId, WxMpConfigStorage wxMpConfigStorage) {
         this.wxOpenComponentService = wxOpenComponentService;
         this.appId = appId;
         this.wxMpConfigStorage = wxMpConfigStorage;

@@ -11,7 +11,7 @@ public class WxMpDeviceServiceImpl implements WxMpDeviceService {
 
     private WxMpService wxMpService;
 
-    public WxMpDeviceServiceImpl(WxMpService wxMpService) {
+    WxMpDeviceServiceImpl(WxMpService wxMpService) {
         this.wxMpService = wxMpService;
     }
 

@@ -12,12 +12,9 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
-/**
- * @author <a href="https://github.com/007gzs">007</a>
- */
 public abstract class WxOpenServiceAbstractImpl<H, P> implements WxOpenService, RequestHttp<H, P> {
-    protected final Logger log = LoggerFactory.getLogger(this.getClass());
-    protected WxOpenComponentService wxOpenComponentService = new WxOpenComponentServiceImpl(this);
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
+    private WxOpenComponentService wxOpenComponentService = new WxOpenComponentServiceImpl(this);
     private WxOpenConfigStorage wxOpenConfigStorage;
 
     @Override
@@ -41,7 +38,7 @@ public abstract class WxOpenServiceAbstractImpl<H, P> implements WxOpenService, 
      */
     public abstract void initHttp();
 
-    protected synchronized <T, E> T execute(RequestExecutor<T, E> executor, String uri, E data) throws WxErrorException {
+    synchronized <T, E> T execute(RequestExecutor<T, E> executor, String uri, E data) throws WxErrorException {
         try {
             T result = executor.execute(uri, data);
             this.log.debug("\n【请求地址】: {}\n【请求参数】：{}\n【响应数据】：{}", uri, data, result);

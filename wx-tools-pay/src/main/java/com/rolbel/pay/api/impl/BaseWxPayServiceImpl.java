@@ -41,12 +41,12 @@ import static com.rolbel.pay.constant.WxPayConstants.QUERY_COMMENT_DATE_FORMAT;
  */
 public abstract class BaseWxPayServiceImpl implements WxPayService {
     private static final String PAY_BASE_URL = "https://api.mch.weixin.qq.com";
-    protected final Logger log = LoggerFactory.getLogger(this.getClass());
-    protected static ThreadLocal<WxPayApiData> wxApiData = new ThreadLocal<>();
+    final Logger log = LoggerFactory.getLogger(this.getClass());
+    static ThreadLocal<WxPayApiData> wxApiData = new ThreadLocal<>();
 
     private EntPayService entPayService = new EntPayServiceImpl(this);
 
-    protected WxPayConfig config;
+    private WxPayConfig config;
 
     @Override
     public EntPayService getEntPayService() {

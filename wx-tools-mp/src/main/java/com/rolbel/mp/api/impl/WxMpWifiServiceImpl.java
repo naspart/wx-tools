@@ -6,16 +6,10 @@ import com.rolbel.mp.api.WxMpService;
 import com.rolbel.mp.api.WxMpWifiService;
 import com.rolbel.mp.bean.wifi.WxMpWifiShopListResult;
 
-/**
- * <pre>
- *  Created by BinaryWang on 2018/6/10.
- * </pre>
-
- */
 public class WxMpWifiServiceImpl implements WxMpWifiService {
     private WxMpService wxMpService;
 
-    public WxMpWifiServiceImpl(WxMpService wxMpService) {
+    WxMpWifiServiceImpl(WxMpService wxMpService) {
         this.wxMpService = wxMpService;
     }
 

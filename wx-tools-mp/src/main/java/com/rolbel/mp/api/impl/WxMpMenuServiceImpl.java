@@ -18,7 +18,7 @@ public class WxMpMenuServiceImpl implements WxMpMenuService {
 
     private WxMpService wxMpService;
 
-    public WxMpMenuServiceImpl(WxMpService wxMpService) {
+    WxMpMenuServiceImpl(WxMpService wxMpService) {
         this.wxMpService = wxMpService;
     }
 

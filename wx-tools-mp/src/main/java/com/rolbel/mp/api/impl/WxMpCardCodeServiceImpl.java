@@ -17,7 +17,7 @@ import org.apache.commons.lang3.StringUtils;
 public class WxMpCardCodeServiceImpl implements WxMpCardCodeService {
     private WxMpService wxMpService;
 
-    public WxMpCardCodeServiceImpl(WxMpService wxMpService) {
+    WxMpCardCodeServiceImpl(WxMpService wxMpService) {
         this.wxMpService = wxMpService;
     }
 
