@@ -1,4 +1,4 @@
-package com.rolbel.pay.bean.papay;
+package com.rolbel.pay.bean.pappay;
 
 import com.rolbel.pay.bean.request.BaseWxPayRequest;
 import com.rolbel.pay.exception.WxPayException;
@@ -11,39 +11,29 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @XStreamAlias("xml")
-public class PapPayApplyPayRequest extends BaseWxPayRequest {
-    @XStreamAlias("body")
-    private String body;
+public class PapPayMpSignRequest extends BaseWxPayRequest {
+    private static final long serialVersionUID = -2491595448592742043L;
 
-    @XStreamAlias("detail")
-    private String detail;
+    @XStreamAlias("plan_id")
+    protected String planId;
 
-    @XStreamAlias("attach")
-    private String attach;
+    @XStreamAlias("contract_code")
+    private String contractCode;
 
-    @XStreamAlias("out_trade_no")
-    private String outTradeNo;
+    @XStreamAlias("request_serial")
+    private Long requestSerial;
 
-    @XStreamAlias("total_fee")
-    private Integer totalFee;
-
-    @XStreamAlias("fee_type")
-    private String feeType;
-
-    @XStreamAlias("spbill_create_ip")
-    private String spbillCreateIp;
-
-    @XStreamAlias("goods_tag")
-    private String goodsTag;
+    @XStreamAlias("contract_display_account")
+    private String contractDisplayAccount;
 
     @XStreamAlias("notify_url")
     private String notifyUrl;
 
-    @XStreamAlias("trade_type")
-    private String tradeType;
+    @XStreamAlias("version")
+    private String version;
 
-    @XStreamAlias("contract_id")
-    private String contractId;
+    @XStreamAlias("timestamp")
+    private String timestamp;
 
     @XStreamAlias("clientip")
     private String clientIp;
@@ -69,8 +59,11 @@ public class PapPayApplyPayRequest extends BaseWxPayRequest {
     @XStreamAlias("outerid")
     private String outerId;
 
-    @XStreamAlias("timestamp")
-    private String timestamp;
+    @XStreamAlias("return_app")
+    private Integer returnApp;
+
+    @XStreamAlias("return_web")
+    private Integer returnWeb;
 
     @Override
     protected void checkConstraints() throws WxPayException {

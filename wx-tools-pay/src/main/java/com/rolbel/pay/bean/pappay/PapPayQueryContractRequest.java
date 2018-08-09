@@ -1,4 +1,4 @@
-package com.rolbel.pay.bean.papay;
+package com.rolbel.pay.bean.pappay;
 
 import com.rolbel.pay.bean.request.BaseWxPayRequest;
 import com.rolbel.pay.exception.WxPayException;
@@ -11,18 +11,17 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @XStreamAlias("xml")
-public class PapPayUnsignRequest extends BaseWxPayRequest {
+public class PapPayQueryContractRequest extends BaseWxPayRequest {
+    private static final long serialVersionUID = 1464026931585722L;
+
+    @XStreamAlias("contract_id")
+    private String contractId;
+
     @XStreamAlias("plan_id")
     private String planId;
 
     @XStreamAlias("contract_code")
     private String contractCode;
-
-    @XStreamAlias("contract_id")
-    private String contractId;
-
-    @XStreamAlias("contract_termination_remark")
-    private String contractTerminationRemark;
 
     @XStreamAlias("version")
     private String version;

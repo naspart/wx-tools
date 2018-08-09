@@ -186,7 +186,7 @@ public abstract class BaseWxPayResult implements Serializable {
     /**
      * 获取xml中元素的值.
      */
-    String getXmlValue(String... path) {
+    public String getXmlValue(String... path) {
         Document doc = this.getXmlDoc();
         String expression = String.format("/%s//text()", Joiner.on("/").join(path));
         try {
@@ -203,7 +203,7 @@ public abstract class BaseWxPayResult implements Serializable {
     /**
      * 获取xml中元素的值，作为int值返回.
      */
-    Integer getXmlValueAsInt(String... path) {
+    public Integer getXmlValueAsInt(String... path) {
         String result = this.getXmlValue(path);
         if (StringUtils.isBlank(result)) {
             return null;

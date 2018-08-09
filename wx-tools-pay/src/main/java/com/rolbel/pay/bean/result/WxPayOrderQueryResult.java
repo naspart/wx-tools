@@ -296,6 +296,5 @@ public class WxPayOrderQueryResult extends BaseWxPayResult {
          * </pre>
          */
         private Integer couponFee;
-
     }
 }

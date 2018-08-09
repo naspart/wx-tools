@@ -1,4 +1,4 @@
-package com.rolbel.pay.bean.papay;
+package com.rolbel.pay.bean.pappay;
 
 import com.rolbel.pay.bean.result.BaseWxPayResult;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @XStreamAlias("xml")
 public class PapPayPayAndSignResult extends BaseWxPayResult {
+    private static final long serialVersionUID = -1919612251439684072L;
+
     @XStreamAlias("contract_result_code")
     private String contractResultCode;
 
