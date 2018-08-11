@@ -1,4 +1,4 @@
-package com.rolbel.pay.bean.pappay;
+package com.rolbel.pay.bean.pappay.request;
 
 import com.rolbel.pay.bean.request.BaseWxPayRequest;
 import com.rolbel.pay.exception.WxPayException;
@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @XStreamAlias("xml")
 public class PapPayApplyPayRequest extends BaseWxPayRequest {
-    private static final long serialVersionUID = 1337531855229690369L;
+    private static final long serialVersionUID = -623395514483325027L;
 
     @XStreamAlias("body")
     private String body;

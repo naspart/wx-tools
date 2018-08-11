@@ -1,4 +1,4 @@
-package com.rolbel.pay.bean.pappay;
+package com.rolbel.pay.bean.pappay.result;
 
 import com.google.common.collect.Lists;
 import com.rolbel.pay.bean.result.BaseWxPayResult;
@@ -11,7 +11,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @XStreamAlias("xml")
-public class PapPayQueryOrderResult extends BaseWxPayResult {
+public class PapPayOrderQueryResult extends BaseWxPayResult {
     private static final long serialVersionUID = 8259816620223156941L;
 
     @XStreamAlias("device_info")
@@ -77,7 +77,7 @@ public class PapPayQueryOrderResult extends BaseWxPayResult {
         if (this.couponCount != null && this.couponCount > 0) {
             this.coupons = Lists.newArrayList();
             for (int i = 0; i < this.couponCount; i++) {
-                this.coupons.add(new PapPayQueryOrderResult.Coupon(
+                this.coupons.add(new PapPayOrderQueryResult.Coupon(
                         this.getXmlValue("xml/coupon_type_" + i),
                         this.getXmlValue("xml/coupon_id_" + i),
                         this.getXmlValueAsInt("xml/coupon_fee_" + i)));

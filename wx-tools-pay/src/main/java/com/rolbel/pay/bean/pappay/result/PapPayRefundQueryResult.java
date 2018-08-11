@@ -1,4 +1,4 @@
-package com.rolbel.pay.bean.pappay;
+package com.rolbel.pay.bean.pappay.result;
 
 import com.google.common.collect.Lists;
 import com.rolbel.pay.bean.result.BaseWxPayResult;
@@ -11,7 +11,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @XStreamAlias("xml")
-public class PapPayQueryRefundResult extends BaseWxPayResult {
+public class PapPayRefundQueryResult extends BaseWxPayResult {
     private static final long serialVersionUID = -2438771273841756707L;
 
     @XStreamAlias("device_info")
@@ -45,7 +45,7 @@ public class PapPayQueryRefundResult extends BaseWxPayResult {
             this.refundRecords = Lists.newArrayList();
 
             for (int i = 0; i < this.refundCount; i++) {
-                PapPayQueryRefundResult.RefundRecord refundRecord = new PapPayQueryRefundResult.RefundRecord();
+                PapPayRefundQueryResult.RefundRecord refundRecord = new PapPayRefundQueryResult.RefundRecord();
                 this.refundRecords.add(refundRecord);
 
                 refundRecord.setOutRefundNo(this.getXmlValue("xml/out_refund_no_" + i));
@@ -61,10 +61,10 @@ public class PapPayQueryRefundResult extends BaseWxPayResult {
                     continue;
                 }
 
-                List<PapPayRefundCouponInfo> coupons = Lists.newArrayList();
+                List<RefundRecord.PapPayRefundCouponInfo> coupons = Lists.newArrayList();
                 for (int j = 0; j < refundRecord.getCouponRefundCount(); j++) {
                     coupons.add(
-                            new PapPayRefundCouponInfo(
+                            new RefundRecord.PapPayRefundCouponInfo(
                                     this.getXmlValue("xml/coupon_refund_batch_id_" + i + "_" + j),
                                     this.getXmlValue("xml/coupon_refund_id_" + i + "_" + j),
                                     this.getXmlValueAsInt("xml/coupon_refund_fee_" + i + "_" + j)
@@ -193,5 +193,49 @@ public class PapPayQueryRefundResult extends BaseWxPayResult {
          */
         @XStreamAlias("refund_recv_accout")
         private String refundRecvAccount;
+
+        @Data
+        @NoArgsConstructor
+        @AllArgsConstructor
+        public static class PapPayRefundCouponInfo {
+            /**
+             * <pre>
+             * 字段名：代金券或立减优惠批次ID.
+             * 变量名：coupon_refund_batch_id_$n_$m
+             * 是否必填：否
+             * 类型：String(20)
+             * 示例值：100
+             * 描述：批次ID, $n为下标，$m为下标，从0开始编号
+             * </pre>
+             */
+            @XStreamAlias("coupon_refund_batch_id")
+            private String couponRefundBatchId;
+
+            /**
+             * <pre>
+             * 字段名：代金券或立减优惠ID.
+             * 变量名：coupon_refund_id_$n_$m
+             * 是否必填：否
+             * 类型：String(20)
+             * 示例值：10000
+             * 描述：代金券或立减优惠ID, $n为下标，$m为下标，从0开始编号
+             * </pre>
+             */
+            @XStreamAlias("coupon_refund_id")
+            private String couponRefundId;
+
+            /**
+             * <pre>
+             * 字段名：单个代金券或立减优惠支付金额.
+             * 变量名：coupon_refund_fee_$n_$m
+             * 是否必填：否
+             * 类型：int
+             * 示例值：100
+             * 描述：单个代金券或立减优惠支付金额, $n为下标，$m为下标，从0开始编号
+             * </pre>
+             */
+            @XStreamAlias("couponRefund_fee")
+            private Integer couponRefundFee;
+        }
     }
 }

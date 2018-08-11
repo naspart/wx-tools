@@ -1,4 +1,4 @@
-package com.rolbel.pay.bean.pappay;
+package com.rolbel.pay.bean.pappay.result;
 
 import com.rolbel.common.util.xml.XStreamInitializer;
 import com.rolbel.pay.bean.result.BaseWxPayResult;
