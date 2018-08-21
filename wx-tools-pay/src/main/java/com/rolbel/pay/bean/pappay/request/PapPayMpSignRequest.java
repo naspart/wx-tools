@@ -87,14 +87,6 @@ public class PapPayMpSignRequest extends BaseWxPayRequest {
             this.setMchId(config.getMchId());
         }
 
-        if (StringUtils.isBlank(getSubAppId())) {
-            this.setSubAppId(config.getSubAppId());
-        }
-
-        if (StringUtils.isBlank(getSubMchId())) {
-            this.setSubMchId(config.getSubMchId());
-        }
-
         if (StringUtils.isBlank(getSignType())) {
             if (config.getSignType() != null && !ALL_SIGN_TYPES.contains(config.getSignType())) {
                 throw new WxPayException("非法的signType配置：" + config.getSignType() + "，请检查配置！");
