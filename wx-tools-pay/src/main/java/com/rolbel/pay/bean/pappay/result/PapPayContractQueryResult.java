@@ -1,4 +1,4 @@
-package com.rolbel.pay.bean.pappay;
+package com.rolbel.pay.bean.pappay.result;
 
 import com.rolbel.pay.bean.result.BaseWxPayResult;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @XStreamAlias("xml")
-public class PapPayQueryContractResult extends BaseWxPayResult {
+public class PapPayContractQueryResult extends BaseWxPayResult {
     private static final long serialVersionUID = 3430449994933371086L;
 
     @XStreamAlias("contract_id")

@@ -1,6 +1,7 @@
 package com.rolbel.pay.api;
 
-import com.rolbel.pay.bean.pappay.*;
+import com.rolbel.pay.bean.pappay.request.*;
+import com.rolbel.pay.bean.pappay.result.*;
 import com.rolbel.pay.exception.WxPayException;
 
 public interface PapPayService {
@@ -66,7 +67,7 @@ public interface PapPayService {
      *
      * @param request 请求对象
      */
-    PapPayQueryContractResult queryContract(PapPayQueryContractRequest request) throws WxPayException;
+    PapPayContractQueryResult queryContract(PapPayContractQueryRequest request) throws WxPayException;
 
     /**
      * <pre>
@@ -82,6 +83,26 @@ public interface PapPayService {
      * @param request 请求对象
      */
     PapPayApplyPayResult applyPay(PapPayApplyPayRequest request) throws WxPayException;
+
+    /**
+     * <pre>
+     * 解析支付结果通知.
+     * 支付完成后，微信会把相关支付结果和用户信息发送给商户，商户需要接收处理，并返回应答。
+     *
+     * 对后台通知交互时，如果微信收到商户的应答不是成功或超时，微信认为通知失败，微信会通过一定的策略定期重新发起通知，尽可能提高通知的成功率，但微信不保证通知最终能成功。 （通知频率为15/15/30/180/1800/1800/1800/1800/3600，单位：秒）
+     *
+     * 注意：同样的通知可能会多次发送给商户系统。商户系统必须能够正确处理重复的通知。
+     * 推荐的做法是，当收到通知进行处理时，首先检查对应业务数据的状态，判断该通知是否已经处理过，如果没有处理过再进行处理，如果处理过直接返回结果成功。在对业务数据进行状态检查和处理之前，要采用数据锁进行并发控制，以避免函数重入造成的数据混乱。
+     *
+     * 特别提醒：商户系统对于支付结果通知的内容一定要做签名验证,并校验返回的订单金额是否与商户侧的订单金额一致，防止数据泄漏导致出现“假通知”，造成资金损失。
+     *
+     * 文档详见：https://pay.weixin.qq.com/wiki/doc/api/pap.php?chapter=18_7&index=10
+     * 接口链接：https://api.mch.weixin.qq.com/pay/pappayapply
+     * </pre>
+     *
+     * @param xmlData 请求对象
+     */
+    PapPayOrderNotifyResult parseApplyPayNotifyResult(String xmlData) throws WxPayException;
 
     /**
      * <pre>
@@ -116,7 +137,7 @@ public interface PapPayService {
      * @param transactionId 微信订单号
      * @param outTradeNo    商户订单号
      */
-    PapPayQueryOrderResult queryOrder(String transactionId, String outTradeNo) throws WxPayException;
+    PapPayOrderQueryResult queryOrder(String transactionId, String outTradeNo) throws WxPayException;
 
     /**
      * <pre>
@@ -133,7 +154,7 @@ public interface PapPayService {
      *
      * @param request 请求对象
      */
-    PapPayQueryOrderResult queryOrder(PapPayQueryOrderRequest request) throws WxPayException;
+    PapPayOrderQueryResult queryOrder(PapPayOrderQueryRequest request) throws WxPayException;
 
     /**
      * <pre>
@@ -149,7 +170,7 @@ public interface PapPayService {
      * @param outRefundNo   商户退款单号
      * @param refundId      微信退款单号
      */
-    PapPayQueryRefundResult queryRefund(String transactionId, String outTradeNo, String outRefundNo, String refundId)
+    PapPayRefundQueryResult queryRefund(String transactionId, String outTradeNo, String outRefundNo, String refundId)
             throws WxPayException;
 
     /**
@@ -163,5 +184,5 @@ public interface PapPayService {
      *
      * @param request 请求对象
      */
-    PapPayQueryRefundResult queryRefund(PapPayQueryRefundRequest request) throws WxPayException;
+    PapPayRefundQueryResult queryRefund(PapPayRefundQueryRequest request) throws WxPayException;
 }

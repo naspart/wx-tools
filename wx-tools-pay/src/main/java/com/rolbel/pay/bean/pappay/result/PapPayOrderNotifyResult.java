@@ -1,18 +1,24 @@
-package com.rolbel.pay.bean.pappay;
+package com.rolbel.pay.bean.pappay.result;
 
-import com.google.common.collect.Lists;
+import com.rolbel.common.util.ToStringUtils;
+import com.rolbel.common.util.xml.XStreamInitializer;
 import com.rolbel.pay.bean.result.BaseWxPayResult;
+import com.rolbel.pay.converter.PapPayOrderNotifyResultConverter;
+import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @XStreamAlias("xml")
-public class PapPayApplyPayNotifyResult extends BaseWxPayResult {
-    private static final long serialVersionUID = -4120696098687726330L;
+public class PapPayOrderNotifyResult extends BaseWxPayResult {
+    private static final long serialVersionUID = 3391131280849467380L;
 
     @XStreamAlias("device_info")
     private String deviceInfo;
@@ -47,7 +53,7 @@ public class PapPayApplyPayNotifyResult extends BaseWxPayResult {
     @XStreamAlias("coupon_count")
     private Integer couponCount;
 
-    private List<Coupon> coupons;
+    private List<PapPayOrderNotifyCoupon> couponList;
 
     @XStreamAlias("transaction_id")
     private String transactionId;
@@ -64,36 +70,20 @@ public class PapPayApplyPayNotifyResult extends BaseWxPayResult {
     @XStreamAlias("contract_id")
     private String contractId;
 
-    /**
-     * 通过xml组装coupons属性内容
-     */
-    public void composeCoupons() {
-        if (this.couponCount != null && this.couponCount > 0) {
-            this.coupons = Lists.newArrayList();
-            for (int i = 0; i < this.couponCount; i++) {
-                this.coupons.add(new PapPayApplyPayNotifyResult.Coupon(this.getXmlValue("xml/coupon_type_" + i),
-                        this.getXmlValue("xml/coupon_id_" + i),
-                        this.getXmlValueAsInt("xml/coupon_fee_" + i)));
-            }
-        }
+    public static PapPayOrderNotifyResult fromXML(String xmlString) {
+        XStream xstream = XStreamInitializer.getInstance();
+        xstream.processAnnotations(PapPayOrderNotifyResult.class);
+        xstream.registerConverter(new PapPayOrderNotifyResultConverter(xstream.getMapper(), xstream.getReflectionProvider()));
+
+        PapPayOrderNotifyResult result = (PapPayOrderNotifyResult) xstream.fromXML(xmlString);
+        result.setXmlString(xmlString);
+
+        return result;
     }
 
     @Data
-    @Builder(builderMethodName = "newBuilder")
-    @AllArgsConstructor
-    public static class Coupon {
-        /**
-         * <pre>代金券类型
-         * coupon_type_$n
-         * 否
-         * String
-         * CASH
-         * <li>CASH--充值代金券
-         * <li>NO_CASH---非充值代金券
-         * 	订单使用代金券时有返回（取值：CASH、NO_CASH）。$n为下标,从0开始编号，举例：coupon_type_$0
-         * </pre>
-         */
-        private String couponType;
+    @NoArgsConstructor
+    public static class PapPayOrderNotifyCoupon {
 
         /**
          * <pre>代金券ID
@@ -116,5 +106,10 @@ public class PapPayApplyPayNotifyResult extends BaseWxPayResult {
          * </pre>
          */
         private Integer couponFee;
+
+        @Override
+        public String toString() {
+            return ToStringUtils.toSimpleString(this);
+        }
     }
 }
