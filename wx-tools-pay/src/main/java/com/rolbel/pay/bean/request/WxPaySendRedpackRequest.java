@@ -13,7 +13,7 @@ import lombok.*;
 @AllArgsConstructor
 @XStreamAlias("xml")
 public class WxPaySendRedpackRequest extends BaseWxPayRequest {
-    private static final long serialVersionUID = 4643879597531048353L;
+    private static final long serialVersionUID = 7049669455576180242L;
 
     /**
      * mch_billno
@@ -35,7 +35,7 @@ public class WxPaySendRedpackRequest extends BaseWxPayRequest {
      * 接受红包的用户   用户在wxappid下的openid
      */
     @XStreamAlias("re_openid")
-    private String reOpenid;
+    private String reOpenId;
 
     /**
      * total_amount
@@ -94,7 +94,7 @@ public class WxPaySendRedpackRequest extends BaseWxPayRequest {
      * 微信分配的公众账号ID（企业号corpid即为此appId）。接口传入的所有appid应该为公众号的appid（在mp.weixin.qq.com申请的），不能为APP的appid（在open.weixin.qq.com申请的）
      */
     @XStreamAlias("wxappid")
-    private String wxAppid;
+    private String wxAppId;
 
     /**
      * <pre>
@@ -149,13 +149,12 @@ public class WxPaySendRedpackRequest extends BaseWxPayRequest {
     }
 
     @Override
-    public String getAppid() {
-        return this.wxAppid;
+    public String getAppId() {
+        return this.wxAppId;
     }
 
     @Override
-    public void setAppid(String appid) {
-        this.wxAppid = appid;
+    public void setAppId(String appId) {
+        this.wxAppId = appId;
     }
-
 }

@@ -12,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @XStreamAlias("xml")
 public class PapPayRefundQueryResult extends BaseWxPayResult {
-    private static final long serialVersionUID = -2438771273841756707L;
+    private static final long serialVersionUID = 8958428286813706935L;
 
     @XStreamAlias("device_info")
     private String deviceInfo;

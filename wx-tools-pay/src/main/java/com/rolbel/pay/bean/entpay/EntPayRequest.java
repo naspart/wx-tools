@@ -19,7 +19,7 @@ import lombok.*;
 @AllArgsConstructor
 @XStreamAlias("xml")
 public class EntPayRequest extends BaseWxPayRequest {
-    private static final long serialVersionUID = 916179930135470261L;
+    private static final long serialVersionUID = -3190557750200608999L;
 
     /**
      * <pre>
@@ -32,7 +32,7 @@ public class EntPayRequest extends BaseWxPayRequest {
      * </pre>
      */
     @XStreamAlias("mch_appid")
-    private String mchAppid;
+    private String mchAppId;
 
     /**
      * <pre>
@@ -166,13 +166,13 @@ public class EntPayRequest extends BaseWxPayRequest {
     }
 
     @Override
-    public String getAppid() {
-        return this.mchAppid;
+    public String getAppId() {
+        return this.mchAppId;
     }
 
     @Override
-    public void setAppid(String appid) {
-        this.mchAppid = appid;
+    public void setAppId(String appId) {
+        this.mchAppId = appId;
     }
 
     @Override

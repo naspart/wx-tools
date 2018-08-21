@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @XStreamAlias("xml")
 public class PapPaySignNotifyResult extends BaseWxPayResult {
-    private static final long serialVersionUID = -7434940415600814962L;
+    private static final long serialVersionUID = 761824556680279050L;
 
     @XStreamAlias("contract_code")
     private String contractCode;
@@ -22,7 +22,7 @@ public class PapPaySignNotifyResult extends BaseWxPayResult {
     @XStreamAlias("plan_id")
     private String planId;
 
-    @XStreamAlias("plan_id")
+    @XStreamAlias("openid")
     private String openId;
 
     @XStreamAlias("change_type")
@@ -46,7 +46,8 @@ public class PapPaySignNotifyResult extends BaseWxPayResult {
     public static PapPaySignNotifyResult fromXML(String xmlString) {
         XStream xstream = XStreamInitializer.getInstance();
         xstream.processAnnotations(PapPaySignNotifyResult.class);
-        xstream.registerConverter(new WxPayOrderNotifyResultConverter(xstream.getMapper(), xstream.getReflectionProvider()));
+        xstream.allowTypes(new Class[]{PapPaySignNotifyResult.class});
+
         PapPaySignNotifyResult result = (PapPaySignNotifyResult) xstream.fromXML(xmlString);
         result.setXmlString(xmlString);
 

@@ -276,7 +276,7 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
 
             case WxPayConstants.TradeType.APP: {
                 // APP支付绑定的是微信开放平台上的账号，APPID为开放平台上绑定APP后发放的参数
-                String appId = unifiedOrderResult.getAppid();
+                String appId = unifiedOrderResult.getAppId();
                 if (StringUtils.isNotEmpty(unifiedOrderResult.getSubAppId())) {
                     appId = unifiedOrderResult.getSubAppId();
                 }
@@ -313,7 +313,7 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
 
             case WxPayConstants.TradeType.JSAPI: {
                 String signType = WxPayConstants.SignType.MD5;
-                String appid = unifiedOrderResult.getAppid();
+                String appid = unifiedOrderResult.getAppId();
                 if (StringUtils.isNotEmpty(unifiedOrderResult.getSubAppId())) {
                     appid = unifiedOrderResult.getSubAppId();
                 }
@@ -387,7 +387,7 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
             payInfo.put("timeStamp", timestamp);
             payInfo.put("nonceStr", nonceStr);
         } else if (WxPayConstants.TradeType.JSAPI.equals(request.getTradeType())) {
-            payInfo.put("appId", unifiedOrderResult.getAppid());
+            payInfo.put("appId", unifiedOrderResult.getAppId());
             // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
             payInfo.put("timeStamp", timestamp);
             payInfo.put("nonceStr", nonceStr);

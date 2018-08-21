@@ -2,6 +2,7 @@ package com.rolbel.pay.converter;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.rolbel.pay.bean.pappay.result.PapPayOrderNotifyCoupon;
 import com.rolbel.pay.bean.pappay.result.PapPayOrderNotifyResult;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.converters.MarshallingContext;
@@ -34,12 +35,12 @@ public class PapPayOrderNotifyResultConverter extends AbstractReflectionConverte
     public void marshal(Object original, HierarchicalStreamWriter writer, MarshallingContext context) {
         super.marshal(original, writer, context);
         PapPayOrderNotifyResult obj = (PapPayOrderNotifyResult) original;
-        List<PapPayOrderNotifyResult.PapPayOrderNotifyCoupon> list = obj.getCouponList();
+        List<PapPayOrderNotifyCoupon> list = obj.getCouponList();
         if (list == null || list.size() == 0) {
             return;
         }
         for (int i = 0; i < list.size(); i++) {
-            PapPayOrderNotifyResult.PapPayOrderNotifyCoupon coupon = list.get(i);
+            PapPayOrderNotifyCoupon coupon = list.get(i);
             writer.startNode("coupon_id_" + i);
             writer.setValue(coupon.getCouponId());
             writer.endNode();
@@ -66,7 +67,7 @@ public class PapPayOrderNotifyResultConverter extends AbstractReflectionConverte
         fields.addAll(Arrays.asList(obj.getClass().getSuperclass().getDeclaredFields()));
         Map<String, Field> fieldMap = getFieldMap(fields);
 
-        Map<Integer, PapPayOrderNotifyResult.PapPayOrderNotifyCoupon> coupons = Maps.newTreeMap();
+        Map<Integer, PapPayOrderNotifyCoupon> coupons = Maps.newTreeMap();
         while (reader.hasMoreChildren()) {
             reader.moveDown();
             if (fieldMap.containsKey(reader.getNodeName())) {
@@ -109,10 +110,10 @@ public class PapPayOrderNotifyResultConverter extends AbstractReflectionConverte
         });
     }
 
-    private PapPayOrderNotifyResult.PapPayOrderNotifyCoupon getElement(Map<Integer, PapPayOrderNotifyResult.PapPayOrderNotifyCoupon> coupons, String nodeName) {
+    private PapPayOrderNotifyCoupon getElement(Map<Integer, PapPayOrderNotifyCoupon> coupons, String nodeName) {
         Integer index = Integer.valueOf(StringUtils.substringAfterLast(nodeName, "_"));
         if (coupons.get(index) == null) {
-            coupons.put(index, new PapPayOrderNotifyResult.PapPayOrderNotifyCoupon());
+            coupons.put(index, new PapPayOrderNotifyCoupon());
         }
 
         return coupons.get(index);

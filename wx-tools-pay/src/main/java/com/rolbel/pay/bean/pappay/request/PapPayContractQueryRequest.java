@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @XStreamAlias("xml")
 public class PapPayContractQueryRequest extends BaseWxPayRequest {
-    private static final long serialVersionUID = 3568610020897564792L;
+    private static final long serialVersionUID = -8606801566913857719L;
 
     @XStreamAlias("contract_id")
     private String contractId;

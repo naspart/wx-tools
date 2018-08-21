@@ -1,14 +1,21 @@
 package com.rolbel.pay.api.impl;
 
+import com.google.common.base.Joiner;
+import com.google.common.collect.Maps;
 import com.rolbel.pay.api.PapPayService;
 import com.rolbel.pay.api.WxPayService;
 import com.rolbel.pay.bean.pappay.request.*;
 import com.rolbel.pay.bean.pappay.result.*;
 import com.rolbel.pay.bean.result.BaseWxPayResult;
 import com.rolbel.pay.exception.WxPayException;
+import com.rolbel.pay.util.SignUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.Map;
 
 /**
  * <pre>
@@ -26,7 +33,17 @@ public class PapPayServiceImpl implements PapPayService {
     @Override
     public String getMpSignUrl(PapPayMpSignRequest request) throws WxPayException {
         request.checkAndSign(this.payService.getConfig());
-        return null;
+
+        Map<String, String> sPara = Maps.transformValues(SignUtils.xmlBean2Map(request), val -> {
+            try {
+                assert val != null;
+                return URLEncoder.encode(val, "utf-8");
+            } catch (UnsupportedEncodingException e) {
+                return null;
+            }
+        });
+
+        return "https://api.mch.weixin.qq.com/papay/entrustweb?" + Joiner.on("&").withKeyValueSeparator("=").join(sPara);
     }
 
     @Override
@@ -34,7 +51,7 @@ public class PapPayServiceImpl implements PapPayService {
         request.checkAndSign(this.payService.getConfig());
 
         String url = this.payService.getPayBaseUrl() + "/pay/contractorder";
-        String responseContent = this.payService.post(url, request.toXML(), true);
+        String responseContent = this.payService.post(url, request.toXML(), false);
 
         PapPayPayAndSignResult result = BaseWxPayResult.fromXML(responseContent, PapPayPayAndSignResult.class);
         result.checkResult(this.payService, request.getSignType(), true);
@@ -45,9 +62,9 @@ public class PapPayServiceImpl implements PapPayService {
     @Override
     public PapPaySignNotifyResult parseSignNotifyResult(String xmlData) throws WxPayException {
         try {
-            log.debug("微信支付异步通知请求参数：{}", xmlData);
+            log.debug("微信免密支付签约异步通知请求参数：{}", xmlData);
             PapPaySignNotifyResult result = PapPaySignNotifyResult.fromXML(xmlData);
-            log.debug("微信支付异步通知请求解析后的对象：{}", result);
+            log.debug("微信免密支付签约异步通知请求解析后的对象：{}", result);
             result.checkResult(this.payService, this.payService.getConfig().getSignType(), true);
 
             return result;
@@ -65,7 +82,7 @@ public class PapPayServiceImpl implements PapPayService {
         request.checkAndSign(this.payService.getConfig());
 
         String url = this.payService.getPayBaseUrl() + "/pappay/querycontract";
-        String responseContent = this.payService.post(url, request.toXML(), true);
+        String responseContent = this.payService.post(url, request.toXML(), false);
         PapPayContractQueryResult result = BaseWxPayResult.fromXML(responseContent, PapPayContractQueryResult.class);
         result.checkResult(this.payService, request.getSignType(), true);
 
@@ -77,7 +94,7 @@ public class PapPayServiceImpl implements PapPayService {
         request.checkAndSign(this.payService.getConfig());
 
         String url = this.payService.getPayBaseUrl() + "/pay/pappayapply";
-        String responseContent = this.payService.post(url, request.toXML(), true);
+        String responseContent = this.payService.post(url, request.toXML(), false);
 
         PapPayApplyPayResult result = BaseWxPayResult.fromXML(responseContent, PapPayApplyPayResult.class);
         result.checkResult(this.payService, request.getSignType(), true);
@@ -109,7 +126,7 @@ public class PapPayServiceImpl implements PapPayService {
         request.checkAndSign(this.payService.getConfig());
 
         String url = this.payService.getPayBaseUrl() + "/pappay/deletecontract";
-        String responseContent = this.payService.post(url, request.toXML(), true);
+        String responseContent = this.payService.post(url, request.toXML(), false);
 
         PapPayUnsignResult result = BaseWxPayResult.fromXML(responseContent, PapPayUnsignResult.class);
         result.checkResult(this.payService, request.getSignType(), true);

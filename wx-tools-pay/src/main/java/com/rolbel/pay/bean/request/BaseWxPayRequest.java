@@ -35,7 +35,7 @@ public abstract class BaseWxPayRequest implements Serializable {
      * </pre>
      */
     @XStreamAlias("appid")
-    protected String appid;
+    protected String appId;
     /**
      * <pre>
      * 字段名：商户号
@@ -142,10 +142,10 @@ public abstract class BaseWxPayRequest implements Serializable {
     /**
      * 如果配置中已经设置，可以不设置值
      *
-     * @param appid 微信公众号appid
+     * @param appId 微信公众号appid
      */
-    public void setAppid(String appid) {
-        this.appid = appid;
+    public void setAppId(String appId) {
+        this.appId = appId;
     }
 
     /**
@@ -208,8 +208,8 @@ public abstract class BaseWxPayRequest implements Serializable {
         this.checkFields();
 
         if (!ignoreAppid()) {
-            if (StringUtils.isBlank(getAppid())) {
-                this.setAppid(config.getAppId());
+            if (StringUtils.isBlank(getAppId())) {
+                this.setAppId(config.getAppId());
             }
         }
 

@@ -69,7 +69,7 @@ public abstract class BaseWxPayResult implements Serializable {
      * 公众账号ID.
      */
     @XStreamAlias("appid")
-    private String appid;
+    private String appId;
     /**
      * 商户号.
      */
@@ -123,6 +123,8 @@ public abstract class BaseWxPayResult implements Serializable {
     public static <T extends BaseWxPayResult> T fromXML(String xmlString, Class<T> clz) {
         XStream xstream = XStreamInitializer.getInstance();
         xstream.processAnnotations(clz);
+        xstream.allowTypes(new Class[]{clz});
+
         T result = (T) xstream.fromXML(xmlString);
         result.setXmlString(xmlString);
         return result;

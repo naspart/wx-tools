@@ -11,5 +11,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @XStreamAlias("xml")
 public class PapPayApplyPayResult extends BaseWxPayResult {
-    private static final long serialVersionUID = 8235580100634321232L;
+    private static final long serialVersionUID = 6385671349925544795L;
 }

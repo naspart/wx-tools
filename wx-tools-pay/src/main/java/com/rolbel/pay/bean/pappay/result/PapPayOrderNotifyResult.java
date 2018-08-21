@@ -1,6 +1,5 @@
 package com.rolbel.pay.bean.pappay.result;
 
-import com.rolbel.common.util.ToStringUtils;
 import com.rolbel.common.util.xml.XStreamInitializer;
 import com.rolbel.pay.bean.result.BaseWxPayResult;
 import com.rolbel.pay.converter.PapPayOrderNotifyResultConverter;
@@ -10,7 +9,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
 import java.util.List;
 
 @Data
@@ -18,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @XStreamAlias("xml")
 public class PapPayOrderNotifyResult extends BaseWxPayResult {
-    private static final long serialVersionUID = 3391131280849467380L;
+    private static final long serialVersionUID = -6336827289132459892L;
 
     @XStreamAlias("device_info")
     private String deviceInfo;
@@ -73,43 +71,12 @@ public class PapPayOrderNotifyResult extends BaseWxPayResult {
     public static PapPayOrderNotifyResult fromXML(String xmlString) {
         XStream xstream = XStreamInitializer.getInstance();
         xstream.processAnnotations(PapPayOrderNotifyResult.class);
+        xstream.allowTypes(new Class[]{PapPayOrderNotifyResult.class});
         xstream.registerConverter(new PapPayOrderNotifyResultConverter(xstream.getMapper(), xstream.getReflectionProvider()));
 
         PapPayOrderNotifyResult result = (PapPayOrderNotifyResult) xstream.fromXML(xmlString);
         result.setXmlString(xmlString);
 
         return result;
-    }
-
-    @Data
-    @NoArgsConstructor
-    public static class PapPayOrderNotifyCoupon {
-
-        /**
-         * <pre>代金券ID
-         * coupon_id_$n
-         * 否
-         * String(20)
-         * 10000
-         * 代金券ID, $n为下标，从0开始编号
-         * </pre>
-         */
-        private String couponId;
-
-        /**
-         * <pre>单个代金券支付金额
-         * coupon_fee_$n
-         * 否
-         * Int
-         * 100
-         * 单个代金券支付金额, $n为下标，从0开始编号
-         * </pre>
-         */
-        private Integer couponFee;
-
-        @Override
-        public String toString() {
-            return ToStringUtils.toSimpleString(this);
-        }
     }
 }

@@ -14,8 +14,7 @@ import java.io.Writer;
 public class XStreamInitializer {
 
     public static XStream getInstance() {
-        XStream xstream = new XStream(new PureJavaReflectionProvider(), new XppDriver() {
-
+        XStream xStream = new XStream(new PureJavaReflectionProvider(), new XppDriver() {
             @Override
             public HierarchicalStreamWriter createWriter(Writer out) {
                 return new PrettyPrintWriter(out, getNameCoder()) {
@@ -44,12 +43,14 @@ public class XStreamInitializer {
             }
         });
 
-        xstream.ignoreUnknownElements();
-        xstream.setMode(XStream.NO_REFERENCES);
-        xstream.addPermission(NullPermission.NULL);
-        xstream.addPermission(PrimitiveTypePermission.PRIMITIVES);
-        xstream.setClassLoader(Thread.currentThread().getContextClassLoader());
+        xStream.ignoreUnknownElements();
+        xStream.setMode(XStream.NO_REFERENCES);
+        xStream.addPermission(NullPermission.NULL);
+        xStream.addPermission(PrimitiveTypePermission.PRIMITIVES);
+        xStream.setClassLoader(Thread.currentThread().getContextClassLoader());
 
-        return xstream;
+        XStream.setupDefaultSecurity(xStream);
+
+        return xStream;
     }
 }
