@@ -115,7 +115,7 @@ public interface WxCpUserService {
    * - openid	企业微信成员userid对应的openid，若有传参agentid，则是针对该agentid的openid。否则是针对企业微信corpid的openid
    * - appid	应用的appid，若请求包中不包含agentid则不返回appid。该appid在使用微信红包时会用到
    */
-  Map<String, String> userId2Openid(String userId, Integer agentId) throws WxErrorException;
+  Map<String, String> userId2OpenId(String userId, Integer agentId) throws WxErrorException;
 
   /**
    * <pre>
@@ -129,8 +129,8 @@ public interface WxCpUserService {
    * 文档地址：https://work.weixin.qq.com/api/doc#11279
    * </pre>
    *
-   * @param openid 在使用微信支付、微信红包和企业转账之后，返回结果的openid
+   * @param openId 在使用微信支付、微信红包和企业转账之后，返回结果的openid
    * @return userid 该openid在企业微信对应的成员userid
    */
-  String openid2UserId(String openid) throws WxErrorException;
+  String openId2UserId(String openId) throws WxErrorException;
 }

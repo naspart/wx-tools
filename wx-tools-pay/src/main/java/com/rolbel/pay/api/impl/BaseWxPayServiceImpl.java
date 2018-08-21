@@ -610,19 +610,19 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
     }
 
     @Override
-    public String authcode2Openid(WxPayAuthcode2OpenidRequest request) throws WxPayException {
+    public String authCode2OpenId(WxPayAuthCode2OpenIdRequest request) throws WxPayException {
         request.checkAndSign(this.getConfig());
 
         String url = this.getPayBaseUrl() + "/tools/authcodetoopenid";
         String responseContent = this.post(url, request.toXML(), false);
-        WxPayAuthcode2OpenidResult result = BaseWxPayResult.fromXML(responseContent, WxPayAuthcode2OpenidResult.class);
+        WxPayAuthCode2OpenIdResult result = BaseWxPayResult.fromXML(responseContent, WxPayAuthCode2OpenIdResult.class);
         result.checkResult(this, request.getSignType(), true);
-        return result.getOpenid();
+        return result.getOpenId();
     }
 
     @Override
-    public String authcode2Openid(String authCode) throws WxPayException {
-        return this.authcode2Openid(new WxPayAuthcode2OpenidRequest(authCode));
+    public String authCode2OpenId(String authCode) throws WxPayException {
+        return this.authCode2OpenId(new WxPayAuthCode2OpenIdRequest(authCode));
     }
 
     @Override

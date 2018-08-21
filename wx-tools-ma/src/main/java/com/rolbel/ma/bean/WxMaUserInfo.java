@@ -29,6 +29,6 @@ public class WxMaUserInfo implements Serializable {
         private static final long serialVersionUID = 5266390388952753356L;
 
         private String timestamp;
-        private String appid;
+        private String appId;
     }
 }

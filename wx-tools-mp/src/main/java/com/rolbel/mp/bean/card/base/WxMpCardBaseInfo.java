@@ -143,11 +143,11 @@ public class WxMpCardBaseInfo {
         return m_data.optBoolean("use_custom_code");
     }
 
-    public void setBindOpenid(boolean isBind) {
+    public void setBindOpenId(boolean isBind) {
         m_data.put("bind_openid", isBind);
     }
 
-    public boolean getBindOpenid() {
+    public boolean getBindOpenId() {
         return m_data.optBoolean("bind_openid");
     }
 

@@ -14,9 +14,9 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @XStreamAlias("xml")
-public class WxPayAuthcode2OpenidRequest extends BaseWxPayRequest {
-    private static final long serialVersionUID = -2369123085579815677L;
-
+public class WxPayAuthCode2OpenIdRequest extends BaseWxPayRequest {
+    private static final long serialVersionUID = -6624371203934675859L;
+    
     /**
      * <pre>
      *     授权码

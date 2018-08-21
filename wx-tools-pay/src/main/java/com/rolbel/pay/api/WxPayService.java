@@ -390,7 +390,7 @@ public interface WxPayService {
      * @param request 请求对象
      * @return openid
      */
-    String authcode2Openid(WxPayAuthcode2OpenidRequest request) throws WxPayException;
+    String authCode2OpenId(WxPayAuthCode2OpenIdRequest request) throws WxPayException;
 
     /**
      * <pre>
@@ -399,9 +399,9 @@ public interface WxPayService {
      *
      * @param authCode 授权码
      * @return openid
-     * @see WxPayService#authcode2Openid(WxPayAuthcode2OpenidRequest)
+     * @see WxPayService#authCode2OpenId(WxPayAuthCode2OpenIdRequest)
      */
-    String authcode2Openid(String authCode) throws WxPayException;
+    String authCode2OpenId(String authCode) throws WxPayException;
 
     /**
      * <pre>

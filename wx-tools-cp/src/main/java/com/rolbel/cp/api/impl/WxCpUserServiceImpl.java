@@ -147,7 +147,7 @@ public class WxCpUserServiceImpl implements WxCpUserService {
     }
 
     @Override
-    public Map<String, String> userId2Openid(String userId, Integer agentId) throws WxErrorException {
+    public Map<String, String> userId2OpenId(String userId, Integer agentId) throws WxErrorException {
         String url = "https://qyapi.weixin.qq.com/cgi-bin/user/convert_to_openid";
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("userid", userId);
@@ -170,10 +170,10 @@ public class WxCpUserServiceImpl implements WxCpUserService {
     }
 
     @Override
-    public String openid2UserId(String openid) throws WxErrorException {
+    public String openId2UserId(String openId) throws WxErrorException {
         String url = "https://qyapi.weixin.qq.com/cgi-bin/user/convert_to_userid";
         JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("openid", openid);
+        jsonObject.addProperty("openid", openId);
         String responseContent = this.mainService.post(url, jsonObject.toString());
         JsonElement tmpJsonElement = new JsonParser().parse(responseContent);
         return tmpJsonElement.getAsJsonObject().get("userid").getAsString();

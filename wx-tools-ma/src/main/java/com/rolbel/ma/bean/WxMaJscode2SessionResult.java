@@ -23,10 +23,10 @@ public class WxMaJscode2SessionResult implements Serializable {
     private String sessionKey;
 
     @SerializedName("openid")
-    private String openid;
+    private String openId;
 
     @SerializedName("unionid")
-    private String unionid;
+    private String unionId;
 
     public static WxMaJscode2SessionResult fromJson(String json) {
         return WxMaGsonBuilder.create().fromJson(json, WxMaJscode2SessionResult.class);

@@ -14,9 +14,9 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @XStreamAlias("xml")
-public class WxPayAuthcode2OpenidResult extends BaseWxPayResult {
-    private static final long serialVersionUID = -6596006199067209361L;
-
+public class WxPayAuthCode2OpenIdResult extends BaseWxPayResult {
+    private static final long serialVersionUID = 1394395337224725516L;
+    
     /**
      * <pre>
      *   用户标识.
@@ -27,6 +27,6 @@ public class WxPayAuthcode2OpenidResult extends BaseWxPayResult {
      * </pre>
      */
     @XStreamAlias("openid")
-    private String openid;
+    private String openId;
 
 }

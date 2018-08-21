@@ -1,11 +1,11 @@
 package com.rolbel.pay.bean.request;
 
+import com.rolbel.common.annotation.Required;
 import com.rolbel.pay.config.WxPayConfig;
 import com.rolbel.pay.constant.WxPayConstants.TradeType;
 import com.rolbel.pay.exception.WxPayException;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import lombok.*;
-import com.rolbel.common.annotation.Required;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -21,7 +21,7 @@ import org.apache.commons.lang3.StringUtils;
 @AllArgsConstructor
 @XStreamAlias("xml")
 public class WxPayUnifiedOrderRequest extends BaseWxPayRequest {
-    private static final long serialVersionUID = -5842809274707614988L;
+    private static final long serialVersionUID = -7289258861801660201L;
 
     /**
      * <pre>
@@ -282,7 +282,7 @@ public class WxPayUnifiedOrderRequest extends BaseWxPayRequest {
      * </pre>
      */
     @XStreamAlias("openid")
-    private String openid;
+    private String openId;
 
     /**
      * <pre>
@@ -297,7 +297,7 @@ public class WxPayUnifiedOrderRequest extends BaseWxPayRequest {
      * </pre>
      */
     @XStreamAlias("sub_openid")
-    private String subOpenid;
+    private String subOpenId;
 
     /**
      * <pre>

@@ -22,8 +22,8 @@ import java.util.Map;
 @NoArgsConstructor
 @XStreamAlias("xml")
 public class WxPayOrderNotifyResult extends BaseWxPayResult {
-    private static final long serialVersionUID = 3216788180872521781L;
-
+    private static final long serialVersionUID = 2496745301883408944L;
+    
     /**
      * <pre>
      * 字段名：营销详情.
@@ -61,7 +61,7 @@ public class WxPayOrderNotifyResult extends BaseWxPayResult {
      * </pre>
      */
     @XStreamAlias("openid")
-    private String openid;
+    private String openId;
 
     /**
      * <pre>
@@ -87,7 +87,7 @@ public class WxPayOrderNotifyResult extends BaseWxPayResult {
      * </pre>
      */
     @XStreamAlias("sub_openid")
-    private String subOpenid;
+    private String subOpenId;
 
     /**
      * <pre>
