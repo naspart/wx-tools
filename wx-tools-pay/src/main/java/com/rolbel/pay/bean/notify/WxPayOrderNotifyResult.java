@@ -1,5 +1,7 @@
 package com.rolbel.pay.bean.notify;
 
+import com.rolbel.common.util.ToStringUtils;
+import com.rolbel.common.util.xml.XStreamInitializer;
 import com.rolbel.pay.bean.result.BaseWxPayResult;
 import com.rolbel.pay.converter.WxPayOrderNotifyResultConverter;
 import com.rolbel.pay.util.SignUtils;
@@ -8,8 +10,6 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import com.rolbel.common.util.ToStringUtils;
-import com.rolbel.common.util.xml.XStreamInitializer;
 
 import java.util.List;
 import java.util.Map;
@@ -283,7 +283,9 @@ public class WxPayOrderNotifyResult extends BaseWxPayResult {
     public static WxPayOrderNotifyResult fromXML(String xmlString) {
         XStream xstream = XStreamInitializer.getInstance();
         xstream.processAnnotations(WxPayOrderNotifyResult.class);
+        xstream.allowTypes(new Class[]{WxPayOrderNotifyResult.class});
         xstream.registerConverter(new WxPayOrderNotifyResultConverter(xstream.getMapper(), xstream.getReflectionProvider()));
+
         WxPayOrderNotifyResult result = (WxPayOrderNotifyResult) xstream.fromXML(xmlString);
         result.setXmlString(xmlString);
         return result;
