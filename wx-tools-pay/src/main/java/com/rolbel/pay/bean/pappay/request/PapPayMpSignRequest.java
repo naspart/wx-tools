@@ -106,6 +106,8 @@ public class PapPayMpSignRequest extends BaseWxPayRequest {
             }
         }
 
+        this.setNonceStr(null);     //免密支付签约参数中不需要 nonce_str 字段
+
         //设置签名字段的值
         this.setSign(SignUtils.createSign(this, this.getSignType(), config.getMchKey(), true));
     }

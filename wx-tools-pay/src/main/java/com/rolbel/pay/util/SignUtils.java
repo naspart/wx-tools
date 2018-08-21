@@ -75,8 +75,7 @@ public class SignUtils {
             boolean shouldSign = false;
             if (ignoreSignType && "sign_type".equals(key)) {
                 shouldSign = false;
-            } else if (StringUtils.isNotEmpty(value)
-                    && !Lists.newArrayList("sign", "key", "xmlString", "xmlDoc", "couponList").contains(key)) {
+            } else if (StringUtils.isNotEmpty(value) && !Lists.newArrayList("sign", "key", "xmlString", "xmlDoc", "couponList").contains(key)) {
                 shouldSign = true;
             }
 
@@ -86,8 +85,6 @@ public class SignUtils {
         }
 
         toSign.append("key=").append(signKey);
-
-        log.debug("要签名的字符串：" + toSign);
 
         if (WxPayConstants.SignType.HMAC_SHA256.equals(signType)) {
             return createHmacSha256Sign(toSign.toString(), signKey);
