@@ -21,7 +21,7 @@ import java.net.URLEncoder;
 import java.util.UUID;
 
 public class QrCodeJoddHttpRequestExecutor extends QrCodeRequestExecutor<HttpConnectionProvider, ProxyInfo> {
-    public QrCodeJoddHttpRequestExecutor(RequestHttp requestHttp) {
+    public QrCodeJoddHttpRequestExecutor(RequestHttp<HttpConnectionProvider, ProxyInfo> requestHttp) {
         super(requestHttp);
     }
 

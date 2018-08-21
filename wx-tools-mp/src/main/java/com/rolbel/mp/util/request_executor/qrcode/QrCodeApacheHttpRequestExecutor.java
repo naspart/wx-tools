@@ -23,7 +23,7 @@ import java.net.URLEncoder;
 import java.util.UUID;
 
 public class QrCodeApacheHttpRequestExecutor extends QrCodeRequestExecutor<CloseableHttpClient, HttpHost> {
-    public QrCodeApacheHttpRequestExecutor(RequestHttp requestHttp) {
+    public QrCodeApacheHttpRequestExecutor(RequestHttp<CloseableHttpClient, HttpHost> requestHttp) {
         super(requestHttp);
     }
 

@@ -14,10 +14,11 @@ import java.io.File;
 public abstract class QrCodeRequestExecutor<H, P> implements RequestExecutor<File, WxMpQrCodeTicket> {
     protected RequestHttp<H, P> requestHttp;
 
-    public QrCodeRequestExecutor(RequestHttp requestHttp) {
+    public QrCodeRequestExecutor(RequestHttp<H, P> requestHttp) {
         this.requestHttp = requestHttp;
     }
 
+    @SuppressWarnings("unchecked")
     public static RequestExecutor<File, WxMpQrCodeTicket> create(RequestHttp requestHttp) throws WxErrorException {
         switch (requestHttp.getRequestType()) {
             case APACHE_HTTP:

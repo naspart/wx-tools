@@ -134,8 +134,8 @@ public class WxPayConfig {
             KeyStore keystore = KeyStore.getInstance("PKCS12");
             char[] partnerId2charArray = this.getMchId().toCharArray();
             keystore.load(inputStream, partnerId2charArray);
-            this.sslContext = SSLContexts.custom().loadKeyMaterial(keystore, partnerId2charArray).build();
-            return this.sslContext;
+
+            return SSLContexts.custom().loadKeyMaterial(keystore, partnerId2charArray).build();
         } catch (Exception e) {
             throw new WxPayException("证书文件有问题，请核实！", e);
         } finally {
