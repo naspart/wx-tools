@@ -148,7 +148,7 @@ public class PapPayServiceImpl implements PapPayService {
     public PapPayOrderQueryResult queryOrder(PapPayOrderQueryRequest request) throws WxPayException {
         request.checkAndSign(this.payService.getConfig());
 
-        String url = this.payService.getPayBaseUrl() + "/pay/orderquery";
+        String url = this.payService.getPayBaseUrl() + "/pay/paporderquery";
         String responseContent = this.payService.post(url, request.toXML(), false);
         if (StringUtils.isBlank(responseContent)) {
             throw new WxPayException("无响应结果");

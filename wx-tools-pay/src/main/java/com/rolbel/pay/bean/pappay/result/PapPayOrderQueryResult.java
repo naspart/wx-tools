@@ -5,6 +5,7 @@ import com.rolbel.pay.bean.result.BaseWxPayResult;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import lombok.*;
 
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -62,7 +63,7 @@ public class PapPayOrderQueryResult extends BaseWxPayResult {
     private String attach;
 
     @XStreamAlias("time_end")
-    private String timeEnd;
+    private Date timeEnd;
 
     @XStreamAlias("trade_state_desc")
     private String tradeStateDesc;
