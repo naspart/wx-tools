@@ -63,7 +63,7 @@ public class PapPayOrderQueryResult extends BaseWxPayResult {
     private String attach;
 
     @XStreamAlias("time_end")
-    private Date timeEnd;
+    private String timeEnd;
 
     @XStreamAlias("trade_state_desc")
     private String tradeStateDesc;
