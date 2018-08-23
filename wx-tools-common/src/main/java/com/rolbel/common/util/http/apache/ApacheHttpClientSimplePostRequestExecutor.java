@@ -14,9 +14,9 @@ import org.apache.http.impl.client.CloseableHttpClient;
 
 import java.io.IOException;
 
-public class ApacheSimplePostRequestExecutor extends SimplePostRequestExecutor<CloseableHttpClient, HttpHost> {
+public class ApacheHttpClientSimplePostRequestExecutor extends SimplePostRequestExecutor<CloseableHttpClient, HttpHost> {
 
-    public ApacheSimplePostRequestExecutor(RequestHttp<CloseableHttpClient, HttpHost> requestHttp) {
+    public ApacheHttpClientSimplePostRequestExecutor(RequestHttp<CloseableHttpClient, HttpHost> requestHttp) {
         super(requestHttp);
     }
 

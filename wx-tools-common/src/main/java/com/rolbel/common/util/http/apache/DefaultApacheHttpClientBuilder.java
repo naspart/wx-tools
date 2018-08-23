@@ -41,8 +41,8 @@ public class DefaultApacheHttpClientBuilder implements ApacheHttpClientBuilder {
     private int soTimeout = 5000;
     private int idleConnTimeout = 60000;
     private int checkWaitTime = 60000;
-    private int maxConnPerHost = 10;
-    private int maxTotalConn = 50;
+    private int maxConnPerHost = 100;
+    private int maxTotalConn = 300;
     private String userAgent;
     private HttpRequestRetryHandler httpRequestRetryHandler = (exception, executionCount, context) -> false;
     private SSLConnectionSocketFactory sslConnectionSocketFactory = SSLConnectionSocketFactory.getSocketFactory();

@@ -1,6 +1,6 @@
 package com.rolbel.common.util.http;
 
-import com.rolbel.common.util.http.apache.ApacheSimplePostRequestExecutor;
+import com.rolbel.common.util.http.apache.ApacheHttpClientSimplePostRequestExecutor;
 import com.rolbel.common.util.http.jodd.JoddHttpSimplePostRequestExecutor;
 import com.rolbel.common.util.http.okhttp.OkHttpSimplePostRequestExecutor;
 
@@ -19,7 +19,7 @@ public abstract class SimplePostRequestExecutor<H, P> implements RequestExecutor
     public static RequestExecutor<String, String> create(RequestHttp requestHttp) {
         switch (requestHttp.getRequestType()) {
             case APACHE_HTTP:
-                return new ApacheSimplePostRequestExecutor(requestHttp);
+                return new ApacheHttpClientSimplePostRequestExecutor(requestHttp);
             case JODD_HTTP:
                 return new JoddHttpSimplePostRequestExecutor(requestHttp);
             case OK_HTTP:
