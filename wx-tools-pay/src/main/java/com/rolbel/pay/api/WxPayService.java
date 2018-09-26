@@ -324,6 +324,42 @@ public interface WxPayService {
 
     /**
      * <pre>
+     * 下载资金账单.
+     * 商户可以通过该接口下载自2017年6月1日起 的历史资金流水账单。
+     * 注意：
+     * 1、资金账单中的数据反映的是商户微信账户资金变动情况；
+     * 2、当日账单在次日上午9点开始生成，建议商户在上午10点以后获取；
+     * 3、资金账单中涉及金额的字段单位为“元”。
+     * 接口链接：https://api.mch.weixin.qq.com/pay/downloadfundflow
+     * 详情请见: <a href="https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=9_18">下载对账单</a>
+     * </pre>
+     *
+     * @param billDate    资金账单日期 bill_date 下载对账单的日期，格式：20140603
+     * @param accountType 资金账户类型 account_type Basic，基本账户，Operation，运营账户，Fees，手续费账户
+     * @param tarType     压缩账单 tar_type 非必传参数，固定值：GZIP，返回格式为.gzip的压缩包账单。不传则默认为数据流形式。
+     * @return WxPayFundFlowResult对象
+     */
+    WxPayFundFlowResult downloadFundFlow(String billDate, String accountType, String tarType) throws WxPayException;
+
+    /**
+     * <pre>
+     * 下载资金账单.
+     * 商户可以通过该接口下载自2017年6月1日起 的历史资金流水账单。
+     * 注意：
+     * 1、资金账单中的数据反映的是商户微信账户资金变动情况；
+     * 2、当日账单在次日上午9点开始生成，建议商户在上午10点以后获取；
+     * 3、资金账单中涉及金额的字段单位为“元”。
+     * 接口链接：https://api.mch.weixin.qq.com/pay/downloadfundflow
+     * 详情请见: <a href="https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=9_18">下载对账单</a>
+     * </pre>
+     *
+     * @param request 下载资金流水请求
+     * @return WxPayFundFlowResult对象
+     */
+    WxPayFundFlowResult downloadFundFlow(WxPayDownloadFundFlowRequest request) throws WxPayException;
+
+    /**
+     * <pre>
      * 提交刷卡支付.
      * 文档地址：https://pay.weixin.qq.com/wiki/doc/api/micropay.php?chapter=9_10&index=1
      * 应用场景：

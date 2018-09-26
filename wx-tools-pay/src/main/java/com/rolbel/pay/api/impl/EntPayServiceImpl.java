@@ -1,12 +1,11 @@
 package com.rolbel.pay.api.impl;
 
+import com.rolbel.pay.api.EntPayService;
+import com.rolbel.pay.api.WxPayService;
 import com.rolbel.pay.bean.entpay.*;
 import com.rolbel.pay.bean.request.WxPayDefaultRequest;
 import com.rolbel.pay.bean.result.BaseWxPayResult;
 import com.rolbel.pay.exception.WxPayException;
-import com.rolbel.pay.api.EntPayService;
-import com.rolbel.pay.api.WxPayService;
-import com.rolbel.pay.util.SignUtils;
 import org.apache.commons.codec.binary.Base64;
 import org.bouncycastle.asn1.x509.SubjectPublicKeyInfo;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
@@ -64,8 +63,7 @@ public class EntPayServiceImpl implements EntPayService {
         WxPayDefaultRequest request = new WxPayDefaultRequest();
         request.setMchId(this.payService.getConfig().getMchId());
         request.setNonceStr(String.valueOf(System.currentTimeMillis()));
-        request.setSign(SignUtils.createSign(request, null, this.payService.getConfig().getMchKey(),
-                true));
+        request.checkAndSign(this.payService.getConfig());
 
         String url = "https://fraud.mch.weixin.qq.com/risk/getpublickey";
         String responseContent = this.payService.post(url, request.toXML(), true);

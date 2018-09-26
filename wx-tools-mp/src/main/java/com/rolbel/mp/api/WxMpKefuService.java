@@ -30,7 +30,8 @@ public interface WxMpKefuService {
     String KF_SESSION_GET_SESSION = "https://api.weixin.qq.com/customservice/kfsession/getsession?openid=%s";
     String KF_SESSION_GET_SESSION_LIST = "https://api.weixin.qq.com/customservice/kfsession/getsessionlist?kf_account=%s";
     String KF_SESSION_GET_WAIT_CASE = "https://api.weixin.qq.com/customservice/kfsession/getwaitcase";
-    String MSG_RECORD_GET_MSG_LIST = "https://api.weixin.qq.com/customservice/msgrecord/getmsglist";
+    String MSG_RECORD_LIST = "https://api.weixin.qq.com/customservice/msgrecord/getmsglist";
+    String CUSTOM_TYPING = "https://api.weixin.qq.com/cgi-bin/message/custom/typing";
 
     /**
      * <pre>
@@ -191,4 +192,24 @@ public interface WxMpKefuService {
      * @throws WxErrorException
      */
     WxMpKfMsgList kfMsgList(Date startTime, Date endTime) throws WxErrorException;
+
+    /**
+     * <pre>
+     * 客服输入状态
+     * 开发者可通过调用“客服输入状态”接口，返回客服当前输入状态给用户。
+     * 此接口需要客服消息接口权限。
+     * 如果不满足发送客服消息的触发条件，则无法下发输入状态。
+     * 下发输入状态，需要客服之前30秒内跟用户有过消息交互。
+     * 在输入状态中（持续15s），不可重复下发输入态。
+     * 在输入状态中，如果向用户下发消息，会同时取消输入状态。
+     *
+     * 详情请见：<a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140547">客服输入状态</a>
+     * 接口url格式：https://api.weixin.qq.com/cgi-bin/message/custom/typing?access_token=ACCESS_TOKEN
+     * </pre>
+     *
+     * @param openid  用户id
+     * @param command "Typing"：对用户下发“正在输入"状态 "CancelTyping"：取消对用户的”正在输入"状态
+     * @throws WxErrorException 异常
+     */
+    boolean sendKfTypingState(String openid, String command) throws WxErrorException;
 }

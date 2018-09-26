@@ -4,6 +4,7 @@ import com.rolbel.pay.bean.WxPayApiData;
 import com.rolbel.pay.exception.WxPayException;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.HttpHost;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.CredentialsProvider;
@@ -90,15 +91,16 @@ public class WxPayServiceApacheHttpImpl extends BaseWxPayServiceImpl {
             this.initSSLContext(httpClientBuilder);
         }
 
-        if (StringUtils.isNotBlank(this.getConfig().getHttpProxyHost())
-                && this.getConfig().getHttpProxyPort() > 0) {
+        if (StringUtils.isNotBlank(this.getConfig().getHttpProxyHost()) && this.getConfig().getHttpProxyPort() > 0) {
             // 使用代理服务器 需要用户认证的代理服务器
             CredentialsProvider provider = new BasicCredentialsProvider();
             provider.setCredentials(
                     new AuthScope(this.getConfig().getHttpProxyHost(), this.getConfig().getHttpProxyPort()),
                     new UsernamePasswordCredentials(this.getConfig().getHttpProxyUsername(), this.getConfig().getHttpProxyPassword()));
             httpClientBuilder.setDefaultCredentialsProvider(provider);
+            httpClientBuilder.setProxy(new HttpHost(this.getConfig().getHttpProxyHost(), this.getConfig().getHttpProxyPort()));
         }
+
         return httpClientBuilder;
     }
 

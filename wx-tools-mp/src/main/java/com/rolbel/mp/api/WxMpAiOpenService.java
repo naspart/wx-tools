@@ -14,6 +14,7 @@ import java.io.File;
 public interface WxMpAiOpenService {
     String VOICE_UPLOAD_URL = "http://api.weixin.qq.com/cgi-bin/media/voice/addvoicetorecofortext?format=%s&voice_id=%s&lang=%s";
     String VOICE_QUERY_RESULT_URL = "http://api.weixin.qq.com/cgi-bin/media/voice/queryrecoresultfortext";
+    String TRANSLATE_URL = "http://api.weixin.qq.com/cgi-bin/media/voice/translatecontent?lfrom=%s&lto=%s";
 
     /**
      * <pre>
@@ -59,6 +60,8 @@ public interface WxMpAiOpenService {
      * @param voiceId 语音唯一标识
      */
     String queryRecognitionResult(String voiceId, AiLangType lang) throws WxErrorException;
+
+    String recogniseVoice(String voiceId, AiLangType lang) throws WxErrorException;
 
     /**
      * 识别指定语音文件内容.

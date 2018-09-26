@@ -1,6 +1,7 @@
 package com.rolbel.common.util.http.apache;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.HttpHost;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.CredentialsProvider;
@@ -19,11 +20,9 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
-import org.apache.http.protocol.HttpContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -45,12 +44,7 @@ public class ApacheHttpDnsClientBuilder implements ApacheHttpClientBuilder {
 
     private DnsResolver dnsResover;
 
-    private HttpRequestRetryHandler httpRequestRetryHandler = new HttpRequestRetryHandler() {
-        @Override
-        public boolean retryRequest(IOException exception, int executionCount, HttpContext context) {
-            return false;
-        }
-    };
+    private HttpRequestRetryHandler httpRequestRetryHandler = (exception, executionCount, context) -> false;
     private SSLConnectionSocketFactory sslConnectionSocketFactory = SSLConnectionSocketFactory.getSocketFactory();
     private PlainConnectionSocketFactory plainConnectionSocketFactory = PlainConnectionSocketFactory.getSocketFactory();
     private String httpProxyHost;
@@ -232,9 +226,12 @@ public class ApacheHttpDnsClientBuilder implements ApacheHttpClientBuilder {
         if (StringUtils.isNotBlank(this.httpProxyHost) && StringUtils.isNotBlank(this.httpProxyUsername)) {
             // 使用代理服务器 需要用户认证的代理服务器
             CredentialsProvider provider = new BasicCredentialsProvider();
-            provider.setCredentials(new AuthScope(this.httpProxyHost, this.httpProxyPort)
-                    , new UsernamePasswordCredentials(this.httpProxyUsername, this.httpProxyPassword));
+            provider.setCredentials(
+                    new AuthScope(this.httpProxyHost, this.httpProxyPort),
+                    new UsernamePasswordCredentials(this.httpProxyUsername, this.httpProxyPassword)
+            );
             this.httpClientBuilder.setDefaultCredentialsProvider(provider);
+            this.httpClientBuilder.setProxy(new HttpHost(this.httpProxyHost, this.httpProxyPort));
         }
 
         if (StringUtils.isNotBlank(this.userAgent)) {

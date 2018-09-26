@@ -19,7 +19,7 @@ import lombok.*;
 @AllArgsConstructor
 @XStreamAlias("xml")
 public class EntPayRequest extends BaseWxPayRequest {
-    private static final long serialVersionUID = -3190557750200608999L;
+    private static final long serialVersionUID = 1827871252074230120L;
 
     /**
      * <pre>
@@ -191,7 +191,7 @@ public class EntPayRequest extends BaseWxPayRequest {
     }
 
     @Override
-    protected boolean ignoreSignType() {
-        return true;
+    protected String[] getIgnoredParamsForSign() {
+        return new String[]{"sign_type"};
     }
 }

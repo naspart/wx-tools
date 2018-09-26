@@ -80,7 +80,7 @@ public class WxConstant {
         /**
          * 小程序卡片(要求小程序与公众号已关联)
          */
-        public static final String MINIPROGRAMPAGE="miniprogrampage";
+        public static final String MINIPROGRAMPAGE = "miniprogrampage";
     }
 
     /**

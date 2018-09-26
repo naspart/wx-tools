@@ -6,19 +6,17 @@ import com.rolbel.pay.bean.request.BaseWxPayRequest;
 import com.rolbel.pay.bean.result.BaseWxPayResult;
 import com.rolbel.pay.constant.WxPayConstants;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
-import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.crypto.Mac;
-import javax.crypto.spec.SecretKeySpec;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 import java.util.*;
+
+import static com.rolbel.common.util.SignUtils.createHmacSha256Sign;
 
 /**
  * <pre>
@@ -29,7 +27,7 @@ public class SignUtils {
     private static final Logger log = LoggerFactory.getLogger(SignUtils.class);
 
     /**
-     * 请参考并使用 {@link #createSign(Object, String, String, boolean)}.
+     * 请参考并使用 {@link #createSign(Object, String, String, String[])}.
      */
     @Deprecated
     public static String createSign(Object xmlBean, String signKey) {
@@ -37,45 +35,58 @@ public class SignUtils {
     }
 
     /**
-     * 请参考并使用 {@link #createSign(Map, String, String, boolean)}.
+     * 请参考并使用 {@link #createSign(Map, String, String, String[])} .
+     *
+     * @param params  the params
+     * @param signKey the sign key
+     * @return the string
      */
     @Deprecated
     public static String createSign(Map<String, String> params, String signKey) {
-        return createSign(params, null, signKey, false);
+        return createSign(params, null, signKey, new String[0]);
+    }
+
+    /**
+     * 请参考并使用 {@link #createSign(Map, String, String, String[])}.
+     */
+    @Deprecated
+    public static String createSign(Map<String, String> params, String signKey, String[] ignoredParams) {
+        return createSign(params, null, signKey, ignoredParams);
     }
 
     /**
      * 微信支付签名算法(详见:https://pay.weixin.qq.com/wiki/doc/api/tools/cash_coupon.php?chapter=4_3).
      *
-     * @param xmlBean          Bean里的属性如果存在XML注解，则使用其作为key，否则使用变量名
-     * @param signType         签名类型，如果为空，则默认为MD5
-     * @param signKey          签名Key
-     * @param isIgnoreSignType 签名时，是否忽略signType
+     * @param xmlBean       Bean里的属性如果存在XML注解，则使用其作为key，否则使用变量名
+     * @param signType      签名类型，如果为空，则默认为MD5
+     * @param signKey       签名Key
+     * @param ignoredParams 签名时需要忽略的特殊参数
      * @return 签名字符串
      */
-    public static String createSign(Object xmlBean, String signType, String signKey, boolean isIgnoreSignType) {
-        return createSign(xmlBean2Map(xmlBean), signType, signKey, isIgnoreSignType);
+    public static String createSign(Object xmlBean, String signType, String signKey, String[] ignoredParams) {
+        return createSign(xmlBean2Map(xmlBean), signType, signKey, ignoredParams);
     }
 
     /**
      * 微信支付签名算法(详见:https://pay.weixin.qq.com/wiki/doc/api/tools/cash_coupon.php?chapter=4_3).
      *
-     * @param params         参数信息
-     * @param signType       签名类型，如果为空，则默认为MD5
-     * @param signKey        签名Key
-     * @param ignoreSignType 签名时，是否忽略signType
+     * @param params        参数信息
+     * @param signType      签名类型，如果为空，则默认为MD5
+     * @param signKey       签名Key
+     * @param ignoredParams 签名时需要忽略的特殊参数
      * @return 签名字符串
      */
-    public static String createSign(Map<String, String> params, String signType, String signKey, boolean ignoreSignType) {
+    public static String createSign(Map<String, String> params, String signType, String signKey, String[] ignoredParams) {
         SortedMap<String, String> sortedMap = new TreeMap<>(params);
 
         StringBuilder toSign = new StringBuilder();
         for (String key : sortedMap.keySet()) {
             String value = params.get(key);
             boolean shouldSign = false;
-            if (ignoreSignType && "sign_type".equals(key)) {
-                shouldSign = false;
-            } else if (StringUtils.isNotEmpty(value) && !Lists.newArrayList("sign", "key", "xmlString", "xmlDoc", "couponList").contains(key)) {
+
+            if (StringUtils.isNotEmpty(value) &&
+                    !ArrayUtils.contains(ignoredParams, key) &&
+                    !Lists.newArrayList("sign", "key", "xmlString", "xmlDoc", "couponList").contains(key)) {
                 shouldSign = true;
             }
 
@@ -91,20 +102,6 @@ public class SignUtils {
         } else {
             return DigestUtils.md5Hex(toSign.toString()).toUpperCase();
         }
-    }
-
-    private static String createHmacSha256Sign(String message, String key) {
-        try {
-            Mac sha256 = Mac.getInstance("HmacSHA256");
-            SecretKeySpec secretKeySpec = new SecretKeySpec(key.getBytes(), "HmacSHA256");
-            sha256.init(secretKeySpec);
-            byte[] bytes = sha256.doFinal(message.getBytes());
-            return Hex.encodeHexString(bytes).toUpperCase();
-        } catch (NoSuchAlgorithmException | InvalidKeyException e) {
-            log.error(e.getMessage(), e);
-        }
-
-        return null;
     }
 
     /**
@@ -128,7 +125,7 @@ public class SignUtils {
      * @return true - 签名校验成功，false - 签名校验失败
      */
     public static boolean checkSign(Map<String, String> params, String signType, String signKey) {
-        String sign = createSign(params, signType, signKey, false);
+        String sign = createSign(params, signType, signKey, new String[0]);
         return sign.equals(params.get("sign"));
     }
 

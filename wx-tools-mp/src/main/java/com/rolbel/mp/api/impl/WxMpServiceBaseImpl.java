@@ -14,9 +14,9 @@ import com.rolbel.common.util.RandomUtils;
 import com.rolbel.common.util.crypto.SHA1;
 import com.rolbel.common.util.http.*;
 import com.rolbel.mp.api.*;
-import com.rolbel.mp.bean.WxMpSemanticQuery;
 import com.rolbel.mp.bean.WxMpCurrentAutoReplyInfo;
 import com.rolbel.mp.bean.WxMpOAuth2AccessToken;
+import com.rolbel.mp.bean.WxMpSemanticQuery;
 import com.rolbel.mp.bean.WxMpSemanticQueryResult;
 import com.rolbel.mp.bean.user.WxMpUser;
 import org.apache.commons.lang3.StringUtils;
@@ -41,7 +41,6 @@ public abstract class WxMpServiceBaseImpl<H, P> implements WxMpService, RequestH
     private WxMpUserTagService tagService = new WxMpUserTagServiceImpl(this);
     private WxMpQrcodeService qrCodeService = new WxMpQrcodeServiceImpl(this);
     private WxMpCardService cardService = new WxMpCardServiceImpl(this);
-    private WxMpCardCodeService cardCodeService = new WxMpCardCodeServiceImpl(this);
     private WxMpStoreService storeService = new WxMpStoreServiceImpl(this);
     private WxMpDataCubeService dataCubeService = new WxMpDataCubeServiceImpl(this);
     private WxMpUserBlacklistService blackListService = new WxMpUserBlacklistServiceImpl(this);
@@ -498,16 +497,6 @@ public abstract class WxMpServiceBaseImpl<H, P> implements WxMpService, RequestH
     @Override
     public void setMassMessageService(WxMpMassMessageService massMessageService) {
         this.massMessageService = massMessageService;
-    }
-
-    @Override
-    public WxMpCardCodeService getCardCodeService() {
-        return this.cardCodeService;
-    }
-
-    @Override
-    public void setCardCodeService(WxMpCardCodeService cardCodeService) {
-        this.cardCodeService = cardCodeService;
     }
 
     @Override

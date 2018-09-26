@@ -15,7 +15,6 @@ import java.io.File;
 public class WxMpAiOpenServiceImpl implements WxMpAiOpenService {
 
     private static final JsonParser JSON_PARSER = new JsonParser();
-    private static final String TRANSLATE_URL = "http://api.weixin.qq.com/cgi-bin/media/voice/translatecontent?lfrom=%s&lto=%s";
     private WxMpService wxMpService;
 
     WxMpAiOpenServiceImpl(WxMpService wxMpService) {
@@ -34,15 +33,20 @@ public class WxMpAiOpenServiceImpl implements WxMpAiOpenService {
     }
 
     @Override
+    public String recogniseVoice(String voiceId, AiLangType lang) throws WxErrorException {
+        return this.queryRecognitionResult(voiceId, lang);
+    }
+
+    @Override
     public String recogniseVoice(String voiceId, AiLangType lang, File voiceFile) throws WxErrorException {
         this.uploadVoice(voiceId, lang, voiceFile);
+
         return this.queryRecognitionResult(voiceId, lang);
     }
 
     @Override
     public String translate(AiLangType langFrom, AiLangType langTo, String content) throws WxErrorException {
-        final String responseContent = this.wxMpService.post(String.format(TRANSLATE_URL, langFrom.getCode(), langTo.getCode()),
-                content);
+        final String responseContent = this.wxMpService.post(String.format(TRANSLATE_URL, langFrom.getCode(), langTo.getCode()), content);
         final JsonObject jsonObject = new JsonParser().parse(responseContent).getAsJsonObject();
         if (jsonObject.get("errcode") == null || jsonObject.get("errcode").getAsInt() == 0) {
             return jsonObject.get("to_content").getAsString();

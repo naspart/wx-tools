@@ -13,6 +13,14 @@ import com.rolbel.mp.bean.member_card.WxMpMemberCardUserInfoResult;
  * @version 2017/7/8
  */
 public interface WxMpMemberCardService {
+    String MEMBER_CARD_ACTIVATE = "https://api.weixin.qq.com/card/member_card/activate";
+    String MEMBER_CARD_USER_INFO_GET = "https://api.weixin.qq.com/card/member_card/userinfo/get";
+    String MEMBER_CARD_UPDATE_USER = "https://api.weixin.qq.com/card/member_card/updateuser";
+
+    /**
+     * 会员卡激活之微信开卡接口(wx_activate=true情况调用)
+     */
+    String MEMBER_CARD_ACTIVATEUSERFORM = "https://api.weixin.qq.com/card/membercard/activateuserform/set";
 
     /**
      * 得到WxMpService

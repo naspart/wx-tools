@@ -180,11 +180,8 @@ public abstract class BaseWxPayRequest implements Serializable {
         return xstream.toXML(this);
     }
 
-    /**
-     * 签名时，是否忽略signType
-     */
-    protected boolean ignoreSignType() {
-        return false;
+    protected String[] getIgnoredParamsForSign() {
+        return new String[0];
     }
 
     /**
@@ -242,6 +239,6 @@ public abstract class BaseWxPayRequest implements Serializable {
 
         //设置签名字段的值
         this.setSign(SignUtils.createSign(this, this.getSignType(), config.getMchKey(),
-                this.ignoreSignType()));
+                this.getIgnoredParamsForSign()));
     }
 }

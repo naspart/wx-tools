@@ -2,14 +2,14 @@ package com.rolbel.mp.api;
 
 import com.rolbel.common.bean.WxJsapiSignature;
 import com.rolbel.common.error.WxErrorException;
+import com.rolbel.common.util.http.MediaUploadRequestExecutor;
 import com.rolbel.common.util.http.RequestExecutor;
 import com.rolbel.common.util.http.RequestHttp;
-import com.rolbel.mp.bean.WxMpSemanticQuery;
 import com.rolbel.mp.bean.WxMpCurrentAutoReplyInfo;
 import com.rolbel.mp.bean.WxMpOAuth2AccessToken;
+import com.rolbel.mp.bean.WxMpSemanticQuery;
 import com.rolbel.mp.bean.WxMpSemanticQueryResult;
 import com.rolbel.mp.bean.user.WxMpUser;
-import com.rolbel.common.util.http.MediaUploadRequestExecutor;
 
 /**
  * 微信API的Service
@@ -408,8 +408,6 @@ public interface WxMpService {
      */
     WxMpMassMessageService getMassMessageService();
 
-    WxMpCardCodeService getCardCodeService();
-
     /**
      * 返回AI开放接口方法的实现类对象，以方便调用其各个接口
      *
@@ -453,8 +451,6 @@ public interface WxMpService {
     void setMemberCardService(WxMpMemberCardService memberCardService);
 
     void setMassMessageService(WxMpMassMessageService massMessageService);
-
-    void setCardCodeService(WxMpCardCodeService cardCodeService);
 
     void setAiOpenService(WxMpAiOpenService aiOpenService);
 }

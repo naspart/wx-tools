@@ -17,12 +17,7 @@ import lombok.*;
 @AllArgsConstructor
 @XStreamAlias("xml")
 public class WxPayQueryCommentRequest extends BaseWxPayRequest {
-    private static final long serialVersionUID = 9017752184173552022L;
-
-    @Override
-    protected boolean ignoreSignType() {
-        return true;
-    }
+    private static final long serialVersionUID = 5253242439969331651L;
 
     /**
      * <pre>
@@ -87,4 +82,8 @@ public class WxPayQueryCommentRequest extends BaseWxPayRequest {
 
     }
 
+    @Override
+    protected String[] getIgnoredParamsForSign() {
+        return new String[]{"limit", "sign_type"};
+    }
 }

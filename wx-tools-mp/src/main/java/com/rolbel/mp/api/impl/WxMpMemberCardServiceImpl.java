@@ -13,14 +13,14 @@ import com.rolbel.mp.bean.member_card.WxMpMemberCardUpdateMessage;
 import com.rolbel.mp.bean.member_card.WxMpMemberCardUpdateResult;
 import com.rolbel.mp.bean.member_card.WxMpMemberCardUserInfoResult;
 import com.rolbel.mp.util.json.WxMpGsonBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 会员卡相关接口的实现类
  */
 public class WxMpMemberCardServiceImpl implements WxMpMemberCardService {
-    private static final String MEMBER_CARD_ACTIVATE = "https://api.weixin.qq.com/card/member_card/activate";
-    private static final String MEMBER_CARD_USER_INFO_GET = "https://api.weixin.qq.com/card/member_card/userinfo/get";
-    private static final String MEMBER_CARD_UPDATE_USER = "https://api.weixin.qq.com/card/member_card/updateuser";
+    private final Logger log = LoggerFactory.getLogger(WxMpMemberCardServiceImpl.class);
 
     private WxMpService wxMpService;
 
@@ -65,6 +65,7 @@ public class WxMpMemberCardServiceImpl implements WxMpMemberCardService {
         jsonObject.addProperty("code", code);
 
         String responseContent = this.getWxMpService().post(MEMBER_CARD_USER_INFO_GET, jsonObject.toString());
+        log.debug("{}", responseContent);
         JsonElement tmpJsonElement = new JsonParser().parse(responseContent);
         return WxMpGsonBuilder.INSTANCE.create().fromJson(tmpJsonElement,
                 new TypeToken<WxMpMemberCardUserInfoResult>() {

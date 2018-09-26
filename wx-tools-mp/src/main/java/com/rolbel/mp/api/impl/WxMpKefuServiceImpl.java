@@ -1,16 +1,16 @@
 package com.rolbel.mp.api.impl;
 
 import com.google.gson.JsonObject;
+import com.rolbel.common.bean.result.WxMediaUploadResult;
 import com.rolbel.common.error.WxError;
 import com.rolbel.common.error.WxErrorException;
+import com.rolbel.common.util.http.MediaUploadRequestExecutor;
 import com.rolbel.mp.api.WxMpKefuService;
 import com.rolbel.mp.api.WxMpService;
 import com.rolbel.mp.bean.kefu.WxMpKefuMessage;
 import com.rolbel.mp.bean.kefu.request.WxMpKfAccountRequest;
 import com.rolbel.mp.bean.kefu.request.WxMpKfSessionRequest;
 import com.rolbel.mp.bean.kefu.result.*;
-import com.rolbel.common.bean.result.WxMediaUploadResult;
-import com.rolbel.common.util.http.MediaUploadRequestExecutor;
 
 import java.io.File;
 import java.util.Date;
@@ -114,12 +114,12 @@ public class WxMpKefuServiceImpl implements WxMpKefuService {
         }
 
         JsonObject param = new JsonObject();
-        param.addProperty("starttime", startTime.getTime() / 1000); //starttime	起始时间，unix时间戳
-        param.addProperty("endtime", endTime.getTime() / 1000); //endtime	结束时间，unix时间戳，每次查询时段不能超过24小时
-        param.addProperty("msgid", msgId); //msgid	消息id顺序从小到大，从1开始
-        param.addProperty("number", number); //number	每次获取条数，最多10000条
+        param.addProperty("starttime", startTime.getTime() / 1000);
+        param.addProperty("endtime", endTime.getTime() / 1000);
+        param.addProperty("msgid", msgId);
+        param.addProperty("number", number);
 
-        String responseContent = this.wxMpService.post(MSG_RECORD_GET_MSG_LIST, param.toString());
+        String responseContent = this.wxMpService.post(MSG_RECORD_LIST, param.toString());
 
         return WxMpKfMsgList.fromJson(responseContent);
     }
@@ -141,5 +141,15 @@ public class WxMpKefuServiceImpl implements WxMpKefuService {
         }
 
         return result;
+    }
+
+    @Override
+    public boolean sendKfTypingState(String openid, String command) throws WxErrorException {
+        JsonObject params = new JsonObject();
+        params.addProperty("touser", openid);
+        params.addProperty("command", command);
+        String responseContent = this.wxMpService.post(CUSTOM_TYPING, params.toString());
+
+        return responseContent != null;
     }
 }

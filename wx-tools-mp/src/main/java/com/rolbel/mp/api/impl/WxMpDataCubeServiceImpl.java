@@ -11,6 +11,9 @@ import java.text.Format;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * 数据统计相关接口的实现类
+ */
 public class WxMpDataCubeServiceImpl implements WxMpDataCubeService {
 
     private final Format dateFormat = FastDateFormat.getInstance("yyyy-MM-dd");

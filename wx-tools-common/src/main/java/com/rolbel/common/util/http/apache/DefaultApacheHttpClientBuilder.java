@@ -1,6 +1,7 @@
 package com.rolbel.common.util.http.apache;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.HttpHost;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.CredentialsProvider;
@@ -222,15 +223,15 @@ public class DefaultApacheHttpClientBuilder implements ApacheHttpClientBuilder {
                 )
                 .setRetryHandler(this.httpRequestRetryHandler);
 
-        if (StringUtils.isNotBlank(this.httpProxyHost)
-                && StringUtils.isNotBlank(this.httpProxyUsername)) {
+        if (StringUtils.isNotBlank(this.httpProxyHost) && StringUtils.isNotBlank(this.httpProxyUsername)) {
             // 使用代理服务器 需要用户认证的代理服务器
             CredentialsProvider provider = new BasicCredentialsProvider();
             provider.setCredentials(
                     new AuthScope(this.httpProxyHost, this.httpProxyPort),
-                    new UsernamePasswordCredentials(this.httpProxyUsername,
-                            this.httpProxyPassword));
+                    new UsernamePasswordCredentials(this.httpProxyUsername, this.httpProxyPassword)
+            );
             httpClientBuilder.setDefaultCredentialsProvider(provider);
+            httpClientBuilder.setProxy(new HttpHost(this.httpProxyHost, this.httpProxyPort));
         }
 
         if (StringUtils.isNotBlank(this.userAgent)) {

@@ -4,9 +4,8 @@ import com.rolbel.common.bean.WxCardApiSignature;
 import com.rolbel.common.error.WxErrorException;
 import com.rolbel.mp.bean.card.request.WxMpCard;
 import com.rolbel.mp.bean.card.request.WxMpCardCreateLandingPage;
-import com.rolbel.mp.bean.card.result.WxMpCardCreateCardResult;
-import com.rolbel.mp.bean.card.result.WxMpCardCreateLandingPageResult;
-import com.rolbel.mp.bean.card.result.WxMpCardGetUserCardResult;
+import com.rolbel.mp.bean.card.request.WxMpCardImportCardCode;
+import com.rolbel.mp.bean.card.result.*;
 
 /**
  * 卡券相关接口
@@ -21,6 +20,15 @@ public interface WxMpCardService {
     String CARD_GET_DETAIL_URL = "https://api.weixin.qq.com/card/get";
     String CARD_GET_TICKET_URL = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?type=card";
     String CARD_GET_USER_CARD_LIST_URL = "https://api.weixin.qq.com/card/user/getcardlist";
+    String CARD_TEST_WHITELIST = "https://api.weixin.qq.com/card/testwhitelist/set";
+
+    String CARD_CODE_DEPOSIT_URL = "http://api.weixin.qq.com/card/code/deposit";
+    String CARD_CODE_GET_DEPOSIT_COUNT_URL = "http://api.weixin.qq.com/card/code/getdepositcount";
+    String CARD_CODE_CHECK_URL = "http://api.weixin.qq.com/card/code/checkcode";
+    String CARD_CODE_DECRYPT_URL = "https://api.weixin.qq.com/card/code/decrypt";
+    String CARD_CODE_GET_URL = "https://api.weixin.qq.com/card/code/get";
+    String CARD_CODE_CONSUME_URL = "https://api.weixin.qq.com/card/code/consume";
+    String CARD_CODE_MARK_URL = "https://api.weixin.qq.com/card/code/mark";
 
     /**
      * 得到WxMpService
@@ -130,6 +138,22 @@ public interface WxMpCardService {
      * @return 卡券Api签名对象
      */
     WxCardApiSignature createCardApiSignature(String... optionalSignParam) throws WxErrorException;
+
+    String decryptCardCode(String encryptCode) throws WxErrorException;
+
+    WxMpCardResult queryCardCode(String cardId, String code, boolean checkConsume) throws WxErrorException;
+
+    String consumeCardCode(String code) throws WxErrorException;
+
+    String consumeCardCode(String code, String cardId) throws WxErrorException;
+
+    void importCardCode(WxMpCardImportCardCode request) throws WxErrorException;
+
+    Integer getImportCardCodeCount(String cardId) throws WxErrorException;
+
+    WxMpCardCheckCodeResult checkCode(WxMpCardImportCardCode request) throws WxErrorException;
+
+    void markCardCode(String code, String cardId, String openId, boolean isMark) throws WxErrorException;
 
     /**
      * 查看卡券详情接口
