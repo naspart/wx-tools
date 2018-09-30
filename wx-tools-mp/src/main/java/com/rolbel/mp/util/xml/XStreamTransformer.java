@@ -63,6 +63,7 @@ public class XStreamTransformer {
 
         xstream.processAnnotations(clz);
         xstream.processAnnotations(getInnerClasses(clz));
+        xstream.allowTypes(new Class[]{clz});
         if (clz.equals(WxMpXmlMessage.class)) {
             // 操蛋的微信，模板消息推送成功的消息是MsgID，其他消息推送过来是MsgId
             xstream.aliasField("MsgID", WxMpXmlMessage.class, "msgId");
