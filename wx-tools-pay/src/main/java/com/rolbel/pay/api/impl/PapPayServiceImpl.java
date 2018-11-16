@@ -43,7 +43,7 @@ public class PapPayServiceImpl implements PapPayService {
             }
         });
 
-        return "https://api.mch.weixin.qq.com/papay/entrustweb?" + Joiner.on("&").withKeyValueSeparator("=").join(sPara);
+        return "https://api.mch.weixin.qq.com/pappay/entrustweb?" + Joiner.on("&").withKeyValueSeparator("=").join(sPara);
     }
 
     @Override
