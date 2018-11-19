@@ -27,6 +27,11 @@ public class PapPayRefundQueryRequest extends BaseWxPayRequest {
     private String refundId;
 
     @Override
+    protected boolean ignoreNonceStr() {
+        return true;
+    }
+
+    @Override
     protected void checkConstraints() throws WxPayException {
 
     }

@@ -21,6 +21,11 @@ public class PapPayOrderQueryRequest extends BaseWxPayRequest {
     private String outTradeNo;
 
     @Override
+    protected boolean ignoreNonceStr() {
+        return true;
+    }
+
+    @Override
     protected void checkConstraints() throws WxPayException {
 
     }

@@ -75,6 +75,11 @@ public class PapPayApplyPayRequest extends BaseWxPayRequest {
     private String timestamp;
 
     @Override
+    protected boolean ignoreNonceStr() {
+        return true;
+    }
+
+    @Override
     protected void checkConstraints() throws WxPayException {
 
     }

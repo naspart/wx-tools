@@ -191,6 +191,10 @@ public abstract class BaseWxPayRequest implements Serializable {
         return false;
     }
 
+    protected boolean ignoreNonceStr() {
+        return false;
+    }
+
     /**
      * <pre>
      * 检查参数，并设置签名
@@ -204,10 +208,8 @@ public abstract class BaseWxPayRequest implements Serializable {
     public void checkAndSign(WxPayConfig config) throws WxPayException {
         this.checkFields();
 
-        if (!ignoreAppid()) {
-            if (StringUtils.isBlank(getAppId())) {
-                this.setAppId(config.getAppId());
-            }
+        if (!ignoreAppid() && StringUtils.isBlank(getAppId())) {
+            this.setAppId(config.getAppId());
         }
 
         if (StringUtils.isBlank(getMchId())) {
@@ -233,7 +235,7 @@ public abstract class BaseWxPayRequest implements Serializable {
             }
         }
 
-        if (StringUtils.isBlank(getNonceStr())) {
+        if (!ignoreNonceStr() && StringUtils.isBlank(getNonceStr())) {
             this.setNonceStr(String.valueOf(System.currentTimeMillis()));
         }
 

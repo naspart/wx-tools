@@ -81,6 +81,11 @@ public class PapPayPayAndSignRequest extends BaseWxPayRequest {
     private String contractNotifyUrl;
 
     @Override
+    protected boolean ignoreNonceStr() {
+        return true;
+    }
+
+    @Override
     protected void checkConstraints() throws WxPayException {
 
     }

@@ -2,6 +2,7 @@ package com.rolbel.pay.api;
 
 import com.rolbel.pay.bean.pappay.request.*;
 import com.rolbel.pay.bean.pappay.result.*;
+import com.rolbel.pay.config.WxPayConfig;
 import com.rolbel.pay.exception.WxPayException;
 
 public interface PapPayService {
@@ -19,6 +20,8 @@ public interface PapPayService {
      */
     String getMpSignUrl(PapPayMpSignRequest request) throws WxPayException;
 
+    String getMpSignUrl(WxPayConfig wxPayConfig, PapPayMpSignRequest request) throws WxPayException;
+
     /**
      * <pre>
      * 支付中签约API.
@@ -34,6 +37,8 @@ public interface PapPayService {
      * @param request 请求对象
      */
     PapPayPayAndSignResult payAndSign(PapPayPayAndSignRequest request) throws WxPayException;
+
+    PapPayPayAndSignResult payAndSign(WxPayConfig wxPayConfig, PapPayPayAndSignRequest request) throws WxPayException;
 
     /**
      * <pre>
@@ -54,6 +59,8 @@ public interface PapPayService {
      */
     PapPaySignNotifyResult parseSignNotifyResult(String xmlData) throws WxPayException;
 
+    PapPaySignNotifyResult parseSignNotifyResult(WxPayConfig wxPayConfig, String xmlData) throws WxPayException;
+
     /**
      * <pre>
      * 查询签约关系API.
@@ -69,6 +76,8 @@ public interface PapPayService {
      */
     PapPayContractQueryResult queryContract(PapPayContractQueryRequest request) throws WxPayException;
 
+    PapPayContractQueryResult queryContract(WxPayConfig wxPayConfig, PapPayContractQueryRequest request) throws WxPayException;
+
     /**
      * <pre>
      * 申请扣款API.
@@ -83,6 +92,8 @@ public interface PapPayService {
      * @param request 请求对象
      */
     PapPayApplyPayResult applyPay(PapPayApplyPayRequest request) throws WxPayException;
+
+    PapPayApplyPayResult applyPay(WxPayConfig wxPayConfig, PapPayApplyPayRequest request) throws WxPayException;
 
     /**
      * <pre>
@@ -104,6 +115,8 @@ public interface PapPayService {
      */
     PapPayOrderNotifyResult parseApplyPayNotifyResult(String xmlData) throws WxPayException;
 
+    PapPayOrderNotifyResult parseApplyPayNotifyResult(WxPayConfig wxPayConfig, String xmlData) throws WxPayException;
+
     /**
      * <pre>
      * 申请解约API.
@@ -120,6 +133,8 @@ public interface PapPayService {
      * @param request 请求对象
      */
     PapPayUnsignResult unsign(PapPayUnsignRequest request) throws WxPayException;
+
+    PapPayUnsignResult unsign(WxPayConfig wxPayConfig, PapPayUnsignRequest request) throws WxPayException;
 
     /**
      * <pre>
@@ -156,6 +171,10 @@ public interface PapPayService {
      */
     PapPayOrderQueryResult queryOrder(PapPayOrderQueryRequest request) throws WxPayException;
 
+    PapPayOrderQueryResult queryOrder(WxPayConfig wxPayConfig, String transactionId, String outTradeNo) throws WxPayException;
+
+    PapPayOrderQueryResult queryOrder(WxPayConfig wxPayConfig, PapPayOrderQueryRequest request) throws WxPayException;
+
     /**
      * <pre>
      * 查询退款API.
@@ -173,6 +192,8 @@ public interface PapPayService {
     PapPayRefundQueryResult queryRefund(String transactionId, String outTradeNo, String outRefundNo, String refundId)
             throws WxPayException;
 
+    PapPayRefundQueryResult queryRefund(WxPayConfig wxPayConfig, String transactionId, String outTradeNo, String outRefundNo, String refundId) throws WxPayException;
+
     /**
      * <pre>
      * 查询退款API.
@@ -185,4 +206,6 @@ public interface PapPayService {
      * @param request 请求对象
      */
     PapPayRefundQueryResult queryRefund(PapPayRefundQueryRequest request) throws WxPayException;
+
+    PapPayRefundQueryResult queryRefund(WxPayConfig wxPayConfig, PapPayRefundQueryRequest request) throws WxPayException;
 }

@@ -30,6 +30,11 @@ public class PapPayUnsignRequest extends BaseWxPayRequest {
     private String version;
 
     @Override
+    protected boolean ignoreNonceStr() {
+        return true;
+    }
+
+    @Override
     protected void checkConstraints() throws WxPayException {
 
     }

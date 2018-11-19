@@ -66,6 +66,11 @@ public class PapPayMpSignRequest extends BaseWxPayRequest {
     private Integer returnWeb;
 
     @Override
+    protected boolean ignoreNonceStr() {
+        return true;
+    }
+
+    @Override
     protected void checkConstraints() throws WxPayException {
 
     }
