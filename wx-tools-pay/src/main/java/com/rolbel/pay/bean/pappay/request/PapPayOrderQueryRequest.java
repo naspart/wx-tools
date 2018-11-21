@@ -22,7 +22,7 @@ public class PapPayOrderQueryRequest extends BaseWxPayRequest {
 
     @Override
     protected boolean ignoreNonceStr() {
-        return true;
+        return false;
     }
 
     @Override

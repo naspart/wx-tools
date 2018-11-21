@@ -76,7 +76,7 @@ public class PapPayApplyPayRequest extends BaseWxPayRequest {
 
     @Override
     protected boolean ignoreNonceStr() {
-        return true;
+        return false;
     }
 
     @Override
