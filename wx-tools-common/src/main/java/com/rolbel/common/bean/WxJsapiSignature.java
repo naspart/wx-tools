@@ -1,6 +1,9 @@
 package com.rolbel.common.bean;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
@@ -8,6 +11,9 @@ import java.io.Serializable;
  * jspai signature.
  */
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class WxJsapiSignature implements Serializable {
     private static final long serialVersionUID = -990765506843052776L;
 
