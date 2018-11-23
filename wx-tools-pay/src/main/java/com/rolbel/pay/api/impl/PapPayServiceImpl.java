@@ -240,13 +240,7 @@ public class PapPayServiceImpl implements PapPayService {
 
     @Override
     public PapPayRefundQueryResult queryRefund(String transactionId, String outTradeNo, String outRefundNo, String refundId) throws WxPayException {
-        PapPayRefundQueryRequest request = new PapPayRefundQueryRequest();
-        request.setOutTradeNo(StringUtils.trimToNull(outTradeNo));
-        request.setTransactionId(StringUtils.trimToNull(transactionId));
-        request.setOutRefundNo(StringUtils.trimToNull(outRefundNo));
-        request.setRefundId(StringUtils.trimToNull(refundId));
-
-        return this.queryRefund(null, request);
+        return this.queryRefund(null, transactionId, outTradeNo, outRefundNo, refundId);
     }
 
     @Override
@@ -262,15 +256,6 @@ public class PapPayServiceImpl implements PapPayService {
 
     @Override
     public PapPayRefundQueryResult queryRefund(PapPayRefundQueryRequest request) throws WxPayException {
-        request.checkAndSign(this.payService.getConfig());
-
-        String url = this.payService.getPayBaseUrl() + "/pay/refundquery";
-        String responseContent = this.payService.post(url, request.toXML(), false);
-
-        PapPayRefundQueryResult result = BaseWxPayResult.fromXML(responseContent, PapPayRefundQueryResult.class);
-        result.composeRefundRecords();
-        result.checkResult(this.payService, request.getSignType(), true);
-
         return this.queryRefund(null, request);
     }
 
