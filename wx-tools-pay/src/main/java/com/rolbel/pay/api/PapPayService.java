@@ -2,6 +2,8 @@ package com.rolbel.pay.api;
 
 import com.rolbel.pay.bean.pappay.request.*;
 import com.rolbel.pay.bean.pappay.result.*;
+import com.rolbel.pay.bean.request.WxPayRefundRequest;
+import com.rolbel.pay.bean.result.WxPayRefundResult;
 import com.rolbel.pay.config.WxPayConfig;
 import com.rolbel.pay.exception.WxPayException;
 
@@ -174,6 +176,30 @@ public interface PapPayService {
     PapPayOrderQueryResult queryOrder(WxPayConfig wxPayConfig, String transactionId, String outTradeNo) throws WxPayException;
 
     PapPayOrderQueryResult queryOrder(WxPayConfig wxPayConfig, PapPayOrderQueryRequest request) throws WxPayException;
+
+    /**
+     * <pre>
+     * 微信支付-申请退款.
+     * 详见 https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=9_4
+     * 接口链接：https://api.mch.weixin.qq.com/secapi/pay/refund
+     * </pre>
+     *
+     * @param request 请求对象
+     * @return 退款操作结果
+     */
+    WxPayRefundResult refund(WxPayRefundRequest request) throws WxPayException;
+
+    /**
+     * <pre>
+     * 微信支付-申请退款.
+     * 详见 https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=9_4
+     * 接口链接：https://api.mch.weixin.qq.com/secapi/pay/refund
+     * </pre>
+     *
+     * @param request 请求对象
+     * @return 退款操作结果
+     */
+    WxPayRefundResult refund(WxPayConfig wxPayConfig, WxPayRefundRequest request) throws WxPayException;
 
     /**
      * <pre>

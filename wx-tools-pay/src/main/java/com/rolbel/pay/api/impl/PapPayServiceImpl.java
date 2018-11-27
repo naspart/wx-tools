@@ -6,7 +6,9 @@ import com.rolbel.pay.api.PapPayService;
 import com.rolbel.pay.api.WxPayService;
 import com.rolbel.pay.bean.pappay.request.*;
 import com.rolbel.pay.bean.pappay.result.*;
+import com.rolbel.pay.bean.request.WxPayRefundRequest;
 import com.rolbel.pay.bean.result.BaseWxPayResult;
+import com.rolbel.pay.bean.result.WxPayRefundResult;
 import com.rolbel.pay.config.WxPayConfig;
 import com.rolbel.pay.exception.WxPayException;
 import com.rolbel.pay.util.SignUtils;
@@ -233,6 +235,27 @@ public class PapPayServiceImpl implements PapPayService {
 
         PapPayOrderQueryResult result = BaseWxPayResult.fromXML(responseContent, PapPayOrderQueryResult.class);
         result.composeCoupons();
+        result.checkResult(this.payService, request.getSignType(), true);
+
+        return result;
+    }
+
+    @Override
+    public WxPayRefundResult refund(WxPayRefundRequest request) throws WxPayException {
+        return this.refund(null, request);
+    }
+
+    @Override
+    public WxPayRefundResult refund(WxPayConfig wxPayConfig, WxPayRefundRequest request) throws WxPayException {
+        if (wxPayConfig == null) {
+            request.checkAndSign(this.payService.getConfig());
+        } else {
+            request.checkAndSign(wxPayConfig);
+        }
+
+        String url = this.payService.getPayBaseUrl() + "/secapi/pay/refund";
+        String responseContent = this.payService.post(url, request.toXML(), true);
+        WxPayRefundResult result = BaseWxPayResult.fromXML(responseContent, WxPayRefundResult.class);
         result.checkResult(this.payService, request.getSignType(), true);
 
         return result;
