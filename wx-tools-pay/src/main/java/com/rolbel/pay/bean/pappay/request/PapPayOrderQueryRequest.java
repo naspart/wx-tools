@@ -6,6 +6,7 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -27,6 +28,9 @@ public class PapPayOrderQueryRequest extends BaseWxPayRequest {
 
     @Override
     protected void checkConstraints() throws WxPayException {
-
+        if ((StringUtils.isBlank(transactionId) && StringUtils.isBlank(outTradeNo)) ||
+                (StringUtils.isNotBlank(transactionId) && StringUtils.isNotBlank(outTradeNo))) {
+            throw new WxPayException("transaction_id 和 out_trade_no 不能同时存在或同时为空，必须二选一");
+        }
     }
 }

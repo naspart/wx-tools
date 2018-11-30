@@ -2,7 +2,6 @@ package com.rolbel.pay.bean.pappay.result;
 
 import com.rolbel.common.util.xml.XStreamInitializer;
 import com.rolbel.pay.bean.result.BaseWxPayResult;
-import com.rolbel.pay.converter.WxPayOrderNotifyResultConverter;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import lombok.Data;

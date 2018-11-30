@@ -6,6 +6,7 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -33,6 +34,11 @@ public class PapPayRefundQueryRequest extends BaseWxPayRequest {
 
     @Override
     protected void checkConstraints() throws WxPayException {
-
+        if ((StringUtils.isBlank(transactionId) && StringUtils.isBlank(outTradeNo)
+                && StringUtils.isBlank(outRefundNo) && StringUtils.isBlank(refundId)) ||
+                (StringUtils.isNotBlank(transactionId) && StringUtils.isNotBlank(outTradeNo)
+                        && StringUtils.isNotBlank(outRefundNo) && StringUtils.isNotBlank(refundId))) {
+            throw new WxPayException("transaction_id，out_trade_no，out_refund_no，refund_id 必须四选一");
+        }
     }
 }
