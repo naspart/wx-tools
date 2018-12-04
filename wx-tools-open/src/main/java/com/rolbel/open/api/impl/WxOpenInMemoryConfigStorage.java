@@ -1,10 +1,10 @@
 package com.rolbel.open.api.impl;
 
 
-import com.rolbel.ma.config.WxMaConfig;
 import com.rolbel.common.bean.WxAccessToken;
 import com.rolbel.common.util.ToStringUtils;
 import com.rolbel.common.util.http.apache.ApacheHttpClientBuilder;
+import com.rolbel.ma.config.WxMaConfig;
 import com.rolbel.mp.api.WxMpConfigStorage;
 import com.rolbel.open.api.WxOpenConfigStorage;
 import com.rolbel.open.bean.WxOpenAuthorizerAccessToken;
@@ -32,6 +32,8 @@ public class WxOpenInMemoryConfigStorage implements WxOpenConfigStorage {
     private int httpProxyPort;
     private String httpProxyUsername;
     private String httpProxyPassword;
+
+    private Lock componentAccessTokenLock = new ReentrantLock();
 
     private Map<String, Token> authorizerRefreshTokens = new Hashtable<>();
     private Map<String, Token> authorizerAccessTokens = new Hashtable<>();
@@ -91,6 +93,11 @@ public class WxOpenInMemoryConfigStorage implements WxOpenConfigStorage {
     @Override
     public String getComponentAccessToken() {
         return componentAccessToken;
+    }
+
+    @Override
+    public Lock getComponentAccessTokenLock() {
+        return this.componentAccessTokenLock;
     }
 
     @Override
@@ -186,6 +193,7 @@ public class WxOpenInMemoryConfigStorage implements WxOpenConfigStorage {
             token = new Token();
             map.put(key, token);
         }
+
         token.token = tokenString;
         if (expiresInSeconds != null) {
             token.expiresTime = System.currentTimeMillis() + (expiresInSeconds - 200) * 1000L;

@@ -1,15 +1,15 @@
 package com.rolbel.open.api.impl;
 
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.rolbel.common.error.WxError;
-import com.rolbel.ma.api.WxMaService;
-import com.rolbel.ma.bean.WxMaJscode2SessionResult;
-import com.google.gson.JsonObject;
 import com.rolbel.common.error.WxErrorException;
 import com.rolbel.common.util.crypto.SHA1;
 import com.rolbel.common.util.http.URIUtil;
 import com.rolbel.common.util.json.WxGsonBuilder;
+import com.rolbel.ma.api.WxMaService;
+import com.rolbel.ma.bean.WxMaJscode2SessionResult;
 import com.rolbel.mp.api.WxMpService;
 import com.rolbel.mp.bean.WxMpOAuth2AccessToken;
 import com.rolbel.open.api.WxOpenComponentService;
@@ -28,16 +28,17 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.locks.Lock;
 
 public class WxOpenComponentServiceImpl implements WxOpenComponentService {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private static final JsonParser JSON_PARSER = new JsonParser();
-    private static final Map<String, WxMaService> WX_OPEN_MA_SERVICE_MAP = new Hashtable<>();
-    private static final Map<String, WxMpService> WX_OPEN_MP_SERVICE_MAP = new Hashtable<>();
+    private static final Map<String, WxMaService> WX_OPEN_MA_SERVICE_MAP = new HashMap<>();
+    private static final Map<String, WxMpService> WX_OPEN_MP_SERVICE_MAP = new HashMap<>();
 
     private WxOpenService wxOpenService;
 
@@ -100,16 +101,22 @@ public class WxOpenComponentServiceImpl implements WxOpenComponentService {
 
     @Override
     public String getComponentAccessToken(boolean forceRefresh) throws WxErrorException {
+        Lock lock = this.getWxOpenConfigStorage().getComponentAccessTokenLock();
+        try {
+            lock.lock();
 
-        if (this.getWxOpenConfigStorage().isComponentAccessTokenExpired() || forceRefresh) {
-            JsonObject jsonObject = new JsonObject();
-            jsonObject.addProperty("component_appid", getWxOpenConfigStorage().getComponentAppId());
-            jsonObject.addProperty("component_appsecret", getWxOpenConfigStorage().getComponentAppSecret());
-            jsonObject.addProperty("component_verify_ticket", getWxOpenConfigStorage().getComponentVerifyTicket());
+            if (this.getWxOpenConfigStorage().isComponentAccessTokenExpired() || forceRefresh) {
+                JsonObject jsonObject = new JsonObject();
+                jsonObject.addProperty("component_appid", getWxOpenConfigStorage().getComponentAppId());
+                jsonObject.addProperty("component_appsecret", getWxOpenConfigStorage().getComponentAppSecret());
+                jsonObject.addProperty("component_verify_ticket", getWxOpenConfigStorage().getComponentVerifyTicket());
 
-            String responseContent = this.getWxOpenService().post(API_COMPONENT_TOKEN_URL, jsonObject.toString());
-            WxOpenComponentAccessToken componentAccessToken = WxOpenComponentAccessToken.fromJson(responseContent);
-            getWxOpenConfigStorage().updateComponentAccessTokent(componentAccessToken);
+                String responseContent = this.getWxOpenService().post(API_COMPONENT_TOKEN_URL, jsonObject.toString());
+                WxOpenComponentAccessToken componentAccessToken = WxOpenComponentAccessToken.fromJson(responseContent);
+                getWxOpenConfigStorage().updateComponentAccessTokent(componentAccessToken);
+            }
+        } finally {
+            lock.unlock();
         }
 
         return this.getWxOpenConfigStorage().getComponentAccessToken();

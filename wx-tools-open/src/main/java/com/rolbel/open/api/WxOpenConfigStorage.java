@@ -5,6 +5,8 @@ import com.rolbel.mp.api.WxMpConfigStorage;
 import com.rolbel.open.bean.WxOpenAuthorizerAccessToken;
 import com.rolbel.open.bean.WxOpenComponentAccessToken;
 
+import java.util.concurrent.locks.Lock;
+
 public interface WxOpenConfigStorage {
 
     String getComponentAppId();
@@ -28,6 +30,8 @@ public interface WxOpenConfigStorage {
     void setComponentVerifyTicket(String componentVerifyTicket);
 
     String getComponentAccessToken();
+
+    Lock getComponentAccessTokenLock();
 
     boolean isComponentAccessTokenExpired();
 
