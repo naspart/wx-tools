@@ -16,10 +16,7 @@ import java.util.List;
 /**
  * <pre>
  * bean操作的一些工具类
- * Created by Binary Wang on 2016-10-21.
  * </pre>
- *
- * @author <a href="https://github.com/binarywang">binarywang(Binary Wang)</a>
  */
 public class BeanUtils {
     private static Logger log = LoggerFactory.getLogger(BeanUtils.class);

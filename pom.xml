@@ -5,7 +5,7 @@
 
     <groupId>com.rolbel</groupId>
     <artifactId>wx-tools</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.3</version>
 
     <modules>
         <module>wx-tools-common</module>

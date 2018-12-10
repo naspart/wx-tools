@@ -6,6 +6,7 @@ import com.google.common.collect.Maps;
 import com.rolbel.common.util.ToStringUtils;
 import com.rolbel.common.util.xml.XStreamInitializer;
 import com.rolbel.pay.api.WxPayService;
+import com.rolbel.pay.config.WxPayConfig;
 import com.rolbel.pay.exception.WxPayException;
 import com.rolbel.pay.util.SignUtils;
 import com.thoughtworks.xstream.XStream;
@@ -221,9 +222,24 @@ public abstract class BaseWxPayResult implements Serializable {
      * @param checkSuccess 是否同时检查结果是否成功
      */
     public void checkResult(WxPayService wxPayService, String signType, boolean checkSuccess) throws WxPayException {
+        this.checkResult(null, wxPayService, signType, checkSuccess);
+    }
+
+    /**
+     * 校验返回结果签名.
+     *
+     * @param wxPayConfig  微信支付配置
+     * @param signType     签名类型
+     * @param checkSuccess 是否同时检查结果是否成功
+     */
+    public void checkResult(WxPayConfig wxPayConfig, WxPayService wxPayService, String signType, boolean checkSuccess) throws WxPayException {
         //校验返回结果签名
         Map<String, String> map = toMap();
-        if (getSign() != null && !SignUtils.checkSign(map, signType, wxPayService.getConfig().getMchKey())) {
+        if (wxPayConfig == null) {
+            wxPayConfig = wxPayService.getConfig();
+        }
+
+        if (getSign() != null && !SignUtils.checkSign(map, signType, wxPayConfig.getMchKey())) {
             this.getLogger().debug("校验结果签名失败，参数：{}", map);
             throw new WxPayException("参数格式校验错误！");
         }
