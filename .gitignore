@@ -48,16 +48,28 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+target/
+!.mvn/wrapper/maven-wrapper.jar
 
-# dependencies
-/node_modules
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
 
-/.idea
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
 
-# production
-/dist
-
-# misc
-.DS_Store
-npm-debug.log*
+### NetBeans ###
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+logs
