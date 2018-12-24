@@ -3,10 +3,11 @@ package com.rolbel.pay.bean.result;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.rolbel.common.util.ToStringUtils;
+import com.rolbel.common.util.json.WxGsonBuilder;
 import com.rolbel.common.util.xml.XStreamInitializer;
 import com.rolbel.pay.api.WxPayService;
 import com.rolbel.pay.config.WxPayConfig;
+import com.rolbel.pay.constant.WxPayConstants;
 import com.rolbel.pay.exception.WxPayException;
 import com.rolbel.pay.util.SignUtils;
 import com.thoughtworks.xstream.XStream;
@@ -17,17 +18,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 
@@ -137,7 +136,7 @@ public abstract class BaseWxPayResult implements Serializable {
 
     @Override
     public String toString() {
-        return ToStringUtils.toSimpleString(this);
+        return WxGsonBuilder.create().toJson(this);
     }
 
     /**
@@ -175,12 +174,13 @@ public abstract class BaseWxPayResult implements Serializable {
         }
 
         try {
-            this.xmlDoc = DocumentBuilderFactory
-                    .newInstance()
-                    .newDocumentBuilder()
-                    .parse(new ByteArrayInputStream(this.xmlString.getBytes("UTF-8")));
+            final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            factory.setExpandEntityReferences(false);
+            this.xmlDoc = factory.newDocumentBuilder()
+                    .parse(new ByteArrayInputStream(this.xmlString.getBytes(StandardCharsets.UTF_8)));
+
             return xmlDoc;
-        } catch (SAXException | IOException | ParserConfigurationException e) {
+        } catch (Exception e) {
             throw new RuntimeException("非法的xml文本内容：" + this.xmlString);
         }
 
@@ -246,7 +246,7 @@ public abstract class BaseWxPayResult implements Serializable {
 
         //校验结果是否成功
         if (checkSuccess) {
-            List<String> successStrings = Lists.newArrayList("SUCCESS", "");
+            List<String> successStrings = Lists.newArrayList(WxPayConstants.ResultCode.SUCCESS, "");
             if (!successStrings.contains(StringUtils.trimToEmpty(getReturnCode()).toUpperCase())
                     || !successStrings.contains(StringUtils.trimToEmpty(getResultCode()).toUpperCase())) {
                 StringBuilder errorMsg = new StringBuilder();

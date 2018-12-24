@@ -82,8 +82,8 @@ public class WxPayCouponStockQueryResult extends BaseWxPayResult {
      * 说明：代金券使用最低限额,单位是分
      * </pre>
      */
-    @XStreamAlias("coupon_mininumn")
-    private Integer couponMininumn;
+    @XStreamAlias("coupon_minimun")
+    private Integer couponMinimum;
 
     /**
      * <pre>

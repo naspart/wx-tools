@@ -1,8 +1,11 @@
 package com.rolbel.common.util.http;
 
+import com.rolbel.common.error.WxErrorException;
 import com.rolbel.common.util.http.apache.ApacheHttpClientSimpleGetRequestExecutor;
 import com.rolbel.common.util.http.jodd.JoddHttpSimpleGetRequestExecutor;
 import com.rolbel.common.util.http.okhttp.OkHttpSimpleGetRequestExecutor;
+
+import java.io.IOException;
 
 /**
  * 简单的GET请求执行器，请求的参数是String, 返回的结果也是String
@@ -12,6 +15,11 @@ public abstract class SimpleGetRequestExecutor<H, P> implements RequestExecutor<
 
     public SimpleGetRequestExecutor(RequestHttp<H, P> requestHttp) {
         this.requestHttp = requestHttp;
+    }
+
+    @Override
+    public void execute(String uri, String data, ResponseHandler<String> handler) throws WxErrorException, IOException {
+        handler.handle(this.execute(uri, data));
     }
 
     @SuppressWarnings("unchecked")

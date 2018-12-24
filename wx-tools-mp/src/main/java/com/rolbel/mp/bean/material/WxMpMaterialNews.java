@@ -1,6 +1,5 @@
 package com.rolbel.mp.bean.material;
 
-import com.rolbel.common.util.ToStringUtils;
 import com.rolbel.mp.util.json.WxMpGsonBuilder;
 import lombok.Data;
 
@@ -13,8 +12,8 @@ import java.util.List;
 public class WxMpMaterialNews implements Serializable {
     private static final long serialVersionUID = -7623108600551081847L;
 
-    private Date createdTime;
-    private Date updatedTime;
+    private Date createTime;
+    private Date updateTime;
 
     private List<WxMpMaterialNewsArticle> articles = new ArrayList<>();
 
@@ -27,7 +26,7 @@ public class WxMpMaterialNews implements Serializable {
     }
 
     public String toJson() {
-        return WxMpGsonBuilder.INSTANCE.create().toJson(this);
+        return WxMpGsonBuilder.create().toJson(this);
     }
 
     public boolean isEmpty() {
@@ -110,7 +109,7 @@ public class WxMpMaterialNews implements Serializable {
 
         @Override
         public String toString() {
-            return ToStringUtils.toSimpleString(this);
+            return WxMpGsonBuilder.create().toJson(this);
         }
     }
 }

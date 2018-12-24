@@ -7,10 +7,7 @@ import com.rolbel.common.error.WxErrorException;
 import com.rolbel.common.util.http.MediaUploadRequestExecutor;
 import com.rolbel.mp.api.WxMpKefuService;
 import com.rolbel.mp.api.WxMpService;
-import com.rolbel.mp.bean.kefu.WxMpKefuMessage;
-import com.rolbel.mp.bean.kefu.request.WxMpKfAccountRequest;
-import com.rolbel.mp.bean.kefu.request.WxMpKfSessionRequest;
-import com.rolbel.mp.bean.kefu.result.*;
+import com.rolbel.mp.bean.kefu.*;
 
 import java.io.File;
 import java.util.Date;

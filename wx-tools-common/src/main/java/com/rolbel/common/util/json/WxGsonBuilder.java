@@ -8,7 +8,7 @@ import com.rolbel.common.bean.result.WxMediaUploadResult;
 import com.rolbel.common.error.WxError;
 
 public class WxGsonBuilder {
-    public static final GsonBuilder INSTANCE = new GsonBuilder();
+    private static final GsonBuilder INSTANCE = new GsonBuilder();
 
     static {
         INSTANCE.disableHtmlEscaping();

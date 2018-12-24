@@ -12,7 +12,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
-public class WxMpSubscribeMessage implements Serializable{
+public class WxMpSubscribeMessage implements Serializable {
     private static final long serialVersionUID = 3550609326339241891L;
 
     /**
@@ -63,16 +63,22 @@ public class WxMpSubscribeMessage implements Serializable{
 
 
     public String toJson() {
-        return WxMpGsonBuilder.INSTANCE.create().toJson(this);
+        return WxMpGsonBuilder.create().toJson(this);
     }
 
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
     public static class MiniProgram implements Serializable {
-        private static final long serialVersionUID = -8534420790629359360L;
+        private static final long serialVersionUID = 3380878272833589957L;
 
         private String appid;
         private String pagePath;
+
+        /**
+         * 是否使用path，否则使用pagepath.
+         * 加入此字段是基于微信官方接口变化多端的考虑
+         */
+        private boolean usePath = false;
     }
 }

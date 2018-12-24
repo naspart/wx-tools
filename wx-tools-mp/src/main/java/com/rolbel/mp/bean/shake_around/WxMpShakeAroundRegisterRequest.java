@@ -30,6 +30,6 @@ public class WxMpShakeAroundRegisterRequest implements Serializable {
     private String applyReason;
 
     public String toJson() {
-        return WxMpGsonBuilder.INSTANCE.create().toJson(this);
+        return WxMpGsonBuilder.create().toJson(this);
     }
 }

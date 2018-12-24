@@ -11,12 +11,9 @@ import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 import java.security.AlgorithmParameters;
 
-/**
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
- */
 public class WxMaCryptUtils extends WxCryptUtil {
     public WxMaCryptUtils(WxMaConfig config) {
-        this.appidOrCorpid = config.getAppid();
+        this.appidOrCorpid = config.getAppId();
         this.token = config.getToken();
         this.aesKey = Base64.decodeBase64(config.getAesKey() + "=");
     }

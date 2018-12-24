@@ -3,7 +3,6 @@ package com.rolbel.mp.bean.user;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-import com.rolbel.common.util.ToStringUtils;
 import com.rolbel.mp.util.json.WxMpGsonBuilder;
 import lombok.Data;
 
@@ -71,19 +70,19 @@ public class WxMpUser implements Serializable {
     private String qrSceneStr;
 
     public static WxMpUser fromJson(String json) {
-        return WxMpGsonBuilder.INSTANCE.create().fromJson(json, WxMpUser.class);
+        return WxMpGsonBuilder.create().fromJson(json, WxMpUser.class);
     }
 
     public static List<WxMpUser> fromJsonList(String json) {
         Type collectionType = new TypeToken<List<WxMpUser>>() {
         }.getType();
-        Gson gson = WxMpGsonBuilder.INSTANCE.create();
+        Gson gson = WxMpGsonBuilder.create();
         JsonObject jsonObject = gson.fromJson(json, JsonObject.class);
         return gson.fromJson(jsonObject.get("user_info_list"), collectionType);
     }
 
     @Override
     public String toString() {
-        return ToStringUtils.toSimpleString(this);
+        return WxMpGsonBuilder.create().toJson(this);
     }
 }

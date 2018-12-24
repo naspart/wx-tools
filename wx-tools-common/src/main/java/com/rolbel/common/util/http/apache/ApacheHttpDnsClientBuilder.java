@@ -283,6 +283,7 @@ public class ApacheHttpDnsClientBuilder implements ApacheHttpClientBuilder {
                     }
                 }
             } catch (InterruptedException ignore) {
+                Thread.currentThread().interrupt();
             }
         }
 

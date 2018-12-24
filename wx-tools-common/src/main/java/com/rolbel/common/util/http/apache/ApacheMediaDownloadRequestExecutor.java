@@ -2,7 +2,7 @@ package com.rolbel.common.util.http.apache;
 
 import com.rolbel.common.error.WxError;
 import com.rolbel.common.error.WxErrorException;
-import com.rolbel.common.util.fs.FileUtil;
+import com.rolbel.common.util.fs.FileUtils;
 import com.rolbel.common.util.http.*;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -55,7 +55,7 @@ public class ApacheMediaDownloadRequestExecutor extends BaseMediaDownloadRequest
                 return null;
             }
 
-            return FileUtil.createTmpFile(inputStream, FilenameUtils.getBaseName(fileName), FilenameUtils.getExtension(fileName),
+            return FileUtils.createTmpFile(inputStream, FilenameUtils.getBaseName(fileName), FilenameUtils.getExtension(fileName),
                     super.tmpDirFile);
 
         } finally {

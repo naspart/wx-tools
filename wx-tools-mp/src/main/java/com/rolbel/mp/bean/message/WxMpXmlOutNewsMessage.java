@@ -11,8 +11,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-@XStreamAlias("xml")
 @Data
+@XStreamAlias("xml")
 @EqualsAndHashCode(callSuper = true)
 public class WxMpXmlOutNewsMessage extends WxMpXmlOutMessage {
     private static final long serialVersionUID = -4960068054849530487L;
@@ -32,8 +32,8 @@ public class WxMpXmlOutNewsMessage extends WxMpXmlOutMessage {
         this.articleCount = this.articles.size();
     }
 
-    @XStreamAlias("item")
     @Data
+    @XStreamAlias("item")
     public static class Item implements Serializable {
         private static final long serialVersionUID = 5117627702623713113L;
 

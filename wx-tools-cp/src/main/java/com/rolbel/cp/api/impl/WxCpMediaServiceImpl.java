@@ -2,7 +2,7 @@ package com.rolbel.cp.api.impl;
 
 import com.rolbel.common.bean.result.WxMediaUploadResult;
 import com.rolbel.common.error.WxErrorException;
-import com.rolbel.common.util.fs.FileUtil;
+import com.rolbel.common.util.fs.FileUtils;
 import com.rolbel.common.util.http.BaseMediaDownloadRequestExecutor;
 import com.rolbel.common.util.http.MediaUploadRequestExecutor;
 import com.rolbel.cp.api.WxCpMediaService;
@@ -30,7 +30,7 @@ public class WxCpMediaServiceImpl implements WxCpMediaService {
     @Override
     public WxMediaUploadResult upload(String mediaType, String fileType, InputStream inputStream)
             throws WxErrorException, IOException {
-        return this.upload(mediaType, FileUtil.createTmpFile(inputStream, UUID.randomUUID().toString(), fileType));
+        return this.upload(mediaType, FileUtils.createTmpFile(inputStream, UUID.randomUUID().toString(), fileType));
     }
 
     @Override

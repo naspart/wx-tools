@@ -105,9 +105,15 @@ public class WxPayRefundResult extends BaseWxPayResult implements Serializable {
     /**
      * 组装生成退款代金券信息.
      */
-    public void composeRefundCoupons() {
+    private void composeRefundCoupons() {
         List<WxPayRefundCouponInfo> coupons = Lists.newArrayList();
-        for (int i = 0; i < this.getCouponRefundCount(); i++) {
+        Integer refundCount = this.getCouponRefundCount();
+        if (refundCount == null) {
+            //无退款代金券信息
+            return;
+        }
+
+        for (int i = 0; i < refundCount; i++) {
             coupons.add(
                     new WxPayRefundCouponInfo(
                             this.getXmlValue("xml/coupon_refund_id_" + i),
@@ -116,6 +122,13 @@ public class WxPayRefundResult extends BaseWxPayResult implements Serializable {
                     )
             );
         }
+
         this.setRefundCoupons(coupons);
+    }
+
+    public static WxPayRefundResult fromXML(String xml) {
+        WxPayRefundResult result = BaseWxPayResult.fromXML(xml, WxPayRefundResult.class);
+        result.composeRefundCoupons();
+        return result;
     }
 }

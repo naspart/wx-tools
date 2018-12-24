@@ -4,7 +4,6 @@ import com.rolbel.common.error.WxErrorException;
 import com.rolbel.mp.api.WxMpDeviceService;
 import com.rolbel.mp.api.WxMpService;
 import com.rolbel.mp.bean.device.*;
-import com.rolbel.mp.bean.device.result.*;
 
 public class WxMpDeviceServiceImpl implements WxMpDeviceService {
     private static final String API_URL_PREFIX = "https://api.weixin.qq.com/device";

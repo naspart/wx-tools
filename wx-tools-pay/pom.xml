@@ -5,12 +5,12 @@
     <parent>
         <artifactId>wx-tools</artifactId>
         <groupId>com.rolbel</groupId>
-        <version>0.0.3</version>
+        <version>0.0.4</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>wx-tools-pay</artifactId>
-    <version>0.0.3</version>
+    <version>0.0.4</version>
     <packaging>jar</packaging>
 
     <name>Wx Tools - Pay</name>
@@ -21,7 +21,7 @@
         <dependency>
             <groupId>com.rolbel</groupId>
             <artifactId>wx-tools-common</artifactId>
-            <version>0.0.3</version>
+            <version>0.0.4</version>
             <scope>compile</scope>
         </dependency>
 

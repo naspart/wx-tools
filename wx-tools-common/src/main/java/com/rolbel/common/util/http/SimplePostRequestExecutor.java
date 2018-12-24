@@ -1,8 +1,11 @@
 package com.rolbel.common.util.http;
 
+import com.rolbel.common.error.WxErrorException;
 import com.rolbel.common.util.http.apache.ApacheHttpClientSimplePostRequestExecutor;
 import com.rolbel.common.util.http.jodd.JoddHttpSimplePostRequestExecutor;
 import com.rolbel.common.util.http.okhttp.OkHttpSimplePostRequestExecutor;
+
+import java.io.IOException;
 
 /**
  * 用装饰模式实现
@@ -13,6 +16,11 @@ public abstract class SimplePostRequestExecutor<H, P> implements RequestExecutor
 
     public SimplePostRequestExecutor(RequestHttp<H, P> requestHttp) {
         this.requestHttp = requestHttp;
+    }
+
+    @Override
+    public void execute(String uri, String data, ResponseHandler<String> handler) throws WxErrorException, IOException {
+        handler.handle(this.execute(uri, data));
     }
 
     @SuppressWarnings("unchecked")

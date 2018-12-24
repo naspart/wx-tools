@@ -1,8 +1,8 @@
 package com.rolbel.pay.bean.notify;
 
+import com.rolbel.common.util.json.WxGsonBuilder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import com.rolbel.common.util.ToStringUtils;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -30,6 +30,6 @@ public class WxPayOrderNotifyCoupon implements Serializable {
 
     @Override
     public String toString() {
-        return ToStringUtils.toSimpleString(this);
+        return WxGsonBuilder.create().toJson(this);
     }
 }

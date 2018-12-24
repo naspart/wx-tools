@@ -1,7 +1,7 @@
 package com.rolbel.mp.api;
 
 import com.rolbel.common.error.WxErrorException;
-import com.rolbel.mp.AiLangType;
+import com.rolbel.mp.enums.AiLangType;
 
 import java.io.File;
 

@@ -1,7 +1,6 @@
 package com.rolbel.mp.bean.template;
 
 
-import com.rolbel.common.util.ToStringUtils;
 import com.rolbel.mp.util.json.WxMpGsonBuilder;
 import lombok.Data;
 
@@ -28,7 +27,7 @@ public class WxMpTemplateIndustry implements Serializable {
 
     @Override
     public String toString() {
-        return ToStringUtils.toSimpleString(this);
+        return this.toJson();
     }
 
     public String toJson() {
@@ -61,7 +60,7 @@ public class WxMpTemplateIndustry implements Serializable {
 
         @Override
         public String toString() {
-            return ToStringUtils.toSimpleString(this);
+            return WxMpGsonBuilder.create().toJson(this);
         }
     }
 }

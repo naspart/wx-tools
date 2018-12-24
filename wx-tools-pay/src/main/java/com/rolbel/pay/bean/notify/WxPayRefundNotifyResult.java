@@ -1,6 +1,9 @@
 package com.rolbel.pay.bean.notify;
 
+import com.rolbel.common.util.json.WxGsonBuilder;
+import com.rolbel.common.util.xml.XStreamInitializer;
 import com.rolbel.pay.bean.result.BaseWxPayResult;
+import com.rolbel.pay.constant.WxPayConstants;
 import com.rolbel.pay.exception.WxPayException;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
@@ -8,15 +11,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import com.rolbel.common.util.ToStringUtils;
-import com.rolbel.common.util.xml.XStreamInitializer;
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.codec.digest.DigestUtils;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.Serializable;
-import java.math.BigInteger;
-import java.security.MessageDigest;
+import java.nio.charset.StandardCharsets;
 
 /**
  * <pre>
@@ -39,16 +40,19 @@ public class WxPayRefundNotifyResult extends BaseWxPayResult implements Serializ
      */
     public static WxPayRefundNotifyResult fromXML(String xmlString, String mchKey) throws WxPayException {
         WxPayRefundNotifyResult result = BaseWxPayResult.fromXML(xmlString, WxPayRefundNotifyResult.class);
+        if (WxPayConstants.ResultCode.FAIL.equals(result.getReturnCode())) {
+            return result;
+        }
+
         String reqInfoString = result.getReqInfoString();
         try {
-            Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
+            final String keyMd5String = DigestUtils.md5Hex(mchKey).toLowerCase();
+            SecretKeySpec key = new SecretKeySpec(keyMd5String.getBytes(StandardCharsets.UTF_8), "AES");
 
-            final MessageDigest md5 = MessageDigest.getInstance("MD5");
-            md5.update(mchKey.getBytes());
-            final String keyMd5String = new BigInteger(1, md5.digest()).toString(16).toLowerCase();
-            SecretKeySpec key = new SecretKeySpec(keyMd5String.getBytes(), "AES");
+            Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
             cipher.init(Cipher.DECRYPT_MODE, key);
-            result.setReqInfo(ReqInfo.fromXML(new String(cipher.doFinal(Base64.decodeBase64(reqInfoString)))));
+
+            result.setReqInfo(ReqInfo.fromXML(new String(cipher.doFinal(Base64.decodeBase64(reqInfoString)), StandardCharsets.UTF_8)));
         } catch (Exception e) {
             throw new WxPayException("解密退款通知加密信息时出错", e);
         }
@@ -79,7 +83,7 @@ public class WxPayRefundNotifyResult extends BaseWxPayResult implements Serializ
     public static class ReqInfo {
         @Override
         public String toString() {
-            return ToStringUtils.toSimpleString(this);
+            return WxGsonBuilder.create().toJson(this);
         }
 
         /**
@@ -250,6 +254,12 @@ public class WxPayRefundNotifyResult extends BaseWxPayResult implements Serializ
         @XStreamAlias("refund_request_source")
         private String refundRequestSource;
 
+        /**
+         * 从xml字符串构造ReqInfo对象.
+         *
+         * @param xmlString xml字符串
+         * @return ReqInfo对象
+         */
         public static ReqInfo fromXML(String xmlString) {
             XStream xstream = XStreamInitializer.getInstance();
             xstream.processAnnotations(ReqInfo.class);

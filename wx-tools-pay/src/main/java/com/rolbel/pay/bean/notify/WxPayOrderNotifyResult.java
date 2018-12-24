@@ -1,9 +1,12 @@
 package com.rolbel.pay.bean.notify;
 
-import com.rolbel.common.util.ToStringUtils;
+import com.rolbel.common.util.json.WxGsonBuilder;
 import com.rolbel.common.util.xml.XStreamInitializer;
+import com.rolbel.pay.api.WxPayService;
 import com.rolbel.pay.bean.result.BaseWxPayResult;
+import com.rolbel.pay.constant.WxPayConstants;
 import com.rolbel.pay.converter.WxPayOrderNotifyResultConverter;
+import com.rolbel.pay.exception.WxPayException;
 import com.rolbel.pay.util.SignUtils;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
@@ -23,7 +26,7 @@ import java.util.Map;
 @XStreamAlias("xml")
 public class WxPayOrderNotifyResult extends BaseWxPayResult {
     private static final long serialVersionUID = 2496745301883408944L;
-    
+
     /**
      * <pre>
      * 字段名：营销详情.
@@ -280,6 +283,16 @@ public class WxPayOrderNotifyResult extends BaseWxPayResult {
     @XStreamAlias("version")
     private String version;
 
+    @Override
+    public void checkResult(WxPayService wxPayService, String signType, boolean checkSuccess) throws WxPayException {
+        //防止伪造成功通知
+        if (WxPayConstants.ResultCode.SUCCESS.equals(getReturnCode()) && getSign() == null) {
+            throw new WxPayException("伪造的通知！");
+        }
+
+        super.checkResult(wxPayService, signType, checkSuccess);
+    }
+
     public static WxPayOrderNotifyResult fromXML(String xmlString) {
         XStream xstream = XStreamInitializer.getInstance();
         xstream.processAnnotations(WxPayOrderNotifyResult.class);
@@ -305,6 +318,6 @@ public class WxPayOrderNotifyResult extends BaseWxPayResult {
 
     @Override
     public String toString() {
-        return ToStringUtils.toSimpleString(this);
+        return WxGsonBuilder.create().toJson(this);
     }
 }

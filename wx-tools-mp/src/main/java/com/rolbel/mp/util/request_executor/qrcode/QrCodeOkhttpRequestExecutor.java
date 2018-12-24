@@ -3,7 +3,7 @@ package com.rolbel.mp.util.request_executor.qrcode;
 import com.rolbel.common.WxType;
 import com.rolbel.common.error.WxError;
 import com.rolbel.common.error.WxErrorException;
-import com.rolbel.common.util.fs.FileUtil;
+import com.rolbel.common.util.fs.FileUtils;
 import com.rolbel.common.util.http.RequestHttp;
 import com.rolbel.common.util.http.okhttp.OkHttpProxyInfo;
 import com.rolbel.mp.bean.WxMpQrCodeTicket;
@@ -49,7 +49,7 @@ public class QrCodeOkhttpRequestExecutor extends QrCodeRequestExecutor<OkHttpCli
         }
 
         try (InputStream inputStream = response.body().byteStream()) {
-            return FileUtil.createTmpFile(inputStream, UUID.randomUUID().toString(), "jpg");
+            return FileUtils.createTmpFile(inputStream, UUID.randomUUID().toString(), "jpg");
         }
     }
 }

@@ -44,7 +44,7 @@ public class WxMpTemplateMsgServiceImpl implements WxMpTemplateMsgService {
     public WxMpTemplateSendMsgResult sendTemplateMsg(WxMpTemplateMessage templateMessage) throws WxErrorException {
         String responseContent = this.wxMpService.post(SEND_TEMPLATE_MSG_URL, templateMessage.toJson());
 
-        return WxMpGsonBuilder.INSTANCE.create().fromJson(
+        return WxMpGsonBuilder.create().fromJson(
                 new JsonParser().parse(responseContent),
                 new TypeToken<WxMpTemplateSendMsgResult>() {
                 }.getType());
@@ -57,7 +57,7 @@ public class WxMpTemplateMsgServiceImpl implements WxMpTemplateMsgService {
 
         String responseContent = this.wxMpService.post(ADD_TEMPLATE_URL, jsonObject.toString());
 
-        return WxMpGsonBuilder.INSTANCE.create().fromJson(
+        return WxMpGsonBuilder.create().fromJson(
                 new JsonParser().parse(responseContent),
                 new TypeToken<WxMpTemplateAddResult>() {
                 }.getType());

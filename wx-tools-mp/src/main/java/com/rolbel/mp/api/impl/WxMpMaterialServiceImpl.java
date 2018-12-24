@@ -4,7 +4,7 @@ import com.rolbel.common.api.WxConstant;
 import com.rolbel.common.bean.result.WxMediaUploadResult;
 import com.rolbel.common.error.WxError;
 import com.rolbel.common.error.WxErrorException;
-import com.rolbel.common.util.fs.FileUtil;
+import com.rolbel.common.util.fs.FileUtils;
 import com.rolbel.common.util.http.BaseMediaDownloadRequestExecutor;
 import com.rolbel.common.util.http.MediaUploadRequestExecutor;
 import com.rolbel.common.util.json.WxGsonBuilder;
@@ -34,7 +34,7 @@ public class WxMpMaterialServiceImpl implements WxMpMaterialService {
     public WxMediaUploadResult mediaUpload(String mediaType, String fileType, InputStream inputStream) throws WxErrorException {
         File tmpFile = null;
         try {
-            tmpFile = FileUtil.createTmpFile(inputStream, UUID.randomUUID().toString(), fileType);
+            tmpFile = FileUtils.createTmpFile(inputStream, UUID.randomUUID().toString(), fileType);
             return this.mediaUpload(mediaType, tmpFile);
         } catch (IOException e) {
             throw new WxErrorException(WxError.builder().errorCode(-1).errorMsg(e.getMessage()).build(), e);

@@ -1,15 +1,14 @@
 package com.rolbel.ma.bean;
 
+import com.google.gson.annotations.SerializedName;
+import com.rolbel.common.util.xml.XStreamCDataConverter;
 import com.rolbel.ma.config.WxMaConfig;
 import com.rolbel.ma.util.crypt.WxMaCryptUtils;
 import com.rolbel.ma.util.json.WxMaGsonBuilder;
 import com.rolbel.ma.util.xml.XStreamTransformer;
-import com.google.gson.annotations.SerializedName;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
 import lombok.Data;
-import com.rolbel.common.util.ToStringUtils;
-import com.rolbel.common.util.xml.XStreamCDataConverter;
 import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
@@ -140,7 +139,7 @@ public class WxMaMessage implements Serializable {
 
     @Override
     public String toString() {
-        return ToStringUtils.toSimpleString(this);
+        return this.toJson();
     }
 
     public String toJson() {

@@ -1,6 +1,6 @@
 package com.rolbel.pay.bean.pappay.result;
 
-import com.rolbel.common.util.ToStringUtils;
+import com.rolbel.common.util.json.WxGsonBuilder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -35,6 +35,6 @@ public class PapPayOrderNotifyCoupon implements Serializable {
 
     @Override
     public String toString() {
-        return ToStringUtils.toSimpleString(this);
+        return WxGsonBuilder.create().toJson(this);
     }
 }

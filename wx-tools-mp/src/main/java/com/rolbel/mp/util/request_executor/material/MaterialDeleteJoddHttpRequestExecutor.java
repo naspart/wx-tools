@@ -1,14 +1,14 @@
 package com.rolbel.mp.util.request_executor.material;
 
+import com.rolbel.common.WxType;
+import com.rolbel.common.error.WxError;
+import com.rolbel.common.error.WxErrorException;
+import com.rolbel.common.util.http.RequestHttp;
 import jodd.http.HttpConnectionProvider;
 import jodd.http.HttpRequest;
 import jodd.http.HttpResponse;
 import jodd.http.ProxyInfo;
 import jodd.util.StringPool;
-import com.rolbel.common.WxType;
-import com.rolbel.common.error.WxError;
-import com.rolbel.common.error.WxErrorException;
-import com.rolbel.common.util.http.RequestHttp;
 
 import java.io.IOException;
 

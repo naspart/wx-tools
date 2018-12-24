@@ -1,8 +1,10 @@
 package com.rolbel.mp.api;
 
 import com.rolbel.common.bean.WxAccessToken;
-import com.rolbel.common.util.ToStringUtils;
 import com.rolbel.common.util.http.apache.ApacheHttpClientBuilder;
+import com.rolbel.mp.enums.TicketType;
+import com.rolbel.mp.util.json.WxMpGsonBuilder;
+import lombok.Data;
 
 import java.io.File;
 import java.util.concurrent.locks.Lock;
@@ -11,31 +13,36 @@ import java.util.concurrent.locks.ReentrantLock;
 /**
  * 基于内存的微信配置provider，在实际生产环境中应该将这些配置持久化
  */
+@Data
 public class WxMpInMemoryConfigStorage implements WxMpConfigStorage {
-    private volatile String appId;
-    private volatile String secret;
-    private volatile String token;
-    private volatile String templateId;
-    private volatile String accessToken;
-    private volatile String aesKey;
-    private volatile long expiresTime;
+    protected volatile String appId;
+    protected volatile String secret;
+    protected volatile String token;
+    protected volatile String templateId;
+    protected volatile String accessToken;
+    protected volatile String aesKey;
+    protected volatile long expiresTime;
 
-    private volatile String oauth2redirectUri;
+    protected volatile String oauth2redirectUri;
 
-    private volatile String httpProxyHost;
-    private volatile int httpProxyPort;
-    private volatile String httpProxyUsername;
-    private volatile String httpProxyPassword;
+    protected volatile String httpProxyHost;
+    protected volatile int httpProxyPort;
+    protected volatile String httpProxyUsername;
+    protected volatile String httpProxyPassword;
 
-    private volatile String jsapiTicket;
-    private volatile long jsapiTicketExpiresTime;
+    protected volatile String jsapiTicket;
+    protected volatile long jsapiTicketExpiresTime;
 
-    private volatile String cardApiTicket;
-    private volatile long cardApiTicketExpiresTime;
+    protected volatile String sdkTicket;
+    protected volatile long sdkTicketExpiresTime;
 
-    private Lock accessTokenLock = new ReentrantLock();
-    private Lock jsapiTicketLock = new ReentrantLock();
-    private Lock cardApiTicketLock = new ReentrantLock();
+    protected volatile String cardApiTicket;
+    protected volatile long cardApiTicketExpiresTime;
+
+    protected Lock accessTokenLock = new ReentrantLock();
+    protected Lock jsapiTicketLock = new ReentrantLock();
+    protected Lock sdkTicketLock = new ReentrantLock();
+    protected Lock cardApiTicketLock = new ReentrantLock();
 
     /**
      * 临时文件目录
@@ -80,211 +87,107 @@ public class WxMpInMemoryConfigStorage implements WxMpConfigStorage {
     }
 
     @Override
-    public String getJsapiTicket() {
-        return this.jsapiTicket;
+    public String getTicket(TicketType type) {
+        switch (type) {
+            case SDK:
+                return this.sdkTicket;
+            case JSAPI:
+                return this.jsapiTicket;
+            case WX_CARD:
+                return this.cardApiTicket;
+            default:
+                return null;
+        }
     }
 
-    public void setJsapiTicket(String jsapiTicket) {
-        this.jsapiTicket = jsapiTicket;
-    }
-
-    @Override
-    public Lock getJsapiTicketLock() {
-        return this.jsapiTicketLock;
-    }
-
-    @Override
-    public boolean isJsapiTicketExpired() {
-        return System.currentTimeMillis() > this.jsapiTicketExpiresTime;
-    }
-
-    @Override
-    public synchronized void updateJsapiTicket(String jsapiTicket, int expiresInSeconds) {
-        this.jsapiTicket = jsapiTicket;
-        // 预留200秒的时间
-        this.jsapiTicketExpiresTime = System.currentTimeMillis() + (expiresInSeconds - 200) * 1000L;
-    }
-
-    @Override
-    public void expireJsapiTicket() {
-        this.jsapiTicketExpiresTime = 0;
-    }
-
-    /**
-     * 卡券api_ticket
-     */
-    @Override
-    public String getCardApiTicket() {
-        return this.cardApiTicket;
-    }
-
-    public void setCardApiTicket(String cardApiTicket) {
-        this.cardApiTicket = cardApiTicket;
+    public void setTicket(TicketType type, String ticket) {
+        switch (type) {
+            case JSAPI:
+                this.jsapiTicket = ticket;
+                break;
+            case WX_CARD:
+                this.cardApiTicket = ticket;
+                break;
+            case SDK:
+                this.sdkTicket = ticket;
+                break;
+            default:
+        }
     }
 
     @Override
-    public Lock getCardApiTicketLock() {
-        return this.cardApiTicketLock;
+    public Lock getTicketLock(TicketType type) {
+        switch (type) {
+            case SDK:
+                return this.sdkTicketLock;
+            case JSAPI:
+                return this.jsapiTicketLock;
+            case WX_CARD:
+                return this.cardApiTicketLock;
+            default:
+                return null;
+        }
     }
 
     @Override
-    public boolean isCardApiTicketExpired() {
-        return System.currentTimeMillis() > this.cardApiTicketExpiresTime;
+    public boolean isTicketExpired(TicketType type) {
+        switch (type) {
+            case SDK:
+                return System.currentTimeMillis() > this.sdkTicketExpiresTime;
+            case JSAPI:
+                return System.currentTimeMillis() > this.jsapiTicketExpiresTime;
+            case WX_CARD:
+                return System.currentTimeMillis() > this.cardApiTicketExpiresTime;
+            default:
+                return false;
+        }
     }
 
     @Override
-    public synchronized void updateCardApiTicket(String cardApiTicket, int expiresInSeconds) {
-        this.cardApiTicket = cardApiTicket;
-        // 预留200秒的时间
-        this.cardApiTicketExpiresTime = System.currentTimeMillis() + (expiresInSeconds - 200) * 1000L;
+    public synchronized void updateTicket(TicketType type, String ticket, int expiresInSeconds) {
+        switch (type) {
+            case JSAPI:
+                this.jsapiTicket = ticket;
+                // 预留200秒的时间
+                this.jsapiTicketExpiresTime = System.currentTimeMillis() + (expiresInSeconds - 200) * 1000L;
+                break;
+            case WX_CARD:
+                this.cardApiTicket = ticket;
+                // 预留200秒的时间
+                this.cardApiTicketExpiresTime = System.currentTimeMillis() + (expiresInSeconds - 200) * 1000L;
+                break;
+            case SDK:
+                this.sdkTicket = ticket;
+                // 预留200秒的时间
+                this.sdkTicketExpiresTime = System.currentTimeMillis() + (expiresInSeconds - 200) * 1000L;
+                break;
+            default:
+        }
     }
 
     @Override
-    public void expireCardApiTicket() {
-        this.cardApiTicketExpiresTime = 0;
-    }
-
-    @Override
-    public String getAppId() {
-        return this.appId;
-    }
-
-    public void setAppId(String appId) {
-        this.appId = appId;
-    }
-
-    @Override
-    public String getSecret() {
-        return this.secret;
-    }
-
-    public void setSecret(String secret) {
-        this.secret = secret;
-    }
-
-    @Override
-    public String getToken() {
-        return this.token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-
-    @Override
-    public String getTemplateId() {
-        return this.templateId;
-    }
-
-    public void setTemplateId(String templateId) {
-        this.templateId = templateId;
-    }
-
-    @Override
-    public long getExpiresTime() {
-        return this.expiresTime;
-    }
-
-    public void setExpiresTime(long expiresTime) {
-        this.expiresTime = expiresTime;
-    }
-
-    @Override
-    public String getAesKey() {
-        return this.aesKey;
-    }
-
-    public void setAesKey(String aesKey) {
-        this.aesKey = aesKey;
-    }
-
-    @Override
-    public String getOauth2redirectUri() {
-        return this.oauth2redirectUri;
-    }
-
-    public void setOauth2redirectUri(String oauth2redirectUri) {
-        this.oauth2redirectUri = oauth2redirectUri;
-    }
-
-    @Override
-    public String getHttpProxyHost() {
-        return this.httpProxyHost;
-    }
-
-    public void setHttpProxyHost(String httpProxyHost) {
-        this.httpProxyHost = httpProxyHost;
-    }
-
-    @Override
-    public int getHttpProxyPort() {
-        return this.httpProxyPort;
-    }
-
-    public void setHttpProxyPort(int httpProxyPort) {
-        this.httpProxyPort = httpProxyPort;
-    }
-
-    @Override
-    public String getHttpProxyUsername() {
-        return this.httpProxyUsername;
-    }
-
-    public void setHttpProxyUsername(String httpProxyUsername) {
-        this.httpProxyUsername = httpProxyUsername;
-    }
-
-    @Override
-    public String getHttpProxyPassword() {
-        return this.httpProxyPassword;
-    }
-
-    public void setHttpProxyPassword(String httpProxyPassword) {
-        this.httpProxyPassword = httpProxyPassword;
+    public void expireTicket(TicketType type) {
+        switch (type) {
+            case JSAPI:
+                this.jsapiTicketExpiresTime = 0;
+                break;
+            case WX_CARD:
+                this.cardApiTicketExpiresTime = 0;
+                break;
+            case SDK:
+                this.sdkTicketExpiresTime = 0;
+                break;
+            default:
+        }
     }
 
     @Override
     public String toString() {
-        return ToStringUtils.toSimpleString(this);
-    }
-
-    @Override
-    public File getTmpDirFile() {
-        return this.tmpDirFile;
-    }
-
-    public void setTmpDirFile(File tmpDirFile) {
-        this.tmpDirFile = tmpDirFile;
-    }
-
-    @Override
-    public ApacheHttpClientBuilder getApacheHttpClientBuilder() {
-        return this.apacheHttpClientBuilder;
-    }
-
-    public void setApacheHttpClientBuilder(ApacheHttpClientBuilder apacheHttpClientBuilder) {
-        this.apacheHttpClientBuilder = apacheHttpClientBuilder;
-    }
-
-    public long getJsapiTicketExpiresTime() {
-        return this.jsapiTicketExpiresTime;
-    }
-
-    public void setJsapiTicketExpiresTime(long jsapiTicketExpiresTime) {
-        this.jsapiTicketExpiresTime = jsapiTicketExpiresTime;
-    }
-
-    public long getCardApiTicketExpiresTime() {
-        return this.cardApiTicketExpiresTime;
-    }
-
-    public void setCardApiTicketExpiresTime(long cardApiTicketExpiresTime) {
-        this.cardApiTicketExpiresTime = cardApiTicketExpiresTime;
+        return WxMpGsonBuilder.create().toJson(this);
     }
 
     @Override
     public boolean autoRefreshToken() {
         return true;
     }
-
 }

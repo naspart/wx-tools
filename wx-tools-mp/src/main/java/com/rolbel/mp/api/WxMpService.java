@@ -10,6 +10,7 @@ import com.rolbel.mp.bean.WxMpOAuth2AccessToken;
 import com.rolbel.mp.bean.WxMpSemanticQuery;
 import com.rolbel.mp.bean.WxMpSemanticQueryResult;
 import com.rolbel.mp.bean.user.WxMpUser;
+import com.rolbel.mp.enums.TicketType;
 
 /**
  * 微信API的Service
@@ -20,9 +21,9 @@ public interface WxMpService {
      */
     String GET_ACCESS_TOKEN_URL = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s";
     /**
-     * 获得jsapi_ticket
+     * 获得各种类型的ticket.
      */
-    String GET_JSAPI_TICKET_URL = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?type=jsapi";
+    String GET_TICKET_URL = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?type=";
     /**
      * 长链接转短链接接口
      */
@@ -100,6 +101,23 @@ public interface WxMpService {
      * @param forceRefresh 强制刷新
      */
     String getAccessToken(boolean forceRefresh) throws WxErrorException;
+
+    /**
+     * 获得ticket,不强制刷新ticket.
+     *
+     * @see #getTicket(TicketType, boolean)
+     */
+    String getTicket(TicketType type) throws WxErrorException;
+
+    /**
+     * <pre>
+     * 获得ticket.
+     * 获得时会检查 Token是否过期，如果过期了，那么就刷新一下，否则就什么都不干
+     * </pre>
+     *
+     * @param forceRefresh 强制刷新
+     */
+    String getTicket(TicketType type, boolean forceRefresh) throws WxErrorException;
 
     /**
      * 获得jsapi_ticket,不强制刷新jsapi_ticket

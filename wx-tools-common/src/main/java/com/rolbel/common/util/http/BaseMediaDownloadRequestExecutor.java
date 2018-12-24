@@ -1,10 +1,12 @@
 package com.rolbel.common.util.http;
 
+import com.rolbel.common.error.WxErrorException;
 import com.rolbel.common.util.http.apache.ApacheMediaDownloadRequestExecutor;
 import com.rolbel.common.util.http.jodd.JoddHttpMediaDownloadRequestExecutor;
 import com.rolbel.common.util.http.okhttp.OkHttpMediaDownloadRequestExecutor;
 
 import java.io.File;
+import java.io.IOException;
 
 /**
  * 下载媒体文件请求执行器，请求的参数是String, 返回的结果是File
@@ -17,6 +19,11 @@ public abstract class BaseMediaDownloadRequestExecutor<H, P> implements RequestE
     public BaseMediaDownloadRequestExecutor(RequestHttp<H, P> requestHttp, File tmpDirFile) {
         this.requestHttp = requestHttp;
         this.tmpDirFile = tmpDirFile;
+    }
+
+    @Override
+    public void execute(String uri, String data, ResponseHandler<File> handler) throws WxErrorException, IOException {
+        handler.handle(this.execute(uri, data));
     }
 
     @SuppressWarnings("unchecked")

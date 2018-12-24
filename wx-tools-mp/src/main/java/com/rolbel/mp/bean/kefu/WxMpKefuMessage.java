@@ -113,12 +113,12 @@ public class WxMpKefuMessage implements Serializable {
     }
 
     public String toJson() {
-        return WxMpGsonBuilder.INSTANCE.create().toJson(this);
+        return WxMpGsonBuilder.create().toJson(this);
     }
 
     @Data
     public static class WxArticle implements Serializable {
-        private static final long serialVersionUID = 5145137235440507379L;
+        private static final long serialVersionUID = -5204110964179469159L;
 
         private String title;
         private String description;

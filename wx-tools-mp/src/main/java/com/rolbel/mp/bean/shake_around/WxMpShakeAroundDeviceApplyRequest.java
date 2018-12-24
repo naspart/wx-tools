@@ -23,6 +23,6 @@ public class WxMpShakeAroundDeviceApplyRequest implements Serializable {
     private Long poiId;
 
     public String toJson() {
-        return WxMpGsonBuilder.INSTANCE.create().toJson(this);
+        return WxMpGsonBuilder.create().toJson(this);
     }
 }

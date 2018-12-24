@@ -2,7 +2,7 @@ package com.rolbel.pay.bean.request;
 
 import com.rolbel.common.error.WxErrorException;
 import com.rolbel.common.util.BeanUtils;
-import com.rolbel.common.util.ToStringUtils;
+import com.rolbel.common.util.json.WxGsonBuilder;
 import com.rolbel.common.util.xml.XStreamInitializer;
 import com.rolbel.pay.config.WxPayConfig;
 import com.rolbel.pay.exception.WxPayException;
@@ -168,7 +168,7 @@ public abstract class BaseWxPayRequest implements Serializable {
 
     @Override
     public String toString() {
-        return ToStringUtils.toSimpleString(this);
+        return WxGsonBuilder.create().toJson(this);
     }
 
     public String toXML() {

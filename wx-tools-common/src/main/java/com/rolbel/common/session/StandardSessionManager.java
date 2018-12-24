@@ -156,7 +156,6 @@ public class StandardSessionManager implements WxSessionManager, InternalSession
         this.sessionCounter++;
 
         return (session);
-
     }
 
 
@@ -193,6 +192,7 @@ public class StandardSessionManager implements WxSessionManager, InternalSession
                             Thread.sleep(StandardSessionManager.this.backgroundProcessorDelay * 1000L);
                             backgroundProcess();
                         } catch (InterruptedException e) {
+                            Thread.currentThread().interrupt();
                             StandardSessionManager.this.log.error("SessionManagerImpl.backgroundProcess error", e);
                         }
                     }

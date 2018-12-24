@@ -11,9 +11,11 @@ import lombok.Data;
 
 import java.io.Serializable;
 
-@XStreamAlias("xml")
 @Data
+@XStreamAlias("xml")
 public abstract class WxMpXmlOutMessage implements Serializable {
+    private static final long serialVersionUID = 3748241701525131054L;
+
     @XStreamAlias("ToUserName")
     @XStreamConverter(value = XStreamCDataConverter.class)
     protected String toUserName;

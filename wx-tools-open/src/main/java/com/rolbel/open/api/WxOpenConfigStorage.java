@@ -1,5 +1,6 @@
 package com.rolbel.open.api;
 
+import com.rolbel.common.util.http.apache.ApacheHttpClientBuilder;
 import com.rolbel.ma.config.WxMaConfig;
 import com.rolbel.mp.api.WxMpConfigStorage;
 import com.rolbel.open.bean.WxOpenAuthorizerAccessToken;
@@ -46,6 +47,8 @@ public interface WxOpenConfigStorage {
     String getHttpProxyUsername();
 
     String getHttpProxyPassword();
+
+    ApacheHttpClientBuilder getApacheHttpClientBuilder();
 
     WxMpConfigStorage getWxMpConfigStorage(String appId);
 

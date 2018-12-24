@@ -2,106 +2,33 @@ package com.rolbel.mp.api;
 
 import com.rolbel.common.bean.WxCardApiSignature;
 import com.rolbel.common.error.WxErrorException;
-import com.rolbel.mp.bean.card.request.WxMpCard;
-import com.rolbel.mp.bean.card.request.WxMpCardCreateLandingPage;
-import com.rolbel.mp.bean.card.request.WxMpCardImportCardCode;
-import com.rolbel.mp.bean.card.result.*;
+import com.rolbel.mp.bean.card.WxMpCardLandingPageCreateRequest;
+import com.rolbel.mp.bean.card.WxMpCardLandingPageCreateResult;
+import com.rolbel.mp.bean.card.WxMpCardQrcodeCreateResult;
+import com.rolbel.mp.bean.card.WxMpCardResult;
 
 /**
  * 卡券相关接口
  */
 public interface WxMpCardService {
-    String CARD_CREATE_URL = "https://api.weixin.qq.com/card/create";
-    String CARD_PAYCELL_SET_URL = "https://api.weixin.qq.com/card/paycell/set";
-    String CARD_SELF_CONSUME_CELL_SET_URL = "https://api.weixin.qq.com/card/selfconsumecell/set";
-    String CARD_QRCODE_CREATE_URL = "https://api.weixin.qq.com/card/qrcode/create";
-    String CARD_LANDING_PAGE_CREATE_URL = "https://api.weixin.qq.com/card/landingpage/create";
-    String CARD_MP_NEWS_DISTRIBUTE_URL = "https://api.weixin.qq.com/card/mpnews/gethtml";
-    String CARD_GET_DETAIL_URL = "https://api.weixin.qq.com/card/get";
-    String CARD_GET_TICKET_URL = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?type=card";
-    String CARD_GET_USER_CARD_LIST_URL = "https://api.weixin.qq.com/card/user/getcardlist";
+    String CARD_GET = "https://api.weixin.qq.com/card/get";
+    String CARD_GET_TICKET = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?type=wx_card";
+    String CARD_CODE_DECRYPT = "https://api.weixin.qq.com/card/code/decrypt";
+    String CARD_CODE_GET = "https://api.weixin.qq.com/card/code/get";
+    String CARD_CODE_CONSUME = "https://api.weixin.qq.com/card/code/consume";
+    String CARD_CODE_MARK = "https://api.weixin.qq.com/card/code/mark";
     String CARD_TEST_WHITELIST = "https://api.weixin.qq.com/card/testwhitelist/set";
-
-    String CARD_CODE_DEPOSIT_URL = "http://api.weixin.qq.com/card/code/deposit";
-    String CARD_CODE_GET_DEPOSIT_COUNT_URL = "http://api.weixin.qq.com/card/code/getdepositcount";
-    String CARD_CODE_CHECK_URL = "http://api.weixin.qq.com/card/code/checkcode";
-    String CARD_CODE_DECRYPT_URL = "https://api.weixin.qq.com/card/code/decrypt";
-    String CARD_CODE_GET_URL = "https://api.weixin.qq.com/card/code/get";
-    String CARD_CODE_CONSUME_URL = "https://api.weixin.qq.com/card/code/consume";
-    String CARD_CODE_MARK_URL = "https://api.weixin.qq.com/card/code/mark";
+    String CARD_QRCODE_CREATE = "https://api.weixin.qq.com/card/qrcode/create";
+    String CARD_LANDING_PAGE_CREATE = "https://api.weixin.qq.com/card/landingpage/create";
+    /**
+     * 将用户的卡券设置为失效状态
+     */
+    String CARD_CODE_UNAVAILABLE = "https://api.weixin.qq.com/card/code/unavailable";
 
     /**
      * 得到WxMpService
      */
     WxMpService getWxMpService();
-
-    /**
-     * <pre>
-     *     创建卡券
-     *
-     *     详情请见：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1451025056
-     * </pre>
-     *
-     * @param request 卡券详情
-     * @return 卡券card_id
-     * @throws WxErrorException
-     */
-    WxMpCardCreateCardResult createCard(WxMpCard request) throws WxErrorException;
-
-    /**
-     * <pre>
-     *     设置买单
-     *
-     *     创建卡券之后，开发者可以通过设置微信买单接口设置该card_id支持微信买单功能。值得开发者注意的是，设置买单的card_id必须已经配置了门店，否则会报错。
-     *
-     *     注意事项：
-     *     1.设置快速买单的卡券须支持至少一家有核销员门店，否则无法设置成功；
-     *     2.若该卡券设置了center_url（居中使用跳转链接）,须先将该设置更新为空后再设置自快速买单方可生效。
-     *
-     *     详情请见：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1451025056
-     * </pre>
-     *
-     * @param cardId 卡券card_id
-     * @param isOpen 是否开启买单功能
-     * @throws WxErrorException
-     */
-    void setPayCell(String cardId, boolean isOpen) throws WxErrorException;
-
-    /**
-     * <pre>
-     *     设置自助核销
-     *
-     *     创建卡券之后，开发者可以通过设置微信买单接口设置该card_id支持自助核销功能。值得开发者注意的是，设置自助核销的card_id必须已经配置了门店，否则会报错。
-     *
-     *     注意事项：
-     *     1.设置自助核销的卡券须支持至少一家门店，否则无法设置成功；
-     *     2.若该卡券设置了center_url（居中使用跳转链接）,须先将该设置更新为空后再设置自助核销功能方可生效。
-     *
-     *     详情请见：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1451025056
-     * </pre>
-     *
-     * @param cardId 卡券card_id
-     * @param isOpen 是否开启买单功能
-     * @throws WxErrorException
-     */
-    void setSelfConsumeCell(String cardId, boolean isOpen, boolean needVerifyCode, boolean needRemarkAmount) throws WxErrorException;
-
-    /**
-     * <pre>
-     *     创建货架接口
-     *
-     *     开发者需调用该接口创建货架链接，用于卡券投放。创建货架时需填写投放路径的场景字段。
-     *
-     *     详情请见：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1451025062
-     * </pre>
-     *
-     * @param request 请求对象
-     * @return 创建货架的结果
-     * @throws WxErrorException
-     */
-    WxMpCardCreateLandingPageResult createCardLandingPage(WxMpCardCreateLandingPage request) throws WxErrorException;
-
-    String wxMpNewsDistributeCard(String cardId) throws WxErrorException;
 
     /**
      * 获得卡券api_ticket，不强制刷新卡券api_ticket
@@ -116,7 +43,7 @@ public interface WxMpCardService {
      * 获得卡券api_ticket
      * 获得时会检查卡券apiToken是否过期，如果过期了，那么就刷新一下，否则就什么都不干
      *
-     * 详情请见：http://mp.weixin.qq.com/wiki/7/aaa137b55fb2e0456bf8dd9148dd613f.html
+     * 详情请见：http://mp.weixin.qq.com/wiki/7/aaa137b55fb2e0456bf8dd9148dd613f.html#.E9.99.84.E5.BD.954-.E5.8D.A1.E5.88.B8.E6.89.A9.E5.B1.95.E5.AD.97.E6.AE.B5.E5.8F.8A.E7.AD.BE.E5.90.8D.E7.94.9F.E6.88.90.E7.AE.97.E6.B3.95
      * </pre>
      *
      * @param forceRefresh 强制刷新
@@ -129,7 +56,9 @@ public interface WxMpCardService {
      * <pre>
      * 创建调用卡券api时所需要的签名
      *
-     * 详情请见：http://mp.weixin.qq.com/wiki/7/aaa137b55fb2e0456bf8dd9148dd613f.html
+     * 详情请见：http://mp.weixin.qq.com/wiki/7/aaa137b55fb2e0456bf8dd9148dd613f.html#.E9.99.84.E5.BD
+     * .954-.E5.8D.A1.E5.88.B8.E6.89.A9.E5.B1.95.E5.AD.97.E6.AE.B5.E5.8F.8A.E7.AD.BE.E5.90.8D.E7.94
+     * .9F.E6.88.90.E7.AE.97.E6.B3.95
      * </pre>
      *
      * @param optionalSignParam 参与签名的参数数组。
@@ -137,23 +66,59 @@ public interface WxMpCardService {
      *                          </br>注意：当做wx.chooseCard调用时，必须传入app_id参与签名，否则会造成签名失败导致拉取卡券列表为空
      * @return 卡券Api签名对象
      */
-    WxCardApiSignature createCardApiSignature(String... optionalSignParam) throws WxErrorException;
+    WxCardApiSignature createCardApiSignature(String... optionalSignParam) throws
+            WxErrorException;
 
+    /**
+     * 卡券Code解码
+     *
+     * @param encryptCode 加密Code，通过JSSDK的chooseCard接口获得
+     * @return 解密后的Code
+     */
     String decryptCardCode(String encryptCode) throws WxErrorException;
 
-    WxMpCardResult queryCardCode(String cardId, String code, boolean checkConsume) throws WxErrorException;
+    /**
+     * 卡券Code查询
+     *
+     * @param cardId       卡券ID代表一类卡券
+     * @param code         单张卡券的唯一标准
+     * @param checkConsume 是否校验code核销状态，填入true和false时的code异常状态返回数据不同
+     * @return WxMpCardResult对象
+     */
+    WxMpCardResult queryCardCode(String cardId, String code, boolean checkConsume)
+            throws WxErrorException;
 
+    /**
+     * 卡券Code核销。核销失败会抛出异常
+     *
+     * @param code 单张卡券的唯一标准
+     * @return 调用返回的JSON字符串。
+     * <br>可用 com.google.gson.JsonParser#parse 等方法直接取JSON串中的errcode等信息。
+     */
     String consumeCardCode(String code) throws WxErrorException;
 
+    /**
+     * 卡券Code核销。核销失败会抛出异常
+     *
+     * @param code   单张卡券的唯一标准
+     * @param cardId 当自定义Code卡券时需要传入card_id
+     * @return 调用返回的JSON字符串。
+     * <br>可用 com.google.gson.JsonParser#parse 等方法直接取JSON串中的errcode等信息。
+     */
     String consumeCardCode(String code, String cardId) throws WxErrorException;
 
-    void importCardCode(WxMpCardImportCardCode request) throws WxErrorException;
-
-    Integer getImportCardCodeCount(String cardId) throws WxErrorException;
-
-    WxMpCardCheckCodeResult checkCode(WxMpCardImportCardCode request) throws WxErrorException;
-
-    void markCardCode(String code, String cardId, String openId, boolean isMark) throws WxErrorException;
+    /**
+     * 卡券Mark接口。
+     * 开发者在帮助消费者核销卡券之前，必须帮助先将此code（卡券串码）与一个openid绑定（即mark住），
+     * 才能进一步调用核销接口，否则报错。
+     *
+     * @param code   卡券的code码
+     * @param cardId 卡券的ID
+     * @param openId 用券用户的openid
+     * @param isMark 是否要mark（占用）这个code，填写true或者false，表示占用或解除占用
+     */
+    void markCardCode(String code, String cardId, String openId, boolean isMark) throws
+            WxErrorException;
 
     /**
      * 查看卡券详情接口
@@ -166,5 +131,51 @@ public interface WxMpCardService {
      */
     String getCardDetail(String cardId) throws WxErrorException;
 
-    WxMpCardGetUserCardResult getUserCardList(String openId, String cardId) throws WxErrorException;
+    /**
+     * 添加测试白名单
+     *
+     * @param openid 用户的openid
+     * @return
+     */
+    String addTestWhiteList(String openid) throws WxErrorException;
+
+    /**
+     * 创建卡券二维码
+     *
+     * @param cardId   卡券编号
+     * @param outerStr 二维码标识
+     * @return WxMpCardQrcodeCreateResult
+     */
+    WxMpCardQrcodeCreateResult createQrcodeCard(String cardId, String outerStr) throws WxErrorException;
+
+    /**
+     * 创建卡券二维码
+     *
+     * @param cardId    卡券编号
+     * @param outerStr  二维码标识
+     * @param expiresIn 失效时间，单位秒，不填默认365天
+     * @return WxMpCardQrcodeCreateResult
+     */
+    WxMpCardQrcodeCreateResult createQrcodeCard(String cardId, String outerStr, int expiresIn) throws WxErrorException;
+
+    /**
+     * 创建卡券货架
+     *
+     * @param createRequest 货架创建参数
+     * @return
+     * @throws WxErrorException
+     */
+    WxMpCardLandingPageCreateResult createLandingPage(WxMpCardLandingPageCreateRequest createRequest) throws WxErrorException;
+
+    /**
+     * 将用户的卡券设置为失效状态
+     * 详见:https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1451025272&anchor=9
+     *
+     * @param cardId 卡券编号
+     * @param code   用户会员卡号
+     * @param reason 设置为失效的原因
+     * @return
+     * @throws WxErrorException
+     */
+    String unavailableCardCode(String cardId, String code, String reason) throws WxErrorException;
 }

@@ -1,14 +1,15 @@
 package com.rolbel.ma.api.impl;
 
-import com.rolbel.ma.api.WxMaMsgService;
-import com.rolbel.ma.api.WxMaService;
-import com.rolbel.ma.bean.WxMaKefuMessage;
-import com.rolbel.ma.bean.WxMaTemplateMessage;
-import com.rolbel.ma.constant.WxMaConstant;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.rolbel.common.error.WxError;
 import com.rolbel.common.error.WxErrorException;
+import com.rolbel.ma.api.WxMaMsgService;
+import com.rolbel.ma.api.WxMaService;
+import com.rolbel.ma.bean.WxMaKefuMessage;
+import com.rolbel.ma.bean.WxMaTemplateMessage;
+import com.rolbel.ma.bean.WxMaUniformMessage;
+import com.rolbel.ma.constant.WxMaConstant;
 
 public class WxMaMsgServiceImpl implements WxMaMsgService {
     private static final JsonParser JSON_PARSER = new JsonParser();
@@ -33,4 +34,12 @@ public class WxMaMsgServiceImpl implements WxMaMsgService {
         }
     }
 
+    @Override
+    public void sendUniformMsg(WxMaUniformMessage uniformMessage) throws WxErrorException {
+        String responseContent = this.wxMaService.post(UNIFORM_MSG_SEND_URL, uniformMessage.toJson());
+        JsonObject jsonObject = JSON_PARSER.parse(responseContent).getAsJsonObject();
+        if (jsonObject.get(WxMaConstant.ERRCODE).getAsInt() != 0) {
+            throw new WxErrorException(WxError.fromJson(responseContent));
+        }
+    }
 }

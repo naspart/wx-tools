@@ -15,7 +15,7 @@ public class WxMpShakeAroundRelationSearchResult implements Serializable {
     private WxMpShakeAcoundRelationSearch data;
 
     public static WxMpShakeAroundRelationSearchResult fromJson(String json) {
-        return WxMpGsonBuilder.INSTANCE.create().fromJson(json, WxMpShakeAroundRelationSearchResult.class);
+        return WxMpGsonBuilder.create().fromJson(json, WxMpShakeAroundRelationSearchResult.class);
     }
 
     @Data

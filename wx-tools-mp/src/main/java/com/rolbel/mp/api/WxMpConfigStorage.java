@@ -2,6 +2,7 @@ package com.rolbel.mp.api;
 
 import com.rolbel.common.bean.WxAccessToken;
 import com.rolbel.common.util.http.apache.ApacheHttpClientBuilder;
+import com.rolbel.mp.enums.TicketType;
 
 import java.io.File;
 import java.util.concurrent.locks.Lock;
@@ -37,43 +38,26 @@ public interface WxMpConfigStorage {
      */
     void updateAccessToken(String accessToken, int expiresInSeconds);
 
-    String getJsapiTicket();
+    String getTicket(TicketType type);
 
-    Lock getJsapiTicketLock();
+    Lock getTicketLock(TicketType type);
 
-    boolean isJsapiTicketExpired();
+    boolean isTicketExpired(TicketType type);
 
     /**
-     * 强制将jsapi ticket过期掉
+     * 强制将ticket过期掉.
      */
-    void expireJsapiTicket();
+    void expireTicket(TicketType type);
 
     /**
+     * 更新ticket.
      * 应该是线程安全的
      *
-     * @param jsapiTicket      新的jsapi ticket值
+     * @param type             ticket类型
+     * @param ticket           新的ticket值
      * @param expiresInSeconds 过期时间，以秒为单位
      */
-    void updateJsapiTicket(String jsapiTicket, int expiresInSeconds);
-
-    String getCardApiTicket();
-
-    Lock getCardApiTicketLock();
-
-    boolean isCardApiTicketExpired();
-
-    /**
-     * 强制将卡券api ticket过期掉
-     */
-    void expireCardApiTicket();
-
-    /**
-     * 应该是线程安全的
-     *
-     * @param cardApiTicket    新的cardApi ticket值
-     * @param expiresInSeconds 过期时间，以秒为单位
-     */
-    void updateCardApiTicket(String cardApiTicket, int expiresInSeconds);
+    void updateTicket(TicketType type, String ticket, int expiresInSeconds);
 
     String getAppId();
 

@@ -4,9 +4,11 @@ import com.rolbel.common.error.WxError;
 import com.rolbel.common.error.WxErrorException;
 import com.rolbel.common.util.http.RequestExecutor;
 import com.rolbel.common.util.http.RequestHttp;
+import com.rolbel.common.util.http.ResponseHandler;
 import com.rolbel.mp.bean.WxMpQrCodeTicket;
 
 import java.io.File;
+import java.io.IOException;
 
 /**
  * 获得QrCode图片 请求执行器
@@ -16,6 +18,11 @@ public abstract class QrCodeRequestExecutor<H, P> implements RequestExecutor<Fil
 
     public QrCodeRequestExecutor(RequestHttp<H, P> requestHttp) {
         this.requestHttp = requestHttp;
+    }
+
+    @Override
+    public void execute(String uri, WxMpQrCodeTicket data, ResponseHandler<File> handler) throws WxErrorException, IOException {
+        handler.handle(this.execute(uri, data));
     }
 
     @SuppressWarnings("unchecked")

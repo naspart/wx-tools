@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import lombok.*;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -32,7 +33,8 @@ public class WxPayOrderQueryResult extends BaseWxPayResult {
     private String promotionDetail;
 
     /**
-     * <pre>设备号
+     * <pre>
+     * 设备号
      * device_info
      * 否
      * String(32)
@@ -261,7 +263,7 @@ public class WxPayOrderQueryResult extends BaseWxPayResult {
     @Data
     @Builder(builderMethodName = "newBuilder")
     @AllArgsConstructor
-    public static class Coupon {
+    public static class Coupon implements Serializable {
         /**
          * <pre>代金券类型
          * coupon_type_$n

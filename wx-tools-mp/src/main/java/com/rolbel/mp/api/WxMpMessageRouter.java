@@ -210,7 +210,10 @@ public class WxMpMessageRouter {
                         this.log.debug("End session access: async=true, sessionId={}", wxMessage.getFromUser());
                         // 异步操作结束，session访问结束
                         sessionEndAccess(wxMessage);
-                    } catch (InterruptedException | ExecutionException e) {
+                    } catch (InterruptedException e) {
+                        WxMpMessageRouter.this.log.error("Error happened when wait task finish", e);
+                        Thread.currentThread().interrupt();
+                    } catch (ExecutionException e) {
                         this.log.error("Error happened when wait task finish", e);
                     }
                 }

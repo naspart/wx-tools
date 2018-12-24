@@ -66,7 +66,7 @@ public interface WxMpDataCubeService {
      * @param beginDate 开始时间
      * @param endDate   最大时间跨度1天，endDate不能早于begingDate
      */
-    List<WxMpMpDataCubeArticleResult> getArticleSummary(Date beginDate, Date endDate) throws WxErrorException;
+    List<WxMpDataCubeArticleResult> getArticleSummary(Date beginDate, Date endDate) throws WxErrorException;
 
     /**
      * <pre>
@@ -77,7 +77,7 @@ public interface WxMpDataCubeService {
      * @param beginDate 开始时间
      * @param endDate   最大时间跨度1天，endDate不能早于begingDate
      */
-    List<WxMpMpDataCubeArticleTotal> getArticleTotal(Date beginDate, Date endDate) throws WxErrorException;
+    List<WxMpDataCubeArticleTotal> getArticleTotal(Date beginDate, Date endDate) throws WxErrorException;
 
     /**
      * <pre>
@@ -88,7 +88,7 @@ public interface WxMpDataCubeService {
      * @param beginDate 开始时间
      * @param endDate   最大时间跨度3天，endDate不能早于begingDate
      */
-    List<WxMpMpDataCubeArticleResult> getUserRead(Date beginDate, Date endDate) throws WxErrorException;
+    List<WxMpDataCubeArticleResult> getUserRead(Date beginDate, Date endDate) throws WxErrorException;
 
     /**
      * <pre>
@@ -99,7 +99,7 @@ public interface WxMpDataCubeService {
      * @param beginDate 开始时间
      * @param endDate   最大时间跨度1天，endDate不能早于begingDate
      */
-    List<WxMpMpDataCubeArticleResult> getUserReadHour(Date beginDate, Date endDate) throws WxErrorException;
+    List<WxMpDataCubeArticleResult> getUserReadHour(Date beginDate, Date endDate) throws WxErrorException;
 
     /**
      * <pre>
@@ -110,7 +110,7 @@ public interface WxMpDataCubeService {
      * @param beginDate 开始时间
      * @param endDate   最大时间跨度7天，endDate不能早于begingDate
      */
-    List<WxMpMpDataCubeArticleResult> getUserShare(Date beginDate, Date endDate) throws WxErrorException;
+    List<WxMpDataCubeArticleResult> getUserShare(Date beginDate, Date endDate) throws WxErrorException;
 
     /**
      * <pre>
@@ -121,7 +121,7 @@ public interface WxMpDataCubeService {
      * @param beginDate 开始时间
      * @param endDate   最大时间跨度1天，endDate不能早于begingDate
      */
-    List<WxMpMpDataCubeArticleResult> getUserShareHour(Date beginDate, Date endDate) throws WxErrorException;
+    List<WxMpDataCubeArticleResult> getUserShareHour(Date beginDate, Date endDate) throws WxErrorException;
 
     //*******************消息分析数据接口***********************//
 

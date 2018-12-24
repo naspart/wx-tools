@@ -3,7 +3,8 @@ package com.rolbel.mp.util.json;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.rolbel.mp.bean.*;
-import com.rolbel.mp.bean.card.WxMpCardInfo;
+import com.rolbel.mp.bean.card.WxMpCard;
+import com.rolbel.mp.bean.card.WxMpCardResult;
 import com.rolbel.mp.bean.data_cube.WxMpDataCubeUserCumulate;
 import com.rolbel.mp.bean.data_cube.WxMpDataCubeUserSummary;
 import com.rolbel.mp.bean.kefu.WxMpKefuMessage;
@@ -13,15 +14,15 @@ import com.rolbel.mp.bean.member_card.WxMpMemberCardUserInfoResult;
 import com.rolbel.mp.bean.subscribe.WxMpSubscribeMessage;
 import com.rolbel.mp.bean.template.WxMpTemplateIndustry;
 import com.rolbel.mp.bean.template.WxMpTemplateMessage;
+import com.rolbel.mp.bean.user.WxMpChangeOpenid;
 import com.rolbel.mp.bean.user.WxMpUser;
 import com.rolbel.mp.bean.user.WxMpUserBlacklistGetResult;
 import com.rolbel.mp.bean.user.WxMpUserList;
-import com.rolbel.mp.bean.card.result.WxMpCardResult;
 import com.rolbel.mp.util.json.adapter.*;
 
 public class WxMpGsonBuilder {
 
-    public static final GsonBuilder INSTANCE = new GsonBuilder();
+    private static final GsonBuilder INSTANCE = new GsonBuilder();
 
     static {
         INSTANCE.disableHtmlEscaping();
@@ -30,6 +31,7 @@ public class WxMpGsonBuilder {
         INSTANCE.registerTypeAdapter(WxMpMassTagMessage.class, new WxMpMassTagMessageGsonAdapter());
         INSTANCE.registerTypeAdapter(WxMpMassOpenIdsMessage.class, new WxMpMassOpenIdsMessageGsonAdapter());
         INSTANCE.registerTypeAdapter(WxMpUser.class, new WxMpUserGsonAdapter());
+        INSTANCE.registerTypeAdapter(WxMpChangeOpenid.class, new WxMpChangeOpenidGsonAdapter());
         INSTANCE.registerTypeAdapter(WxMpUserList.class, new WxUserListGsonAdapter());
         INSTANCE.registerTypeAdapter(WxMpMassVideo.class, new WxMpMassVideoAdapter());
         INSTANCE.registerTypeAdapter(WxMpMassSendResult.class, new WxMpMassSendResultAdapter());
@@ -53,7 +55,7 @@ public class WxMpGsonBuilder {
         INSTANCE.registerTypeAdapter(WxMpMaterialFileBatchGetResult.class, new WxMpMaterialFileBatchGetGsonAdapter());
         INSTANCE.registerTypeAdapter(WxMpMaterialFileBatchGetResult.WxMaterialFileBatchGetNewsItem.class, new WxMpMaterialFileBatchGetGsonItemAdapter());
         INSTANCE.registerTypeAdapter(WxMpCardResult.class, new WxMpCardResultGsonAdapter());
-        INSTANCE.registerTypeAdapter(WxMpCardInfo.class, new WxMpCardGsonAdapter());
+        INSTANCE.registerTypeAdapter(WxMpCard.class, new WxMpCardGsonAdapter());
         INSTANCE.registerTypeAdapter(WxMpMassPreviewMessage.class, new WxMpMassPreviewMessageGsonAdapter());
         INSTANCE.registerTypeAdapter(WxMediaImgUploadResult.class, new WxMediaImgUploadResultGsonAdapter());
         INSTANCE.registerTypeAdapter(WxMpTemplateIndustry.class, new WxMpIndustryGsonAdapter());

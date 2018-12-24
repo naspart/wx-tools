@@ -1,6 +1,6 @@
 package com.rolbel.common.bean;
 
-import com.rolbel.common.util.ToStringUtils;
+import com.rolbel.common.util.json.WxGsonBuilder;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -32,7 +32,6 @@ public class WxCardApiSignature implements Serializable {
 
     @Override
     public String toString() {
-        return ToStringUtils.toSimpleString(this);
+        return WxGsonBuilder.create().toJson(this);
     }
-
 }

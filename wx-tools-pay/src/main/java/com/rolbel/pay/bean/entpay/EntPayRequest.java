@@ -1,7 +1,7 @@
 package com.rolbel.pay.bean.entpay;
 
 import com.rolbel.common.annotation.Required;
-import com.rolbel.common.util.ToStringUtils;
+import com.rolbel.common.util.json.WxGsonBuilder;
 import com.rolbel.pay.bean.request.BaseWxPayRequest;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import lombok.*;
@@ -187,7 +187,7 @@ public class EntPayRequest extends BaseWxPayRequest {
 
     @Override
     public String toString() {
-        return ToStringUtils.toSimpleString(this);
+        return WxGsonBuilder.create().toJson(this);
     }
 
     @Override

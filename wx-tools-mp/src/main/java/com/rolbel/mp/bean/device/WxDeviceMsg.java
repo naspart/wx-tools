@@ -1,7 +1,7 @@
 package com.rolbel.mp.bean.device;
 
 import com.google.gson.annotations.SerializedName;
-import com.rolbel.common.util.ToStringUtils;
+import com.rolbel.mp.util.json.WxMpGsonBuilder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -23,6 +23,6 @@ public class WxDeviceMsg extends AbstractDeviceBean {
 
     @Override
     public String toString() {
-        return ToStringUtils.toSimpleString(this);
+        return WxMpGsonBuilder.create().toJson(this);
     }
 }

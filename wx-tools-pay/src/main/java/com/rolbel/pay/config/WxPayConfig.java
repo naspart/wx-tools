@@ -82,6 +82,13 @@ public class WxPayConfig {
      * 默认不使用
      */
     private boolean useSandboxEnv = false;
+
+    /**
+     * 是否将接口请求日志信息保存到threadLocal中.
+     * 默认不保存
+     */
+    private boolean ifSaveApiData = false;
+
     private String httpProxyHost;
     private Integer httpProxyPort;
     private String httpProxyUsername;
@@ -134,8 +141,8 @@ public class WxPayConfig {
             KeyStore keystore = KeyStore.getInstance("PKCS12");
             char[] partnerId2charArray = this.getMchId().toCharArray();
             keystore.load(inputStream, partnerId2charArray);
-
-            return SSLContexts.custom().loadKeyMaterial(keystore, partnerId2charArray).build();
+            this.sslContext = SSLContexts.custom().loadKeyMaterial(keystore, partnerId2charArray).build();
+            return this.sslContext;
         } catch (Exception e) {
             throw new WxPayException("证书文件有问题，请核实！", e);
         } finally {

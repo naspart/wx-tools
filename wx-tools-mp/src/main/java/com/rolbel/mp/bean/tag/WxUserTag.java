@@ -2,7 +2,6 @@ package com.rolbel.mp.bean.tag;
 
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
-import com.rolbel.common.util.ToStringUtils;
 import com.rolbel.mp.util.json.WxMpGsonBuilder;
 import lombok.Data;
 
@@ -13,7 +12,6 @@ import java.util.List;
  * <pre>
  *  用户标签对象
  * </pre>
-
  */
 @Data
 public class WxUserTag implements Serializable {
@@ -53,6 +51,6 @@ public class WxUserTag implements Serializable {
 
     @Override
     public String toString() {
-        return ToStringUtils.toSimpleString(this);
+        return this.toJson();
     }
 }

@@ -1,7 +1,7 @@
 package com.rolbel.mp.bean.message;
 
-import com.rolbel.common.util.ToStringUtils;
 import com.rolbel.common.util.xml.XStreamCDataConverter;
+import com.rolbel.mp.util.json.WxMpGsonBuilder;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
 import lombok.Data;
@@ -23,13 +23,13 @@ public class SendPicsInfo implements Serializable {
 
     @Override
     public String toString() {
-        return ToStringUtils.toSimpleString(this);
+        return WxMpGsonBuilder.create().toJson(this);
     }
 
     @XStreamAlias("item")
     @Data
     public static class Item implements Serializable {
-        private static final long serialVersionUID = 7706235740094081194L;
+        private static final long serialVersionUID = -6070121762285234035L;
 
         @XStreamAlias("PicMd5Sum")
         @XStreamConverter(value = XStreamCDataConverter.class)
@@ -37,7 +37,7 @@ public class SendPicsInfo implements Serializable {
 
         @Override
         public String toString() {
-            return ToStringUtils.toSimpleString(this);
+            return WxMpGsonBuilder.create().toJson(this);
         }
     }
 }

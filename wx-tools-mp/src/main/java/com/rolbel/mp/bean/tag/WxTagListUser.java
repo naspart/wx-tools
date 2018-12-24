@@ -1,7 +1,6 @@
 package com.rolbel.mp.bean.tag;
 
 import com.google.gson.annotations.SerializedName;
-import com.rolbel.common.util.ToStringUtils;
 import com.rolbel.mp.util.json.WxMpGsonBuilder;
 import lombok.Data;
 
@@ -12,7 +11,6 @@ import java.util.List;
  * <pre>
  * 获取标签下粉丝列表的结果对象
  * </pre>
-
  */
 @Data
 public class WxTagListUser implements Serializable {
@@ -44,7 +42,7 @@ public class WxTagListUser implements Serializable {
 
     @Override
     public String toString() {
-        return ToStringUtils.toSimpleString(this);
+        return this.toJson();
     }
 
     @Data
@@ -59,7 +57,7 @@ public class WxTagListUser implements Serializable {
 
         @Override
         public String toString() {
-            return ToStringUtils.toSimpleString(this);
+            return WxMpGsonBuilder.create().toJson(this);
         }
     }
 }

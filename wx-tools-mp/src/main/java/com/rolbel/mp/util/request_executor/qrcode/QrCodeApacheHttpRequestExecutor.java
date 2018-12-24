@@ -3,7 +3,7 @@ package com.rolbel.mp.util.request_executor.qrcode;
 import com.rolbel.common.WxType;
 import com.rolbel.common.error.WxError;
 import com.rolbel.common.error.WxErrorException;
-import com.rolbel.common.util.fs.FileUtil;
+import com.rolbel.common.util.fs.FileUtils;
 import com.rolbel.common.util.http.RequestHttp;
 import com.rolbel.common.util.http.apache.InputStreamResponseHandler;
 import com.rolbel.common.util.http.apache.Utf8ResponseHandler;
@@ -55,7 +55,7 @@ public class QrCodeApacheHttpRequestExecutor extends QrCodeRequestExecutor<Close
                     throw new WxErrorException(WxError.fromJson(responseContent, WxType.MP));
                 }
             }
-            return FileUtil.createTmpFile(inputStream, UUID.randomUUID().toString(), "jpg");
+            return FileUtils.createTmpFile(inputStream, UUID.randomUUID().toString(), "jpg");
         } finally {
             httpGet.releaseConnection();
         }

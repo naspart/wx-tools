@@ -186,13 +186,56 @@ public class WxOpenComponentServiceImpl implements WxOpenComponentService {
 
     @Override
     public String getPreAuthUrl(String redirectURI) throws WxErrorException {
+        return getPreAuthUrl(redirectURI, null, null);
+    }
 
+    @Override
+    public String getPreAuthUrl(String redirectURI, String authType, String bizAppid) throws WxErrorException {
+        return createPreAuthUrl(redirectURI, authType, bizAppid, false);
+    }
+
+    @Override
+    public String getMobilePreAuthUrl(String redirectURI) throws WxErrorException {
+        return getMobilePreAuthUrl(redirectURI, null, null);
+    }
+
+    @Override
+    public String getMobilePreAuthUrl(String redirectURI, String authType, String bizAppid) throws WxErrorException {
+        return createPreAuthUrl(redirectURI, authType, bizAppid, true);
+    }
+
+    /**
+     * 创建预授权链接
+     *
+     * @param redirectURI
+     * @param authType
+     * @param bizAppid
+     * @param isMobile    是否移动端预授权
+     * @return
+     * @throws WxErrorException
+     */
+    private String createPreAuthUrl(String redirectURI, String authType, String bizAppid, boolean isMobile) throws WxErrorException {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("component_appid", getWxOpenConfigStorage().getComponentAppId());
         String responseContent = post(API_CREATE_PREAUTHCODE_URL, jsonObject.toString());
         jsonObject = WxGsonBuilder.create().fromJson(responseContent, JsonObject.class);
 
-        return String.format(COMPONENT_LOGIN_PAGE_URL, getWxOpenConfigStorage().getComponentAppId(), jsonObject.get("pre_auth_code").getAsString(), URIUtil.encodeURIComponent(redirectURI));
+        String preAuthUrlStr = String.format((isMobile ? COMPONENT_MOBILE_LOGIN_PAGE_URL : COMPONENT_LOGIN_PAGE_URL),
+                getWxOpenConfigStorage().getComponentAppId(),
+                jsonObject.get("pre_auth_code").getAsString(),
+                URIUtil.encodeURIComponent(redirectURI));
+        if (StringUtils.isNotEmpty(authType)) {
+            preAuthUrlStr = preAuthUrlStr.replace("&auth_type=xxx", "&auth_type=" + authType);
+        } else {
+            preAuthUrlStr = preAuthUrlStr.replace("&auth_type=xxx", "");
+        }
+        if (StringUtils.isNotEmpty(bizAppid)) {
+            preAuthUrlStr = preAuthUrlStr.replace("&biz_appid=xxx", "&biz_appid=" + bizAppid);
+        } else {
+            preAuthUrlStr = preAuthUrlStr.replace("&biz_appid=xxx", "");
+        }
+
+        return preAuthUrlStr;
     }
 
     @Override

@@ -2,7 +2,7 @@ package com.rolbel.mp.bean.data_cube;
 
 import com.google.gson.JsonParser;
 import com.google.gson.annotations.SerializedName;
-import com.rolbel.common.util.ToStringUtils;
+import com.rolbel.mp.util.json.WxMpGsonBuilder;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -14,6 +14,7 @@ import java.io.Serializable;
  */
 @Data
 public abstract class WxMpDataCubeBaseResult implements Serializable {
+    private static final long serialVersionUID = -7819479233765685788L;
     protected static final JsonParser JSON_PARSER = new JsonParser();
 
     /**
@@ -25,6 +26,6 @@ public abstract class WxMpDataCubeBaseResult implements Serializable {
 
     @Override
     public String toString() {
-        return ToStringUtils.toSimpleString(this);
+        return WxMpGsonBuilder.create().toJson(this);
     }
 }

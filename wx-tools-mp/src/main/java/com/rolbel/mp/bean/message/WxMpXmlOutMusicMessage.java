@@ -9,8 +9,8 @@ import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 
-@XStreamAlias("xml")
 @Data
+@XStreamAlias("xml")
 @EqualsAndHashCode(callSuper = true)
 public class WxMpXmlOutMusicMessage extends WxMpXmlOutMessage {
     private static final long serialVersionUID = 4844634374337427257L;
@@ -22,8 +22,8 @@ public class WxMpXmlOutMusicMessage extends WxMpXmlOutMessage {
         this.msgType = WxConstant.XmlMsgType.MUSIC;
     }
 
-    @XStreamAlias("Music")
     @Data
+    @XStreamAlias("Music")
     public static class Music implements Serializable {
         private static final long serialVersionUID = -5393244675372053725L;
 

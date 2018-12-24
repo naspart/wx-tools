@@ -31,16 +31,15 @@ public class WxCryptUtil {
     private static final Base64 BASE64 = new Base64();
     private static final Charset CHARSET = StandardCharsets.UTF_8;
 
-    private static final ThreadLocal<DocumentBuilder> BUILDER_LOCAL = new ThreadLocal<DocumentBuilder>() {
-        @Override
-        protected DocumentBuilder initialValue() {
-            try {
-                return DocumentBuilderFactory.newInstance().newDocumentBuilder();
-            } catch (ParserConfigurationException exc) {
-                throw new IllegalArgumentException(exc);
-            }
+    private static final ThreadLocal<DocumentBuilder> BUILDER_LOCAL = ThreadLocal.withInitial(() -> {
+        try {
+            final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            factory.setExpandEntityReferences(false);
+            return factory.newDocumentBuilder();
+        } catch (ParserConfigurationException exc) {
+            throw new IllegalArgumentException(exc);
         }
-    };
+    });
 
     protected byte[] aesKey;
     protected String token;
@@ -164,8 +163,7 @@ public class WxCryptUtil {
         ByteGroup byteCollector = new ByteGroup();
         byte[] randomStringBytes = randomStr.getBytes(CHARSET);
         byte[] plainTextBytes = plainText.getBytes(CHARSET);
-        byte[] bytesOfSizeInNetworkOrder = number2BytesInNetworkOrder(
-                plainTextBytes.length);
+        byte[] bytesOfSizeInNetworkOrder = number2BytesInNetworkOrder(plainTextBytes.length);
         byte[] appIdBytes = this.appidOrCorpid.getBytes(CHARSET);
 
         // randomStr + networkBytesOrder + text + appid
@@ -252,7 +250,7 @@ public class WxCryptUtil {
             throw new RuntimeException(e);
         }
 
-        String xmlContent, from_appid;
+        String xmlContent, fromAppId;
         try {
             // 去除补位字符
             byte[] bytes = PKCS7Encoder.decode(original);
@@ -262,21 +260,17 @@ public class WxCryptUtil {
 
             int xmlLength = bytesNetworkOrder2Number(networkOrder);
 
-            xmlContent = new String(Arrays.copyOfRange(bytes, 20, 20 + xmlLength),
-                    CHARSET);
-            from_appid = new String(
-                    Arrays.copyOfRange(bytes, 20 + xmlLength, bytes.length), CHARSET);
+            xmlContent = new String(Arrays.copyOfRange(bytes, 20, 20 + xmlLength), CHARSET);
+            fromAppId = new String(Arrays.copyOfRange(bytes, 20 + xmlLength, bytes.length), CHARSET);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
         // appid不相同的情况
-        if (!from_appid.equals(this.appidOrCorpid)) {
+        if (!fromAppId.equals(this.appidOrCorpid)) {
             throw new RuntimeException("AppID不正确");
         }
 
         return xmlContent;
-
     }
-
 }

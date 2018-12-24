@@ -9,7 +9,6 @@ import java.util.concurrent.locks.Lock;
  * 小程序配置
  */
 public interface WxMaConfig {
-
     String getAccessToken();
 
     Lock getAccessTokenLock();
@@ -36,7 +35,48 @@ public interface WxMaConfig {
      */
     void updateAccessToken(String accessToken, int expiresInSeconds);
 
-    String getAppid();
+    String getJsapiTicket();
+
+    Lock getJsapiTicketLock();
+
+    boolean isJsapiTicketExpired();
+
+    /**
+     * 强制将jsapi ticket过期掉
+     */
+    void expireJsapiTicket();
+
+    /**
+     * 应该是线程安全的
+     *
+     * @param jsapiTicket      新的jsapi ticket值
+     * @param expiresInSeconds 过期时间，以秒为单位
+     */
+    void updateJsapiTicket(String jsapiTicket, int expiresInSeconds);
+
+    /**
+     * 卡券api_ticket.
+     */
+    String getCardApiTicket();
+
+    Lock getCardApiTicketLock();
+
+    boolean isCardApiTicketExpired();
+
+    /**
+     * 强制将卡券api ticket过期掉.
+     */
+    void expireCardApiTicket();
+
+    /**
+     * 应该是线程安全的.
+     *
+     * @param apiTicket        新的卡券api ticket值
+     * @param expiresInSeconds 过期时间，以秒为单位
+     */
+    void updateCardApiTicket(String apiTicket, int expiresInSeconds);
+
+    String getAppId();
 
     String getSecret();
 
@@ -67,5 +107,4 @@ public interface WxMaConfig {
      * 是否自动刷新token
      */
     boolean autoRefreshToken();
-
 }

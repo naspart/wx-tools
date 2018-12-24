@@ -1,6 +1,5 @@
 package com.rolbel.mp.bean.member_card;
 
-import com.rolbel.common.util.ToStringUtils;
 import com.rolbel.mp.util.json.WxMpGsonBuilder;
 import lombok.Data;
 
@@ -41,11 +40,11 @@ public class WxMpMemberCardUserInfoResult implements Serializable {
 
     @Override
     public String toString() {
-        return ToStringUtils.toSimpleString(this);
+        return WxMpGsonBuilder.create().toJson(this);
     }
 
     public static WxMpMemberCardUserInfoResult fromJson(String json) {
-        return WxMpGsonBuilder.INSTANCE.create().fromJson(json, WxMpMemberCardUserInfoResult.class);
+        return WxMpGsonBuilder.create().fromJson(json, WxMpMemberCardUserInfoResult.class);
     }
 }
 

@@ -1,5 +1,6 @@
 package com.rolbel.ma.bean;
 
+import com.rolbel.ma.bean.qrcode.WxMaQrcodeLineColor;
 import com.rolbel.ma.util.json.WxMaGsonBuilder;
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
@@ -24,7 +25,7 @@ public class WxMaWxcodeLimit extends AbstractWxMaQrcodeWrapper implements Serial
     private boolean autoColor = true;
 
     @SerializedName("line_color")
-    private WxMaCodeLineColor lineColor = new WxMaCodeLineColor("0", "0", "0");
+    private WxMaQrcodeLineColor lineColor = new WxMaQrcodeLineColor("0", "0", "0");
 
     public static WxMaWxcodeLimit fromJson(String json) {
         return WxMaGsonBuilder.create().fromJson(json, WxMaWxcodeLimit.class);

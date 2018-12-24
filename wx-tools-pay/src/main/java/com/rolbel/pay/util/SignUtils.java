@@ -43,7 +43,7 @@ public class SignUtils {
      */
     @Deprecated
     public static String createSign(Map<String, String> params, String signKey) {
-        return createSign(params, null, signKey, new String[0]);
+        return createSign(params, WxPayConstants.SignType.MD5, signKey, new String[0]);
     }
 
     /**
@@ -51,7 +51,7 @@ public class SignUtils {
      */
     @Deprecated
     public static String createSign(Map<String, String> params, String signKey, String[] ignoredParams) {
-        return createSign(params, null, signKey, ignoredParams);
+        return createSign(params, WxPayConstants.SignType.MD5, signKey, ignoredParams);
     }
 
     /**

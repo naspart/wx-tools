@@ -16,4 +16,9 @@ public class WxMpMaterialArticleUpdate implements Serializable {
     public String toJson() {
         return WxMpGsonBuilder.create().toJson(this);
     }
+
+    @Override
+    public String toString() {
+        return this.toJson();
+    }
 }

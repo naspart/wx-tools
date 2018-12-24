@@ -4,11 +4,15 @@ import com.google.gson.JsonObject;
 import com.rolbel.common.error.WxErrorException;
 import com.rolbel.mp.api.WxMpService;
 import com.rolbel.mp.api.WxMpUserService;
-import com.rolbel.mp.bean.user.WxMpUserQuery;
+import com.rolbel.mp.bean.user.WxMpChangeOpenid;
 import com.rolbel.mp.bean.user.WxMpUser;
 import com.rolbel.mp.bean.user.WxMpUserList;
+import com.rolbel.mp.bean.user.WxMpUserQuery;
+import com.rolbel.mp.util.json.WxMpGsonBuilder;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class WxMpUserServiceImpl implements WxMpUserService {
     private WxMpService wxMpService;
@@ -23,7 +27,7 @@ public class WxMpUserServiceImpl implements WxMpUserService {
         json.addProperty("openid", openId);
         json.addProperty("remark", remark);
 
-        this.wxMpService.post(UPDATE_USER_REMARK_URL, json.toString());
+        this.wxMpService.post(USER_INFO_UPDATE_REMARK_URL, json.toString());
     }
 
     @Override
@@ -34,14 +38,14 @@ public class WxMpUserServiceImpl implements WxMpUserService {
     @Override
     public WxMpUser userInfo(String openid, String lang) throws WxErrorException {
         lang = lang == null ? "zh_CN" : lang;
-        String responseContent = this.wxMpService.get(GET_USER_INFO_URL, "openid=" + openid + "&lang=" + lang);
+        String responseContent = this.wxMpService.get(USER_INFO_URL, "openid=" + openid + "&lang=" + lang);
 
         return WxMpUser.fromJson(responseContent);
     }
 
     @Override
     public WxMpUserList userList(String next_openid) throws WxErrorException {
-        String responseContent = this.wxMpService.get(GET_USER_LIST_URL, next_openid == null ? null : "next_openid=" + next_openid);
+        String responseContent = this.wxMpService.get(USER_GET_URL, next_openid == null ? null : "next_openid=" + next_openid);
 
         return WxMpUserList.fromJson(responseContent);
     }
@@ -53,8 +57,18 @@ public class WxMpUserServiceImpl implements WxMpUserService {
 
     @Override
     public List<WxMpUser> userInfoList(WxMpUserQuery userQuery) throws WxErrorException {
-        String responseContent = this.wxMpService.post(BATCH_GET_USER_INFO_URL, userQuery.toJsonString());
+        String responseContent = this.wxMpService.post(USER_INFO_BATCH_GET_URL, userQuery.toJsonString());
 
         return WxMpUser.fromJsonList(responseContent);
+    }
+
+    @Override
+    public List<WxMpChangeOpenid> changeOpenid(String fromAppid, List<String> openidList) throws WxErrorException {
+        Map<String, Object> map = new HashMap<>();
+        map.put("from_appid", fromAppid);
+        map.put("openid_list", openidList);
+        String responseContent = this.wxMpService.post(USER_CHANGE_OPENID_URL, WxMpGsonBuilder.create().toJson(map));
+
+        return WxMpChangeOpenid.fromJsonList(responseContent);
     }
 }

@@ -2,7 +2,6 @@ package com.rolbel.mp.bean.data_cube;
 
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
-import com.rolbel.common.util.ToStringUtils;
 import com.rolbel.mp.util.json.WxMpGsonBuilder;
 import lombok.Data;
 
@@ -27,7 +26,7 @@ public class WxMpDataCubeUserCumulate implements Serializable {
     private Integer cumulateUser;
 
     public static List<WxMpDataCubeUserCumulate> fromJson(String json) {
-        return WxMpGsonBuilder.INSTANCE.create().fromJson(
+        return WxMpGsonBuilder.create().fromJson(
                 JSON_PARSER.parse(json).getAsJsonObject().get("list"),
                 new TypeToken<List<WxMpDataCubeUserCumulate>>() {
                 }.getType());
@@ -35,6 +34,6 @@ public class WxMpDataCubeUserCumulate implements Serializable {
 
     @Override
     public String toString() {
-        return ToStringUtils.toSimpleString(this);
+        return WxMpGsonBuilder.create().toJson(this);
     }
 }

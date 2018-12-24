@@ -1,6 +1,5 @@
 package com.rolbel.common.bean.result;
 
-import com.rolbel.common.util.ToStringUtils;
 import com.rolbel.common.util.json.WxGsonBuilder;
 import lombok.Data;
 
@@ -9,7 +8,7 @@ import java.io.Serializable;
 @Data
 public class WxMediaUploadResult implements Serializable {
     private static final long serialVersionUID = 5532934971775138743L;
-
+    
     private String url;
     private String type;
     private String mediaId;
@@ -22,6 +21,6 @@ public class WxMediaUploadResult implements Serializable {
 
     @Override
     public String toString() {
-        return ToStringUtils.toSimpleString(this);
+        return WxGsonBuilder.create().toJson(this);
     }
 }

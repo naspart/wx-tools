@@ -1,6 +1,6 @@
 package com.rolbel.mp.bean.material;
 
-import com.rolbel.common.util.ToStringUtils;
+import com.rolbel.mp.util.json.WxMpGsonBuilder;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -17,7 +17,7 @@ public class WxMpMaterialNewsBatchGetResult implements Serializable {
 
     @Override
     public String toString() {
-        return ToStringUtils.toSimpleString(this);
+        return WxMpGsonBuilder.create().toJson(this);
     }
 
     @Data
@@ -28,7 +28,7 @@ public class WxMpMaterialNewsBatchGetResult implements Serializable {
 
         @Override
         public String toString() {
-            return ToStringUtils.toSimpleString(this);
+            return WxMpGsonBuilder.create().toJson(this);
         }
     }
 }

@@ -3,8 +3,8 @@ package com.rolbel.mp.bean.menu;
 import com.google.gson.annotations.SerializedName;
 import com.rolbel.common.bean.menu.WxMenuButton;
 import com.rolbel.common.bean.menu.WxMenuRule;
-import com.rolbel.common.util.ToStringUtils;
 import com.rolbel.common.util.json.WxGsonBuilder;
+import com.rolbel.mp.util.json.WxMpGsonBuilder;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -14,7 +14,6 @@ import java.util.List;
  * <pre>
  *   公众号专用的菜单类，可能包含个性化菜单
  * </pre>
-
  */
 @Data
 public class WxMpMenu implements Serializable {
@@ -32,7 +31,7 @@ public class WxMpMenu implements Serializable {
 
     @Override
     public String toString() {
-        return ToStringUtils.toSimpleString(this);
+        return this.toJson();
     }
 
     public String toJson() {
@@ -52,7 +51,7 @@ public class WxMpMenu implements Serializable {
 
         @Override
         public String toString() {
-            return ToStringUtils.toSimpleString(this);
+            return WxMpGsonBuilder.create().toJson(this);
         }
     }
 }

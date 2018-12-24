@@ -2,7 +2,6 @@ package com.rolbel.cp.bean;
 
 import com.google.common.base.Splitter;
 import com.google.gson.annotations.SerializedName;
-import com.rolbel.common.util.ToStringUtils;
 import com.rolbel.cp.util.json.WxCpGsonBuilder;
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
@@ -16,15 +15,14 @@ import java.util.List;
  */
 @Data
 public class WxCpInviteResult implements Serializable {
-    private static final long serialVersionUID = -1066012277804368378L;
 
     @Override
     public String toString() {
-        return ToStringUtils.toSimpleString(this);
+        return WxCpGsonBuilder.create().toJson(this);
     }
 
     public static WxCpInviteResult fromJson(String json) {
-        return WxCpGsonBuilder.INSTANCE.create().fromJson(json, WxCpInviteResult.class);
+        return WxCpGsonBuilder.create().fromJson(json, WxCpInviteResult.class);
     }
 
     @SerializedName("errcode")

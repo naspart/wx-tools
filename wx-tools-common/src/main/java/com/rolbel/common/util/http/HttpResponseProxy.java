@@ -55,7 +55,7 @@ public class HttpResponseProxy {
     private String getFileName(CloseableHttpResponse response) throws WxErrorException {
         Header[] contentDispositionHeader = response.getHeaders("Content-disposition");
         if (contentDispositionHeader == null || contentDispositionHeader.length == 0) {
-            throw new WxErrorException(WxError.builder().errorMsg("无法获取到文件名").build());
+            throw new WxErrorException(WxError.builder().errorMsg("无法获取到文件名").errorCode(99999).build());
         }
 
         return this.extractFileNameFromContentString(contentDispositionHeader[0].getValue());
@@ -73,7 +73,7 @@ public class HttpResponseProxy {
 
     private String extractFileNameFromContentString(String content) throws WxErrorException {
         if (content == null || content.length() == 0) {
-            throw new WxErrorException(WxError.builder().errorMsg("无法获取到文件名").build());
+            throw new WxErrorException(WxError.builder().errorMsg("无法获取到文件名").errorCode(99999).build());
         }
 
         Matcher m = PATTERN.matcher(content);
@@ -81,6 +81,6 @@ public class HttpResponseProxy {
             return m.group(1);
         }
 
-        throw new WxErrorException(WxError.builder().errorMsg("无法获取到文件名").build());
+        throw new WxErrorException(WxError.builder().errorMsg("无法获取到文件名").errorCode(99999).build());
     }
 }

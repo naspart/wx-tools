@@ -66,7 +66,7 @@ public class WxMpDataCubeMsgResult extends WxMpDataCubeBaseResult {
     private Integer oriPageReadUser;
 
     public static List<WxMpDataCubeMsgResult> fromJson(String json) {
-        return WxMpGsonBuilder.INSTANCE.create().fromJson(
+        return WxMpGsonBuilder.create().fromJson(
                 JSON_PARSER.parse(json).getAsJsonObject().get("list"),
                 new TypeToken<List<WxMpDataCubeMsgResult>>() {
                 }.getType());

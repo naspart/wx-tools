@@ -1,14 +1,14 @@
 package com.rolbel.ma.api.impl;
 
-import com.rolbel.ma.api.WxMaMediaService;
-import com.rolbel.ma.api.WxMaService;
-import com.rolbel.common.error.WxError;
 import com.rolbel.common.bean.result.WxMediaUploadResult;
+import com.rolbel.common.error.WxError;
 import com.rolbel.common.error.WxErrorException;
-import com.rolbel.common.util.fs.FileUtil;
+import com.rolbel.common.util.fs.FileUtils;
 import com.rolbel.common.util.http.BaseMediaDownloadRequestExecutor;
 import com.rolbel.common.util.http.MediaUploadRequestExecutor;
 import com.rolbel.common.util.http.RequestExecutor;
+import com.rolbel.ma.api.WxMaMediaService;
+import com.rolbel.ma.api.WxMaService;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,7 +26,7 @@ public class WxMaMediaServiceImpl implements WxMaMediaService {
     @Override
     public WxMediaUploadResult uploadMedia(String mediaType, String fileType, InputStream inputStream) throws WxErrorException {
         try {
-            return this.uploadMedia(mediaType, FileUtil.createTmpFile(inputStream, UUID.randomUUID().toString(), fileType));
+            return this.uploadMedia(mediaType, FileUtils.createTmpFile(inputStream, UUID.randomUUID().toString(), fileType));
         } catch (IOException e) {
             throw new WxErrorException(WxError.builder().errorMsg(e.getMessage()).build(), e);
         }

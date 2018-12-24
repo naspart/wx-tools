@@ -12,7 +12,6 @@ import java.util.List;
  * </pre>
  */
 public class WxPayConstants {
-
     /**
      * 拉取订单评价数据接口的参数中日期格式.
      */
@@ -86,7 +85,7 @@ public class WxPayConstants {
         public static final String APP = "APP";
 
         /**
-         * 公众号支付.
+         * 公众号支付/小程序支付.
          */
         public static final String JSAPI = "JSAPI";
 
@@ -105,7 +104,7 @@ public class WxPayConstants {
     /**
      * 账户类型
      */
-    public static class AccountType{
+    public static class AccountType {
         /**
          * 基本账户
          */
@@ -124,8 +123,17 @@ public class WxPayConstants {
      * 签名类型.
      */
     public static class SignType {
+        /**
+         * The constant HMAC_SHA256.
+         */
         public static final String HMAC_SHA256 = "HMAC-SHA256";
+        /**
+         * The constant MD5.
+         */
         public static final String MD5 = "MD5";
+        /**
+         * The constant ALL_SIGN_TYPES.
+         */
         public static final List<String> ALL_SIGN_TYPES = Lists.newArrayList(HMAC_SHA256, MD5);
     }
 
@@ -259,50 +267,5 @@ public class WxPayConstants {
          * 退款到银行发现用户的卡作废或者冻结了，导致原路退款银行卡失败，可前往商户平台（pay.weixin.qq.com）-交易中心，手动处理此笔退款。
          */
         public static final String CHANGE = "CHANGE";
-    }
-
-    /**
-     * 关闭订单结果错误代码.
-     */
-    public static class OrderCloseResultErrorCode {
-        /**
-         * 订单已支付.
-         */
-        public static final String ORDER_PAID = "ORDERPAID";
-
-        /**
-         * 系统错误.
-         */
-        public static final String SYSTEM_ERROR = "SYSTEMERROR";
-
-        /**
-         * 订单不存在.
-         */
-        public static final String ORDER_NOT_EXIST = "ORDERNOTEXIST";
-
-        /**
-         * 订单已关闭.
-         */
-        public static final String ORDER_CLOSED = "ORDERCLOSED";
-
-        /**
-         * 签名错误.
-         */
-        public static final String SIGN_ERROR = "SIGNERROR";
-
-        /**
-         * 未使用POST传递参数.
-         */
-        public static final String REQUIRE_POST_METHOD = "REQUIRE_POST_METHOD";
-
-        /**
-         * XML格式错误.
-         */
-        public static final String XML_FORMAT_ERROR = "XML_FORMAT_ERROR";
-
-        /**
-         * 订单状态错误.
-         */
-        public static final String TRADE_STATE_ERROR = "TRADE_STATE_ERROR";
     }
 }

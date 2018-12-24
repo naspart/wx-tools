@@ -1,7 +1,7 @@
 package com.rolbel.mp.bean.menu;
 
 import com.google.gson.annotations.SerializedName;
-import com.rolbel.common.util.ToStringUtils;
+import com.rolbel.mp.util.json.WxMpGsonBuilder;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -20,12 +20,12 @@ public class WxMpSelfMenuInfo implements Serializable {
 
     @Override
     public String toString() {
-        return ToStringUtils.toSimpleString(this);
+        return WxMpGsonBuilder.create().toJson(this);
     }
 
     @Data
     public static class WxMpSelfMenuButton implements Serializable {
-        private static final long serialVersionUID = -4426602953309048341L;
+        private static final long serialVersionUID = 357837161793043099L;
 
         /**
          * <pre>
@@ -80,37 +80,37 @@ public class WxMpSelfMenuInfo implements Serializable {
 
         @Override
         public String toString() {
-            return ToStringUtils.toSimpleString(this);
+            return WxMpGsonBuilder.create().toJson(this);
         }
 
         @Data
         public static class SubButtons implements Serializable {
-            private static final long serialVersionUID = 1763350658575521079L;
+            private static final long serialVersionUID = 1153112059686067290L;
 
             @SerializedName("list")
             private List<WxMpSelfMenuButton> subButtons = new ArrayList<>();
 
             @Override
             public String toString() {
-                return ToStringUtils.toSimpleString(this);
+                return WxMpGsonBuilder.create().toJson(this);
             }
         }
 
         @Data
         public static class NewsInfo implements Serializable {
-            private static final long serialVersionUID = 3449813746347818457L;
+            private static final long serialVersionUID = 2946417476440880997L;
 
             @SerializedName("list")
             private List<NewsInButton> news = new ArrayList<>();
 
             @Override
             public String toString() {
-                return ToStringUtils.toSimpleString(this);
+                return WxMpGsonBuilder.create().toJson(this);
             }
 
             @Data
             public static class NewsInButton implements Serializable {
-                private static final long serialVersionUID = 8701455967664912972L;
+                private static final long serialVersionUID = 107428526399370526L;
 
                 /**
                  * 图文消息的标题
@@ -151,7 +151,7 @@ public class WxMpSelfMenuInfo implements Serializable {
 
                 @Override
                 public String toString() {
-                    return ToStringUtils.toSimpleString(this);
+                    return WxMpGsonBuilder.create().toJson(this);
                 }
 
             }

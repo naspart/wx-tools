@@ -39,7 +39,7 @@ public class WxPayServiceApacheHttpImpl extends BaseWxPayServiceImpl {
                 try (CloseableHttpResponse response = httpClient.execute(httpPost)) {
                     final byte[] bytes = EntityUtils.toByteArray(response.getEntity());
                     final String responseData = Base64.encodeBase64String(bytes);
-                    this.log.info("\n【请求地址】：{}\n【请求数据】：{}\n【响应数据(Base64编码后)】：{}", url, requestStr, responseData);
+                    this.log.debug("\n【请求地址】：{}\n【请求数据】：{}\n【响应数据(Base64编码后)】：{}", url, requestStr, responseData);
                     wxApiData.set(new WxPayApiData(url, requestStr, responseData, null));
                     return bytes;
                 }
@@ -61,8 +61,11 @@ public class WxPayServiceApacheHttpImpl extends BaseWxPayServiceImpl {
             try (CloseableHttpClient httpClient = httpClientBuilder.build()) {
                 try (CloseableHttpResponse response = httpClient.execute(httpPost)) {
                     String responseString = EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
-                    this.log.info("\n【请求地址】：{}\n【请求数据】：{}\n【响应数据】：{}", url, requestStr, responseString);
-                    wxApiData.set(new WxPayApiData(url, requestStr, responseString, null));
+                    this.log.debug("\n【请求地址】：{}\n【请求数据】：{}\n【响应数据】：{}", url, requestStr, responseString);
+                    if (this.getConfig().isIfSaveApiData()) {
+                        wxApiData.set(new WxPayApiData(url, requestStr, responseString, null));
+                    }
+
                     return responseString;
                 }
             } finally {
@@ -70,7 +73,10 @@ public class WxPayServiceApacheHttpImpl extends BaseWxPayServiceImpl {
             }
         } catch (Exception e) {
             this.log.error("\n【请求地址】：{}\n【请求数据】：{}\n【异常信息】：{}", url, requestStr, e.getMessage());
-            wxApiData.set(new WxPayApiData(url, requestStr, null, e.getMessage()));
+            if (this.getConfig().isIfSaveApiData()) {
+                wxApiData.set(new WxPayApiData(url, requestStr, null, null));
+            }
+
             throw new WxPayException(e.getMessage(), e);
         }
     }

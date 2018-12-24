@@ -1,8 +1,8 @@
 package com.rolbel.mp.bean.menu;
 
 import com.google.gson.annotations.SerializedName;
-import com.rolbel.common.util.ToStringUtils;
 import com.rolbel.common.util.json.WxGsonBuilder;
+import com.rolbel.mp.util.json.WxMpGsonBuilder;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -23,7 +23,7 @@ public class WxMpGetSelfMenuInfoResult implements Serializable {
 
     @Override
     public String toString() {
-        return ToStringUtils.toSimpleString(this);
+        return WxMpGsonBuilder.create().toJson(this);
     }
 
 }

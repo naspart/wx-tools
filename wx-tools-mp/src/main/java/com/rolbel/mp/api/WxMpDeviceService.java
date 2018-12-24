@@ -2,7 +2,6 @@ package com.rolbel.mp.api;
 
 import com.rolbel.common.error.WxErrorException;
 import com.rolbel.mp.bean.device.*;
-import com.rolbel.mp.bean.device.result.*;
 
 public interface WxMpDeviceService {
     String TRANS_MSG_URL = "https://api.weixin.qq.com/device/transmsg";

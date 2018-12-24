@@ -1,6 +1,5 @@
 package com.rolbel.mp.bean;
 
-import com.rolbel.common.util.ToStringUtils;
 import com.rolbel.mp.util.json.WxMpGsonBuilder;
 import lombok.Data;
 
@@ -35,6 +34,6 @@ public class WxMpOAuth2AccessToken implements Serializable {
 
     @Override
     public String toString() {
-        return ToStringUtils.toSimpleString(this);
+        return WxMpGsonBuilder.create().toJson(this);
     }
 }

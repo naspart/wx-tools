@@ -1,14 +1,14 @@
 package com.rolbel.cp.bean;
 
-import com.thoughtworks.xstream.annotations.XStreamAlias;
-import com.thoughtworks.xstream.annotations.XStreamConverter;
-import lombok.Data;
 import com.rolbel.common.api.WxConstant;
-import com.rolbel.common.util.ToStringUtils;
 import com.rolbel.common.util.xml.XStreamCDataConverter;
 import com.rolbel.cp.config.WxCpConfigStorage;
 import com.rolbel.cp.util.crypto.WxCpCryptUtil;
+import com.rolbel.cp.util.json.WxCpGsonBuilder;
 import com.rolbel.cp.util.xml.XStreamTransformer;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamConverter;
+import lombok.Data;
 import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
@@ -231,7 +231,7 @@ public class WxCpXmlMessage implements Serializable {
 
     @Override
     public String toString() {
-        return ToStringUtils.toSimpleString(this);
+        return WxCpGsonBuilder.create().toJson(this);
     }
 
     @Data

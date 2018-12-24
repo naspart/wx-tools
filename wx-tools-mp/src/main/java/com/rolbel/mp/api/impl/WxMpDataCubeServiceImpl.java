@@ -38,39 +38,39 @@ public class WxMpDataCubeServiceImpl implements WxMpDataCubeService {
     }
 
     @Override
-    public List<WxMpMpDataCubeArticleResult> getArticleSummary(Date beginDate, Date endDate) throws WxErrorException {
+    public List<WxMpDataCubeArticleResult> getArticleSummary(Date beginDate, Date endDate) throws WxErrorException {
         return this.getArticleResults(GET_ARTICLE_SUMMARY, beginDate, endDate);
     }
 
     @Override
-    public List<WxMpMpDataCubeArticleTotal> getArticleTotal(Date beginDate, Date endDate) throws WxErrorException {
+    public List<WxMpDataCubeArticleTotal> getArticleTotal(Date beginDate, Date endDate) throws WxErrorException {
         String responseContent = this.wxMpService.post(GET_ARTICLE_TOTAL, buildParams(beginDate, endDate));
-        return WxMpMpDataCubeArticleTotal.fromJson(responseContent);
+        return WxMpDataCubeArticleTotal.fromJson(responseContent);
     }
 
     @Override
-    public List<WxMpMpDataCubeArticleResult> getUserRead(Date beginDate, Date endDate) throws WxErrorException {
+    public List<WxMpDataCubeArticleResult> getUserRead(Date beginDate, Date endDate) throws WxErrorException {
         return this.getArticleResults(GET_USER_READ, beginDate, endDate);
     }
 
     @Override
-    public List<WxMpMpDataCubeArticleResult> getUserReadHour(Date beginDate, Date endDate) throws WxErrorException {
+    public List<WxMpDataCubeArticleResult> getUserReadHour(Date beginDate, Date endDate) throws WxErrorException {
         return this.getArticleResults(GET_USER_READ_HOUR, beginDate, endDate);
     }
 
     @Override
-    public List<WxMpMpDataCubeArticleResult> getUserShare(Date beginDate, Date endDate) throws WxErrorException {
+    public List<WxMpDataCubeArticleResult> getUserShare(Date beginDate, Date endDate) throws WxErrorException {
         return this.getArticleResults(GET_USER_SHARE, beginDate, endDate);
     }
 
     @Override
-    public List<WxMpMpDataCubeArticleResult> getUserShareHour(Date beginDate, Date endDate) throws WxErrorException {
+    public List<WxMpDataCubeArticleResult> getUserShareHour(Date beginDate, Date endDate) throws WxErrorException {
         return this.getArticleResults(GET_USER_SHARE_HOUR, beginDate, endDate);
     }
 
-    private List<WxMpMpDataCubeArticleResult> getArticleResults(String url, Date beginDate, Date endDate) throws WxErrorException {
+    private List<WxMpDataCubeArticleResult> getArticleResults(String url, Date beginDate, Date endDate) throws WxErrorException {
         String responseContent = this.wxMpService.post(url, buildParams(beginDate, endDate));
-        return WxMpMpDataCubeArticleResult.fromJson(responseContent);
+        return WxMpDataCubeArticleResult.fromJson(responseContent);
     }
 
     @Override

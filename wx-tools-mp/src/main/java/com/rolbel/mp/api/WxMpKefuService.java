@@ -1,9 +1,7 @@
 package com.rolbel.mp.api;
 
 import com.rolbel.common.error.WxErrorException;
-import com.rolbel.mp.bean.kefu.WxMpKefuMessage;
-import com.rolbel.mp.bean.kefu.request.WxMpKfAccountRequest;
-import com.rolbel.mp.bean.kefu.result.*;
+import com.rolbel.mp.bean.kefu.*;
 
 import java.io.File;
 import java.util.Date;

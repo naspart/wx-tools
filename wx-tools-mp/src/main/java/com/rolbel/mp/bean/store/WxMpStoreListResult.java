@@ -1,7 +1,6 @@
 package com.rolbel.mp.bean.store;
 
 import com.google.gson.annotations.SerializedName;
-import com.rolbel.common.util.ToStringUtils;
 import com.rolbel.mp.util.json.WxMpGsonBuilder;
 import lombok.Data;
 
@@ -12,7 +11,6 @@ import java.util.List;
  * <pre>
  * 门店列表结果类
  * </pre>
-
  */
 @Data
 public class WxMpStoreListResult implements Serializable {
@@ -45,7 +43,7 @@ public class WxMpStoreListResult implements Serializable {
 
     @Override
     public String toString() {
-        return ToStringUtils.toSimpleString(this);
+        return WxMpGsonBuilder.create().toJson(this);
     }
 
 }

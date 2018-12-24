@@ -1,14 +1,23 @@
 package com.rolbel.mp.util.request_executor.material;
 
+import com.rolbel.common.error.WxErrorException;
 import com.rolbel.common.util.http.RequestExecutor;
 import com.rolbel.common.util.http.RequestHttp;
+import com.rolbel.common.util.http.ResponseHandler;
 import com.rolbel.mp.bean.material.WxMpMaterialVideoInfoResult;
+
+import java.io.IOException;
 
 public abstract class MaterialVideoInfoRequestExecutor<H, P> implements RequestExecutor<WxMpMaterialVideoInfoResult, String> {
     protected RequestHttp<H, P> requestHttp;
 
     public MaterialVideoInfoRequestExecutor(RequestHttp<H, P> requestHttp) {
         this.requestHttp = requestHttp;
+    }
+
+    @Override
+    public void execute(String uri, String data, ResponseHandler<WxMpMaterialVideoInfoResult> handler) throws WxErrorException, IOException {
+        handler.handle(this.execute(uri, data));
     }
 
     @SuppressWarnings("unchecked")

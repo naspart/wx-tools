@@ -1,7 +1,7 @@
 package com.rolbel.mp.bean.message;
 
-import com.rolbel.common.util.ToStringUtils;
 import com.rolbel.common.util.xml.XStreamCDataConverter;
+import com.rolbel.mp.util.json.WxMpGsonBuilder;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
 import lombok.Data;
@@ -35,6 +35,6 @@ public class SendLocationInfo implements Serializable {
 
     @Override
     public String toString() {
-        return ToStringUtils.toSimpleString(this);
+        return WxMpGsonBuilder.create().toJson(this);
     }
 }

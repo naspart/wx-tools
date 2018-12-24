@@ -7,8 +7,8 @@ import com.thoughtworks.xstream.annotations.XStreamConverter;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-@XStreamAlias("xml")
 @Data
+@XStreamAlias("xml")
 @EqualsAndHashCode(callSuper = true)
 public class WxMpXmlOutTextMessage extends WxMpXmlOutMessage {
     private static final long serialVersionUID = -6354764352878371915L;

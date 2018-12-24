@@ -9,6 +9,7 @@ import com.rolbel.cp.bean.WxCpDepart;
 import com.rolbel.cp.bean.WxCpMessage;
 import com.rolbel.cp.bean.WxCpTag;
 import com.rolbel.cp.bean.WxCpUser;
+import com.rolbel.cp.util.json.adapter.*;
 
 public class WxCpGsonBuilder {
 

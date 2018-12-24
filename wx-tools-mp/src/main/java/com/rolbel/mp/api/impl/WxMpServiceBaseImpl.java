@@ -19,6 +19,7 @@ import com.rolbel.mp.bean.WxMpOAuth2AccessToken;
 import com.rolbel.mp.bean.WxMpSemanticQuery;
 import com.rolbel.mp.bean.WxMpSemanticQueryResult;
 import com.rolbel.mp.bean.user.WxMpUser;
+import com.rolbel.mp.enums.TicketType;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -68,32 +69,42 @@ public abstract class WxMpServiceBaseImpl<H, P> implements WxMpService, RequestH
     }
 
     @Override
-    public String getJsapiTicket() throws WxErrorException {
-        return getJsapiTicket(false);
+    public String getTicket(TicketType type) throws WxErrorException {
+        return this.getTicket(type, false);
     }
 
     @Override
-    public String getJsapiTicket(boolean forceRefresh) throws WxErrorException {
-        Lock lock = this.getWxMpConfigStorage().getJsapiTicketLock();
+    public String getTicket(TicketType type, boolean forceRefresh) throws WxErrorException {
+        Lock lock = this.getWxMpConfigStorage().getTicketLock(type);
         try {
             lock.lock();
             if (forceRefresh) {
-                this.getWxMpConfigStorage().expireJsapiTicket();
+                this.getWxMpConfigStorage().expireTicket(type);
             }
 
-            if (this.getWxMpConfigStorage().isJsapiTicketExpired()) {
-                String responseContent = execute(SimpleGetRequestExecutor.create(this), WxMpService.GET_JSAPI_TICKET_URL, null);
-                JsonElement tmpJsonElement = JSON_PARSER.parse(responseContent);
-                JsonObject tmpJsonObject = tmpJsonElement.getAsJsonObject();
+            if (this.getWxMpConfigStorage().isTicketExpired(type)) {
+                String responseContent = execute(SimpleGetRequestExecutor.create(this),
+                        WxMpService.GET_TICKET_URL + type.getCode(), null);
+                JsonObject tmpJsonObject = JSON_PARSER.parse(responseContent).getAsJsonObject();
                 String jsapiTicket = tmpJsonObject.get("ticket").getAsString();
                 int expiresInSeconds = tmpJsonObject.get("expires_in").getAsInt();
-                this.getWxMpConfigStorage().updateJsapiTicket(jsapiTicket, expiresInSeconds);
+                this.getWxMpConfigStorage().updateTicket(type, jsapiTicket, expiresInSeconds);
             }
         } finally {
             lock.unlock();
         }
 
-        return this.getWxMpConfigStorage().getJsapiTicket();
+        return this.getWxMpConfigStorage().getTicket(type);
+    }
+
+    @Override
+    public String getJsapiTicket() throws WxErrorException {
+        return this.getJsapiTicket(false);
+    }
+
+    @Override
+    public String getJsapiTicket(boolean forceRefresh) throws WxErrorException {
+        return this.getTicket(TicketType.JSAPI, forceRefresh);
     }
 
     @Override

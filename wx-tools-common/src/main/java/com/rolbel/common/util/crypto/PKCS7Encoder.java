@@ -9,6 +9,7 @@
 package com.rolbel.common.util.crypto;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
 /**
@@ -16,7 +17,7 @@ import java.util.Arrays;
  */
 public class PKCS7Encoder {
 
-    private static final Charset CHARSET = Charset.forName("utf-8");
+    private static final Charset CHARSET = StandardCharsets.UTF_8;
     private static final int BLOCK_SIZE = 32;
 
     /**
@@ -28,16 +29,13 @@ public class PKCS7Encoder {
     public static byte[] encode(int count) {
         // 计算需要填充的位数
         int amountToPad = BLOCK_SIZE - (count % BLOCK_SIZE);
-        if (amountToPad == 0) {
-            amountToPad = BLOCK_SIZE;
-        }
         // 获得补位所用的字符
         char padChr = chr(amountToPad);
-        String tmp = new String();
+        StringBuilder tmp = new StringBuilder();
         for (int index = 0; index < amountToPad; index++) {
-            tmp += padChr;
+            tmp.append(padChr);
         }
-        return tmp.getBytes(CHARSET);
+        return tmp.toString().getBytes(CHARSET);
     }
 
     /**
@@ -60,7 +58,7 @@ public class PKCS7Encoder {
      * @param a 需要转化的数字
      * @return 转化得到的字符
      */
-    public static char chr(int a) {
+    private static char chr(int a) {
         byte target = (byte) (a & 0xFF);
         return (char) target;
     }

@@ -2,7 +2,7 @@ package com.rolbel.common.util.http.jodd;
 
 import com.rolbel.common.error.WxError;
 import com.rolbel.common.error.WxErrorException;
-import com.rolbel.common.util.fs.FileUtil;
+import com.rolbel.common.util.fs.FileUtils;
 import com.rolbel.common.util.http.BaseMediaDownloadRequestExecutor;
 import com.rolbel.common.util.http.HttpResponseProxy;
 import com.rolbel.common.util.http.RequestHttp;
@@ -54,7 +54,7 @@ public class JoddHttpMediaDownloadRequestExecutor extends BaseMediaDownloadReque
         }
 
         try (InputStream inputStream = new ByteArrayInputStream(response.bodyBytes())) {
-            return FileUtil.createTmpFile(inputStream,
+            return FileUtils.createTmpFile(inputStream,
                     FilenameUtils.getBaseName(fileName),
                     FilenameUtils.getExtension(fileName),
                     super.tmpDirFile);

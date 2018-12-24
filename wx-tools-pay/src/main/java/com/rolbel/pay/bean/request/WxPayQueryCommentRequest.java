@@ -81,9 +81,4 @@ public class WxPayQueryCommentRequest extends BaseWxPayRequest {
     protected void checkConstraints() throws WxPayException {
 
     }
-
-    @Override
-    protected String[] getIgnoredParamsForSign() {
-        return new String[]{"limit", "sign_type"};
-    }
 }

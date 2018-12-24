@@ -11,14 +11,14 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class InputStreamResponseHandler implements ResponseHandler<InputStream> {
-
     public static final ResponseHandler<InputStream> INSTANCE = new InputStreamResponseHandler();
+    private static final int STATUS_CODE_300 = 300;
 
     @Override
     public InputStream handleResponse(final HttpResponse response) throws IOException {
         final StatusLine statusLine = response.getStatusLine();
         final HttpEntity entity = response.getEntity();
-        if (statusLine.getStatusCode() >= 300) {
+        if (statusLine.getStatusCode() >= STATUS_CODE_300) {
             EntityUtils.consume(entity);
             throw new HttpResponseException(statusLine.getStatusCode(), statusLine.getReasonPhrase());
         }

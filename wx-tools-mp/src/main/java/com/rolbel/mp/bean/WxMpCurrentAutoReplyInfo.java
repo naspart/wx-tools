@@ -2,7 +2,6 @@ package com.rolbel.mp.bean;
 
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.rolbel.common.util.ToStringUtils;
 import com.rolbel.common.util.json.WxBooleanTypeAdapter;
 import com.rolbel.common.util.json.WxDateTypeAdapter;
 import com.rolbel.mp.util.json.WxMpGsonBuilder;
@@ -40,7 +39,7 @@ public class WxMpCurrentAutoReplyInfo implements Serializable {
 
     @Override
     public String toString() {
-        return ToStringUtils.toSimpleString(this);
+        return WxMpGsonBuilder.create().toJson(this);
     }
 
     public static WxMpCurrentAutoReplyInfo fromJson(String json) {
@@ -69,7 +68,7 @@ public class WxMpCurrentAutoReplyInfo implements Serializable {
 
         @Override
         public String toString() {
-            return ToStringUtils.toSimpleString(this);
+            return WxMpGsonBuilder.create().toJson(this);
         }
     }
 
@@ -85,7 +84,7 @@ public class WxMpCurrentAutoReplyInfo implements Serializable {
 
         @Override
         public String toString() {
-            return ToStringUtils.toSimpleString(this);
+            return WxMpGsonBuilder.create().toJson(this);
         }
     }
 
@@ -97,7 +96,7 @@ public class WxMpCurrentAutoReplyInfo implements Serializable {
 
         @Override
         public String toString() {
-            return ToStringUtils.toSimpleString(this);
+            return WxMpGsonBuilder.create().toJson(this);
         }
     }
 
@@ -126,7 +125,7 @@ public class WxMpCurrentAutoReplyInfo implements Serializable {
 
         @Override
         public String toString() {
-            return ToStringUtils.toSimpleString(this);
+            return WxMpGsonBuilder.create().toJson(this);
         }
     }
 
@@ -143,7 +142,7 @@ public class WxMpCurrentAutoReplyInfo implements Serializable {
 
         @Override
         public String toString() {
-            return ToStringUtils.toSimpleString(this);
+            return WxMpGsonBuilder.create().toJson(this);
         }
     }
 
@@ -155,7 +154,7 @@ public class WxMpCurrentAutoReplyInfo implements Serializable {
 
         @Override
         public String toString() {
-            return ToStringUtils.toSimpleString(this);
+            return WxMpGsonBuilder.create().toJson(this);
         }
     }
 
@@ -168,7 +167,7 @@ public class WxMpCurrentAutoReplyInfo implements Serializable {
 
         @Override
         public String toString() {
-            return ToStringUtils.toSimpleString(this);
+            return WxMpGsonBuilder.create().toJson(this);
         }
     }
 }

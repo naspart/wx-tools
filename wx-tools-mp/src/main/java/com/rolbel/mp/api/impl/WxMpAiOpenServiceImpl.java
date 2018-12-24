@@ -5,9 +5,9 @@ import com.google.gson.JsonParser;
 import com.rolbel.common.WxType;
 import com.rolbel.common.error.WxError;
 import com.rolbel.common.error.WxErrorException;
-import com.rolbel.mp.AiLangType;
 import com.rolbel.mp.api.WxMpAiOpenService;
 import com.rolbel.mp.api.WxMpService;
+import com.rolbel.mp.enums.AiLangType;
 import com.rolbel.mp.util.request_executor.voice.VoiceUploadRequestExecutor;
 
 import java.io.File;

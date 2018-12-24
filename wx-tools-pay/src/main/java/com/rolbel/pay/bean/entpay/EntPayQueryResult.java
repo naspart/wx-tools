@@ -67,6 +67,12 @@ public class EntPayQueryResult extends BaseWxPayResult {
     private String transferTime;
 
     /**
+     * 企业付款成功时间.
+     */
+    @XStreamAlias("payment_time")
+    private String paymentTime;
+
+    /**
      * 付款描述
      */
     @XStreamAlias("desc")
