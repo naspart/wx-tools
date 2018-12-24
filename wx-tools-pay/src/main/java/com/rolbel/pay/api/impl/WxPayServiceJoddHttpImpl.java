@@ -26,7 +26,7 @@ public class WxPayServiceJoddHttpImpl extends BaseWxPayServiceImpl {
             byte[] responseBytes = request.send().bodyBytes();
             final String responseString = Base64.encodeToString(responseBytes);
             this.log.debug("\n【请求地址】：{}\n【请求数据】：{}\n【响应数据(Base64编码后)】：{}", url, requestStr, responseString);
-            if (this.getConfig().isIfSaveApiData()) {
+            if (this.getWxPayConfig().isIfSaveApiData()) {
                 wxApiData.set(new WxPayApiData(url, requestStr, responseString, null));
             }
 
@@ -45,7 +45,7 @@ public class WxPayServiceJoddHttpImpl extends BaseWxPayServiceImpl {
             String responseString = this.getResponseString(request.send());
 
             this.log.debug("\n【请求地址】：{}\n【请求数据】：{}\n【响应数据】：{}", url, requestStr, responseString);
-            if (this.getConfig().isIfSaveApiData()) {
+            if (this.getWxPayConfig().isIfSaveApiData()) {
                 wxApiData.set(new WxPayApiData(url, requestStr, responseString, null));
             }
 
@@ -60,22 +60,22 @@ public class WxPayServiceJoddHttpImpl extends BaseWxPayServiceImpl {
     private HttpRequest buildHttpRequest(String url, String requestStr, boolean useKey) throws WxPayException {
         HttpRequest request = HttpRequest
                 .post(url)
-                .timeout(this.getConfig().getHttpTimeout())
-                .connectionTimeout(this.getConfig().getHttpConnectionTimeout())
+                .timeout(this.getWxPayConfig().getHttpTimeout())
+                .connectionTimeout(this.getWxPayConfig().getHttpConnectionTimeout())
                 .bodyText(requestStr);
 
         if (useKey) {
-            SSLContext sslContext = this.getConfig().getSslContext();
+            SSLContext sslContext = this.getWxPayConfig().getSslContext();
             if (null == sslContext) {
-                sslContext = this.getConfig().initSSLContext();
+                sslContext = this.getWxPayConfig().initSSLContext();
             }
             final SSLSocketHttpConnectionProvider provider = new SSLSocketHttpConnectionProvider(sslContext);
             request.withConnectionProvider(provider);
         }
 
-        if (StringUtils.isNotBlank(this.getConfig().getHttpProxyHost()) && this.getConfig().getHttpProxyPort() > 0) {
-            ProxyInfo httpProxy = new ProxyInfo(ProxyType.HTTP, this.getConfig().getHttpProxyHost(), this.getConfig().getHttpProxyPort(),
-                    this.getConfig().getHttpProxyUsername(), this.getConfig().getHttpProxyPassword());
+        if (StringUtils.isNotBlank(this.getWxPayConfig().getHttpProxyHost()) && this.getWxPayConfig().getHttpProxyPort() > 0) {
+            ProxyInfo httpProxy = new ProxyInfo(ProxyType.HTTP, this.getWxPayConfig().getHttpProxyHost(), this.getWxPayConfig().getHttpProxyPort(),
+                    this.getWxPayConfig().getHttpProxyUsername(), this.getWxPayConfig().getHttpProxyPassword());
             HttpConnectionProvider provider = request.connectionProvider();
             if (null == provider) {
                 provider = new SocketHttpConnectionProvider();

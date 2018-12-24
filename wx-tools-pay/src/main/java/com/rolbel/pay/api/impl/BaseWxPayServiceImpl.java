@@ -50,7 +50,7 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
     private EntPayService entPayService = new EntPayServiceImpl(this);
     private PapPayService papPayService = new PapPayServiceImpl(this);
 
-    private WxPayConfig config;
+    private WxPayConfig wxPayConfig;
 
     @Override
     public EntPayService getEntPayService() {
@@ -73,18 +73,18 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
     }
 
     @Override
-    public WxPayConfig getConfig() {
-        return this.config;
+    public WxPayConfig getWxPayConfig() {
+        return this.wxPayConfig;
     }
 
     @Override
-    public void setConfig(WxPayConfig config) {
-        this.config = config;
+    public void setWxPayConfig(WxPayConfig config) {
+        this.wxPayConfig = config;
     }
 
     @Override
     public String getPayBaseUrl() {
-        if (this.getConfig().isUseSandboxEnv()) {
+        if (this.getWxPayConfig().isUseSandboxEnv()) {
             return PAY_BASE_URL + "/sandboxnew";
         }
 
@@ -93,7 +93,7 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
 
     @Override
     public WxPayRefundResult refund(WxPayRefundRequest request) throws WxPayException {
-        request.checkAndSign(this.getConfig());
+        request.checkAndSign(this.getWxPayConfig());
 
         String url = this.getPayBaseUrl() + "/secapi/pay/refund";
         String responseContent = this.post(url, request.toXML(), true);
@@ -116,7 +116,7 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
 
     @Override
     public WxPayRefundQueryResult queryRefund(WxPayRefundQueryRequest request) throws WxPayException {
-        request.checkAndSign(this.getConfig());
+        request.checkAndSign(this.getWxPayConfig());
 
         String url = this.getPayBaseUrl() + "/pay/refundquery";
         String responseContent = this.post(url, request.toXML(), false);
@@ -132,7 +132,7 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
             log.debug("微信支付异步通知请求参数：{}", xmlData);
             WxPayOrderNotifyResult result = WxPayOrderNotifyResult.fromXML(xmlData);
             log.debug("微信支付异步通知请求解析后的对象：{}", result);
-            result.checkResult(this, this.getConfig().getSignType(), false);
+            result.checkResult(this, this.getWxPayConfig().getSignType(), false);
             return result;
         } catch (WxPayException e) {
             log.error(e.getMessage(), e);
@@ -147,7 +147,7 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
     public WxPayRefundNotifyResult parseRefundNotifyResult(String xmlData) throws WxPayException {
         try {
             log.debug("微信支付退款异步通知参数：{}", xmlData);
-            WxPayRefundNotifyResult result = WxPayRefundNotifyResult.fromXML(xmlData, this.getConfig().getMchKey());
+            WxPayRefundNotifyResult result = WxPayRefundNotifyResult.fromXML(xmlData, this.getWxPayConfig().getMchKey());
             log.debug("微信支付退款异步通知解析后的对象：{}", result);
             return result;
         } catch (Exception e) {
@@ -162,7 +162,7 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
             log.debug("扫码支付回调通知请求参数：{}", xmlData);
             WxScanPayNotifyResult result = BaseWxPayResult.fromXML(xmlData, WxScanPayNotifyResult.class);
             log.debug("扫码支付回调通知解析后的对象：{}", result);
-            result.checkResult(this, this.getConfig().getSignType(), false);
+            result.checkResult(this, this.getWxPayConfig().getSignType(), false);
             return result;
         } catch (WxPayException e) {
             log.error(e.getMessage(), e);
@@ -176,7 +176,7 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
 
     @Override
     public WxPaySendRedpackResult sendRedpack(WxPaySendRedpackRequest request) throws WxPayException {
-        request.checkAndSign(this.getConfig());
+        request.checkAndSign(this.getWxPayConfig());
 
         String url = this.getPayBaseUrl() + "/mmpaymkttransfers/sendredpack";
         if (request.getAmtType() != null) {
@@ -194,7 +194,7 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
         WxPayRedpackQueryRequest request = new WxPayRedpackQueryRequest();
         request.setMchBillNo(mchBillNo);
         request.setBillType(WxPayConstants.BillType.MCHT);
-        request.checkAndSign(this.getConfig());
+        request.checkAndSign(this.getWxPayConfig());
 
         String url = this.getPayBaseUrl() + "/mmpaymkttransfers/gethbinfo";
         String responseContent = this.post(url, request.toXML(), true);
@@ -214,7 +214,7 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
 
     @Override
     public WxPayOrderQueryResult queryOrder(WxPayOrderQueryRequest request) throws WxPayException {
-        request.checkAndSign(this.getConfig());
+        request.checkAndSign(this.getWxPayConfig());
 
         String url = this.getPayBaseUrl() + "/pay/orderquery";
         String responseContent = this.post(url, request.toXML(), false);
@@ -242,7 +242,7 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
 
     @Override
     public WxPayOrderCloseResult closeOrder(WxPayOrderCloseRequest request) throws WxPayException {
-        request.checkAndSign(this.getConfig());
+        request.checkAndSign(this.getWxPayConfig());
 
         String url = this.getPayBaseUrl() + "/pay/closeorder";
         String responseContent = this.post(url, request.toXML(), false);
@@ -287,7 +287,7 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
                 // 此map用于参与调起sdk支付的二次签名,格式全小写，timestamp只能是10位,格式固定，切勿修改
                 String partnerId;
                 if (StringUtils.isEmpty(request.getMchId())) {
-                    partnerId = this.getConfig().getMchId();
+                    partnerId = this.getWxPayConfig().getMchId();
                 } else {
                     partnerId = request.getMchId();
                 }
@@ -301,7 +301,7 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
                 configMap.put("appid", appId);
 
                 final WxPayAppOrderResult result = WxPayAppOrderResult.builder()
-                        .sign(SignUtils.createSign(configMap, request.getSignType(), this.getConfig().getMchKey(), null))
+                        .sign(SignUtils.createSign(configMap, request.getSignType(), this.getWxPayConfig().getMchKey(), null))
                         .prepayId(prepayId)
                         .partnerId(partnerId)
                         .appId(appId)
@@ -328,7 +328,7 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
                         .signType(signType)
                         .build();
 
-                payResult.setPaySign(SignUtils.createSign(payResult, signType, this.getConfig().getMchKey(), null));
+                payResult.setPaySign(SignUtils.createSign(payResult, signType, this.getWxPayConfig().getMchKey(), null));
                 payResult.setOutTradeNo(request.getOutTradeNo());
 
                 return (T) payResult;
@@ -343,7 +343,7 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
 
     @Override
     public WxPayUnifiedOrderResult unifiedOrder(WxPayUnifiedOrderRequest request) throws WxPayException {
-        request.checkAndSign(this.getConfig());
+        request.checkAndSign(this.getWxPayConfig());
 
         String url = this.getPayBaseUrl() + "/pay/unifiedorder";
         String responseContent = this.post(url, request.toXML(), false);
@@ -369,10 +369,10 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
             payInfo.put("codeUrl", unifiedOrderResult.getCodeURL());
         } else if (WxPayConstants.TradeType.APP.equals(request.getTradeType())) {
             // APP支付绑定的是微信开放平台上的账号，APPID为开放平台上绑定APP后发放的参数
-            String appId = getConfig().getAppId();
+            String appId = getWxPayConfig().getAppId();
             Map<String, String> configMap = new HashMap<>();
             // 此map用于参与调起sdk支付的二次签名,格式全小写，timestamp只能是10位,格式固定，切勿修改
-            String partnerId = getConfig().getMchId();
+            String partnerId = getWxPayConfig().getMchId();
             configMap.put("prepayid", prepayId);
             configMap.put("partnerid", partnerId);
             String packageValue = "Sign=WXPay";
@@ -381,7 +381,7 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
             configMap.put("noncestr", nonceStr);
             configMap.put("appid", appId);
             // 此map用于客户端与微信服务器交互
-            payInfo.put("sign", SignUtils.createSign(configMap, request.getSignType(), this.getConfig().getMchKey(), null));
+            payInfo.put("sign", SignUtils.createSign(configMap, request.getSignType(), this.getWxPayConfig().getMchKey(), null));
             payInfo.put("prepayId", prepayId);
             payInfo.put("partnerId", partnerId);
             payInfo.put("appId", appId);
@@ -395,7 +395,7 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
             payInfo.put("nonceStr", nonceStr);
             payInfo.put("package", "prepay_id=" + prepayId);
             payInfo.put("signType", request.getSignType());
-            payInfo.put("paySign", SignUtils.createSign(payInfo, request.getSignType(), this.getConfig().getMchKey(), null));
+            payInfo.put("paySign", SignUtils.createSign(payInfo, request.getSignType(), this.getWxPayConfig().getMchKey(), null));
         }
 
         return payInfo;
@@ -406,13 +406,13 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
         //weixin://wxpay/bizpayurl?sign=XXXXX&appid=XXXXX&mch_id=XXXXX&product_id=XXXXXX&time_stamp=XXXXXX&nonce_str=XXXXX
         StringBuilder codeUrl = new StringBuilder("weixin://wxpay/bizpayurl?");
         Map<String, String> params = Maps.newHashMap();
-        params.put("appid", this.getConfig().getAppId());
-        params.put("mch_id", this.getConfig().getMchId());
+        params.put("appid", this.getWxPayConfig().getAppId());
+        params.put("mch_id", this.getWxPayConfig().getMchId());
         params.put("product_id", productId);
         params.put("time_stamp", String.valueOf(System.currentTimeMillis() / 1000));//这里需要秒，10位数字
         params.put("nonce_str", String.valueOf(System.currentTimeMillis()));
 
-        String sign = SignUtils.createSign(params, WxPayConstants.SignType.MD5, this.getConfig().getMchKey(), null);
+        String sign = SignUtils.createSign(params, WxPayConstants.SignType.MD5, this.getWxPayConfig().getMchKey(), null);
         params.put("sign", sign);
 
         for (String key : params.keySet()) {
@@ -426,7 +426,7 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
 
     @Override
     public void report(WxPayReportRequest request) throws WxPayException {
-        request.checkAndSign(this.getConfig());
+        request.checkAndSign(this.getWxPayConfig());
 
         String url = this.getPayBaseUrl() + "/payitil/report";
         String responseContent = this.post(url, request.toXML(), false);
@@ -466,7 +466,7 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
 
     @Override
     public String downloadRawBill(WxPayDownloadBillRequest request) throws WxPayException {
-        request.checkAndSign(this.getConfig());
+        request.checkAndSign(this.getWxPayConfig());
 
         String url = this.getPayBaseUrl() + "/pay/downloadbill";
 
@@ -522,7 +522,7 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
 
     @Override
     public WxPayFundFlowResult downloadFundFlow(WxPayDownloadFundFlowRequest request) throws WxPayException {
-        request.checkAndSign(this.getConfig());
+        request.checkAndSign(this.getWxPayConfig());
 
         String url = this.getPayBaseUrl() + "/pay/downloadfundflow";
 
@@ -630,7 +630,7 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
 
     @Override
     public WxPayMicropayResult micropay(WxPayMicropayRequest request) throws WxPayException {
-        request.checkAndSign(this.getConfig());
+        request.checkAndSign(this.getWxPayConfig());
 
         String url = this.getPayBaseUrl() + "/pay/micropay";
         String responseContent = this.post(url, request.toXML(), false);
@@ -641,7 +641,7 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
 
     @Override
     public WxPayOrderReverseResult reverseOrder(WxPayOrderReverseRequest request) throws WxPayException {
-        request.checkAndSign(this.getConfig());
+        request.checkAndSign(this.getWxPayConfig());
 
         String url = this.getPayBaseUrl() + "/secapi/pay/reverse";
         String responseContent = this.post(url, request.toXML(), true);
@@ -652,7 +652,7 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
 
     @Override
     public String shorturl(WxPayShorturlRequest request) throws WxPayException {
-        request.checkAndSign(this.getConfig());
+        request.checkAndSign(this.getWxPayConfig());
 
         String url = this.getPayBaseUrl() + "/tools/shorturl";
         String responseContent = this.post(url, request.toXML(), false);
@@ -668,7 +668,7 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
 
     @Override
     public String authCode2OpenId(WxPayAuthCode2OpenIdRequest request) throws WxPayException {
-        request.checkAndSign(this.getConfig());
+        request.checkAndSign(this.getWxPayConfig());
 
         String url = this.getPayBaseUrl() + "/tools/authcodetoopenid";
         String responseContent = this.post(url, request.toXML(), false);
@@ -685,7 +685,7 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
     @Override
     public String getSandboxSignKey() throws WxPayException {
         WxPayDefaultRequest request = new WxPayDefaultRequest();
-        request.checkAndSign(this.getConfig());
+        request.checkAndSign(this.getWxPayConfig());
 
         String url = "https://api.mch.weixin.qq.com/sandboxnew/pay/getsignkey";
         String responseContent = this.post(url, request.toXML(), false);
@@ -696,7 +696,7 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
 
     @Override
     public WxPayCouponSendResult sendCoupon(WxPayCouponSendRequest request) throws WxPayException {
-        request.checkAndSign(this.getConfig());
+        request.checkAndSign(this.getWxPayConfig());
 
         String url = this.getPayBaseUrl() + "/mmpaymkttransfers/send_coupon";
         String responseContent = this.post(url, request.toXML(), true);
@@ -707,7 +707,7 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
 
     @Override
     public WxPayCouponStockQueryResult queryCouponStock(WxPayCouponStockQueryRequest request) throws WxPayException {
-        request.checkAndSign(this.getConfig());
+        request.checkAndSign(this.getWxPayConfig());
 
         String url = this.getPayBaseUrl() + "/mmpaymkttransfers/query_coupon_stock";
         String responseContent = this.post(url, request.toXML(), false);
@@ -718,7 +718,7 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
 
     @Override
     public WxPayCouponInfoQueryResult queryCouponInfo(WxPayCouponInfoQueryRequest request) throws WxPayException {
-        request.checkAndSign(this.getConfig());
+        request.checkAndSign(this.getWxPayConfig());
 
         String url = this.getPayBaseUrl() + "/mmpaymkttransfers/querycouponsinfo";
         String responseContent = this.post(url, request.toXML(), false);
@@ -747,7 +747,7 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
         request.setLimit(limit);
         request.setSignType(WxPayConstants.SignType.HMAC_SHA256);
 
-        request.checkAndSign(this.getConfig());
+        request.checkAndSign(this.getWxPayConfig());
 
         String url = this.getPayBaseUrl() + "/billcommentsp/batchquerycomment";
 

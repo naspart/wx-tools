@@ -236,7 +236,7 @@ public abstract class BaseWxPayResult implements Serializable {
         //校验返回结果签名
         Map<String, String> map = toMap();
         if (wxPayConfig == null) {
-            wxPayConfig = wxPayService.getConfig();
+            wxPayConfig = wxPayService.getWxPayConfig();
         }
 
         if (getSign() != null && !SignUtils.checkSign(map, signType, wxPayConfig.getMchKey())) {

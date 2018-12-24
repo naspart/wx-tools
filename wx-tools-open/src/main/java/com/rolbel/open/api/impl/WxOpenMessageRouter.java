@@ -21,6 +21,6 @@ public class WxOpenMessageRouter extends WxMpMessageRouter {
     }
 
     public WxMpXmlOutMessage route(final WxMpXmlMessage wxMessage, final Map<String, Object> context, String appId) {
-        return route(wxMessage, context, wxOpenService.getWxOpenComponentService().getWxMpServiceByAppid(appId));
+        return route(wxMessage, context, wxOpenService.getWxOpenComponentService().getWxMpServiceByAppId(appId));
     }
 }

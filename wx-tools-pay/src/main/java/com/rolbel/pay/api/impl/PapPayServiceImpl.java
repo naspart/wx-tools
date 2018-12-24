@@ -32,7 +32,7 @@ public class PapPayServiceImpl implements PapPayService {
 
     @Override
     public String getMpSignUrl(PapPayMpSignRequest request) throws WxPayException {
-        request.checkAndSign(this.payService.getConfig());
+        request.checkAndSign(this.payService.getWxPayConfig());
 
         Map<String, String> sPara = Maps.transformValues(SignUtils.xmlBean2Map(request), val -> {
             try {
@@ -48,7 +48,7 @@ public class PapPayServiceImpl implements PapPayService {
 
     @Override
     public PapPayPayAndSignResult payAndSign(PapPayPayAndSignRequest request) throws WxPayException {
-        request.checkAndSign(this.payService.getConfig());
+        request.checkAndSign(this.payService.getWxPayConfig());
 
         String url = this.payService.getPayBaseUrl() + "/pay/contractorder";
         String responseContent = this.payService.post(url, request.toXML(), false);
@@ -65,7 +65,7 @@ public class PapPayServiceImpl implements PapPayService {
             log.debug("微信免密支付签约异步通知请求参数：{}", xmlData);
             PapPaySignNotifyResult result = PapPaySignNotifyResult.fromXML(xmlData);
             log.debug("微信免密支付签约异步通知请求解析后的对象：{}", result);
-            result.checkResult(this.payService, this.payService.getConfig().getSignType(), true);
+            result.checkResult(this.payService, this.payService.getWxPayConfig().getSignType(), true);
 
             return result;
         } catch (WxPayException e) {
@@ -79,7 +79,7 @@ public class PapPayServiceImpl implements PapPayService {
 
     @Override
     public PapPayContractQueryResult queryContract(PapPayContractQueryRequest request) throws WxPayException {
-        request.checkAndSign(this.payService.getConfig());
+        request.checkAndSign(this.payService.getWxPayConfig());
 
         String url = this.payService.getPayBaseUrl() + "/papay/querycontract";
         String responseContent = this.payService.post(url, request.toXML(), false);
@@ -91,7 +91,7 @@ public class PapPayServiceImpl implements PapPayService {
 
     @Override
     public PapPayApplyPayResult applyPay(PapPayApplyPayRequest request) throws WxPayException {
-        request.checkAndSign(this.payService.getConfig());
+        request.checkAndSign(this.payService.getWxPayConfig());
 
         String url = this.payService.getPayBaseUrl() + "/pay/pappayapply";
         String responseContent = this.payService.post(url, request.toXML(), false);
@@ -109,7 +109,7 @@ public class PapPayServiceImpl implements PapPayService {
             PapPayOrderNotifyResult result = PapPayOrderNotifyResult.fromXML(xmlData);
             log.debug("微信免密支付异步通知请求解析后的对象：{}", result);
 
-            result.checkResult(this.payService, this.payService.getConfig().getSignType(), true);
+            result.checkResult(this.payService, this.payService.getWxPayConfig().getSignType(), true);
 
             return result;
         } catch (WxPayException e) {
@@ -123,7 +123,7 @@ public class PapPayServiceImpl implements PapPayService {
 
     @Override
     public PapPayUnsignResult unsign(PapPayUnsignRequest request) throws WxPayException {
-        request.checkAndSign(this.payService.getConfig());
+        request.checkAndSign(this.payService.getWxPayConfig());
 
         String url = this.payService.getPayBaseUrl() + "/pappay/deletecontract";
         String responseContent = this.payService.post(url, request.toXML(), false);
@@ -145,7 +145,7 @@ public class PapPayServiceImpl implements PapPayService {
 
     @Override
     public PapPayOrderQueryResult queryOrder(PapPayOrderQueryRequest request) throws WxPayException {
-        request.checkAndSign(this.payService.getConfig());
+        request.checkAndSign(this.payService.getWxPayConfig());
 
         String url = this.payService.getPayBaseUrl() + "/pay/paporderquery";
         String responseContent = this.payService.post(url, request.toXML(), false);
@@ -162,7 +162,7 @@ public class PapPayServiceImpl implements PapPayService {
 
     @Override
     public PapPayRefundResult refund(PapPayRefundRequest request) throws WxPayException {
-        request.checkAndSign(this.payService.getConfig());
+        request.checkAndSign(this.payService.getWxPayConfig());
 
         String url = this.payService.getPayBaseUrl() + "/secapi/pay/refund";
         String responseContent = this.payService.post(url, request.toXML(), true);
@@ -185,7 +185,7 @@ public class PapPayServiceImpl implements PapPayService {
 
     @Override
     public PapPayRefundQueryResult queryRefund(PapPayRefundQueryRequest request) throws WxPayException {
-        request.checkAndSign(this.payService.getConfig());
+        request.checkAndSign(this.payService.getWxPayConfig());
 
         String url = this.payService.getPayBaseUrl() + "/pay/refundquery";
         String responseContent = this.payService.post(url, request.toXML(), false);

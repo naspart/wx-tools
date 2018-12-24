@@ -36,7 +36,7 @@ public class EntPayServiceImpl implements EntPayService {
 
     @Override
     public EntPayResult entPay(EntPayRequest request) throws WxPayException {
-        request.checkAndSign(this.payService.getConfig());
+        request.checkAndSign(this.payService.getWxPayConfig());
         String url = this.payService.getPayBaseUrl() + "/mmpaymkttransfers/promotion/transfers";
 
         String responseContent = this.payService.post(url, request.toXML(), true);
@@ -49,7 +49,7 @@ public class EntPayServiceImpl implements EntPayService {
     public EntPayQueryResult queryEntPay(String partnerTradeNo) throws WxPayException {
         EntPayQueryRequest request = new EntPayQueryRequest();
         request.setPartnerTradeNo(partnerTradeNo);
-        request.checkAndSign(this.payService.getConfig());
+        request.checkAndSign(this.payService.getWxPayConfig());
 
         String url = this.payService.getPayBaseUrl() + "/mmpaymkttransfers/gettransferinfo";
         String responseContent = this.payService.post(url, request.toXML(), true);
@@ -62,9 +62,9 @@ public class EntPayServiceImpl implements EntPayService {
     @Override
     public String getPublicKey() throws WxPayException {
         WxPayDefaultRequest request = new WxPayDefaultRequest();
-        request.setMchId(this.payService.getConfig().getMchId());
+        request.setMchId(this.payService.getWxPayConfig().getMchId());
         request.setNonceStr(String.valueOf(System.currentTimeMillis()));
-        request.checkAndSign(this.payService.getConfig());
+        request.checkAndSign(this.payService.getWxPayConfig());
 
         String url = "https://fraud.mch.weixin.qq.com/risk/getpublickey";
         String responseContent = this.payService.post(url, request.toXML(), true);
@@ -81,7 +81,7 @@ public class EntPayServiceImpl implements EntPayService {
         request.setEncTrueName(this.encryptRSA(publicKeyFile, request.getEncTrueName()));
         publicKeyFile.deleteOnExit();
 
-        request.checkAndSign(this.payService.getConfig());
+        request.checkAndSign(this.payService.getWxPayConfig());
 
         String url = this.payService.getPayBaseUrl() + "/mmpaysptrans/pay_bank";
         String responseContent = this.payService.post(url, request.toXML(), true);
@@ -94,7 +94,7 @@ public class EntPayServiceImpl implements EntPayService {
     public EntPayBankQueryResult queryPayBank(String partnerTradeNo) throws WxPayException {
         EntPayBankQueryRequest request = new EntPayBankQueryRequest();
         request.setPartnerTradeNo(partnerTradeNo);
-        request.checkAndSign(this.payService.getConfig());
+        request.checkAndSign(this.payService.getWxPayConfig());
 
         String url = this.payService.getPayBaseUrl() + "/mmpaysptrans/query_bank";
         String responseContent = this.payService.post(url, request.toXML(), true);

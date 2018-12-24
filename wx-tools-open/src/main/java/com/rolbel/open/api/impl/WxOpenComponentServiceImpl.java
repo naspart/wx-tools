@@ -24,6 +24,7 @@ import com.rolbel.open.bean.result.WxOpenAuthorizerInfoResult;
 import com.rolbel.open.bean.result.WxOpenAuthorizerOptionResult;
 import com.rolbel.open.bean.result.WxOpenQueryAuthResult;
 import com.rolbel.open.util.json.WxOpenGsonBuilder;
+import com.rolbel.pay.api.WxPayService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,6 +40,7 @@ public class WxOpenComponentServiceImpl implements WxOpenComponentService {
     private static final JsonParser JSON_PARSER = new JsonParser();
     private static final Map<String, WxMaService> WX_OPEN_MA_SERVICE_MAP = new HashMap<>();
     private static final Map<String, WxMpService> WX_OPEN_MP_SERVICE_MAP = new HashMap<>();
+    private static final Map<String, WxPayService> WX_OPEN_PAY_SERVICE_MAP = new HashMap<>();
 
     private WxOpenService wxOpenService;
 
@@ -47,7 +49,7 @@ public class WxOpenComponentServiceImpl implements WxOpenComponentService {
     }
 
     @Override
-    public WxMpService getWxMpServiceByAppid(String appId) {
+    public WxMpService getWxMpServiceByAppId(String appId) {
         WxMpService wxMpService = WX_OPEN_MP_SERVICE_MAP.get(appId);
         if (wxMpService == null) {
             synchronized (WX_OPEN_MP_SERVICE_MAP) {
@@ -64,7 +66,7 @@ public class WxOpenComponentServiceImpl implements WxOpenComponentService {
     }
 
     @Override
-    public WxMaService getWxMaServiceByAppid(String appId) {
+    public WxMaService getWxMaServiceByAppId(String appId) {
         WxMaService wxMaService = WX_OPEN_MA_SERVICE_MAP.get(appId);
         if (wxMaService == null) {
             synchronized (WX_OPEN_MA_SERVICE_MAP) {
@@ -77,6 +79,23 @@ public class WxOpenComponentServiceImpl implements WxOpenComponentService {
         }
 
         return wxMaService;
+    }
+
+    @Override
+    public WxPayService getWxPayServiceByAppId(String appId) {
+        WxPayService wxPayService = WX_OPEN_PAY_SERVICE_MAP.get(appId);
+        if (wxPayService == null) {
+            synchronized (WX_OPEN_PAY_SERVICE_MAP) {
+                wxPayService = WX_OPEN_PAY_SERVICE_MAP.get(appId);
+                if (wxPayService == null) {
+                    wxPayService = new WxOpenPayServiceImpl(getWxOpenConfigStorage().getWxPayConfig(appId));
+
+                    WX_OPEN_PAY_SERVICE_MAP.put(appId, wxPayService);
+                }
+            }
+        }
+
+        return wxPayService;
     }
 
     public WxOpenService getWxOpenService() {

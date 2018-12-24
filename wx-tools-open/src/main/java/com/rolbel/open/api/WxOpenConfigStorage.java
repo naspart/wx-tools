@@ -5,6 +5,7 @@ import com.rolbel.ma.config.WxMaConfig;
 import com.rolbel.mp.api.WxMpConfigStorage;
 import com.rolbel.open.bean.WxOpenAuthorizerAccessToken;
 import com.rolbel.open.bean.WxOpenComponentAccessToken;
+import com.rolbel.pay.config.WxPayConfig;
 
 import java.util.concurrent.locks.Lock;
 
@@ -53,6 +54,8 @@ public interface WxOpenConfigStorage {
     WxMpConfigStorage getWxMpConfigStorage(String appId);
 
     WxMaConfig getWxMaConfig(String appId);
+
+    WxPayConfig getWxPayConfig(String appId);
 
     /**
      * 应该是线程安全的

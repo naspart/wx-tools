@@ -10,6 +10,7 @@ import com.rolbel.open.bean.message.WxOpenXmlMessage;
 import com.rolbel.open.bean.result.WxOpenAuthorizerInfoResult;
 import com.rolbel.open.bean.result.WxOpenAuthorizerOptionResult;
 import com.rolbel.open.bean.result.WxOpenQueryAuthResult;
+import com.rolbel.pay.api.WxPayService;
 
 import java.util.List;
 
@@ -40,9 +41,11 @@ public interface WxOpenComponentService {
 
     String MINIAPP_JSCODE_2_SESSION = "https://api.weixin.qq.com/sns/component/jscode2session?appid=%s&js_code=%s&grant_type=authorization_code&component_appid=%s";
 
-    WxMpService getWxMpServiceByAppid(String appid);
+    WxMpService getWxMpServiceByAppId(String appid);
 
-    WxMaService getWxMaServiceByAppid(String appid);
+    WxMaService getWxMaServiceByAppId(String appid);
+
+    WxPayService getWxPayServiceByAppId(String appId);
 
     WxOpenConfigStorage getWxOpenConfigStorage();
 

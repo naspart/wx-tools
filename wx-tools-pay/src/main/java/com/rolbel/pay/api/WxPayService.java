@@ -157,12 +157,12 @@ public interface WxPayService {
     /**
      * 获取配置.
      */
-    WxPayConfig getConfig();
+    WxPayConfig getWxPayConfig();
 
     /**
      * 设置配置对象.
      */
-    void setConfig(WxPayConfig config);
+    void setWxPayConfig(WxPayConfig config);
 
     /**
      * <pre>

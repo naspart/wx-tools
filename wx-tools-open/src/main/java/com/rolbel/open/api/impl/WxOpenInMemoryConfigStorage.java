@@ -10,6 +10,7 @@ import com.rolbel.open.api.WxOpenConfigStorage;
 import com.rolbel.open.bean.WxOpenAuthorizerAccessToken;
 import com.rolbel.open.bean.WxOpenComponentAccessToken;
 import com.rolbel.open.util.json.WxOpenGsonBuilder;
+import com.rolbel.pay.config.WxPayConfig;
 
 import java.io.File;
 import java.util.Hashtable;
@@ -170,6 +171,11 @@ public class WxOpenInMemoryConfigStorage implements WxOpenConfigStorage {
     @Override
     public WxMaConfig getWxMaConfig(String appId) {
         return new WxOpenInnerConfigStorage(this, appId);
+    }
+
+    @Override
+    public WxPayConfig getWxPayConfig(String appId) {
+        return null;
     }
 
     @Override

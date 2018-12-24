@@ -62,7 +62,7 @@ public class WxPayServiceApacheHttpImpl extends BaseWxPayServiceImpl {
                 try (CloseableHttpResponse response = httpClient.execute(httpPost)) {
                     String responseString = EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
                     this.log.debug("\n【请求地址】：{}\n【请求数据】：{}\n【响应数据】：{}", url, requestStr, responseString);
-                    if (this.getConfig().isIfSaveApiData()) {
+                    if (this.getWxPayConfig().isIfSaveApiData()) {
                         wxApiData.set(new WxPayApiData(url, requestStr, responseString, null));
                     }
 
@@ -73,7 +73,7 @@ public class WxPayServiceApacheHttpImpl extends BaseWxPayServiceImpl {
             }
         } catch (Exception e) {
             this.log.error("\n【请求地址】：{}\n【请求数据】：{}\n【异常信息】：{}", url, requestStr, e.getMessage());
-            if (this.getConfig().isIfSaveApiData()) {
+            if (this.getWxPayConfig().isIfSaveApiData()) {
                 wxApiData.set(new WxPayApiData(url, requestStr, null, null));
             }
 
@@ -97,14 +97,14 @@ public class WxPayServiceApacheHttpImpl extends BaseWxPayServiceImpl {
             this.initSSLContext(httpClientBuilder);
         }
 
-        if (StringUtils.isNotBlank(this.getConfig().getHttpProxyHost()) && this.getConfig().getHttpProxyPort() > 0) {
+        if (StringUtils.isNotBlank(this.getWxPayConfig().getHttpProxyHost()) && this.getWxPayConfig().getHttpProxyPort() > 0) {
             // 使用代理服务器 需要用户认证的代理服务器
             CredentialsProvider provider = new BasicCredentialsProvider();
             provider.setCredentials(
-                    new AuthScope(this.getConfig().getHttpProxyHost(), this.getConfig().getHttpProxyPort()),
-                    new UsernamePasswordCredentials(this.getConfig().getHttpProxyUsername(), this.getConfig().getHttpProxyPassword()));
+                    new AuthScope(this.getWxPayConfig().getHttpProxyHost(), this.getWxPayConfig().getHttpProxyPort()),
+                    new UsernamePasswordCredentials(this.getWxPayConfig().getHttpProxyUsername(), this.getWxPayConfig().getHttpProxyPassword()));
             httpClientBuilder.setDefaultCredentialsProvider(provider);
-            httpClientBuilder.setProxy(new HttpHost(this.getConfig().getHttpProxyHost(), this.getConfig().getHttpProxyPort()));
+            httpClientBuilder.setProxy(new HttpHost(this.getWxPayConfig().getHttpProxyHost(), this.getWxPayConfig().getHttpProxyPort()));
         }
 
         return httpClientBuilder;
@@ -115,18 +115,18 @@ public class WxPayServiceApacheHttpImpl extends BaseWxPayServiceImpl {
         httpPost.setEntity(this.createEntry(requestStr));
 
         httpPost.setConfig(RequestConfig.custom()
-                .setConnectionRequestTimeout(this.getConfig().getHttpConnectionTimeout())
-                .setConnectTimeout(this.getConfig().getHttpConnectionTimeout())
-                .setSocketTimeout(this.getConfig().getHttpTimeout())
+                .setConnectionRequestTimeout(this.getWxPayConfig().getHttpConnectionTimeout())
+                .setConnectTimeout(this.getWxPayConfig().getHttpConnectionTimeout())
+                .setSocketTimeout(this.getWxPayConfig().getHttpTimeout())
                 .build());
 
         return httpPost;
     }
 
     private void initSSLContext(HttpClientBuilder httpClientBuilder) throws WxPayException {
-        SSLContext sslContext = this.getConfig().getSslContext();
+        SSLContext sslContext = this.getWxPayConfig().getSslContext();
         if (null == sslContext) {
-            sslContext = this.getConfig().initSSLContext();
+            sslContext = this.getWxPayConfig().initSSLContext();
         }
 
         SSLConnectionSocketFactory connectionSocketFactory = new SSLConnectionSocketFactory(sslContext,
