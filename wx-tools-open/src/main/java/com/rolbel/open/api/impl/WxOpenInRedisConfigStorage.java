@@ -2,7 +2,7 @@ package com.rolbel.open.api.impl;
 
 import org.apache.commons.lang3.StringUtils;
 import redis.clients.jedis.Jedis;
-import redis.clients.jedis.util.Pool;
+import redis.clients.util.Pool;
 
 public class WxOpenInRedisConfigStorage extends WxOpenInMemoryConfigStorage {
     private final static String COMPONENT_VERIFY_TICKET_KEY = "wechat_component_verify_ticket:";

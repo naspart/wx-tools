@@ -3,7 +3,7 @@ package com.rolbel.mp.api;
 import com.rolbel.mp.enums.TicketType;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.util.Pool;
+import redis.clients.util.Pool;
 
 /**
  * 基于Redis的微信配置provider
