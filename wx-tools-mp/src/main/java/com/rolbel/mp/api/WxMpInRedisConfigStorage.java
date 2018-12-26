@@ -3,6 +3,7 @@ package com.rolbel.mp.api;
 import com.rolbel.mp.enums.TicketType;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.util.Pool;
 
 /**
  * 基于Redis的微信配置provider
@@ -18,7 +19,7 @@ public class WxMpInRedisConfigStorage extends WxMpInMemoryConfigStorage {
     /**
      * 使用连接池保证线程安全
      */
-    protected final JedisPool jedisPool;
+    protected final Pool<Jedis> jedisPool;
 
     private String accessTokenKey;
 

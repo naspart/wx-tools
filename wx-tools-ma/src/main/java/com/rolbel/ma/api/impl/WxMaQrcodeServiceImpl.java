@@ -11,6 +11,7 @@ import com.rolbel.ma.util.http.QrcodeRequestExecutor;
 
 import java.io.File;
 
+@SuppressWarnings("unchecked")
 public class WxMaQrcodeServiceImpl implements WxMaQrcodeService {
     private WxMaService wxMaService;
 

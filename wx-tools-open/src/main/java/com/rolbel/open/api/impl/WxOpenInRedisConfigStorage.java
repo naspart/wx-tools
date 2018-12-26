@@ -2,8 +2,7 @@ package com.rolbel.open.api.impl;
 
 import org.apache.commons.lang3.StringUtils;
 import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
-import redis.clients.util.Pool;
+import redis.clients.jedis.util.Pool;
 
 public class WxOpenInRedisConfigStorage extends WxOpenInMemoryConfigStorage {
     private final static String COMPONENT_VERIFY_TICKET_KEY = "wechat_component_verify_ticket:";
@@ -34,10 +33,6 @@ public class WxOpenInRedisConfigStorage extends WxOpenInMemoryConfigStorage {
     public WxOpenInRedisConfigStorage(Pool<Jedis> jedisPool, String keyPrefix) {
         this.jedisPool = jedisPool;
         this.keyPrefix = keyPrefix;
-    }
-
-    public WxOpenInRedisConfigStorage(JedisPool jedisPool) {
-        this.jedisPool = jedisPool;
     }
 
     @Override

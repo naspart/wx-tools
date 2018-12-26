@@ -64,6 +64,7 @@ public abstract class WxCpXmlOutMessage implements Serializable {
         return new NewsBuilder();
     }
 
+    @SuppressWarnings("all")
     protected String toXml() {
         return XStreamTransformer.toXml((Class) this.getClass(), this);
     }

@@ -25,6 +25,7 @@ public abstract class MaQrcodeRequestExecutor<H, P> implements RequestExecutor<F
         handler.handle(this.execute(uri, data));
     }
 
+    @SuppressWarnings("unchecked")
     public static RequestExecutor<File, WxMaQrcodeParam> create(RequestHttp requestHttp) throws WxErrorException {
         switch (requestHttp.getRequestType()) {
             case APACHE_HTTP:

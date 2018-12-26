@@ -97,7 +97,7 @@ public class WxPayConfig {
     /**
      * 初始化ssl.
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("all")
     public SSLContext initSSLContext() throws WxPayException {
         if (StringUtils.isBlank(this.getMchId())) {
             throw new WxPayException("请确保商户号mchId已设置");
