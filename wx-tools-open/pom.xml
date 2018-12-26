@@ -5,12 +5,12 @@
     <parent>
         <artifactId>wx-tools</artifactId>
         <groupId>com.rolbel</groupId>
-        <version>0.0.4</version>
+        <version>0.0.5</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>wx-tools-open</artifactId>
-    <version>0.0.4</version>
+    <version>0.0.5</version>
     <packaging>jar</packaging>
 
     <name>Wx Tools - Open</name>
@@ -21,13 +21,13 @@
         <dependency>
             <groupId>com.rolbel</groupId>
             <artifactId>wx-tools-mp</artifactId>
-            <version>0.0.4</version>
+            <version>0.0.5</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.rolbel</groupId>
             <artifactId>wx-tools-ma</artifactId>
-            <version>0.0.4</version>
+            <version>0.0.5</version>
             <scope>compile</scope>
         </dependency>
 
@@ -35,17 +35,29 @@
             <groupId>redis.clients</groupId>
             <artifactId>jedis</artifactId>
             <version>3.0.0</version>
+            <scope>compile</scope>
             <exclusions>
                 <exclusion>
                     <artifactId>org.slf4j</artifactId>
                     <groupId>slf4j-api</groupId>
                 </exclusion>
+                <exclusion>
+                    <artifactId>org.apache.commons</artifactId>
+                    <groupId>commons-pool2</groupId>
+                </exclusion>
             </exclusions>
         </dependency>
         <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
+            <version>2.6.0</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
             <groupId>com.rolbel</groupId>
             <artifactId>wx-tools-pay</artifactId>
-            <version>0.0.4</version>
+            <version>0.0.5</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
