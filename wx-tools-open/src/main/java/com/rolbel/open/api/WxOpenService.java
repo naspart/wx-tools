@@ -1,13 +1,14 @@
 package com.rolbel.open.api;
 
 import com.rolbel.common.error.WxErrorException;
+import com.rolbel.open.config.WxOpenConfig;
 
 public interface WxOpenService {
     WxOpenComponentService getWxOpenComponentService();
 
-    WxOpenConfigStorage getWxOpenConfigStorage();
+    WxOpenConfig getWxOpenConfig();
 
-    void setWxOpenConfigStorage(WxOpenConfigStorage wxOpenConfigStorage);
+    void setWxOpenConfig(WxOpenConfig wxOpenConfig);
 
     /**
      * 当本Service没有实现某个API的时候，可以用这个，针对所有微信API中的GET请求

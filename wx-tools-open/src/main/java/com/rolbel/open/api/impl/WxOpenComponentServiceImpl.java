@@ -13,7 +13,6 @@ import com.rolbel.ma.bean.WxMaJscode2SessionResult;
 import com.rolbel.mp.api.WxMpService;
 import com.rolbel.mp.bean.WxMpOAuth2AccessToken;
 import com.rolbel.open.api.WxOpenComponentService;
-import com.rolbel.open.api.WxOpenConfigStorage;
 import com.rolbel.open.api.WxOpenService;
 import com.rolbel.open.bean.WxOpenAuthorizerAccessToken;
 import com.rolbel.open.bean.WxOpenComponentAccessToken;
@@ -23,6 +22,7 @@ import com.rolbel.open.bean.message.WxOpenXmlMessage;
 import com.rolbel.open.bean.result.WxOpenAuthorizerInfoResult;
 import com.rolbel.open.bean.result.WxOpenAuthorizerOptionResult;
 import com.rolbel.open.bean.result.WxOpenQueryAuthResult;
+import com.rolbel.open.config.WxOpenConfig;
 import com.rolbel.open.util.json.WxOpenGsonBuilder;
 import com.rolbel.pay.api.WxPayService;
 import org.apache.commons.lang3.StringUtils;
@@ -55,7 +55,7 @@ public class WxOpenComponentServiceImpl implements WxOpenComponentService {
             synchronized (WX_OPEN_MP_SERVICE_MAP) {
                 wxMpService = WX_OPEN_MP_SERVICE_MAP.get(appId);
                 if (wxMpService == null) {
-                    wxMpService = new WxOpenMpServiceImpl(this, appId, getWxOpenConfigStorage().getWxMpConfigStorage(appId));
+                    wxMpService = new WxOpenMpServiceImpl(this, appId, getWxOpenConfig().getWxMpConfig(appId));
 
                     WX_OPEN_MP_SERVICE_MAP.put(appId, wxMpService);
                 }
@@ -72,7 +72,7 @@ public class WxOpenComponentServiceImpl implements WxOpenComponentService {
             synchronized (WX_OPEN_MA_SERVICE_MAP) {
                 wxMaService = WX_OPEN_MA_SERVICE_MAP.get(appId);
                 if (wxMaService == null) {
-                    wxMaService = new WxOpenMaServiceImpl(this, appId, getWxOpenConfigStorage().getWxMaConfig(appId));
+                    wxMaService = new WxOpenMaServiceImpl(this, appId, getWxOpenConfig().getWxMaConfig(appId));
                     WX_OPEN_MA_SERVICE_MAP.put(appId, wxMaService);
                 }
             }
@@ -88,7 +88,7 @@ public class WxOpenComponentServiceImpl implements WxOpenComponentService {
             synchronized (WX_OPEN_PAY_SERVICE_MAP) {
                 wxPayService = WX_OPEN_PAY_SERVICE_MAP.get(appId);
                 if (wxPayService == null) {
-                    wxPayService = new WxOpenPayServiceImpl(getWxOpenConfigStorage().getWxPayConfig(appId));
+                    wxPayService = new WxOpenPayServiceImpl(getWxOpenConfig().getWxPayConfig(appId));
 
                     WX_OPEN_PAY_SERVICE_MAP.put(appId, wxPayService);
                 }
@@ -103,14 +103,14 @@ public class WxOpenComponentServiceImpl implements WxOpenComponentService {
     }
 
     @Override
-    public WxOpenConfigStorage getWxOpenConfigStorage() {
-        return wxOpenService.getWxOpenConfigStorage();
+    public WxOpenConfig getWxOpenConfig() {
+        return wxOpenService.getWxOpenConfig();
     }
 
     @Override
     public boolean checkSignature(String timestamp, String nonce, String signature) {
         try {
-            return SHA1.gen(getWxOpenConfigStorage().getComponentToken(), timestamp, nonce)
+            return SHA1.gen(this.getWxOpenConfig().getComponentToken(), timestamp, nonce)
                     .equals(signature);
         } catch (Exception e) {
             this.logger.error("Checking signature failed, and the reason is :" + e.getMessage());
@@ -120,25 +120,25 @@ public class WxOpenComponentServiceImpl implements WxOpenComponentService {
 
     @Override
     public String getComponentAccessToken(boolean forceRefresh) throws WxErrorException {
-        Lock lock = this.getWxOpenConfigStorage().getComponentAccessTokenLock();
+        Lock lock = this.getWxOpenConfig().getComponentAccessTokenLock();
         try {
             lock.lock();
 
-            if (this.getWxOpenConfigStorage().isComponentAccessTokenExpired() || forceRefresh) {
+            if (this.getWxOpenConfig().isComponentAccessTokenExpired() || forceRefresh) {
                 JsonObject jsonObject = new JsonObject();
-                jsonObject.addProperty("component_appid", getWxOpenConfigStorage().getComponentAppId());
-                jsonObject.addProperty("component_appsecret", getWxOpenConfigStorage().getComponentAppSecret());
-                jsonObject.addProperty("component_verify_ticket", getWxOpenConfigStorage().getComponentVerifyTicket());
+                jsonObject.addProperty("component_appid", this.getWxOpenConfig().getComponentAppId());
+                jsonObject.addProperty("component_appsecret", this.getWxOpenConfig().getComponentAppSecret());
+                jsonObject.addProperty("component_verify_ticket", this.getWxOpenConfig().getComponentVerifyTicket());
 
                 String responseContent = this.getWxOpenService().post(API_COMPONENT_TOKEN_URL, jsonObject.toString());
                 WxOpenComponentAccessToken componentAccessToken = WxOpenComponentAccessToken.fromJson(responseContent);
-                getWxOpenConfigStorage().updateComponentAccessTokent(componentAccessToken);
+                this.getWxOpenConfig().updateComponentAccessTokent(componentAccessToken);
             }
         } finally {
             lock.unlock();
         }
 
-        return this.getWxOpenConfigStorage().getComponentAccessToken();
+        return this.getWxOpenConfig().getComponentAccessToken();
     }
 
     private String post(String uri, String postData) throws WxErrorException {
@@ -160,8 +160,8 @@ public class WxOpenComponentServiceImpl implements WxOpenComponentService {
              */
             if (error.getErrorCode() == 42001 || error.getErrorCode() == 40001 || error.getErrorCode() == 40014) {
                 // 强制设置wxMpConfigStorage它的access token过期了，这样在下一次请求里就会刷新access token
-                this.getWxOpenConfigStorage().expireComponentAccessToken();
-                if (this.getWxOpenConfigStorage().autoRefreshToken()) {
+                this.getWxOpenConfig().expireComponentAccessToken();
+                if (this.getWxOpenConfig().autoRefreshToken()) {
                     return this.post(uri, postData, accessTokenKey);
                 }
             }
@@ -191,8 +191,8 @@ public class WxOpenComponentServiceImpl implements WxOpenComponentService {
              */
             if (error.getErrorCode() == 42001 || error.getErrorCode() == 40001 || error.getErrorCode() == 40014) {
                 // 强制设置wxMpConfigStorage它的access token过期了，这样在下一次请求里就会刷新access token
-                this.getWxOpenConfigStorage().expireComponentAccessToken();
-                if (this.getWxOpenConfigStorage().autoRefreshToken()) {
+                this.getWxOpenConfig().expireComponentAccessToken();
+                if (this.getWxOpenConfig().autoRefreshToken()) {
                     return this.get(uri, accessTokenKey);
                 }
             }
@@ -235,12 +235,12 @@ public class WxOpenComponentServiceImpl implements WxOpenComponentService {
      */
     private String createPreAuthUrl(String redirectURI, String authType, String bizAppid, boolean isMobile) throws WxErrorException {
         JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("component_appid", getWxOpenConfigStorage().getComponentAppId());
+        jsonObject.addProperty("component_appid", this.getWxOpenConfig().getComponentAppId());
         String responseContent = post(API_CREATE_PREAUTHCODE_URL, jsonObject.toString());
         jsonObject = WxGsonBuilder.create().fromJson(responseContent, JsonObject.class);
 
         String preAuthUrlStr = String.format((isMobile ? COMPONENT_MOBILE_LOGIN_PAGE_URL : COMPONENT_LOGIN_PAGE_URL),
-                getWxOpenConfigStorage().getComponentAppId(),
+                this.getWxOpenConfig().getComponentAppId(),
                 jsonObject.get("pre_auth_code").getAsString(),
                 URIUtil.encodeURIComponent(redirectURI));
         if (StringUtils.isNotEmpty(authType)) {
@@ -263,7 +263,7 @@ public class WxOpenComponentServiceImpl implements WxOpenComponentService {
             throw new NullPointerException("message is empty");
         }
         if (StringUtils.equalsIgnoreCase(wxMessage.getInfoType(), "component_verify_ticket")) {
-            getWxOpenConfigStorage().setComponentVerifyTicket(wxMessage.getComponentVerifyTicket());
+            this.getWxOpenConfig().setComponentVerifyTicket(wxMessage.getComponentVerifyTicket());
             return "success";
         }
         //新增、跟新授权
@@ -282,7 +282,7 @@ public class WxOpenComponentServiceImpl implements WxOpenComponentService {
     @Override
     public WxOpenQueryAuthResult getQueryAuth(String authorizationCode) throws WxErrorException {
         JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("component_appid", getWxOpenConfigStorage().getComponentAppId());
+        jsonObject.addProperty("component_appid", this.getWxOpenConfig().getComponentAppId());
         jsonObject.addProperty("authorization_code", authorizationCode);
         String responseContent = post(API_QUERY_AUTH_URL, jsonObject.toString());
 
@@ -293,12 +293,12 @@ public class WxOpenComponentServiceImpl implements WxOpenComponentService {
 
         WxOpenAuthorizationInfo authorizationInfo = queryAuth.getAuthorizationInfo();
         if (authorizationInfo.getAuthorizerAccessToken() != null) {
-            getWxOpenConfigStorage().updateAuthorizerAccessToken(authorizationInfo.getAuthorizerAppid(),
+            this.getWxOpenConfig().updateAuthorizerAccessToken(authorizationInfo.getAuthorizerAppid(),
                     authorizationInfo.getAuthorizerAccessToken(), authorizationInfo.getExpiresIn());
         }
 
         if (authorizationInfo.getAuthorizerRefreshToken() != null) {
-            getWxOpenConfigStorage().setAuthorizerRefreshToken(authorizationInfo.getAuthorizerAppid(), authorizationInfo.getAuthorizerRefreshToken());
+            this.getWxOpenConfig().setAuthorizerRefreshToken(authorizationInfo.getAuthorizerAppid(), authorizationInfo.getAuthorizerRefreshToken());
         }
 
         return queryAuth;
@@ -307,7 +307,7 @@ public class WxOpenComponentServiceImpl implements WxOpenComponentService {
     @Override
     public WxOpenAuthorizerInfoResult getAuthorizerInfo(String authorizerAppid) throws WxErrorException {
         JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("component_appid", getWxOpenConfigStorage().getComponentAppId());
+        jsonObject.addProperty("component_appid", this.getWxOpenConfig().getComponentAppId());
         jsonObject.addProperty("authorizer_appid", authorizerAppid);
         String responseContent = post(API_GET_AUTHORIZER_INFO_URL, jsonObject.toString());
 
@@ -317,7 +317,7 @@ public class WxOpenComponentServiceImpl implements WxOpenComponentService {
     @Override
     public WxOpenAuthorizerOptionResult getAuthorizerOption(String authorizerAppid, String optionName) throws WxErrorException {
         JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("component_appid", getWxOpenConfigStorage().getComponentAppId());
+        jsonObject.addProperty("component_appid", this.getWxOpenConfig().getComponentAppId());
         jsonObject.addProperty("authorizer_appid", authorizerAppid);
         jsonObject.addProperty("option_name", optionName);
         String responseContent = post(API_GET_AUTHORIZER_OPTION_URL, jsonObject.toString());
@@ -328,7 +328,7 @@ public class WxOpenComponentServiceImpl implements WxOpenComponentService {
     @Override
     public void setAuthorizerOption(String authorizerAppid, String optionName, String optionValue) throws WxErrorException {
         JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("component_appid", getWxOpenConfigStorage().getComponentAppId());
+        jsonObject.addProperty("component_appid", this.getWxOpenConfig().getComponentAppId());
         jsonObject.addProperty("authorizer_appid", authorizerAppid);
         jsonObject.addProperty("option_name", optionName);
         jsonObject.addProperty("option_value", optionValue);
@@ -338,23 +338,23 @@ public class WxOpenComponentServiceImpl implements WxOpenComponentService {
     @Override
     public String getAuthorizerAccessToken(String appId, boolean forceRefresh) throws WxErrorException {
 
-        if (this.getWxOpenConfigStorage().isAuthorizerAccessTokenExpired(appId) || forceRefresh) {
+        if (this.getWxOpenConfig().isAuthorizerAccessTokenExpired(appId) || forceRefresh) {
             JsonObject jsonObject = new JsonObject();
-            jsonObject.addProperty("component_appid", getWxOpenConfigStorage().getComponentAppId());
+            jsonObject.addProperty("component_appid", this.getWxOpenConfig().getComponentAppId());
             jsonObject.addProperty("authorizer_appid", appId);
-            jsonObject.addProperty("authorizer_refresh_token", getWxOpenConfigStorage().getAuthorizerRefreshToken(appId));
+            jsonObject.addProperty("authorizer_refresh_token", this.getWxOpenConfig().getAuthorizerRefreshToken(appId));
             String responseContent = post(API_AUTHORIZER_TOKEN_URL, jsonObject.toString());
 
             WxOpenAuthorizerAccessToken wxOpenAuthorizerAccessToken = WxOpenAuthorizerAccessToken.fromJson(responseContent);
-            getWxOpenConfigStorage().updateAuthorizerAccessToken(appId, wxOpenAuthorizerAccessToken);
+            this.getWxOpenConfig().updateAuthorizerAccessToken(appId, wxOpenAuthorizerAccessToken);
         }
 
-        return this.getWxOpenConfigStorage().getAuthorizerAccessToken(appId);
+        return this.getWxOpenConfig().getAuthorizerAccessToken(appId);
     }
 
     @Override
     public WxMpOAuth2AccessToken oauth2getAccessToken(String appId, String code) throws WxErrorException {
-        String url = String.format(OAUTH2_ACCESS_TOKEN_URL, appId, code, getWxOpenConfigStorage().getComponentAppId());
+        String url = String.format(OAUTH2_ACCESS_TOKEN_URL, appId, code, this.getWxOpenConfig().getComponentAppId());
         String responseContent = get(url);
 
         return WxMpOAuth2AccessToken.fromJson(responseContent);
@@ -367,7 +367,7 @@ public class WxOpenComponentServiceImpl implements WxOpenComponentService {
 
     @Override
     public WxMpOAuth2AccessToken oauth2refreshAccessToken(String appId, String refreshToken) throws WxErrorException {
-        String url = String.format(OAUTH2_REFRESH_TOKEN_URL, appId, refreshToken, getWxOpenConfigStorage().getComponentAppId());
+        String url = String.format(OAUTH2_REFRESH_TOKEN_URL, appId, refreshToken, this.getWxOpenConfig().getComponentAppId());
         String responseContent = get(url);
 
         return WxMpOAuth2AccessToken.fromJson(responseContent);
@@ -376,12 +376,12 @@ public class WxOpenComponentServiceImpl implements WxOpenComponentService {
     @Override
     public String oauth2buildAuthorizationUrl(String appId, String redirectURI, String scope, String state) {
         return String.format(CONNECT_OAUTH2_AUTHORIZE_URL,
-                appId, URIUtil.encodeURIComponent(redirectURI), scope, StringUtils.trimToEmpty(state), getWxOpenConfigStorage().getComponentAppId());
+                appId, URIUtil.encodeURIComponent(redirectURI), scope, StringUtils.trimToEmpty(state), this.getWxOpenConfig().getComponentAppId());
     }
 
     @Override
     public WxMaJscode2SessionResult maJscode2Session(String appId, String jsCode) throws WxErrorException {
-        String url = String.format(MINIAPP_JSCODE_2_SESSION, appId, jsCode, getWxOpenConfigStorage().getComponentAppId());
+        String url = String.format(MINIAPP_JSCODE_2_SESSION, appId, jsCode, this.getWxOpenConfig().getComponentAppId());
         String responseContent = get(url);
 
         return WxMaJscode2SessionResult.fromJson(responseContent);

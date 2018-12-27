@@ -1,6 +1,7 @@
 package com.rolbel.ma.config;
 
 import com.rolbel.common.bean.WxAccessToken;
+import com.rolbel.common.enums.TicketType;
 import com.rolbel.common.util.http.apache.ApacheHttpClientBuilder;
 import com.rolbel.ma.util.json.WxMaGsonBuilder;
 
@@ -13,7 +14,7 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class WxMaInMemoryConfig implements WxMaConfig {
     protected volatile String msgDataFormat;
-    protected volatile String appid;
+    protected volatile String appId;
     protected volatile String secret;
     protected volatile String token;
     protected volatile String accessToken;
@@ -49,17 +50,9 @@ public class WxMaInMemoryConfig implements WxMaConfig {
         return this.accessToken;
     }
 
-    public void setAccessToken(String accessToken) {
-        this.accessToken = accessToken;
-    }
-
     @Override
     public Lock getAccessTokenLock() {
         return this.accessTokenLock;
-    }
-
-    public void setAccessTokenLock(Lock accessTokenLock) {
-        this.accessTokenLock = accessTokenLock;
     }
 
     @Override
@@ -79,63 +72,74 @@ public class WxMaInMemoryConfig implements WxMaConfig {
     }
 
     @Override
-    public String getJsapiTicket() {
-        return this.jsapiTicket;
-    }
-
-    @Override
-    public Lock getJsapiTicketLock() {
-        return this.jsapiTicketLock;
-    }
-
-    @Override
-    public boolean isJsapiTicketExpired() {
-        return System.currentTimeMillis() > this.jsapiTicketExpiresTime;
-    }
-
-    @Override
-    public void expireJsapiTicket() {
-        this.jsapiTicketExpiresTime = 0;
-    }
-
-    @Override
-    public void updateJsapiTicket(String jsapiTicket, int expiresInSeconds) {
-        this.jsapiTicket = jsapiTicket;
-        // 预留200秒的时间
-        this.jsapiTicketExpiresTime = System.currentTimeMillis() + (expiresInSeconds - 200) * 1000L;
-    }
-
-
-    @Override
-    public String getCardApiTicket() {
-        return this.cardApiTicket;
-    }
-
-    @Override
-    public Lock getCardApiTicketLock() {
-        return this.cardApiTicketLock;
-    }
-
-    @Override
-    public boolean isCardApiTicketExpired() {
-        return System.currentTimeMillis() > this.cardApiTicketExpiresTime;
-    }
-
-    @Override
-    public void expireCardApiTicket() {
-        this.cardApiTicketExpiresTime = 0;
-    }
-
-    @Override
-    public void updateCardApiTicket(String cardApiTicket, int expiresInSeconds) {
-        this.cardApiTicket = cardApiTicket;
-        // 预留200秒的时间
-        this.cardApiTicketExpiresTime = System.currentTimeMillis() + (expiresInSeconds - 200) * 1000L;
-    }
-
-    @Override
     public void expireAccessToken() {
         this.expiresTime = 0;
+    }
+
+    @Override
+    public String getTicket(TicketType type) {
+        switch (type) {
+            case JSAPI:
+                return this.jsapiTicket;
+            case WX_CARD:
+                return this.cardApiTicket;
+            default:
+                return null;
+        }
+    }
+
+    @Override
+    public Lock getTicketLock(TicketType type) {
+        switch (type) {
+            case JSAPI:
+                return this.jsapiTicketLock;
+            case WX_CARD:
+                return this.cardApiTicketLock;
+            default:
+                return null;
+        }
+    }
+
+    @Override
+    public boolean isTicketExpired(TicketType type) {
+        switch (type) {
+            case JSAPI:
+                return System.currentTimeMillis() > this.jsapiTicketExpiresTime;
+            case WX_CARD:
+                return System.currentTimeMillis() > this.cardApiTicketExpiresTime;
+            default:
+                return false;
+        }
+    }
+
+    @Override
+    public synchronized void updateTicket(TicketType type, String ticket, int expiresInSeconds) {
+        switch (type) {
+            case JSAPI:
+                this.jsapiTicket = ticket;
+                // 预留200秒的时间
+                this.jsapiTicketExpiresTime = System.currentTimeMillis() + (expiresInSeconds - 200) * 1000L;
+                break;
+            case WX_CARD:
+                this.cardApiTicket = ticket;
+                // 预留200秒的时间
+                this.cardApiTicketExpiresTime = System.currentTimeMillis() + (expiresInSeconds - 200) * 1000L;
+                break;
+            default:
+        }
+    }
+
+    @Override
+    public void expireTicket(TicketType type) {
+        switch (type) {
+            case JSAPI:
+                this.jsapiTicketExpiresTime = 0;
+                break;
+            case WX_CARD:
+                this.cardApiTicketExpiresTime = 0;
+                break;
+            default:
+        }
     }
 
     @Override
@@ -240,10 +244,10 @@ public class WxMaInMemoryConfig implements WxMaConfig {
 
     @Override
     public String getAppId() {
-        return appid;
+        return appId;
     }
 
-    public void setAppId(String appid) {
-        this.appid = appid;
+    public void setAppId(String appId) {
+        this.appId = appId;
     }
 }

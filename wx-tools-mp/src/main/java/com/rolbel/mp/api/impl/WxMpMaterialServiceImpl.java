@@ -55,7 +55,7 @@ public class WxMpMaterialServiceImpl implements WxMpMaterialService {
     @Override
     public File mediaDownload(String mediaId) throws WxErrorException {
         return this.wxMpService.execute(
-                BaseMediaDownloadRequestExecutor.create(this.wxMpService.getRequestHttp(), this.wxMpService.getWxMpConfigStorage().getTmpDirFile()),
+                BaseMediaDownloadRequestExecutor.create(this.wxMpService.getRequestHttp(), this.wxMpService.getWxMpConfig().getTmpDirFile()),
                 MEDIA_GET_URL,
                 "media_id=" + mediaId);
     }
@@ -83,7 +83,7 @@ public class WxMpMaterialServiceImpl implements WxMpMaterialService {
     @Override
     public InputStream materialImageOrVoiceDownload(String mediaId) throws WxErrorException {
         return this.wxMpService.execute(MaterialVoiceAndImageDownloadRequestExecutor
-                .create(this.wxMpService.getRequestHttp(), this.wxMpService.getWxMpConfigStorage().getTmpDirFile()), MATERIAL_GET_URL, mediaId);
+                .create(this.wxMpService.getRequestHttp(), this.wxMpService.getWxMpConfig().getTmpDirFile()), MATERIAL_GET_URL, mediaId);
     }
 
     @Override

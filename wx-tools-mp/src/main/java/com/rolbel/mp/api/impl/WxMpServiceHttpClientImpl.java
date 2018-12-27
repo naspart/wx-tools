@@ -3,19 +3,17 @@ package com.rolbel.mp.api.impl;
 import com.rolbel.common.bean.WxAccessToken;
 import com.rolbel.common.error.WxError;
 import com.rolbel.common.error.WxErrorException;
+import com.rolbel.common.util.http.HttpType;
 import com.rolbel.common.util.http.apache.ApacheHttpClientBuilder;
 import com.rolbel.common.util.http.apache.DefaultApacheHttpClientBuilder;
-import com.rolbel.common.util.http.HttpType;
-import com.rolbel.mp.api.WxMpConfigStorage;
 import com.rolbel.mp.api.WxMpService;
+import com.rolbel.mp.config.WxMpConfig;
 import org.apache.http.HttpHost;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.CloseableHttpClient;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.concurrent.locks.Lock;
@@ -41,19 +39,19 @@ public class WxMpServiceHttpClientImpl extends WxMpServiceBaseImpl<CloseableHttp
 
     @Override
     public void initHttp() {
-        WxMpConfigStorage configStorage = this.getWxMpConfigStorage();
-        ApacheHttpClientBuilder apacheHttpClientBuilder = configStorage.getApacheHttpClientBuilder();
+        WxMpConfig wxMpConfig = this.getWxMpConfig();
+        ApacheHttpClientBuilder apacheHttpClientBuilder = wxMpConfig.getApacheHttpClientBuilder();
         if (null == apacheHttpClientBuilder) {
             apacheHttpClientBuilder = DefaultApacheHttpClientBuilder.get();
         }
 
-        apacheHttpClientBuilder.httpProxyHost(configStorage.getHttpProxyHost())
-                .httpProxyPort(configStorage.getHttpProxyPort())
-                .httpProxyUsername(configStorage.getHttpProxyUsername())
-                .httpProxyPassword(configStorage.getHttpProxyPassword());
+        apacheHttpClientBuilder.httpProxyHost(wxMpConfig.getHttpProxyHost())
+                .httpProxyPort(wxMpConfig.getHttpProxyPort())
+                .httpProxyUsername(wxMpConfig.getHttpProxyUsername())
+                .httpProxyPassword(wxMpConfig.getHttpProxyPassword());
 
-        if (configStorage.getHttpProxyHost() != null && configStorage.getHttpProxyPort() > 0) {
-            this.httpProxy = new HttpHost(configStorage.getHttpProxyHost(), configStorage.getHttpProxyPort());
+        if (wxMpConfig.getHttpProxyHost() != null && wxMpConfig.getHttpProxyPort() > 0) {
+            this.httpProxy = new HttpHost(wxMpConfig.getHttpProxyHost(), wxMpConfig.getHttpProxyPort());
         }
 
         this.httpClient = apacheHttpClientBuilder.build();
@@ -61,11 +59,11 @@ public class WxMpServiceHttpClientImpl extends WxMpServiceBaseImpl<CloseableHttp
 
     @Override
     public String getAccessToken(boolean forceRefresh) throws WxErrorException {
-        Lock lock = this.getWxMpConfigStorage().getAccessTokenLock();
+        Lock lock = this.getWxMpConfig().getAccessTokenLock();
         try {
             lock.lock();
-            if (this.getWxMpConfigStorage().isAccessTokenExpired() || forceRefresh) {
-                String url = String.format(WxMpService.GET_ACCESS_TOKEN_URL, this.getWxMpConfigStorage().getAppId(), this.getWxMpConfigStorage().getSecret());
+            if (this.getWxMpConfig().isAccessTokenExpired() || forceRefresh) {
+                String url = String.format(WxMpService.GET_ACCESS_TOKEN_URL, this.getWxMpConfig().getAppId(), this.getWxMpConfig().getSecret());
                 try {
                     HttpGet httpGet = new HttpGet(url);
                     if (this.getRequestHttpProxy() != null) {
@@ -81,7 +79,7 @@ public class WxMpServiceHttpClientImpl extends WxMpServiceBaseImpl<CloseableHttp
                         }
 
                         WxAccessToken accessToken = WxAccessToken.fromJson(resultContent);
-                        this.getWxMpConfigStorage().updateAccessToken(accessToken.getAccessToken(), accessToken.getExpiresIn());
+                        this.getWxMpConfig().updateAccessToken(accessToken.getAccessToken(), accessToken.getExpiresIn());
                     } finally {
                         httpGet.releaseConnection();
                     }
@@ -93,6 +91,6 @@ public class WxMpServiceHttpClientImpl extends WxMpServiceBaseImpl<CloseableHttp
             lock.unlock();
         }
 
-        return this.getWxMpConfigStorage().getAccessToken();
+        return this.getWxMpConfig().getAccessToken();
     }
 }

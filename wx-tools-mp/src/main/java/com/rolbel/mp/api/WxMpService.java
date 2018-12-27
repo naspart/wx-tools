@@ -10,7 +10,8 @@ import com.rolbel.mp.bean.WxMpOAuth2AccessToken;
 import com.rolbel.mp.bean.WxMpSemanticQuery;
 import com.rolbel.mp.bean.WxMpSemanticQueryResult;
 import com.rolbel.mp.bean.user.WxMpUser;
-import com.rolbel.mp.enums.TicketType;
+import com.rolbel.mp.config.WxMpConfig;
+import com.rolbel.common.enums.TicketType;
 
 /**
  * 微信API的Service
@@ -297,12 +298,12 @@ public interface WxMpService {
      *
      * @return WxMpConfigStorage
      */
-    WxMpConfigStorage getWxMpConfigStorage();
+    WxMpConfig getWxMpConfig();
 
     /**
-     * 注入 {@link WxMpConfigStorage} 的实现
+     * 注入 {@link WxMpConfig} 的实现
      */
-    void setWxMpConfigStorage(WxMpConfigStorage wxConfigProvider);
+    void setWxMpConfig(WxMpConfig wxConfigProvider);
 
     /**
      * 返回客服接口方法实现类，以方便调用其各个接口

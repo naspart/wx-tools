@@ -1,8 +1,8 @@
-package com.rolbel.mp.api;
+package com.rolbel.mp.config;
 
 import com.rolbel.common.bean.WxAccessToken;
 import com.rolbel.common.util.http.apache.ApacheHttpClientBuilder;
-import com.rolbel.mp.enums.TicketType;
+import com.rolbel.common.enums.TicketType;
 import com.rolbel.mp.util.json.WxMpGsonBuilder;
 import lombok.Data;
 
@@ -14,7 +14,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * 基于内存的微信配置provider，在实际生产环境中应该将这些配置持久化
  */
 @Data
-public class WxMpInMemoryConfigStorage implements WxMpConfigStorage {
+public class WxMpInMemoryConfig implements WxMpConfig {
     protected volatile String appId;
     protected volatile String secret;
     protected volatile String token;
@@ -56,10 +56,6 @@ public class WxMpInMemoryConfigStorage implements WxMpConfigStorage {
         return this.accessToken;
     }
 
-    public void setAccessToken(String accessToken) {
-        this.accessToken = accessToken;
-    }
-
     @Override
     public Lock getAccessTokenLock() {
         return this.accessTokenLock;
@@ -97,21 +93,6 @@ public class WxMpInMemoryConfigStorage implements WxMpConfigStorage {
                 return this.cardApiTicket;
             default:
                 return null;
-        }
-    }
-
-    public void setTicket(TicketType type, String ticket) {
-        switch (type) {
-            case JSAPI:
-                this.jsapiTicket = ticket;
-                break;
-            case WX_CARD:
-                this.cardApiTicket = ticket;
-                break;
-            case SDK:
-                this.sdkTicket = ticket;
-                break;
-            default:
         }
     }
 

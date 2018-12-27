@@ -1,8 +1,8 @@
-package com.rolbel.mp.api;
+package com.rolbel.mp.config;
 
 import com.rolbel.common.bean.WxAccessToken;
 import com.rolbel.common.util.http.apache.ApacheHttpClientBuilder;
-import com.rolbel.mp.enums.TicketType;
+import com.rolbel.common.enums.TicketType;
 
 import java.io.File;
 import java.util.concurrent.locks.Lock;
@@ -10,7 +10,7 @@ import java.util.concurrent.locks.Lock;
 /**
  * 微信客户端配置存储
  */
-public interface WxMpConfigStorage {
+public interface WxMpConfig {
 
     String getAccessToken();
 

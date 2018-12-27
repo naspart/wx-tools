@@ -1,26 +1,26 @@
 package com.rolbel.open.api.impl;
 
 import com.rolbel.common.error.WxErrorException;
-import com.rolbel.mp.api.WxMpConfigStorage;
 import com.rolbel.mp.api.impl.WxMpServiceImpl;
 import com.rolbel.mp.bean.WxMpOAuth2AccessToken;
+import com.rolbel.mp.config.WxMpConfig;
 import com.rolbel.open.api.WxOpenComponentService;
 
 public class WxOpenMpServiceImpl extends WxMpServiceImpl {
     private WxOpenComponentService wxOpenComponentService;
-    private WxMpConfigStorage wxMpConfigStorage;
+    private WxMpConfig wxMpConfig;
     private String appId;
 
-    WxOpenMpServiceImpl(WxOpenComponentService wxOpenComponentService, String appId, WxMpConfigStorage wxMpConfigStorage) {
+    WxOpenMpServiceImpl(WxOpenComponentService wxOpenComponentService, String appId, WxMpConfig wxMpConfig) {
         this.wxOpenComponentService = wxOpenComponentService;
         this.appId = appId;
-        this.wxMpConfigStorage = wxMpConfigStorage;
+        this.wxMpConfig = wxMpConfig;
         initHttp();
     }
 
     @Override
-    public WxMpConfigStorage getWxMpConfigStorage() {
-        return wxMpConfigStorage;
+    public WxMpConfig getWxMpConfig() {
+        return wxMpConfig;
     }
 
     @Override

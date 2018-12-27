@@ -1,10 +1,10 @@
-package com.rolbel.open.api.impl;
+package com.rolbel.open.config;
 
 import org.apache.commons.lang3.StringUtils;
 import redis.clients.jedis.Jedis;
 import redis.clients.util.Pool;
 
-public class WxOpenInRedisConfigStorage extends WxOpenInMemoryConfigStorage {
+public class WxOpenInRedisConfig extends WxOpenInMemoryConfig {
     private final static String COMPONENT_VERIFY_TICKET_KEY = "wechat_component_verify_ticket:";
     private final static String COMPONENT_ACCESS_TOKEN_KEY = "wechat_component_access_token:";
 
@@ -26,11 +26,11 @@ public class WxOpenInRedisConfigStorage extends WxOpenInMemoryConfigStorage {
     private String jsapiTicketKey;
     private String cardApiTicket;
 
-    public WxOpenInRedisConfigStorage(Pool<Jedis> jedisPool) {
+    public WxOpenInRedisConfig(Pool<Jedis> jedisPool) {
         this.jedisPool = jedisPool;
     }
 
-    public WxOpenInRedisConfigStorage(Pool<Jedis> jedisPool, String keyPrefix) {
+    public WxOpenInRedisConfig(Pool<Jedis> jedisPool, String keyPrefix) {
         this.jedisPool = jedisPool;
         this.keyPrefix = keyPrefix;
     }

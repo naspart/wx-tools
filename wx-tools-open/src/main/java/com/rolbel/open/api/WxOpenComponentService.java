@@ -10,6 +10,7 @@ import com.rolbel.open.bean.message.WxOpenXmlMessage;
 import com.rolbel.open.bean.result.WxOpenAuthorizerInfoResult;
 import com.rolbel.open.bean.result.WxOpenAuthorizerOptionResult;
 import com.rolbel.open.bean.result.WxOpenQueryAuthResult;
+import com.rolbel.open.config.WxOpenConfig;
 import com.rolbel.pay.api.WxPayService;
 
 import java.util.List;
@@ -47,7 +48,7 @@ public interface WxOpenComponentService {
 
     WxPayService getWxPayServiceByAppId(String appId);
 
-    WxOpenConfigStorage getWxOpenConfigStorage();
+    WxOpenConfig getWxOpenConfig();
 
     boolean checkSignature(String timestamp, String nonce, String signature);
 

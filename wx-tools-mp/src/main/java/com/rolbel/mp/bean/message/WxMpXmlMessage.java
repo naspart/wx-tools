@@ -2,7 +2,7 @@ package com.rolbel.mp.bean.message;
 
 import com.rolbel.common.util.XmlUtils;
 import com.rolbel.common.util.xml.XStreamCDataConverter;
-import com.rolbel.mp.api.WxMpConfigStorage;
+import com.rolbel.mp.config.WxMpConfig;
 import com.rolbel.mp.util.crypto.WxMpCryptUtils;
 import com.rolbel.mp.util.json.WxMpGsonBuilder;
 import com.rolbel.mp.util.xml.XStreamTransformer;
@@ -643,23 +643,23 @@ public class WxMpXmlMessage implements Serializable {
      * 从加密字符串转换.
      *
      * @param encryptedXml      密文
-     * @param wxMpConfigStorage 配置存储器对象
+     * @param wxMpConfig        配置存储器对象
      * @param timestamp         时间戳
      * @param nonce             随机串
      * @param msgSignature      签名串
      */
-    public static WxMpXmlMessage fromEncryptedXml(String encryptedXml, WxMpConfigStorage wxMpConfigStorage,
+    public static WxMpXmlMessage fromEncryptedXml(String encryptedXml, WxMpConfig wxMpConfig,
                                                   String timestamp, String nonce, String msgSignature) {
-        WxMpCryptUtils cryptUtil = new WxMpCryptUtils(wxMpConfigStorage);
+        WxMpCryptUtils cryptUtil = new WxMpCryptUtils(wxMpConfig);
         String plainText = cryptUtil.decrypt(msgSignature, timestamp, nonce, encryptedXml);
         log.debug("解密后的原始xml消息内容：{}", plainText);
         return fromXml(plainText);
     }
 
-    public static WxMpXmlMessage fromEncryptedXml(InputStream is, WxMpConfigStorage wxMpConfigStorage, String timestamp,
+    public static WxMpXmlMessage fromEncryptedXml(InputStream is, WxMpConfig wxMpConfig, String timestamp,
                                                   String nonce, String msgSignature) {
         try {
-            return fromEncryptedXml(IOUtils.toString(is, StandardCharsets.UTF_8), wxMpConfigStorage, timestamp, nonce, msgSignature);
+            return fromEncryptedXml(IOUtils.toString(is, StandardCharsets.UTF_8), wxMpConfig, timestamp, nonce, msgSignature);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

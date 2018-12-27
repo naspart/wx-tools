@@ -14,7 +14,7 @@ import com.rolbel.mp.bean.card.WxMpCardLandingPageCreateRequest;
 import com.rolbel.mp.bean.card.WxMpCardLandingPageCreateResult;
 import com.rolbel.mp.bean.card.WxMpCardQrcodeCreateResult;
 import com.rolbel.mp.bean.card.WxMpCardResult;
-import com.rolbel.mp.enums.TicketType;
+import com.rolbel.common.enums.TicketType;
 import com.rolbel.mp.util.json.WxMpGsonBuilder;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -65,27 +65,27 @@ public class WxMpCardServiceImpl implements WxMpCardService {
     @Override
     public String getCardApiTicket(boolean forceRefresh) throws WxErrorException {
         final TicketType type = TicketType.WX_CARD;
-        Lock lock = getWxMpService().getWxMpConfigStorage().getTicketLock(type);
+        Lock lock = getWxMpService().getWxMpConfig().getTicketLock(type);
         try {
             lock.lock();
 
             if (forceRefresh) {
-                this.getWxMpService().getWxMpConfigStorage().expireTicket(type);
+                this.getWxMpService().getWxMpConfig().expireTicket(type);
             }
 
-            if (this.getWxMpService().getWxMpConfigStorage().isTicketExpired(type)) {
+            if (this.getWxMpService().getWxMpConfig().isTicketExpired(type)) {
                 String responseContent = this.wxMpService.execute(SimpleGetRequestExecutor
                         .create(this.getWxMpService().getRequestHttp()), CARD_GET_TICKET, null);
                 JsonElement tmpJsonElement = new JsonParser().parse(responseContent);
                 JsonObject tmpJsonObject = tmpJsonElement.getAsJsonObject();
                 String cardApiTicket = tmpJsonObject.get("ticket").getAsString();
                 int expiresInSeconds = tmpJsonObject.get("expires_in").getAsInt();
-                this.getWxMpService().getWxMpConfigStorage().updateTicket(type, cardApiTicket, expiresInSeconds);
+                this.getWxMpService().getWxMpConfig().updateTicket(type, cardApiTicket, expiresInSeconds);
             }
         } finally {
             lock.unlock();
         }
-        return this.getWxMpService().getWxMpConfigStorage().getTicket(type);
+        return this.getWxMpService().getWxMpConfig().getTicket(type);
     }
 
     /**

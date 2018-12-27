@@ -19,7 +19,8 @@ import com.rolbel.mp.bean.WxMpOAuth2AccessToken;
 import com.rolbel.mp.bean.WxMpSemanticQuery;
 import com.rolbel.mp.bean.WxMpSemanticQueryResult;
 import com.rolbel.mp.bean.user.WxMpUser;
-import com.rolbel.mp.enums.TicketType;
+import com.rolbel.mp.config.WxMpConfig;
+import com.rolbel.common.enums.TicketType;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,7 +34,7 @@ public abstract class WxMpServiceBaseImpl<H, P> implements WxMpService, RequestH
     private static final JsonParser JSON_PARSER = new JsonParser();
 
     private WxSessionManager sessionManager = new StandardSessionManager();
-    private WxMpConfigStorage wxMpConfigStorage;
+    private WxMpConfig wxMpConfig;
 
     private WxMpKefuService kefuService = new WxMpKefuServiceImpl(this);
     private WxMpMaterialService materialService = new WxMpMaterialServiceImpl(this);
@@ -60,7 +61,7 @@ public abstract class WxMpServiceBaseImpl<H, P> implements WxMpService, RequestH
     @Override
     public boolean checkSignature(String timestamp, String nonce, String signature) {
         try {
-            return SHA1.gen(this.getWxMpConfigStorage().getToken(), timestamp, nonce)
+            return SHA1.gen(this.getWxMpConfig().getToken(), timestamp, nonce)
                     .equals(signature);
         } catch (Exception e) {
             this.logger.error("Checking signature failed, and the reason is :" + e.getMessage());
@@ -75,26 +76,26 @@ public abstract class WxMpServiceBaseImpl<H, P> implements WxMpService, RequestH
 
     @Override
     public String getTicket(TicketType type, boolean forceRefresh) throws WxErrorException {
-        Lock lock = this.getWxMpConfigStorage().getTicketLock(type);
+        Lock lock = this.getWxMpConfig().getTicketLock(type);
         try {
             lock.lock();
             if (forceRefresh) {
-                this.getWxMpConfigStorage().expireTicket(type);
+                this.getWxMpConfig().expireTicket(type);
             }
 
-            if (this.getWxMpConfigStorage().isTicketExpired(type)) {
+            if (this.getWxMpConfig().isTicketExpired(type)) {
                 String responseContent = execute(SimpleGetRequestExecutor.create(this),
                         WxMpService.GET_TICKET_URL + type.getCode(), null);
                 JsonObject tmpJsonObject = JSON_PARSER.parse(responseContent).getAsJsonObject();
                 String jsapiTicket = tmpJsonObject.get("ticket").getAsString();
                 int expiresInSeconds = tmpJsonObject.get("expires_in").getAsInt();
-                this.getWxMpConfigStorage().updateTicket(type, jsapiTicket, expiresInSeconds);
+                this.getWxMpConfig().updateTicket(type, jsapiTicket, expiresInSeconds);
             }
         } finally {
             lock.unlock();
         }
 
-        return this.getWxMpConfigStorage().getTicket(type);
+        return this.getWxMpConfig().getTicket(type);
     }
 
     @Override
@@ -115,7 +116,7 @@ public abstract class WxMpServiceBaseImpl<H, P> implements WxMpService, RequestH
         String signature = SHA1.genWithAmple("jsapi_ticket=" + jsapiTicket, "noncestr=" + randomStr, "timestamp=" + timestamp, "url=" + url);
 
         WxJsapiSignature jsapiSignature = new WxJsapiSignature();
-        jsapiSignature.setAppId(this.getWxMpConfigStorage().getAppId());
+        jsapiSignature.setAppId(this.getWxMpConfig().getAppId());
         jsapiSignature.setTimestamp(timestamp);
         jsapiSignature.setNonceStr(randomStr);
         jsapiSignature.setUrl(url);
@@ -149,13 +150,13 @@ public abstract class WxMpServiceBaseImpl<H, P> implements WxMpService, RequestH
     @Override
     public String oauth2buildAuthorizationUrl(String redirectURI, String scope, String state) {
         return String.format(WxMpService.CONNECT_OAUTH2_AUTHORIZE_URL,
-                this.getWxMpConfigStorage().getAppId(), URIUtil.encodeURIComponent(redirectURI), scope, StringUtils.trimToEmpty(state));
+                this.getWxMpConfig().getAppId(), URIUtil.encodeURIComponent(redirectURI), scope, StringUtils.trimToEmpty(state));
     }
 
     @Override
     public String buildQrConnectUrl(String redirectURI, String scope, String state) {
         return String.format(WxMpService.QRCONNECT_URL,
-                this.getWxMpConfigStorage().getAppId(), URIUtil.encodeURIComponent(redirectURI), scope, StringUtils.trimToEmpty(state));
+                this.getWxMpConfig().getAppId(), URIUtil.encodeURIComponent(redirectURI), scope, StringUtils.trimToEmpty(state));
     }
 
     private WxMpOAuth2AccessToken getOAuth2AccessToken(String url) throws WxErrorException {
@@ -170,14 +171,14 @@ public abstract class WxMpServiceBaseImpl<H, P> implements WxMpService, RequestH
 
     @Override
     public WxMpOAuth2AccessToken oauth2getAccessToken(String code) throws WxErrorException {
-        String url = String.format(WxMpService.OAUTH2_ACCESS_TOKEN_URL, this.getWxMpConfigStorage().getAppId(), this.getWxMpConfigStorage().getSecret(), code);
+        String url = String.format(WxMpService.OAUTH2_ACCESS_TOKEN_URL, this.getWxMpConfig().getAppId(), this.getWxMpConfig().getSecret(), code);
 
         return this.getOAuth2AccessToken(url);
     }
 
     @Override
     public WxMpOAuth2AccessToken oauth2refreshAccessToken(String refreshToken) throws WxErrorException {
-        String url = String.format(WxMpService.OAUTH2_REFRESH_TOKEN_URL, this.getWxMpConfigStorage().getAppId(), refreshToken);
+        String url = String.format(WxMpService.OAUTH2_REFRESH_TOKEN_URL, this.getWxMpConfig().getAppId(), refreshToken);
 
         return this.getOAuth2AccessToken(url);
     }
@@ -312,8 +313,8 @@ public abstract class WxMpServiceBaseImpl<H, P> implements WxMpService, RequestH
              */
             if (error.getErrorCode() == 42001 || error.getErrorCode() == 40001 || error.getErrorCode() == 40014) {
                 // 强制设置wxMpConfigStorage它的access token过期了，这样在下一次请求里就会刷新access token
-                this.getWxMpConfigStorage().expireAccessToken();
-                if (this.getWxMpConfigStorage().autoRefreshToken()) {
+                this.getWxMpConfig().expireAccessToken();
+                if (this.getWxMpConfig().autoRefreshToken()) {
                     return this.execute(executor, uri, data);
                 }
             }
@@ -330,13 +331,13 @@ public abstract class WxMpServiceBaseImpl<H, P> implements WxMpService, RequestH
     }
 
     @Override
-    public WxMpConfigStorage getWxMpConfigStorage() {
-        return this.wxMpConfigStorage;
+    public WxMpConfig getWxMpConfig() {
+        return this.wxMpConfig;
     }
 
     @Override
-    public void setWxMpConfigStorage(WxMpConfigStorage wxConfigProvider) {
-        this.wxMpConfigStorage = wxConfigProvider;
+    public void setWxMpConfig(WxMpConfig wxConfigProvider) {
+        this.wxMpConfig = wxConfigProvider;
         this.initHttp();
     }
 

@@ -1,20 +1,14 @@
-package com.rolbel.mp.api;
+package com.rolbel.ma.config;
 
-import com.rolbel.mp.enums.TicketType;
+import com.rolbel.common.enums.TicketType;
+import com.rolbel.ma.lock.RedisLock;
 import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
 import redis.clients.util.Pool;
 
-/**
- * 基于Redis的微信配置provider
- * <pre>
- *    使用说明：本实现仅供参考，并不完整，
- *    比如为减少项目依赖，未加入redis分布式锁的实现，如有需要请自行实现。
- * </pre>
- */
-@SuppressWarnings("hiding")
-public class WxMpInRedisConfigStorage extends WxMpInMemoryConfigStorage {
-    private static final String ACCESS_TOKEN_KEY = "wx:access_token:";
+import java.util.concurrent.locks.Lock;
+
+public class WxMaInRedisConfig extends WxMaInMemoryConfig {
+    private static final String ACCESS_TOKEN_KEY = "wx_ma:access_token:";
 
     /**
      * 使用连接池保证线程安全
@@ -23,9 +17,17 @@ public class WxMpInRedisConfigStorage extends WxMpInMemoryConfigStorage {
 
     private String accessTokenKey;
 
-    public WxMpInRedisConfigStorage(JedisPool jedisPool) {
+    public WxMaInRedisConfig(Pool<Jedis> jedisPool) {
         this.jedisPool = jedisPool;
+
+        accessTokenLock = new RedisLock(jedisPool, "access_token");
+        jsapiTicketLock = new RedisLock(jedisPool, "jsapi_ticket");
+        cardApiTicketLock = new RedisLock(jedisPool, "cardapi_ticket");
     }
+
+    protected Lock accessTokenLock;
+    protected Lock jsapiTicketLock;
+    protected Lock cardApiTicketLock;
 
     /**
      * 每个公众号生成独有的存储key
@@ -39,7 +41,7 @@ public class WxMpInRedisConfigStorage extends WxMpInMemoryConfigStorage {
     }
 
     private String getTicketRedisKey(TicketType type) {
-        return String.format("wx:ticket:key:%s:%s", this.appId, type.getCode());
+        return String.format("wx_ma:ticket:key:%s:%s", this.appId, type.getCode());
     }
 
     @Override
@@ -47,6 +49,11 @@ public class WxMpInRedisConfigStorage extends WxMpInMemoryConfigStorage {
         try (Jedis jedis = this.jedisPool.getResource()) {
             return jedis.get(this.accessTokenKey);
         }
+    }
+
+    @Override
+    public Lock getAccessTokenLock() {
+        return this.accessTokenLock;
     }
 
     @Override
@@ -74,6 +81,18 @@ public class WxMpInRedisConfigStorage extends WxMpInMemoryConfigStorage {
     public String getTicket(TicketType type) {
         try (Jedis jedis = this.jedisPool.getResource()) {
             return jedis.get(this.getTicketRedisKey(type));
+        }
+    }
+
+    @Override
+    public Lock getTicketLock(TicketType type) {
+        switch (type) {
+            case JSAPI:
+                return this.jsapiTicketLock;
+            case WX_CARD:
+                return this.cardApiTicketLock;
+            default:
+                return null;
         }
     }
 

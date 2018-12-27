@@ -6,7 +6,7 @@ import lombok.Data;
 import com.rolbel.common.util.xml.XStreamCDataConverter;
 import com.rolbel.mp.bean.message.WxMpXmlMessage;
 import com.rolbel.mp.bean.message.WxMpXmlOutMessage;
-import com.rolbel.open.api.WxOpenConfigStorage;
+import com.rolbel.open.config.WxOpenConfig;
 import com.rolbel.open.util.WxOpenCryptUtils;
 import com.rolbel.open.util.xml.XStreamTransformer;
 import org.apache.commons.io.IOUtils;
@@ -50,9 +50,9 @@ public class WxOpenXmlMessage implements Serializable {
     @XStreamConverter(value = XStreamCDataConverter.class)
     private String preAuthCode;
 
-    public static String wxMpOutXmlMessageToEncryptedXml(WxMpXmlOutMessage message, WxOpenConfigStorage wxOpenConfigStorage) {
+    public static String wxMpOutXmlMessageToEncryptedXml(WxMpXmlOutMessage message, WxOpenConfig wxOpenConfig) {
         String plainXml = message.toXml();
-        WxOpenCryptUtils pc = new WxOpenCryptUtils(wxOpenConfigStorage);
+        WxOpenCryptUtils pc = new WxOpenCryptUtils(wxOpenConfig);
         return pc.encrypt(plainXml);
     }
 
@@ -70,34 +70,34 @@ public class WxOpenXmlMessage implements Serializable {
      * 从加密字符串转换
      *
      * @param encryptedXml        密文
-     * @param wxOpenConfigStorage 配置存储器对象
+     * @param wxOpenConfig 配置存储器对象
      * @param timestamp           时间戳
      * @param nonce               随机串
      * @param msgSignature        签名串
      */
     public static WxOpenXmlMessage fromEncryptedXml(String encryptedXml,
-                                                    WxOpenConfigStorage wxOpenConfigStorage, String timestamp, String nonce,
+                                                    WxOpenConfig wxOpenConfig, String timestamp, String nonce,
                                                     String msgSignature) {
-        WxOpenCryptUtils cryptUtil = new WxOpenCryptUtils(wxOpenConfigStorage);
+        WxOpenCryptUtils cryptUtil = new WxOpenCryptUtils(wxOpenConfig);
         String plainText = cryptUtil.decrypt(msgSignature, timestamp, nonce,
                 encryptedXml);
         return fromXml(plainText);
     }
 
     public static WxMpXmlMessage fromEncryptedMpXml(String encryptedXml,
-                                                    WxOpenConfigStorage wxOpenConfigStorage, String timestamp, String nonce,
+                                                    WxOpenConfig wxOpenConfig, String timestamp, String nonce,
                                                     String msgSignature) {
-        WxOpenCryptUtils cryptUtil = new WxOpenCryptUtils(wxOpenConfigStorage);
+        WxOpenCryptUtils cryptUtil = new WxOpenCryptUtils(wxOpenConfig);
         String plainText = cryptUtil.decrypt(msgSignature, timestamp, nonce,
                 encryptedXml);
         return WxMpXmlMessage.fromXml(plainText);
     }
 
     public static WxOpenXmlMessage fromEncryptedXml(InputStream is,
-                                                    WxOpenConfigStorage wxOpenConfigStorage, String timestamp, String nonce,
+                                                    WxOpenConfig wxOpenConfig, String timestamp, String nonce,
                                                     String msgSignature) {
         try {
-            return fromEncryptedXml(IOUtils.toString(is, "UTF-8"), wxOpenConfigStorage,
+            return fromEncryptedXml(IOUtils.toString(is, "UTF-8"), wxOpenConfig,
                     timestamp, nonce, msgSignature);
         } catch (IOException e) {
             throw new RuntimeException(e);

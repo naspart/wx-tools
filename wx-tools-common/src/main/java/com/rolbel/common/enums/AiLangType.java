@@ -1,4 +1,4 @@
-package com.rolbel.mp.enums;
+package com.rolbel.common.enums;
 
 import lombok.Getter;
 

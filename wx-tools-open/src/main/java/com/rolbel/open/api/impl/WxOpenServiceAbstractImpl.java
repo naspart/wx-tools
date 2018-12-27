@@ -5,7 +5,7 @@ import com.rolbel.common.error.WxErrorException;
 import com.rolbel.common.util.http.RequestExecutor;
 import com.rolbel.common.util.http.RequestHttp;
 import com.rolbel.open.api.WxOpenComponentService;
-import com.rolbel.open.api.WxOpenConfigStorage;
+import com.rolbel.open.config.WxOpenConfig;
 import com.rolbel.open.api.WxOpenService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +15,7 @@ import java.io.IOException;
 public abstract class WxOpenServiceAbstractImpl<H, P> implements WxOpenService, RequestHttp<H, P> {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
     private WxOpenComponentService wxOpenComponentService = new WxOpenComponentServiceImpl(this);
-    private WxOpenConfigStorage wxOpenConfigStorage;
+    private WxOpenConfig wxOpenConfig;
 
     @Override
     public WxOpenComponentService getWxOpenComponentService() {
@@ -23,13 +23,13 @@ public abstract class WxOpenServiceAbstractImpl<H, P> implements WxOpenService, 
     }
 
     @Override
-    public WxOpenConfigStorage getWxOpenConfigStorage() {
-        return wxOpenConfigStorage;
+    public WxOpenConfig getWxOpenConfig() {
+        return wxOpenConfig;
     }
 
     @Override
-    public void setWxOpenConfigStorage(WxOpenConfigStorage wxOpenConfigStorage) {
-        this.wxOpenConfigStorage = wxOpenConfigStorage;
+    public void setWxOpenConfig(WxOpenConfig wxOpenConfig) {
+        this.wxOpenConfig = wxOpenConfig;
         this.initHttp();
     }
 

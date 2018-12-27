@@ -6,7 +6,7 @@
 package com.rolbel.mp.util.crypto;
 
 import com.rolbel.common.util.crypto.WxCryptUtil;
-import com.rolbel.mp.api.WxMpConfigStorage;
+import com.rolbel.mp.config.WxMpConfig;
 import org.apache.commons.codec.binary.Base64;
 
 public class WxMpCryptUtils extends WxCryptUtil {
@@ -14,17 +14,17 @@ public class WxMpCryptUtils extends WxCryptUtil {
     /**
      * 构造函数
      *
-     * @param wxMpConfigStorage
+     * @param wxMpConfig
      */
-    public WxMpCryptUtils(WxMpConfigStorage wxMpConfigStorage) {
+    public WxMpCryptUtils(WxMpConfig wxMpConfig) {
         /*
          * @param token          公众平台上，开发者设置的token
          * @param encodingAesKey 公众平台上，开发者设置的EncodingAESKey
          * @param appId          公众平台appid
          */
-        String encodingAesKey = wxMpConfigStorage.getAesKey();
-        String token = wxMpConfigStorage.getToken();
-        String appId = wxMpConfigStorage.getAppId();
+        String encodingAesKey = wxMpConfig.getAesKey();
+        String token = wxMpConfig.getToken();
+        String appId = wxMpConfig.getAppId();
 
         this.token = token;
         this.appidOrCorpid = appId;

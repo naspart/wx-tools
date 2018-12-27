@@ -1,15 +1,15 @@
-package com.rolbel.open.api;
+package com.rolbel.open.config;
 
 import com.rolbel.common.util.http.apache.ApacheHttpClientBuilder;
 import com.rolbel.ma.config.WxMaConfig;
-import com.rolbel.mp.api.WxMpConfigStorage;
+import com.rolbel.mp.config.WxMpConfig;
 import com.rolbel.open.bean.WxOpenAuthorizerAccessToken;
 import com.rolbel.open.bean.WxOpenComponentAccessToken;
 import com.rolbel.pay.config.WxPayConfig;
 
 import java.util.concurrent.locks.Lock;
 
-public interface WxOpenConfigStorage {
+public interface WxOpenConfig {
 
     String getComponentAppId();
 
@@ -51,7 +51,7 @@ public interface WxOpenConfigStorage {
 
     ApacheHttpClientBuilder getApacheHttpClientBuilder();
 
-    WxMpConfigStorage getWxMpConfigStorage(String appId);
+    WxMpConfig getWxMpConfig(String appId);
 
     WxMaConfig getWxMaConfig(String appId);
 

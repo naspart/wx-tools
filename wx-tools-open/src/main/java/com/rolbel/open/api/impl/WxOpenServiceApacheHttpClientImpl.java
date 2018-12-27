@@ -5,7 +5,7 @@ import com.rolbel.common.util.http.HttpType;
 import com.rolbel.common.util.http.SimpleGetRequestExecutor;
 import com.rolbel.common.util.http.SimplePostRequestExecutor;
 import com.rolbel.common.util.http.apache.DefaultApacheHttpClientBuilder;
-import com.rolbel.open.api.WxOpenConfigStorage;
+import com.rolbel.open.config.WxOpenConfig;
 import org.apache.http.HttpHost;
 import org.apache.http.impl.client.CloseableHttpClient;
 
@@ -18,16 +18,16 @@ public class WxOpenServiceApacheHttpClientImpl extends WxOpenServiceAbstractImpl
 
     @Override
     public void initHttp() {
-        WxOpenConfigStorage configStorage = this.getWxOpenConfigStorage();
-        if (configStorage.getHttpProxyHost() != null && configStorage.getHttpProxyPort() > 0) {
-            this.httpProxy = new HttpHost(configStorage.getHttpProxyHost(), configStorage.getHttpProxyPort());
+        WxOpenConfig wxOpenConfig = this.getWxOpenConfig();
+        if (wxOpenConfig.getHttpProxyHost() != null && wxOpenConfig.getHttpProxyPort() > 0) {
+            this.httpProxy = new HttpHost(wxOpenConfig.getHttpProxyHost(), wxOpenConfig.getHttpProxyPort());
         }
 
         this.httpClient = DefaultApacheHttpClientBuilder.get()
-                .httpProxyHost(configStorage.getHttpProxyHost())
-                .httpProxyPort(configStorage.getHttpProxyPort())
-                .httpProxyUsername(configStorage.getHttpProxyUsername())
-                .httpProxyPassword(configStorage.getHttpProxyPassword()).build();
+                .httpProxyHost(wxOpenConfig.getHttpProxyHost())
+                .httpProxyPort(wxOpenConfig.getHttpProxyPort())
+                .httpProxyUsername(wxOpenConfig.getHttpProxyUsername())
+                .httpProxyPassword(wxOpenConfig.getHttpProxyPassword()).build();
     }
 
     @Override

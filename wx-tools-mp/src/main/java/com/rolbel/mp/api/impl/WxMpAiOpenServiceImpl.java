@@ -7,7 +7,7 @@ import com.rolbel.common.error.WxError;
 import com.rolbel.common.error.WxErrorException;
 import com.rolbel.mp.api.WxMpAiOpenService;
 import com.rolbel.mp.api.WxMpService;
-import com.rolbel.mp.enums.AiLangType;
+import com.rolbel.common.enums.AiLangType;
 import com.rolbel.mp.util.request_executor.voice.VoiceUploadRequestExecutor;
 
 import java.io.File;
