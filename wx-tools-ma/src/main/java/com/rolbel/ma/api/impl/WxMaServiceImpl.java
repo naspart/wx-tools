@@ -69,19 +69,19 @@ public class WxMaServiceImpl implements WxMaService, RequestHttp<CloseableHttpCl
 
     @Override
     public void initHttp() {
-        WxMaConfig configStorage = this.getWxMaConfig();
-        ApacheHttpClientBuilder apacheHttpClientBuilder = configStorage.getApacheHttpClientBuilder();
+        WxMaConfig wxMaConfig = this.getWxMaConfig();
+        ApacheHttpClientBuilder apacheHttpClientBuilder = wxMaConfig.getApacheHttpClientBuilder();
         if (null == apacheHttpClientBuilder) {
             apacheHttpClientBuilder = DefaultApacheHttpClientBuilder.get();
         }
 
-        apacheHttpClientBuilder.httpProxyHost(configStorage.getHttpProxyHost())
-                .httpProxyPort(configStorage.getHttpProxyPort())
-                .httpProxyUsername(configStorage.getHttpProxyUsername())
-                .httpProxyPassword(configStorage.getHttpProxyPassword());
+        apacheHttpClientBuilder.httpProxyHost(wxMaConfig.getHttpProxyHost())
+                .httpProxyPort(wxMaConfig.getHttpProxyPort())
+                .httpProxyUsername(wxMaConfig.getHttpProxyUsername())
+                .httpProxyPassword(wxMaConfig.getHttpProxyPassword());
 
-        if (configStorage.getHttpProxyHost() != null && configStorage.getHttpProxyPort() > 0) {
-            this.httpProxy = new HttpHost(configStorage.getHttpProxyHost(), configStorage.getHttpProxyPort());
+        if (wxMaConfig.getHttpProxyHost() != null && wxMaConfig.getHttpProxyPort() > 0) {
+            this.httpProxy = new HttpHost(wxMaConfig.getHttpProxyHost(), wxMaConfig.getHttpProxyPort());
         }
 
         this.httpClient = apacheHttpClientBuilder.build();
