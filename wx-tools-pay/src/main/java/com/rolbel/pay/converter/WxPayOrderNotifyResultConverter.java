@@ -109,6 +109,7 @@ public class WxPayOrderNotifyResultConverter extends AbstractReflectionConverter
 
     private Map<String, Field> getFieldMap(List<Field> fields) {
         return Maps.uniqueIndex(fields, field -> {
+            assert field != null;
             if (field.isAnnotationPresent(XStreamAlias.class)) {
                 return field.getAnnotation(XStreamAlias.class).value();
             }
