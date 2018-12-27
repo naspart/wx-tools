@@ -2,10 +2,10 @@ package com.rolbel.open.config;
 
 
 import com.rolbel.common.bean.WxAccessToken;
+import com.rolbel.common.enums.TicketType;
 import com.rolbel.common.util.http.apache.ApacheHttpClientBuilder;
 import com.rolbel.ma.config.WxMaConfig;
 import com.rolbel.mp.config.WxMpConfig;
-import com.rolbel.common.enums.TicketType;
 import com.rolbel.open.bean.WxOpenAuthorizerAccessToken;
 import com.rolbel.open.bean.WxOpenComponentAccessToken;
 import com.rolbel.open.util.json.WxOpenGsonBuilder;
@@ -118,10 +118,17 @@ public class WxOpenInMemoryConfig implements WxOpenConfig {
     }
 
     @Override
+    public void updateComponentAccessTokent(String componentAccessToken, int expiresInSeconds) {
+        this.componentAccessToken = componentAccessToken;
+        this.componentExpiresTime = System.currentTimeMillis() + (expiresInSeconds - 200) * 1000L;
+    }
+
+    @Override
     public String getHttpProxyHost() {
         return httpProxyHost;
     }
 
+    @Override
     public void setHttpProxyHost(String httpProxyHost) {
         this.httpProxyHost = httpProxyHost;
     }
@@ -131,6 +138,7 @@ public class WxOpenInMemoryConfig implements WxOpenConfig {
         return httpProxyPort;
     }
 
+    @Override
     public void setHttpProxyPort(int httpProxyPort) {
         this.httpProxyPort = httpProxyPort;
     }
@@ -140,6 +148,7 @@ public class WxOpenInMemoryConfig implements WxOpenConfig {
         return httpProxyUsername;
     }
 
+    @Override
     public void setHttpProxyUsername(String httpProxyUsername) {
         this.httpProxyUsername = httpProxyUsername;
     }
@@ -149,6 +158,7 @@ public class WxOpenInMemoryConfig implements WxOpenConfig {
         return httpProxyPassword;
     }
 
+    @Override
     public void setHttpProxyPassword(String httpProxyPassword) {
         this.httpProxyPassword = httpProxyPassword;
     }
@@ -158,6 +168,7 @@ public class WxOpenInMemoryConfig implements WxOpenConfig {
         return apacheHttpClientBuilder;
     }
 
+    @Override
     public ApacheHttpClientBuilder setApacheHttpClientBuilder(ApacheHttpClientBuilder apacheHttpClientBuilder) {
         return this.apacheHttpClientBuilder = apacheHttpClientBuilder;
     }
@@ -175,12 +186,6 @@ public class WxOpenInMemoryConfig implements WxOpenConfig {
     @Override
     public WxPayConfig getWxPayConfig(String appId) {
         return null;
-    }
-
-    @Override
-    public void updateComponentAccessTokent(String componentAccessToken, int expiresInSeconds) {
-        this.componentAccessToken = componentAccessToken;
-        this.componentExpiresTime = System.currentTimeMillis() + (expiresInSeconds - 200) * 1000L;
     }
 
     @Override

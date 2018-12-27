@@ -43,13 +43,23 @@ public interface WxOpenConfig {
 
     String getHttpProxyHost();
 
+    void setHttpProxyHost(String httpProxyHost);
+
     int getHttpProxyPort();
+
+    void setHttpProxyPort(int httpProxyPort);
 
     String getHttpProxyUsername();
 
+    void setHttpProxyUsername(String httpProxyUsername);
+
     String getHttpProxyPassword();
 
+    void setHttpProxyPassword(String httpProxyPassword);
+
     ApacheHttpClientBuilder getApacheHttpClientBuilder();
+
+    ApacheHttpClientBuilder setApacheHttpClientBuilder(ApacheHttpClientBuilder apacheHttpClientBuilder);
 
     WxMpConfig getWxMpConfig(String appId);
 

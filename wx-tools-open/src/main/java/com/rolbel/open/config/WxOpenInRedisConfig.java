@@ -1,8 +1,11 @@
 package com.rolbel.open.config;
 
+import com.rolbel.open.lock.RedisLock;
 import org.apache.commons.lang3.StringUtils;
 import redis.clients.jedis.Jedis;
 import redis.clients.util.Pool;
+
+import java.util.concurrent.locks.Lock;
 
 public class WxOpenInRedisConfig extends WxOpenInMemoryConfig {
     private final static String COMPONENT_VERIFY_TICKET_KEY = "wechat_component_verify_ticket:";
@@ -28,12 +31,16 @@ public class WxOpenInRedisConfig extends WxOpenInMemoryConfig {
 
     public WxOpenInRedisConfig(Pool<Jedis> jedisPool) {
         this.jedisPool = jedisPool;
+        componentAccessTokenLock = new RedisLock(jedisPool, "component_access_token");
     }
 
     public WxOpenInRedisConfig(Pool<Jedis> jedisPool, String keyPrefix) {
         this.jedisPool = jedisPool;
         this.keyPrefix = keyPrefix;
+        componentAccessTokenLock = new RedisLock(jedisPool, "component_access_token");
     }
+
+    private Lock componentAccessTokenLock;
 
     @Override
     public void setComponentAppId(String componentAppId) {
@@ -67,6 +74,11 @@ public class WxOpenInRedisConfig extends WxOpenInMemoryConfig {
         try (Jedis jedis = this.jedisPool.getResource()) {
             return jedis.get(this.componentAccessTokenKey);
         }
+    }
+
+    @Override
+    public Lock getComponentAccessTokenLock() {
+        return this.componentAccessTokenLock;
     }
 
     @Override
