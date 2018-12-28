@@ -31,12 +31,12 @@ public class WxOpenInRedisConfig extends WxOpenInMemoryConfig {
 
     public WxOpenInRedisConfig(Pool<Jedis> jedisPool) {
         this.jedisPool = jedisPool;
-        componentAccessTokenLock = new RedisLock(jedisPool, "component_access_token");
     }
 
     public WxOpenInRedisConfig(Pool<Jedis> jedisPool, String keyPrefix) {
         this.jedisPool = jedisPool;
         this.keyPrefix = keyPrefix;
+        
         componentAccessTokenLock = new RedisLock(jedisPool, "component_access_token");
     }
 
