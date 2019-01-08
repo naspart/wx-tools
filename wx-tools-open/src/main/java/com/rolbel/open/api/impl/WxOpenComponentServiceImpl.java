@@ -337,16 +337,22 @@ public class WxOpenComponentServiceImpl implements WxOpenComponentService {
 
     @Override
     public String getAuthorizerAccessToken(String appId, boolean forceRefresh) throws WxErrorException {
+        Lock lock = this.getWxOpenConfig().getAuthorizerAccessTokenLock(appId);
+        try {
+            lock.lock();
 
-        if (this.getWxOpenConfig().isAuthorizerAccessTokenExpired(appId) || forceRefresh) {
-            JsonObject jsonObject = new JsonObject();
-            jsonObject.addProperty("component_appid", this.getWxOpenConfig().getComponentAppId());
-            jsonObject.addProperty("authorizer_appid", appId);
-            jsonObject.addProperty("authorizer_refresh_token", this.getWxOpenConfig().getAuthorizerRefreshToken(appId));
-            String responseContent = post(API_AUTHORIZER_TOKEN_URL, jsonObject.toString());
+            if (this.getWxOpenConfig().isAuthorizerAccessTokenExpired(appId) || forceRefresh) {
+                JsonObject jsonObject = new JsonObject();
+                jsonObject.addProperty("component_appid", this.getWxOpenConfig().getComponentAppId());
+                jsonObject.addProperty("authorizer_appid", appId);
+                jsonObject.addProperty("authorizer_refresh_token", this.getWxOpenConfig().getAuthorizerRefreshToken(appId));
+                String responseContent = post(API_AUTHORIZER_TOKEN_URL, jsonObject.toString());
 
-            WxOpenAuthorizerAccessToken wxOpenAuthorizerAccessToken = WxOpenAuthorizerAccessToken.fromJson(responseContent);
-            this.getWxOpenConfig().updateAuthorizerAccessToken(appId, wxOpenAuthorizerAccessToken);
+                WxOpenAuthorizerAccessToken wxOpenAuthorizerAccessToken = WxOpenAuthorizerAccessToken.fromJson(responseContent);
+                this.getWxOpenConfig().updateAuthorizerAccessToken(appId, wxOpenAuthorizerAccessToken);
+            }
+        } finally {
+            lock.unlock();
         }
 
         return this.getWxOpenConfig().getAuthorizerAccessToken(appId);

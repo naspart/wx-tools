@@ -12,6 +12,7 @@ import com.rolbel.open.util.json.WxOpenGsonBuilder;
 import com.rolbel.pay.config.WxPayConfig;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.concurrent.locks.Lock;
@@ -36,6 +37,8 @@ public class WxOpenInMemoryConfig implements WxOpenConfig {
     private ApacheHttpClientBuilder apacheHttpClientBuilder;
 
     private Lock componentAccessTokenLock = new ReentrantLock();
+
+    private static final Map<String, Lock> authorizerAccessTokenLocks = new HashMap<>();
 
     private Map<String, Token> authorizerRefreshTokens = new Hashtable<>();
     private Map<String, Token> authorizerAccessTokens = new Hashtable<>();
@@ -234,6 +237,23 @@ public class WxOpenInMemoryConfig implements WxOpenConfig {
     @Override
     public String getAuthorizerAccessToken(String appId) {
         return getTokenString(authorizerAccessTokens, appId);
+    }
+
+    @Override
+    public Lock getAuthorizerAccessTokenLock(String appId) {
+        Lock authorizerAccessTokenLock = authorizerAccessTokenLocks.get(appId);
+        if (authorizerAccessTokenLock == null) {
+            synchronized (authorizerAccessTokenLocks) {
+                authorizerAccessTokenLock = authorizerAccessTokenLocks.get(appId);
+                if (authorizerAccessTokenLock == null) {
+                    authorizerAccessTokenLock = new ReentrantLock();
+
+                    authorizerAccessTokenLocks.put(appId, authorizerAccessTokenLock);
+                }
+            }
+        }
+
+        return authorizerAccessTokenLock;
     }
 
 

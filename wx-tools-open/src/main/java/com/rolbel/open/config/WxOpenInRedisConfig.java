@@ -5,6 +5,8 @@ import org.apache.commons.lang3.StringUtils;
 import redis.clients.jedis.Jedis;
 import redis.clients.util.Pool;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.locks.Lock;
 
 public class WxOpenInRedisConfig extends WxOpenInMemoryConfig {
@@ -41,6 +43,7 @@ public class WxOpenInRedisConfig extends WxOpenInMemoryConfig {
     }
 
     private Lock componentAccessTokenLock;
+    private static final Map<String, Lock> authorizerAccessTokenLocks = new HashMap<>();
 
     @Override
     public void setComponentAppId(String componentAppId) {
@@ -125,6 +128,23 @@ public class WxOpenInRedisConfig extends WxOpenInMemoryConfig {
         try (Jedis jedis = this.jedisPool.getResource()) {
             return jedis.get(this.getKey(this.authorizerAccessTokenKey, appId));
         }
+    }
+
+    @Override
+    public Lock getAuthorizerAccessTokenLock(String appId) {
+        Lock authorizerAccessTokenLock = authorizerAccessTokenLocks.get(appId);
+        if (authorizerAccessTokenLock == null) {
+            synchronized (authorizerAccessTokenLocks) {
+                authorizerAccessTokenLock = authorizerAccessTokenLocks.get(appId);
+                if (authorizerAccessTokenLock == null) {
+                    authorizerAccessTokenLock = new RedisLock(jedisPool, "authorizer_access_token:" + appId);
+
+                    authorizerAccessTokenLocks.put(appId, authorizerAccessTokenLock);
+                }
+            }
+        }
+
+        return authorizerAccessTokenLock;
     }
 
     @Override

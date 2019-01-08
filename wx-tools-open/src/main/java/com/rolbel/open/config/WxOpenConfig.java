@@ -86,6 +86,8 @@ public interface WxOpenConfig {
 
     String getAuthorizerAccessToken(String appId);
 
+    Lock getAuthorizerAccessTokenLock(String appId);
+
     boolean isAuthorizerAccessTokenExpired(String appId);
 
     /**
