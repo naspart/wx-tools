@@ -36,7 +36,7 @@ public class WxOpenInRedisConfig extends WxOpenInMemoryConfig {
         this.jedisPool = jedisPool;
         this.redissonClient = redissonClient;
 
-        componentAccessTokenLock = redissonClient.getLock("component_access_token");
+        componentAccessTokenLock = redissonClient.getLock("wechat_distributed_lock:component_access_token");
     }
 
     public WxOpenInRedisConfig(Pool<Jedis> jedisPool, RedissonClient redissonClient, String keyPrefix) {
@@ -44,7 +44,7 @@ public class WxOpenInRedisConfig extends WxOpenInMemoryConfig {
         this.redissonClient = redissonClient;
         this.keyPrefix = keyPrefix;
 
-        componentAccessTokenLock = redissonClient.getLock("component_access_token");
+        componentAccessTokenLock = redissonClient.getLock("wechat_distributed_lock:component_access_token");
     }
 
     private Lock componentAccessTokenLock;
@@ -142,7 +142,7 @@ public class WxOpenInRedisConfig extends WxOpenInMemoryConfig {
             synchronized (authorizerAccessTokenLocks) {
                 authorizerAccessTokenLock = authorizerAccessTokenLocks.get(appId);
                 if (authorizerAccessTokenLock == null) {
-                    authorizerAccessTokenLock = redissonClient.getLock("authorizer_access_token:" + appId);
+                    authorizerAccessTokenLock = redissonClient.getLock("wechat_distributed_lock:authorizer_access_token:" + appId);
 
                     authorizerAccessTokenLocks.put(appId, authorizerAccessTokenLock);
                 }

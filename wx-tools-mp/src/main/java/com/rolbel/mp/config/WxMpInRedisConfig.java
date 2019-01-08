@@ -25,10 +25,10 @@ public class WxMpInRedisConfig extends WxMpInMemoryConfig {
         this.jedisPool = jedisPool;
         this.redissonClient = redissonClient;
 
-        accessTokenLock = redissonClient.getLock("access_token");
-        jsapiTicketLock = redissonClient.getLock("jsapi_ticket");
-        sdkTicketLock = redissonClient.getLock("sdk_ticket");
-        cardApiTicketLock = redissonClient.getLock("cardapi_ticket");
+        accessTokenLock = redissonClient.getLock("wechat_distributed_lock:access_token");
+        jsapiTicketLock = redissonClient.getLock("wechat_distributed_lock:jsapi_ticket");
+        sdkTicketLock = redissonClient.getLock("wechat_distributed_lock:sdk_ticket");
+        cardApiTicketLock = redissonClient.getLock("wechat_distributed_lock:cardapi_ticket");
     }
 
     protected Lock accessTokenLock;
