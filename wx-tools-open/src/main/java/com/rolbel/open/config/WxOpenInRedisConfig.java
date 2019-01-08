@@ -142,7 +142,7 @@ public class WxOpenInRedisConfig extends WxOpenInMemoryConfig {
             synchronized (authorizerAccessTokenLocks) {
                 authorizerAccessTokenLock = authorizerAccessTokenLocks.get(appId);
                 if (authorizerAccessTokenLock == null) {
-                    authorizerAccessTokenLock = new RedisLock(jedisPool, "authorizer_access_token:" + appId);
+                    authorizerAccessTokenLock = redissonClient.getLock("authorizer_access_token:" + appId);
 
                     authorizerAccessTokenLocks.put(appId, authorizerAccessTokenLock);
                 }
