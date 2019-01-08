@@ -5,6 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.rolbel.common.bean.WxJsapiSignature;
+import com.rolbel.common.enums.TicketType;
 import com.rolbel.common.error.WxError;
 import com.rolbel.common.error.WxErrorException;
 import com.rolbel.common.session.StandardSessionManager;
@@ -20,7 +21,6 @@ import com.rolbel.mp.bean.WxMpSemanticQuery;
 import com.rolbel.mp.bean.WxMpSemanticQueryResult;
 import com.rolbel.mp.bean.user.WxMpUser;
 import com.rolbel.mp.config.WxMpConfig;
-import com.rolbel.common.enums.TicketType;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -84,8 +84,7 @@ public abstract class WxMpServiceBaseImpl<H, P> implements WxMpService, RequestH
             }
 
             if (this.getWxMpConfig().isTicketExpired(type)) {
-                String responseContent = execute(SimpleGetRequestExecutor.create(this),
-                        WxMpService.GET_TICKET_URL + type.getCode(), null);
+                String responseContent = this.get(WxMpService.GET_TICKET_URL + type.getCode(), null);
                 JsonObject tmpJsonObject = JSON_PARSER.parse(responseContent).getAsJsonObject();
                 String jsapiTicket = tmpJsonObject.get("ticket").getAsString();
                 int expiresInSeconds = tmpJsonObject.get("expires_in").getAsInt();
@@ -287,7 +286,7 @@ public abstract class WxMpServiceBaseImpl<H, P> implements WxMpService, RequestH
         throw new RuntimeException("微信服务端异常，超出重试次数");
     }
 
-    public <T, E> T executeInternal(RequestExecutor<T, E> executor, String uri, E data) throws WxErrorException {
+    private <T, E> T executeInternal(RequestExecutor<T, E> executor, String uri, E data) throws WxErrorException {
         E dataForLog = DataUtils.handleDataWithSecret(data);
 
         if (uri.contains("access_token=")) {

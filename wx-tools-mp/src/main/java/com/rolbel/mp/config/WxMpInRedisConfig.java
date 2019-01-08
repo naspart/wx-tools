@@ -1,7 +1,7 @@
 package com.rolbel.mp.config;
 
 import com.rolbel.common.enums.TicketType;
-import com.rolbel.mp.lock.RedisLock;
+import org.redisson.api.RedissonClient;
 import redis.clients.jedis.Jedis;
 import redis.clients.util.Pool;
 
@@ -17,15 +17,18 @@ public class WxMpInRedisConfig extends WxMpInMemoryConfig {
      * 使用连接池保证线程安全
      */
     protected final Pool<Jedis> jedisPool;
+    protected final RedissonClient redissonClient;
 
     private String accessTokenKey;
 
-    public WxMpInRedisConfig(Pool<Jedis> jedisPool) {
+    public WxMpInRedisConfig(Pool<Jedis> jedisPool, RedissonClient redissonClient) {
         this.jedisPool = jedisPool;
-        accessTokenLock = new RedisLock(jedisPool, "access_token");
-        jsapiTicketLock = new RedisLock(jedisPool, "jsapi_ticket");
-        sdkTicketLock = new RedisLock(jedisPool, "sdk_ticket");
-        cardApiTicketLock = new RedisLock(jedisPool, "cardapi_ticket");
+        this.redissonClient = redissonClient;
+
+        accessTokenLock = redissonClient.getLock("access_token");
+        jsapiTicketLock = redissonClient.getLock("jsapi_ticket");
+        sdkTicketLock = redissonClient.getLock("sdk_ticket");
+        cardApiTicketLock = redissonClient.getLock("cardapi_ticket");
     }
 
     protected Lock accessTokenLock;

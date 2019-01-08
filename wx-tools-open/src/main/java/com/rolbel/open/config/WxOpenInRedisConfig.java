@@ -1,7 +1,7 @@
 package com.rolbel.open.config;
 
-import com.rolbel.open.lock.RedisLock;
 import org.apache.commons.lang3.StringUtils;
+import org.redisson.api.RedissonClient;
 import redis.clients.jedis.Jedis;
 import redis.clients.util.Pool;
 
@@ -19,6 +19,7 @@ public class WxOpenInRedisConfig extends WxOpenInMemoryConfig {
     private final static String CARD_API_TICKET_KEY = "wechat_card_api_ticket:";
 
     protected final Pool<Jedis> jedisPool;
+    protected final RedissonClient redissonClient;
 
     /**
      * redis 存储的 key 的前缀，可为空
@@ -31,15 +32,19 @@ public class WxOpenInRedisConfig extends WxOpenInMemoryConfig {
     private String jsapiTicketKey;
     private String cardApiTicket;
 
-    public WxOpenInRedisConfig(Pool<Jedis> jedisPool) {
+    public WxOpenInRedisConfig(Pool<Jedis> jedisPool, RedissonClient redissonClient) {
         this.jedisPool = jedisPool;
-        componentAccessTokenLock = new RedisLock(jedisPool, "component_access_token");
+        this.redissonClient = redissonClient;
+
+        componentAccessTokenLock = redissonClient.getLock("component_access_token");
     }
 
-    public WxOpenInRedisConfig(Pool<Jedis> jedisPool, String keyPrefix) {
+    public WxOpenInRedisConfig(Pool<Jedis> jedisPool, RedissonClient redissonClient, String keyPrefix) {
         this.jedisPool = jedisPool;
+        this.redissonClient = redissonClient;
         this.keyPrefix = keyPrefix;
-        componentAccessTokenLock = new RedisLock(jedisPool, "component_access_token");
+
+        componentAccessTokenLock = redissonClient.getLock("component_access_token");
     }
 
     private Lock componentAccessTokenLock;
