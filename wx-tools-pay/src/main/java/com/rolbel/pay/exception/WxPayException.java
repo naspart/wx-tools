@@ -70,6 +70,8 @@ public class WxPayException extends Exception {
 
     /**
      * 通过BaseWxPayResult生成异常对象.
+     * @param payBaseResult 支付结果
+     * @return 支付异常信息
      */
     public static WxPayException from(BaseWxPayResult payBaseResult) {
         return WxPayException.newBuilder()

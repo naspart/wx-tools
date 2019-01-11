@@ -8,7 +8,7 @@ package com.rolbel.pay.constant;
 public class WxPayErrorCode {
     /**
      * 统一下单接口的错误码.
-     * https://pay.weixin.qq.com/wiki/doc/api/app/app.php?chapter=9_1
+     * 文档详见: https://pay.weixin.qq.com/wiki/doc/api/app/app.php?chapter=9_1
      */
     public static class UnifiedOrder {
         /**
@@ -135,7 +135,7 @@ public class WxPayErrorCode {
 
     /**
      * 关闭订单.
-     * https://pay.weixin.qq.com/wiki/doc/api/app/app.php?chapter=9_3&index=5
+     * 文档详见: https://pay.weixin.qq.com/wiki/doc/api/app/app.php?chapter=9_3&index=5
      */
     public static class OrderClose {
         /**
@@ -181,7 +181,7 @@ public class WxPayErrorCode {
 
     /**
      * 退款申请.
-     * https://pay.weixin.qq.com/wiki/doc/api/app/app.php?chapter=9_4&index=6
+     * 文档详见: https://pay.weixin.qq.com/wiki/doc/api/app/app.php?chapter=9_4&index=6
      */
     public static class Refund {
         /**
@@ -316,7 +316,7 @@ public class WxPayErrorCode {
 
     /**
      * 退款查询.
-     * https://pay.weixin.qq.com/wiki/doc/api/app/app.php?chapter=9_4&index=7
+     * 文档详见: https://pay.weixin.qq.com/wiki/doc/api/app/app.php?chapter=9_4&index=7
      */
     public static class RefundQuery {
         /**
@@ -403,7 +403,7 @@ public class WxPayErrorCode {
 
     /**
      * 下载对账单.
-     * https://pay.weixin.qq.com/wiki/doc/api/app/app.php?chapter=9_4&index=8
+     * 文档详见: https://pay.weixin.qq.com/wiki/doc/api/app/app.php?chapter=9_4&index=8
      */
     public static class DownloadBill {
         /**
@@ -486,7 +486,5 @@ public class WxPayErrorCode {
          * </pre>
          */
         public static final String UN_COMPRESSG_ZIP_ERROR = "UnCompressGZip Error";
-
-
     }
 }

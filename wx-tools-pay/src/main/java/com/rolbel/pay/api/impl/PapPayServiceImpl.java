@@ -42,6 +42,8 @@ public class PapPayServiceImpl implements PapPayService {
                 return null;
             }
         });
+        // 注意微信免密支付签约url中不能有sign_type参数
+        sPara = Maps.filterKeys(sPara, key -> key != null && !key.equals("sign_type"));
 
         return "https://api.mch.weixin.qq.com/papay/entrustweb?" + Joiner.on("&").withKeyValueSeparator("=").join(sPara);
     }

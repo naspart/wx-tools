@@ -8,8 +8,8 @@ import java.util.Date;
 
 /**
  * <pre>
- *     客服接口
- *     注意：命名采用kefu拼音的原因是：其英文CustomerService如果再加上Service后缀显得有点啰嗦，如果不加又显得表意不完整。
+ * 客服接口
+ * 注意：命名采用kefu拼音的原因是：其英文CustomerService如果再加上Service后缀显得有点啰嗦，如果不加又显得表意不完整。
  * </pre>
  *
  * @author Binary Wang
@@ -122,7 +122,7 @@ public interface WxMpKefuService {
      * 关闭会话
      * 开发者可以使用本接口，关闭一个会话。
      * 详情请见：<a href="http://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1458044820&token=&lang=zh_CN">客服会话控制接口</a>
-     * 接口url格式： https://api.weixin.qq.com/customservice/kfsession/close?access_token=ACCESS_TOKEN
+     * 接口url格式：https://api.weixin.qq.com/customservice/kfsession/close?access_token=ACCESS_TOKEN
      * </pre>
      */
     boolean kfSessionClose(String openid, String kfAccount) throws WxErrorException;
@@ -132,7 +132,7 @@ public interface WxMpKefuService {
      * 获取客户的会话状态
      * 此接口获取一个客户的会话，如果不存在，则kf_account为空。
      * 详情请见：<a href="http://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1458044820&token=&lang=zh_CN">客服会话控制接口</a>
-     * 接口url格式： https://api.weixin.qq.com/customservice/kfsession/getsession?access_token=ACCESS_TOKEN&openid=OPENID
+     * 接口url格式：https://api.weixin.qq.com/customservice/kfsession/getsession?access_token=ACCESS_TOKEN&openid=OPENID
      * </pre>
      */
     WxMpKfSessionGetResult kfSessionGet(String openid) throws WxErrorException;
@@ -142,7 +142,7 @@ public interface WxMpKefuService {
      * 获取客服的会话列表
      * 开发者可以通过本接口获取某个客服正在接待的会话列表。
      * 详情请见：<a href="http://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1458044820&token=&lang=zh_CN">客服会话控制</a>
-     * 接口url格式： https://api.weixin.qq.com/customservice/kfsession/getsessionlist?access_token=ACCESS_TOKEN&kf_account=KFACCOUNT
+     * 接口url格式：https://api.weixin.qq.com/customservice/kfsession/getsessionlist?access_token=ACCESS_TOKEN&kf_account=KFACCOUNT
      * </pre>
      */
     WxMpKfSessionList kfSessionList(String kfAccount) throws WxErrorException;
