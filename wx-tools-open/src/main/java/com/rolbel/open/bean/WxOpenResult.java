@@ -18,6 +18,8 @@ public class WxOpenResult implements Serializable {
 
     /**
      * 请求是否成功.
+     *
+     * @return 是否成功
      */
     public boolean isSuccess() {
         return StringUtils.equalsIgnoreCase(errcode, "0");

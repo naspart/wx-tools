@@ -8,8 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * <pre>
  * 模板消息.
- * 参考 http://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1433751277&token=&lang=zh_CN 发送模板消息接口部分
+ *
+ * 功能参考：<a target="_blank" href="https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1433751277">微信公众平台 - 发送模板消息接口</a>
+ * </pre>
  */
 @Getter
 @Setter
@@ -30,8 +33,9 @@ public class WxMpTemplateMessage implements Serializable {
     private String templateId;
 
     /**
-     * 模板跳转链接.
      * <pre>
+     * 模板跳转链接.
+     *
      * url和miniprogram都是非必填字段，若都不传则模板无跳转；若都传，会优先跳转至小程序。
      * 开发者可根据实际需要选择其中一种跳转方式即可。当用户的微信客户端版本不支持跳小程序时，将会跳转至url。
      * </pre>
@@ -56,6 +60,16 @@ public class WxMpTemplateMessage implements Serializable {
             this.data = new ArrayList<>();
         }
         this.data.add(datum);
+
+        return this;
+    }
+
+    public WxMpTemplateMessage addData(List<WxMpTemplateData> dataList) {
+        if (this.data == null) {
+            this.data = new ArrayList<>();
+        }
+        this.data.addAll(dataList);
+
         return this;
     }
 

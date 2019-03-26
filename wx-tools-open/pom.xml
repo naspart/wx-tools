@@ -22,13 +22,11 @@
             <groupId>com.rolbel</groupId>
             <artifactId>wx-tools-mp</artifactId>
             <version>0.0.6</version>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.rolbel</groupId>
             <artifactId>wx-tools-ma</artifactId>
             <version>0.0.6</version>
-            <scope>compile</scope>
         </dependency>
 
         <dependency>
@@ -53,7 +51,6 @@
             <groupId>com.rolbel</groupId>
             <artifactId>wx-tools-pay</artifactId>
             <version>0.0.6</version>
-            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>

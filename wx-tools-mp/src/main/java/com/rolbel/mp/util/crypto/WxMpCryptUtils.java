@@ -14,7 +14,7 @@ public class WxMpCryptUtils extends WxCryptUtil {
     /**
      * 构造函数
      *
-     * @param wxMpConfig
+     * @param wxMpConfig 微信公众号配置
      */
     public WxMpCryptUtils(WxMpConfig wxMpConfig) {
         /*

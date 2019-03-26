@@ -3,11 +3,11 @@ package com.rolbel.mp.api.impl;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.rolbel.common.WxType;
+import com.rolbel.common.enums.AiLangType;
 import com.rolbel.common.error.WxError;
 import com.rolbel.common.error.WxErrorException;
 import com.rolbel.mp.api.WxMpAiOpenService;
 import com.rolbel.mp.api.WxMpService;
-import com.rolbel.common.enums.AiLangType;
 import com.rolbel.mp.util.request_executor.voice.VoiceUploadRequestExecutor;
 
 import java.io.File;
@@ -34,29 +34,6 @@ public class WxMpAiOpenServiceImpl implements WxMpAiOpenService {
 
     @Override
     public String recogniseVoice(String voiceId, AiLangType lang) throws WxErrorException {
-        return this.queryRecognitionResult(voiceId, lang);
-    }
-
-    @Override
-    public String recogniseVoice(String voiceId, AiLangType lang, File voiceFile) throws WxErrorException {
-        this.uploadVoice(voiceId, lang, voiceFile);
-
-        return this.queryRecognitionResult(voiceId, lang);
-    }
-
-    @Override
-    public String translate(AiLangType langFrom, AiLangType langTo, String content) throws WxErrorException {
-        final String responseContent = this.wxMpService.post(String.format(TRANSLATE_URL, langFrom.getCode(), langTo.getCode()), content);
-        final JsonObject jsonObject = new JsonParser().parse(responseContent).getAsJsonObject();
-        if (jsonObject.get("errcode") == null || jsonObject.get("errcode").getAsInt() == 0) {
-            return jsonObject.get("to_content").getAsString();
-        }
-
-        throw new WxErrorException(WxError.fromJson(responseContent, WxType.MP));
-    }
-
-    @Override
-    public String queryRecognitionResult(String voiceId, AiLangType lang) throws WxErrorException {
         if (lang == null) {
             lang = AiLangType.zh_CN;
         }
@@ -66,6 +43,24 @@ public class WxMpAiOpenServiceImpl implements WxMpAiOpenService {
         final JsonObject jsonObject = JSON_PARSER.parse(responseContent).getAsJsonObject();
         if (jsonObject.get("errcode") == null || jsonObject.get("errcode").getAsInt() == 0) {
             return jsonObject.get("result").getAsString();
+        }
+
+        throw new WxErrorException(WxError.fromJson(responseContent, WxType.MP));
+    }
+
+    @Override
+    public String recogniseVoice(String voiceId, AiLangType lang, File voiceFile) throws WxErrorException {
+        this.uploadVoice(voiceId, lang, voiceFile);
+
+        return this.recogniseVoice(voiceId, lang);
+    }
+
+    @Override
+    public String translate(AiLangType langFrom, AiLangType langTo, String content) throws WxErrorException {
+        final String responseContent = this.wxMpService.post(String.format(TRANSLATE_URL, langFrom.getCode(), langTo.getCode()), content);
+        final JsonObject jsonObject = new JsonParser().parse(responseContent).getAsJsonObject();
+        if (jsonObject.get("errcode") == null || jsonObject.get("errcode").getAsInt() == 0) {
+            return jsonObject.get("to_content").getAsString();
         }
 
         throw new WxErrorException(WxError.fromJson(responseContent, WxType.MP));

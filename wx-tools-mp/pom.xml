@@ -22,7 +22,6 @@
             <groupId>com.rolbel</groupId>
             <artifactId>wx-tools-common</artifactId>
             <version>0.0.6</version>
-            <scope>compile</scope>
         </dependency>
 
         <dependency>

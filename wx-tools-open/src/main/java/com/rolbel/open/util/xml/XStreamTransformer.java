@@ -15,22 +15,38 @@ public class XStreamTransformer {
     }
 
     /**
-     * xml -> pojo.
+     * xml字符串转换成Java bean.
+     *
+     * @param clazz 对象class
+     * @param <T>   泛型对象
+     * @param xml   xml字符串
+     * @return Java bean
      */
     @SuppressWarnings("unchecked")
     public static <T> T fromXml(Class<T> clazz, String xml) {
-        T object = (T) CLASS_2_XSTREAM_INSTANCE.get(clazz).fromXML(xml);
-        return object;
-    }
-
-    @SuppressWarnings("unchecked")
-    public static <T> T fromXml(Class<T> clazz, InputStream is) {
-        T object = (T) CLASS_2_XSTREAM_INSTANCE.get(clazz).fromXML(is);
-        return object;
+        return (T) CLASS_2_XSTREAM_INSTANCE.get(clazz).fromXML(xml);
     }
 
     /**
-     * pojo -> xml.
+     * xml字符串流转换成Java bean.
+     *
+     * @param clazz 对象class
+     * @param is    xml字符串流
+     * @param <T>   泛型对象
+     * @return Java bean
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> T fromXml(Class<T> clazz, InputStream is) {
+        return (T) CLASS_2_XSTREAM_INSTANCE.get(clazz).fromXML(is);
+    }
+
+    /**
+     * Java bean转换成xml字符串.
+     *
+     * @param clazz  对象class
+     * @param object Java bean
+     * @param <T>    泛型对象
+     * @return xml字符串
      */
     public static <T> String toXml(Class<T> clazz, T object) {
         return CLASS_2_XSTREAM_INSTANCE.get(clazz).toXML(object);

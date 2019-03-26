@@ -2,8 +2,6 @@ package com.rolbel.mp.api;
 
 import com.rolbel.common.error.WxErrorException;
 import com.rolbel.mp.bean.*;
-import com.rolbel.mp.bean.WxMpMassSendResult;
-import com.rolbel.mp.bean.WxMpMassUploadResult;
 
 /**
  * <pre>
@@ -40,7 +38,7 @@ public interface WxMpMassMessageService {
      * <pre>
      * 上传群发用的图文消息，上传后才能群发图文消息.
      *
-     * 详情请见: http://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140549&token=&lang=zh_CN
+     * 功能参考：<a target="_blank" href="https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1481187827_i0l21">微信公众平台 - 上传图文消息素材【订阅号与服务号认证后均可用】</a>.
      * </pre>
      *
      * @see #massGroupMessageSend(WxMpMassTagMessage)
@@ -51,7 +49,8 @@ public interface WxMpMassMessageService {
     /**
      * <pre>
      * 上传群发用的视频，上传后才能群发视频消息.
-     * 详情请见: http://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140549&token=&lang=zh_CN
+     *
+     * 功能参考：<a target="_blank" href="https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1481187827_i0l21">微信公众平台 - 根据标签进行群发【订阅号与服务号认证后均可用】</a>.
      * </pre>
      *
      * @see #massGroupMessageSend(WxMpMassTagMessage)
@@ -61,41 +60,58 @@ public interface WxMpMassMessageService {
 
     /**
      * <pre>
-     * 分组群发消息.
+     * 根据标签进行群发【订阅号与服务号认证后均可用】
+     *
      * 如果发送图文消息，必须先使用 {@link #massNewsUpload(WxMpMassNews)} 获得media_id，然后再发送
      * 如果发送视频消息，必须先使用 {@link #massVideoUpload(WxMpMassVideo)} 获得media_id，然后再发送
-     * 详情请见: http://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140549&token=&lang=zh_CN
+     *
+     * 功能参考：<a target="_blank" href="https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1481187827_i0l21">微信公众平台 - 根据标签进行群发【订阅号与服务号认证后均可用】</a>.
      * </pre>
+     *
+     * @param message 消息
+     * @return 发送结果
+     * @throws WxErrorException 微信异常
      */
     WxMpMassSendResult massGroupMessageSend(WxMpMassTagMessage message) throws WxErrorException;
 
     /**
      * <pre>
-     * 按openId列表群发消息.
+     * 根据OpenID列表群发【订阅号不可用，服务号认证后可用】
+     *
      * 如果发送图文消息，必须先使用 {@link #massNewsUpload(WxMpMassNews)} 获得media_id，然后再发送
      * 如果发送视频消息，必须先使用 {@link #massVideoUpload(WxMpMassVideo)} 获得media_id，然后再发送
-     * 详情请见: http://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140549&token=&lang=zh_CN
+     *
+     * 功能参考：<a target="_blank" href="https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1481187827_i0l21">微信公众平台 - 根据OpenID列表群发【订阅号不可用，服务号认证后可用】</a>.
      * </pre>
+     *
+     * @param message 消息
+     * @return 发送结果
+     * @throws WxErrorException 微信异常
      */
     WxMpMassSendResult massOpenIdsMessageSend(WxMpMassOpenIdsMessage message) throws WxErrorException;
 
     /**
      * <pre>
-     * 群发消息预览接口.
+     * 预览接口【订阅号与服务号认证后均可用】
+     *
      * 开发者可通过该接口发送消息给指定用户，在手机端查看消息的样式和排版。为了满足第三方平台开发者的需求，在保留对openID预览能力的同时，增加了对指定微信号发送预览的能力，但该能力每日调用次数有限制（100次），请勿滥用。
      * 接口调用请求说明
      *  http请求方式: POST
      *  https://api.weixin.qq.com/cgi-bin/message/mass/preview?access_token=ACCESS_TOKEN
-     * 详情请见：http://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140549&token=&lang=zh_CN
+     *
+     * 功能参考：<a target="_blank" href="https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1481187827_i0l21">微信公众平台 - 预览接口【订阅号与服务号认证后均可用】</a>
      * </pre>
      *
-     * @return wxMpMassSendResult
+     * @param wxMpMassPreviewMessage 消息
+     * @return 发送结果
+     * @throws WxErrorException 微信异常
      */
     WxMpMassSendResult massMessagePreview(WxMpMassPreviewMessage wxMpMassPreviewMessage) throws WxErrorException;
 
     /**
      * <pre>
-     * 删除群发.
+     * 删除群发【订阅号与服务号认证后均可用】
+     *
      * 群发之后，随时可以通过该接口删除群发。
      * 请注意：
      * 1、只有已经发送成功的消息才能删除
@@ -105,11 +121,13 @@ public interface WxMpMassMessageService {
      * 接口调用请求说明：
      *  http请求方式: POST
      *  https://api.weixin.qq.com/cgi-bin/message/mass/delete?access_token=ACCESS_TOKEN
-     * 详情请见：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1481187827_i0l21
+     *
+     * 功能参考：<a target="_blank" href="https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1481187827_i0l21">微信公众平台 - 删除群发【订阅号与服务号认证后均可用】</a>
      * </pre>
      *
      * @param msgId        发送出去的消息ID
      * @param articleIndex 要删除的文章在图文消息中的位置，第一篇编号为1，该字段不填或填0会删除全部文章
+     * @throws WxErrorException 微信异常
      */
     void delete(Long msgId, Integer articleIndex) throws WxErrorException;
 

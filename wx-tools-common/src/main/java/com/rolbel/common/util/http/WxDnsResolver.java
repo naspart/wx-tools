@@ -11,9 +11,7 @@ import java.util.Map;
 
 /**
  * 微信DNS域名解析器，将微信域名绑定到指定IP
- * --------------------------------------------
  * 适用于服务器端调用微信服务器需要开通出口防火墙情况
- * <p>
  */
 public class WxDnsResolver implements DnsResolver {
 
