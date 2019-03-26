@@ -2,7 +2,6 @@ package com.rolbel.ma.api.impl;
 
 import com.google.common.base.Joiner;
 import com.google.gson.Gson;
-import com.rolbel.common.bean.WxAccessToken;
 import com.rolbel.common.error.WxError;
 import com.rolbel.common.error.WxErrorException;
 import com.rolbel.common.util.DataUtils;
@@ -15,18 +14,11 @@ import com.rolbel.ma.bean.WxMaJscode2SessionResult;
 import com.rolbel.ma.config.WxMaConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpHost;
-import org.apache.http.client.config.RequestConfig;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.CloseableHttpClient;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.locks.Lock;
-
-import static com.rolbel.ma.constant.WxMaConstant.ErrorCode.*;
 
 @Slf4j
 public class WxMaServiceImpl implements WxMaService, RequestHttp<CloseableHttpClient, HttpHost> {
@@ -93,44 +85,6 @@ public class WxMaServiceImpl implements WxMaService, RequestHttp<CloseableHttpCl
     }
 
     @Override
-    public String getAccessToken(boolean forceRefresh) throws WxErrorException {
-        Lock lock = this.getWxMaConfig().getAccessTokenLock();
-        try {
-            lock.lock();
-
-            if (this.getWxMaConfig().isAccessTokenExpired() || forceRefresh) {
-                String url = String.format(WxMaService.GET_ACCESS_TOKEN_URL, this.getWxMaConfig().getAppId(),
-                        this.getWxMaConfig().getSecret());
-                try {
-                    HttpGet httpGet = new HttpGet(url);
-                    if (this.getRequestHttpProxy() != null) {
-                        RequestConfig config = RequestConfig.custom().setProxy(this.getRequestHttpProxy()).build();
-                        httpGet.setConfig(config);
-                    }
-                    try (CloseableHttpResponse response = getRequestHttpClient().execute(httpGet)) {
-                        String resultContent = new BasicResponseHandler().handleResponse(response);
-                        WxError error = WxError.fromJson(resultContent);
-                        if (error.getErrorCode() != 0) {
-                            throw new WxErrorException(error);
-                        }
-                        WxAccessToken accessToken = WxAccessToken.fromJson(resultContent);
-                        this.getWxMaConfig().updateAccessToken(accessToken.getAccessToken(),
-                                accessToken.getExpiresIn());
-                    } finally {
-                        httpGet.releaseConnection();
-                    }
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        } finally {
-            lock.unlock();
-        }
-
-        return this.getWxMaConfig().getAccessToken();
-    }
-
-    @Override
     public WxMaJscode2SessionResult jsCode2SessionInfo(String jsCode) throws WxErrorException {
         final WxMaConfig config = getWxMaConfig();
         Map<String, String> params = new HashMap<>(8);
@@ -151,11 +105,6 @@ public class WxMaServiceImpl implements WxMaService, RequestHttp<CloseableHttpCl
             this.log.error("Checking signature failed, and the reason is :" + e.getMessage());
             return false;
         }
-    }
-
-    @Override
-    public String getAccessToken() throws WxErrorException {
-        return getAccessToken(false);
     }
 
     @Override
@@ -210,7 +159,7 @@ public class WxMaServiceImpl implements WxMaService, RequestHttp<CloseableHttpCl
         if (uri.contains("access_token=")) {
             throw new IllegalArgumentException("uri参数中不允许有access_token: " + uri);
         }
-        String accessToken = getAccessToken(false);
+        String accessToken = this.getWxMaConfig().getAccessToken();
 
         String uriWithAccessToken = uri + (uri.contains("?") ? "&" : "?") + "access_token=" + accessToken;
 
@@ -220,19 +169,6 @@ public class WxMaServiceImpl implements WxMaService, RequestHttp<CloseableHttpCl
             return result;
         } catch (WxErrorException e) {
             WxError error = e.getError();
-            /*
-             * 发生以下情况时尝试刷新access_token
-             */
-            if (error.getErrorCode() == ERR_40001
-                    || error.getErrorCode() == ERR_42001
-                    || error.getErrorCode() == ERR_40014) {
-                // 强制设置wxMpConfigStorage它的access token过期了，这样在下一次请求里就会刷新access token
-                this.getWxMaConfig().expireAccessToken();
-                if (this.getWxMaConfig().autoRefreshToken()) {
-                    return this.execute(executor, uri, data);
-                }
-            }
-
             if (error.getErrorCode() != 0) {
                 log.error("\n【请求地址】: {}\n【请求参数】：{}\n【错误信息】：{}", uriWithAccessToken, dataForLog, error);
                 throw new WxErrorException(error, e);

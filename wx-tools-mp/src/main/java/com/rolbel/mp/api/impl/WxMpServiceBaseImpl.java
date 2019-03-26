@@ -70,48 +70,10 @@ public abstract class WxMpServiceBaseImpl<H, P> implements WxMpService, RequestH
     }
 
     @Override
-    public String getTicket(TicketType type) throws WxErrorException {
-        return this.getTicket(type, false);
-    }
-
-    @Override
-    public String getTicket(TicketType type, boolean forceRefresh) throws WxErrorException {
-        Lock lock = this.getWxMpConfig().getTicketLock(type);
-        try {
-            lock.lock();
-            if (forceRefresh) {
-                this.getWxMpConfig().expireTicket(type);
-            }
-
-            if (this.getWxMpConfig().isTicketExpired(type)) {
-                String responseContent = this.get(WxMpService.GET_TICKET_URL + type.getCode(), null);
-                JsonObject tmpJsonObject = JSON_PARSER.parse(responseContent).getAsJsonObject();
-                String jsapiTicket = tmpJsonObject.get("ticket").getAsString();
-                int expiresInSeconds = tmpJsonObject.get("expires_in").getAsInt();
-                this.getWxMpConfig().updateTicket(type, jsapiTicket, expiresInSeconds);
-            }
-        } finally {
-            lock.unlock();
-        }
-
-        return this.getWxMpConfig().getTicket(type);
-    }
-
-    @Override
-    public String getJsapiTicket() throws WxErrorException {
-        return this.getJsapiTicket(false);
-    }
-
-    @Override
-    public String getJsapiTicket(boolean forceRefresh) throws WxErrorException {
-        return this.getTicket(TicketType.JSAPI, forceRefresh);
-    }
-
-    @Override
     public WxJsapiSignature createJsapiSignature(String url) throws WxErrorException {
         long timestamp = System.currentTimeMillis() / 1000;
         String randomStr = RandomUtils.getRandomStr();
-        String jsapiTicket = getJsapiTicket(false);
+        String jsapiTicket = this.getWxMpConfig().getJsapiTicket();
         String signature = SHA1.genWithAmple("jsapi_ticket=" + jsapiTicket, "noncestr=" + randomStr, "timestamp=" + timestamp, "url=" + url);
 
         WxJsapiSignature jsapiSignature = new WxJsapiSignature();
@@ -122,11 +84,6 @@ public abstract class WxMpServiceBaseImpl<H, P> implements WxMpService, RequestH
         jsapiSignature.setSignature(signature);
 
         return jsapiSignature;
-    }
-
-    @Override
-    public String getAccessToken() throws WxErrorException {
-        return getAccessToken(false);
     }
 
     @Override
@@ -293,7 +250,7 @@ public abstract class WxMpServiceBaseImpl<H, P> implements WxMpService, RequestH
             throw new IllegalArgumentException("uri参数中不允许有access_token: " + uri);
         }
 
-        String accessToken = getAccessToken(false);
+        String accessToken = this.getWxMpConfig().getAccessToken();
 
         String uriWithAccessToken = uri + (uri.contains("?") ? "&" : "?") + "access_token=" + accessToken;
 
@@ -304,20 +261,6 @@ public abstract class WxMpServiceBaseImpl<H, P> implements WxMpService, RequestH
             return result;
         } catch (WxErrorException e) {
             WxError error = e.getError();
-            /*
-             * 发生以下情况时尝试刷新access_token
-             * 40001 获取access_token时AppSecret错误，或者access_token无效
-             * 42001 access_token超时
-             * 40014 不合法的access_token，请开发者认真比对access_token的有效性（如是否过期），或查看是否正在为恰当的公众号调用接口
-             */
-            if (error.getErrorCode() == 42001 || error.getErrorCode() == 40001 || error.getErrorCode() == 40014) {
-                // 强制设置wxMpConfigStorage它的access token过期了，这样在下一次请求里就会刷新access token
-                this.getWxMpConfig().expireAccessToken();
-                if (this.getWxMpConfig().autoRefreshToken()) {
-                    return this.execute(executor, uri, data);
-                }
-            }
-
             if (error.getErrorCode() != 0) {
                 this.logger.error("\n【请求地址】: {}\n【请求参数】：{}\n【错误信息】：{}", uriWithAccessToken, dataForLog, error);
                 throw new WxErrorException(error, e);

@@ -3,7 +3,6 @@ package com.rolbel.mp.api.impl;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import com.rolbel.common.bean.WxCardApiSignature;
-import com.rolbel.common.enums.TicketType;
 import com.rolbel.common.error.WxError;
 import com.rolbel.common.error.WxErrorException;
 import com.rolbel.common.util.RandomUtils;
@@ -40,29 +39,10 @@ public class WxMpCardServiceImpl implements WxMpCardService {
      * 获得卡券api_ticket，不强制刷新卡券api_ticket.
      *
      * @return 卡券api_ticket
-     * @see #getCardApiTicket(boolean)
      */
     @Override
     public String getCardApiTicket() throws WxErrorException {
-        return this.getCardApiTicket(false);
-    }
-
-    /**
-     * <pre>
-     * 获得卡券api_ticket.
-     * 获得时会检查卡券apiToken是否过期，如果过期了，那么就刷新一下，否则就什么都不干
-     *
-     * 详情请见：http://mp.weixin.qq.com/wiki/7/aaa137b55fb2e0456bf8dd9148dd613f.html#.E9.99.84.E5.BD
-     * .954-.E5.8D.A1.E5.88.B8.E6.89.A9.E5.B1.95.E5.AD.97.E6.AE.B5.E5.8F.8A.E7.AD.BE.E5.90.8D.E7.94
-     * .9F.E6.88.90.E7.AE.97.E6.B3.95
-     * </pre>
-     *
-     * @param forceRefresh 强制刷新
-     * @return 卡券api_ticket
-     */
-    @Override
-    public String getCardApiTicket(boolean forceRefresh) throws WxErrorException {
-        return this.getWxMpService().getTicket(TicketType.WX_CARD, forceRefresh);
+        return this.getWxMpService().getWxMpConfig().getCardApiTicket();
     }
 
     /**
@@ -84,7 +64,7 @@ public class WxMpCardServiceImpl implements WxMpCardService {
             WxErrorException {
         long timestamp = System.currentTimeMillis() / 1000;
         String nonceStr = RandomUtils.getRandomStr();
-        String cardApiTicket = getCardApiTicket(false);
+        String cardApiTicket = getCardApiTicket();
 
         String[] signParam = Arrays.copyOf(optionalSignParam, optionalSignParam.length + 3);
         signParam[optionalSignParam.length] = String.valueOf(timestamp);

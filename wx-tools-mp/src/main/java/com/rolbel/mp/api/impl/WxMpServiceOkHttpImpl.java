@@ -1,20 +1,10 @@
 package com.rolbel.mp.api.impl;
 
-import com.rolbel.common.WxType;
-import com.rolbel.common.bean.WxAccessToken;
-import com.rolbel.common.error.WxError;
-import com.rolbel.common.error.WxErrorException;
 import com.rolbel.common.util.http.HttpType;
 import com.rolbel.common.util.http.okhttp.OkHttpProxyInfo;
-import com.rolbel.mp.api.WxMpService;
 import com.rolbel.mp.config.WxMpConfig;
 import okhttp3.Credentials;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-
-import java.io.IOException;
-import java.util.concurrent.locks.Lock;
 
 /**
  * okhttp实现
@@ -36,37 +26,6 @@ public class WxMpServiceOkHttpImpl extends WxMpServiceBaseImpl<OkHttpClient, OkH
     @Override
     public HttpType getRequestType() {
         return HttpType.OK_HTTP;
-    }
-
-    @Override
-    public String getAccessToken(boolean forceRefresh) throws WxErrorException {
-        this.logger.debug("WxMpServiceOkHttpImpl is running");
-        Lock lock = this.getWxMpConfig().getAccessTokenLock();
-        try {
-            lock.lock();
-
-            if (this.getWxMpConfig().isAccessTokenExpired() || forceRefresh) {
-                String url = String.format(WxMpService.GET_ACCESS_TOKEN_URL,
-                        this.getWxMpConfig().getAppId(), this.getWxMpConfig().getSecret());
-
-                Request request = new Request.Builder().url(url).get().build();
-                Response response = getRequestHttpClient().newCall(request).execute();
-                String resultContent = response.body().string();
-                WxError error = WxError.fromJson(resultContent, WxType.MP);
-                if (error.getErrorCode() != 0) {
-                    this.logger.error("\n【请求地址】: {}\n【请求参数】：{}\n【错误信息】：{}", url, null, error);
-                    throw new WxErrorException(error);
-                }
-
-                WxAccessToken accessToken = WxAccessToken.fromJson(resultContent);
-                this.getWxMpConfig().updateAccessToken(accessToken.getAccessToken(), accessToken.getExpiresIn());
-            }
-        } catch (IOException e) {
-            this.logger.error(e.getMessage(), e);
-        } finally {
-            lock.unlock();
-        }
-        return this.getWxMpConfig().getAccessToken();
     }
 
     @Override

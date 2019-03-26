@@ -1,14 +1,12 @@
 package com.rolbel.ma.config;
 
-import com.rolbel.common.enums.TicketType;
-import com.rolbel.ma.lock.RedisLock;
 import redis.clients.jedis.Jedis;
 import redis.clients.util.Pool;
 
-import java.util.concurrent.locks.Lock;
-
 public class WxMaInRedisConfig extends WxMaInMemoryConfig {
-    private static final String ACCESS_TOKEN_KEY = "wx_ma:access_token:";
+    private static final String ACCESS_TOKEN_KEY = "wx_config:wx_ma:access_token:";
+    private static final String JSAPI_TICKET_KEY = "wx_config:wx_ma:jsapi_ticket:";
+    private static final String CARD_API_TICKET_KEY = "wx_config:wx_ma:card_api_ticket:";
 
     /**
      * 使用连接池保证线程安全
@@ -16,18 +14,12 @@ public class WxMaInRedisConfig extends WxMaInMemoryConfig {
     protected final Pool<Jedis> jedisPool;
 
     private String accessTokenKey;
+    private String jsapiTicketKey;
+    private String cardApiTicketKey;
 
     public WxMaInRedisConfig(Pool<Jedis> jedisPool) {
         this.jedisPool = jedisPool;
-
-        accessTokenLock = new RedisLock(jedisPool, "access_token");
-        jsapiTicketLock = new RedisLock(jedisPool, "jsapi_ticket");
-        cardApiTicketLock = new RedisLock(jedisPool, "cardapi_ticket");
     }
-
-    protected Lock accessTokenLock;
-    protected Lock jsapiTicketLock;
-    protected Lock cardApiTicketLock;
 
     /**
      * 每个公众号生成独有的存储key
@@ -38,10 +30,9 @@ public class WxMaInRedisConfig extends WxMaInMemoryConfig {
     public void setAppId(String appId) {
         super.setAppId(appId);
         this.accessTokenKey = ACCESS_TOKEN_KEY.concat(appId);
-    }
-
-    private String getTicketRedisKey(TicketType type) {
-        return String.format("wx_ma:ticket:key:%s:%s", this.appId, type.getCode());
+        this.accessTokenKey = ACCESS_TOKEN_KEY.concat(appId);
+        this.jsapiTicketKey = JSAPI_TICKET_KEY.concat(appId);
+        this.cardApiTicketKey = CARD_API_TICKET_KEY.concat(appId);
     }
 
     @Override
@@ -52,68 +43,16 @@ public class WxMaInRedisConfig extends WxMaInMemoryConfig {
     }
 
     @Override
-    public Lock getAccessTokenLock() {
-        return this.accessTokenLock;
-    }
-
-    @Override
-    public boolean isAccessTokenExpired() {
+    public String getJsapiTicket() {
         try (Jedis jedis = this.jedisPool.getResource()) {
-            return jedis.ttl(accessTokenKey) < 2;
+            return jedis.get(this.jsapiTicketKey);
         }
     }
 
     @Override
-    public synchronized void updateAccessToken(String accessToken, int expiresInSeconds) {
+    public String getCardApiTicket() {
         try (Jedis jedis = this.jedisPool.getResource()) {
-            jedis.setex(this.accessTokenKey, expiresInSeconds - 200, accessToken);
-        }
-    }
-
-    @Override
-    public void expireAccessToken() {
-        try (Jedis jedis = this.jedisPool.getResource()) {
-            jedis.expire(this.accessTokenKey, 0);
-        }
-    }
-
-    @Override
-    public String getTicket(TicketType type) {
-        try (Jedis jedis = this.jedisPool.getResource()) {
-            return jedis.get(this.getTicketRedisKey(type));
-        }
-    }
-
-    @Override
-    public Lock getTicketLock(TicketType type) {
-        switch (type) {
-            case JSAPI:
-                return this.jsapiTicketLock;
-            case WX_CARD:
-                return this.cardApiTicketLock;
-            default:
-                return null;
-        }
-    }
-
-    @Override
-    public boolean isTicketExpired(TicketType type) {
-        try (Jedis jedis = this.jedisPool.getResource()) {
-            return jedis.ttl(this.getTicketRedisKey(type)) < 2;
-        }
-    }
-
-    @Override
-    public synchronized void updateTicket(TicketType type, String jsapiTicket, int expiresInSeconds) {
-        try (Jedis jedis = this.jedisPool.getResource()) {
-            jedis.setex(this.getTicketRedisKey(type), expiresInSeconds - 200, jsapiTicket);
-        }
-    }
-
-    @Override
-    public void expireTicket(TicketType type) {
-        try (Jedis jedis = this.jedisPool.getResource()) {
-            jedis.expire(this.getTicketRedisKey(type), 0);
+            return jedis.get(this.cardApiTicketKey);
         }
     }
 }

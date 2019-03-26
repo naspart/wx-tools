@@ -1,10 +1,6 @@
 package com.rolbel.ma.config;
 
-import com.rolbel.common.bean.WxAccessToken;
-import com.rolbel.common.enums.TicketType;
 import com.rolbel.common.util.http.apache.ApacheHttpClientBuilder;
-
-import java.util.concurrent.locks.Lock;
 
 /**
  * 小程序配置
@@ -12,39 +8,9 @@ import java.util.concurrent.locks.Lock;
 public interface WxMaConfig {
     String getAccessToken();
 
-    Lock getAccessTokenLock();
+    String getJsapiTicket();
 
-    boolean isAccessTokenExpired();
-
-    /**
-     * 强制将access token过期掉
-     */
-    void expireAccessToken();
-
-    /**
-     * 应该是线程安全的
-     *
-     * @param accessToken 要更新的WxAccessToken对象
-     */
-    void updateAccessToken(WxAccessToken accessToken);
-
-    /**
-     * 应该是线程安全的
-     *
-     * @param accessToken      新的accessToken值
-     * @param expiresInSeconds 过期时间，以秒为单位
-     */
-    void updateAccessToken(String accessToken, int expiresInSeconds);
-
-    String getTicket(TicketType type);
-
-    Lock getTicketLock(TicketType type);
-
-    boolean isTicketExpired(TicketType type);
-
-    void updateTicket(TicketType type, String ticket, int expiresInSeconds);
-
-    void expireTicket(TicketType type);
+    String getCardApiTicket();
 
     String getAppId();
 
@@ -72,9 +38,4 @@ public interface WxMaConfig {
      * @return ApacheHttpClientBuilder
      */
     ApacheHttpClientBuilder getApacheHttpClientBuilder();
-
-    /**
-     * 是否自动刷新token
-     */
-    boolean autoRefreshToken();
 }

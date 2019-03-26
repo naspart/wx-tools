@@ -1,8 +1,6 @@
 package com.rolbel.open.config;
 
 
-import com.rolbel.common.bean.WxAccessToken;
-import com.rolbel.common.enums.TicketType;
 import com.rolbel.common.util.http.apache.ApacheHttpClientBuilder;
 import com.rolbel.ma.config.WxMaConfig;
 import com.rolbel.mp.config.WxMpConfig;
@@ -10,6 +8,7 @@ import com.rolbel.open.bean.WxOpenAuthorizerAccessToken;
 import com.rolbel.open.bean.WxOpenComponentAccessToken;
 import com.rolbel.open.util.json.WxOpenGsonBuilder;
 import com.rolbel.pay.config.WxPayConfig;
+import lombok.Data;
 
 import java.io.File;
 import java.util.HashMap;
@@ -325,9 +324,6 @@ public class WxOpenInMemoryConfig implements WxOpenConfig {
     private static class WxOpenInnerConfig implements WxMpConfig, WxMaConfig {
         private WxOpenConfig wxOpenConfig;
         private String appId;
-        private Lock accessTokenLock = new ReentrantLock();
-        private Lock jsapiTicketLock = new ReentrantLock();
-        private Lock cardApiTicketLock = new ReentrantLock();
 
         private WxOpenInnerConfig(WxOpenConfig wxOpenConfig, String appId) {
             this.wxOpenConfig = wxOpenConfig;
@@ -340,112 +336,18 @@ public class WxOpenInMemoryConfig implements WxOpenConfig {
         }
 
         @Override
-        public Lock getAccessTokenLock() {
-            return this.accessTokenLock;
+        public String getJsapiTicket() {
+            return wxOpenConfig.getJsapiTicket(appId);
         }
 
         @Override
-        public boolean isAccessTokenExpired() {
-            return wxOpenConfig.isAuthorizerAccessTokenExpired(appId);
+        public String getCardApiTicket() {
+            return wxOpenConfig.getCardApiTicket(appId);
         }
 
         @Override
-        public synchronized void updateAccessToken(WxAccessToken accessToken) {
-            updateAccessToken(accessToken.getAccessToken(), accessToken.getExpiresIn());
-        }
-
-        @Override
-        public synchronized void updateAccessToken(String accessToken, int expiresInSeconds) {
-            wxOpenConfig.updateAuthorizerAccessToken(appId, accessToken, expiresInSeconds);
-        }
-
-        @Override
-        public void expireAccessToken() {
-            wxOpenConfig.expireAuthorizerAccessToken(appId);
-        }
-
-        @Override
-        public String getTicket(TicketType type) {
-            switch (type) {
-                case JSAPI: {
-                    return wxOpenConfig.getJsapiTicket(appId);
-                }
-                case WX_CARD: {
-                    return wxOpenConfig.getCardApiTicket(appId);
-                }
-                default: {
-                    // do nothing
-                }
-            }
+        public String getSdkTicket() {
             return null;
-        }
-
-        @Override
-        public Lock getTicketLock(TicketType type) {
-            switch (type) {
-                case JSAPI: {
-                    return this.jsapiTicketLock;
-                }
-                case WX_CARD: {
-                    return this.cardApiTicketLock;
-                }
-                default: {
-                    // do nothing
-                }
-            }
-            return null;
-        }
-
-        @Override
-        public boolean isTicketExpired(TicketType type) {
-            switch (type) {
-                case JSAPI: {
-                    return wxOpenConfig.isJsapiTicketExpired(appId);
-                }
-                case WX_CARD: {
-                    return wxOpenConfig.isCardApiTicketExpired(appId);
-                }
-                default: {
-                    // do nothing
-                }
-            }
-
-            return false;
-        }
-
-        @Override
-        public void expireTicket(TicketType type) {
-            switch (type) {
-                case JSAPI: {
-                    wxOpenConfig.expireJsapiTicket(appId);
-                    break;
-                }
-                case WX_CARD: {
-                    wxOpenConfig.expireCardApiTicket(appId);
-                    break;
-                }
-                default: {
-                    // do nothing
-                }
-            }
-        }
-
-        @Override
-        public void updateTicket(TicketType type, String ticket, int expiresInSeconds) {
-            switch (type) {
-                case JSAPI: {
-                    wxOpenConfig.updateJsapiTicket(appId, ticket, expiresInSeconds);
-                    break;
-                }
-                case WX_CARD: {
-                    wxOpenConfig.updateCardApiTicket(appId, ticket, expiresInSeconds);
-                    break;
-                }
-                default: {
-                    // do nothing
-                }
-            }
-
         }
 
         @Override
@@ -522,11 +424,6 @@ public class WxOpenInMemoryConfig implements WxOpenConfig {
         @Override
         public ApacheHttpClientBuilder getApacheHttpClientBuilder() {
             return wxOpenConfig.getApacheHttpClientBuilder();
-        }
-
-        @Override
-        public boolean autoRefreshToken() {
-            return true;
         }
     }
 }

@@ -39,11 +39,6 @@ public class WxOpenMaServiceImpl extends WxMaServiceImpl implements WxOpenMaServ
         return wxMaConfig;
     }
 
-    @Override
-    public String getAccessToken(boolean forceRefresh) throws WxErrorException {
-        return wxOpenComponentService.getAuthorizerAccessToken(appId, forceRefresh);
-    }
-
     /**
      * 获得小程序的域名配置信息
      *

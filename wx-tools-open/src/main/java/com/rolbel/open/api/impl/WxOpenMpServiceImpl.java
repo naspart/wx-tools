@@ -24,11 +24,6 @@ public class WxOpenMpServiceImpl extends WxMpServiceImpl {
     }
 
     @Override
-    public String getAccessToken(boolean forceRefresh) throws WxErrorException {
-        return wxOpenComponentService.getAuthorizerAccessToken(appId, forceRefresh);
-    }
-
-    @Override
     public WxMpOAuth2AccessToken oauth2getAccessToken(String code) throws WxErrorException {
         return wxOpenComponentService.oauth2getAccessToken(appId, code);
     }

@@ -81,65 +81,6 @@ public interface WxMpService {
     boolean checkSignature(String timestamp, String nonce, String signature);
 
     /**
-     * 获取access_token, 不强制刷新access_token
-     *
-     * @see #getAccessToken(boolean)
-     */
-    String getAccessToken() throws WxErrorException;
-
-    /**
-     * <pre>
-     * 获取access_token，本方法线程安全
-     * 且在多线程同时刷新时只刷新一次，避免超出2000次/日的调用次数上限
-     *
-     * 另：本service的所有方法都会在access_token过期时调用此方法
-     *
-     * 程序员在非必要情况下尽量不要主动调用此方法
-     *
-     * 详情请见: http://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140183&token=&lang=zh_CN
-     * </pre>
-     *
-     * @param forceRefresh 强制刷新
-     */
-    String getAccessToken(boolean forceRefresh) throws WxErrorException;
-
-    /**
-     * 获得ticket,不强制刷新ticket.
-     *
-     * @see #getTicket(TicketType, boolean)
-     */
-    String getTicket(TicketType type) throws WxErrorException;
-
-    /**
-     * <pre>
-     * 获得ticket.
-     * 获得时会检查 Token是否过期，如果过期了，那么就刷新一下，否则就什么都不干
-     * </pre>
-     *
-     * @param forceRefresh 强制刷新
-     */
-    String getTicket(TicketType type, boolean forceRefresh) throws WxErrorException;
-
-    /**
-     * 获得jsapi_ticket,不强制刷新jsapi_ticket
-     *
-     * @see #getJsapiTicket(boolean)
-     */
-    String getJsapiTicket() throws WxErrorException;
-
-    /**
-     * <pre>
-     * 获得jsapi_ticket
-     * 获得时会检查jsapiToken是否过期，如果过期了，那么就刷新一下，否则就什么都不干
-     *
-     * 详情请见：http://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421141115&token=&lang=zh_CN
-     * </pre>
-     *
-     * @param forceRefresh 强制刷新
-     */
-    String getJsapiTicket(boolean forceRefresh) throws WxErrorException;
-
-    /**
      * <pre>
      * 创建调用jsapi时所需要的签名
      *
