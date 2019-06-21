@@ -14,6 +14,8 @@
         <module>wx-tools-ma</module>
         <module>wx-tools-open</module>
         <module>wx-tools-cp</module>
+        <module>wx-mp-spring-boot-starter</module>
+        <module>wx-pay-spring-boot-starter</module>
     </modules>
     <packaging>pom</packaging>
 
