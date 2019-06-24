@@ -1,1 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.rolbel.wx_pay.spring.boot.autoconfig.WxPayAutoConfiguration

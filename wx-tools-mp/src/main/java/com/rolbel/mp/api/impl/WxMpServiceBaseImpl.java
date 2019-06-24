@@ -5,7 +5,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.rolbel.common.bean.WxJsapiSignature;
-import com.rolbel.common.enums.TicketType;
 import com.rolbel.common.error.WxError;
 import com.rolbel.common.error.WxErrorException;
 import com.rolbel.common.session.StandardSessionManager;
@@ -26,7 +25,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.util.concurrent.locks.Lock;
 
 public abstract class WxMpServiceBaseImpl<H, P> implements WxMpService, RequestHttp<H, P> {
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
