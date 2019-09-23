@@ -13,6 +13,8 @@ import com.rolbel.ma.bean.WxMaUserInfo;
 import com.rolbel.ma.config.WxMaConfig;
 import com.rolbel.ma.util.crypt.WxMaCryptUtils;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 
@@ -20,6 +22,8 @@ import java.util.Map;
  * @author <a href="https://github.com/binarywang">Binary Wang</a>
  */
 public class WxMaUserServiceImpl implements WxMaUserService {
+    private final Logger log = LoggerFactory.getLogger(WxMaUserServiceImpl.class);
+
     private WxMaService service;
 
     public WxMaUserServiceImpl(WxMaService service) {
@@ -62,7 +66,9 @@ public class WxMaUserServiceImpl implements WxMaUserService {
 
     @Override
     public WxMaPhoneNumberInfo getPhoneNoInfo(String sessionKey, String encryptedData, String ivStr) {
-        return WxMaPhoneNumberInfo.fromJson(WxMaCryptUtils.decrypt(sessionKey, encryptedData, ivStr));
+        String decryptMsg = WxMaCryptUtils.decrypt(sessionKey, encryptedData, ivStr);
+        this.log.debug("用户手机号解密：" + decryptMsg);
+        return WxMaPhoneNumberInfo.fromJson(decryptMsg);
     }
 
     @Override

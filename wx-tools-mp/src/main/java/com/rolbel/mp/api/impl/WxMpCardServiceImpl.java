@@ -3,22 +3,26 @@ package com.rolbel.mp.api.impl;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import com.rolbel.common.bean.WxCardApiSignature;
+import com.rolbel.common.enums.TicketType;
 import com.rolbel.common.error.WxError;
 import com.rolbel.common.error.WxErrorException;
 import com.rolbel.common.util.RandomUtils;
 import com.rolbel.common.util.crypto.SHA1;
+import com.rolbel.common.util.http.SimpleGetRequestExecutor;
 import com.rolbel.mp.api.WxMpCardService;
 import com.rolbel.mp.api.WxMpService;
 import com.rolbel.mp.bean.card.WxMpCardLandingPageCreateRequest;
 import com.rolbel.mp.bean.card.WxMpCardLandingPageCreateResult;
 import com.rolbel.mp.bean.card.WxMpCardQrcodeCreateResult;
 import com.rolbel.mp.bean.card.WxMpCardResult;
+import com.rolbel.mp.enums.WxMpApiUrl;
 import com.rolbel.mp.util.json.WxMpGsonBuilder;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
+import java.util.concurrent.locks.Lock;
 
 public class WxMpCardServiceImpl implements WxMpCardService {
     private final Logger log = LoggerFactory.getLogger(WxMpCardServiceImpl.class);
@@ -35,14 +39,36 @@ public class WxMpCardServiceImpl implements WxMpCardService {
         return this.wxMpService;
     }
 
-    /**
-     * 获得卡券api_ticket，不强制刷新卡券api_ticket.
-     *
-     * @return 卡券api_ticket
-     */
     @Override
     public String getCardApiTicket() throws WxErrorException {
-        return this.getWxMpService().getWxMpConfig().getCardApiTicket();
+        return getCardApiTicket(false);
+    }
+
+    @Override
+    public String getCardApiTicket(boolean forceRefresh) throws WxErrorException {
+        final TicketType type = TicketType.WX_CARD;
+        Lock lock = getWxMpService().getWxMpConfig().getTicketLock(type);
+        try {
+            lock.lock();
+
+            if (forceRefresh) {
+                this.getWxMpService().getWxMpConfig().expireTicket(type);
+            }
+
+            if (this.getWxMpService().getWxMpConfig().isTicketExpired(type)) {
+                String responseContent = this.wxMpService.execute(SimpleGetRequestExecutor
+                        .create(this.getWxMpService().getRequestHttp()), WxMpApiUrl.Card.CARD_GET_TICKET, null);
+                JsonElement tmpJsonElement = new JsonParser().parse(responseContent);
+                JsonObject tmpJsonObject = tmpJsonElement.getAsJsonObject();
+                String cardApiTicket = tmpJsonObject.get("ticket").getAsString();
+                int expiresInSeconds = tmpJsonObject.get("expires_in").getAsInt();
+                this.getWxMpService().getWxMpConfig().updateTicket(type, cardApiTicket, expiresInSeconds);
+            }
+        } finally {
+            lock.unlock();
+        }
+
+        return this.getWxMpService().getWxMpConfig().getTicket(type);
     }
 
     /**

@@ -5,6 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.rolbel.common.bean.WxJsapiSignature;
+import com.rolbel.common.enums.TicketType;
 import com.rolbel.common.error.WxError;
 import com.rolbel.common.error.WxErrorException;
 import com.rolbel.common.session.StandardSessionManager;
@@ -20,11 +21,15 @@ import com.rolbel.mp.bean.WxMpSemanticQuery;
 import com.rolbel.mp.bean.WxMpSemanticQueryResult;
 import com.rolbel.mp.bean.user.WxMpUser;
 import com.rolbel.mp.config.WxMpConfig;
+import com.rolbel.mp.enums.WxMpApiUrl;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.concurrent.locks.Lock;
+
+import static com.rolbel.mp.enums.WxMpApiUrl.Other.GET_TICKET_URL;
 
 public abstract class WxMpServiceBaseImpl<H, P> implements WxMpService, RequestHttp<H, P> {
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -57,6 +62,50 @@ public abstract class WxMpServiceBaseImpl<H, P> implements WxMpService, RequestH
     private int maxRetryTimes = 5;
 
     @Override
+    public String getAccessToken() throws WxErrorException {
+        return getAccessToken(false);
+    }
+
+    @Override
+    public String getTicket(TicketType type) throws WxErrorException {
+        return this.getTicket(type, false);
+    }
+
+    @Override
+    public String getTicket(TicketType type, boolean forceRefresh) throws WxErrorException {
+        Lock lock = this.getWxMpConfig().getTicketLock(type);
+        try {
+            lock.lock();
+            if (forceRefresh) {
+                this.getWxMpConfig().expireTicket(type);
+            }
+
+            if (this.getWxMpConfig().isTicketExpired(type)) {
+                String responseContent = execute(SimpleGetRequestExecutor.create(this),
+                        GET_TICKET_URL.getUrl(this.getWxMpConfig()) + type.getCode(), null);
+                JsonObject tmpJsonObject = JSON_PARSER.parse(responseContent).getAsJsonObject();
+                String jsapiTicket = tmpJsonObject.get("ticket").getAsString();
+                int expiresInSeconds = tmpJsonObject.get("expires_in").getAsInt();
+                this.getWxMpConfig().updateTicket(type, jsapiTicket, expiresInSeconds);
+            }
+        } finally {
+            lock.unlock();
+        }
+
+        return this.getWxMpConfig().getTicket(type);
+    }
+
+    @Override
+    public String getJsapiTicket() throws WxErrorException {
+        return this.getJsapiTicket(false);
+    }
+
+    @Override
+    public String getJsapiTicket(boolean forceRefresh) throws WxErrorException {
+        return this.getTicket(TicketType.JSAPI, forceRefresh);
+    }
+
+    @Override
     public boolean checkSignature(String timestamp, String nonce, String signature) {
         try {
             return SHA1.gen(this.getWxMpConfig().getToken(), timestamp, nonce)
@@ -71,7 +120,7 @@ public abstract class WxMpServiceBaseImpl<H, P> implements WxMpService, RequestH
     public WxJsapiSignature createJsapiSignature(String url) throws WxErrorException {
         long timestamp = System.currentTimeMillis() / 1000;
         String randomStr = RandomUtils.getRandomStr();
-        String jsapiTicket = this.getWxMpConfig().getJsapiTicket();
+        String jsapiTicket = this.getJsapiTicket();
         String signature = SHA1.genWithAmple("jsapi_ticket=" + jsapiTicket, "noncestr=" + randomStr, "timestamp=" + timestamp, "url=" + url);
 
         WxJsapiSignature jsapiSignature = new WxJsapiSignature();
@@ -203,6 +252,11 @@ public abstract class WxMpServiceBaseImpl<H, P> implements WxMpService, RequestH
     @Override
     public String post(String url, String postData) throws WxErrorException {
         return execute(SimplePostRequestExecutor.create(this), url, postData);
+    }
+
+    @Override
+    public <T, E> T execute(RequestExecutor<T, E> executor, WxMpApiUrl url, E data) throws WxErrorException {
+        return this.execute(executor, url.getUrl(this.getWxMpConfig()), data);
     }
 
     /**

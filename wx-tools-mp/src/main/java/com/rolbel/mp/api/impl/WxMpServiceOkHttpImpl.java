@@ -1,10 +1,21 @@
 package com.rolbel.mp.api.impl;
 
+import com.rolbel.common.WxType;
+import com.rolbel.common.bean.WxAccessToken;
+import com.rolbel.common.error.WxError;
+import com.rolbel.common.error.WxErrorException;
 import com.rolbel.common.util.http.HttpType;
 import com.rolbel.common.util.http.okhttp.OkHttpProxyInfo;
 import com.rolbel.mp.config.WxMpConfig;
 import okhttp3.Credentials;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
+import java.io.IOException;
+import java.util.concurrent.locks.Lock;
+
+import static com.rolbel.mp.enums.WxMpApiUrl.Other.GET_ACCESS_TOKEN_URL;
 
 /**
  * okhttp实现
@@ -55,4 +66,33 @@ public class WxMpServiceOkHttpImpl extends WxMpServiceBaseImpl<OkHttpClient, OkH
         httpClient = clientBuilder.build();
     }
 
+    @Override
+    public String getAccessToken(boolean forceRefresh) throws WxErrorException {
+        final WxMpConfig config = this.getWxMpConfig();
+        if (!config.isAccessTokenExpired() && !forceRefresh) {
+            return config.getAccessToken();
+        }
+
+        Lock lock = config.getAccessTokenLock();
+        lock.lock();
+        try {
+            String url = String.format(GET_ACCESS_TOKEN_URL.getUrl(config), config.getAppId(), config.getSecret());
+
+            Request request = new Request.Builder().url(url).get().build();
+            Response response = getRequestHttpClient().newCall(request).execute();
+            String resultContent = response.body().string();
+            WxError error = WxError.fromJson(resultContent, WxType.MP);
+            if (error.getErrorCode() != 0) {
+                throw new WxErrorException(error);
+            }
+            WxAccessToken accessToken = WxAccessToken.fromJson(resultContent);
+            config.updateAccessToken(accessToken.getAccessToken(), accessToken.getExpiresIn());
+
+            return config.getAccessToken();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } finally {
+            lock.unlock();
+        }
+    }
 }

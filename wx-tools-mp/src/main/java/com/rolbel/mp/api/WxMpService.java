@@ -1,6 +1,7 @@
 package com.rolbel.mp.api;
 
 import com.rolbel.common.bean.WxJsapiSignature;
+import com.rolbel.common.enums.TicketType;
 import com.rolbel.common.error.WxErrorException;
 import com.rolbel.common.util.http.MediaUploadRequestExecutor;
 import com.rolbel.common.util.http.RequestExecutor;
@@ -11,20 +12,12 @@ import com.rolbel.mp.bean.WxMpSemanticQuery;
 import com.rolbel.mp.bean.WxMpSemanticQueryResult;
 import com.rolbel.mp.bean.user.WxMpUser;
 import com.rolbel.mp.config.WxMpConfig;
-import com.rolbel.common.enums.TicketType;
+import com.rolbel.mp.enums.WxMpApiUrl;
 
 /**
  * 微信API的Service
  */
 public interface WxMpService {
-    /**
-     * 获取access_token
-     */
-    String GET_ACCESS_TOKEN_URL = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s";
-    /**
-     * 获得各种类型的ticket.
-     */
-    String GET_TICKET_URL = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?type=";
     /**
      * 长链接转短链接接口
      */
@@ -71,6 +64,65 @@ public interface WxMpService {
      * 公众号调用或第三方平台帮公众号调用对公众号的所有api调用（包括第三方帮其调用）次数进行清零
      */
     String CLEAR_QUOTA_URL = "https://api.weixin.qq.com/cgi-bin/clear_quota";
+
+    /**
+     * 获取access_token, 不强制刷新access_token.
+     *
+     * @see #getAccessToken(boolean)
+     */
+    String getAccessToken() throws WxErrorException;
+
+    /**
+     * <pre>
+     * 获取access_token，本方法线程安全.
+     * 且在多线程同时刷新时只刷新一次，避免超出2000次/日的调用次数上限
+     *
+     * 另：本service的所有方法都会在access_token过期时调用此方法
+     *
+     * 程序员在非必要情况下尽量不要主动调用此方法
+     *
+     * 详情请见: http://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140183&token=&lang=zh_CN
+     * </pre>
+     *
+     * @param forceRefresh 强制刷新
+     */
+    String getAccessToken(boolean forceRefresh) throws WxErrorException;
+
+    /**
+     * 获得ticket,不强制刷新ticket.
+     *
+     * @see #getTicket(TicketType, boolean)
+     */
+    String getTicket(TicketType type) throws WxErrorException;
+
+    /**
+     * <pre>
+     * 获得ticket.
+     * 获得时会检查 Token是否过期，如果过期了，那么就刷新一下，否则就什么都不干
+     * </pre>
+     *
+     * @param forceRefresh 强制刷新
+     */
+    String getTicket(TicketType type, boolean forceRefresh) throws WxErrorException;
+
+    /**
+     * 获得jsapi_ticket,不强制刷新jsapi_ticket.
+     *
+     * @see #getJsapiTicket(boolean)
+     */
+    String getJsapiTicket() throws WxErrorException;
+
+    /**
+     * <pre>
+     * 获得jsapi_ticket.
+     * 获得时会检查jsapiToken是否过期，如果过期了，那么就刷新一下，否则就什么都不干
+     *
+     * 详情请见：http://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421141115&token=&lang=zh_CN
+     * </pre>
+     *
+     * @param forceRefresh 强制刷新
+     */
+    String getJsapiTicket(boolean forceRefresh) throws WxErrorException;
 
     /**
      * <pre>
@@ -208,6 +260,16 @@ public interface WxMpService {
      * 当本Service没有实现某个API的时候，可以用这个，针对所有微信API中的POST请求
      */
     String post(String url, String postData) throws WxErrorException;
+
+    /**
+     * <pre>
+     * Service没有实现某个API的时候，可以用这个，
+     * 比{@link #get}和{@link #post}方法更灵活，可以自己构造RequestExecutor用来处理不同的参数和不同的返回类型。
+     * 可以参考，{@link MediaUploadRequestExecutor}的实现方法
+     * </pre>
+     */
+    <T, E> T execute(RequestExecutor<T, E> executor, WxMpApiUrl url, E data) throws WxErrorException;
+
 
     /**
      * <pre>
