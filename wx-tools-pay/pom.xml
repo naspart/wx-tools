@@ -4,30 +4,30 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>wx-tools</artifactId>
-        <groupId>com.rolbel</groupId>
-        <version>0.0.6</version>
+        <groupId>com.naspat</groupId>
+        <version>0.0.7</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>wx-tools-pay</artifactId>
-    <version>0.0.6</version>
+    <version>0.0.7</version>
     <packaging>jar</packaging>
 
     <name>Wx Tools - Pay</name>
-    <description>Demo project for Spring Boot</description>
-    <url>http://www.example.com</url>
+    <url>https://github.com/naspart/wx-tools</url>
+    <description>A simple tool to wechat development.</description>
 
     <dependencies>
         <dependency>
-            <groupId>com.rolbel</groupId>
+            <groupId>com.naspat</groupId>
             <artifactId>wx-tools-common</artifactId>
-            <version>0.0.6</version>
+            <version>0.0.7</version>
         </dependency>
 
         <dependency>
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
-            <version>1.9.3</version>
+            <version>1.9.4</version>
             <exclusions>
                 <exclusion>
                     <groupId>commons-logging</groupId>

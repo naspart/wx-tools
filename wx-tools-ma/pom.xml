@@ -4,30 +4,30 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>wx-tools</artifactId>
-        <groupId>com.rolbel</groupId>
-        <version>0.0.6</version>
+        <groupId>com.naspat</groupId>
+        <version>0.0.7</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>wx-tools-ma</artifactId>
-    <version>0.0.6</version>
+    <version>0.0.7</version>
     <packaging>jar</packaging>
 
     <name>Wx Tools - MA</name>
-    <description>微信小程序</description>
-    <url>http://www.example.com</url>
+    <url>https://github.com/naspart/wx-tools</url>
+    <description>A simple tool to wechat development.</description>
 
     <dependencies>
         <dependency>
-            <groupId>com.rolbel</groupId>
+            <groupId>com.naspat</groupId>
             <artifactId>wx-tools-common</artifactId>
-            <version>0.0.6</version>
+            <version>0.0.7</version>
         </dependency>
 
         <dependency>
             <groupId>redis.clients</groupId>
             <artifactId>jedis</artifactId>
-            <version>2.9.0</version>
+            <version>3.1.0</version>
         </dependency>
 
         <dependency>
