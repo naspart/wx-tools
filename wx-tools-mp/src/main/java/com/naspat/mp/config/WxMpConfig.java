@@ -1,7 +1,7 @@
 package com.naspat.mp.config;
 
 import com.naspat.common.enums.TicketType;
-import com.naspat.common.util.http.apache.ApacheHttpClientBuilder;
+import com.naspat.common.util.http.HttpClientBuilder;
 import com.naspat.mp.bean.WxMpHostConfig;
 
 import java.io.File;
@@ -78,7 +78,7 @@ public interface WxMpConfig {
      *
      * @return ApacheHttpClientBuilder
      */
-    ApacheHttpClientBuilder getApacheHttpClientBuilder();
+    HttpClientBuilder getHttpClientBuilder();
 
     /**
      * 得到微信接口地址域名部分的自定义设置信息.

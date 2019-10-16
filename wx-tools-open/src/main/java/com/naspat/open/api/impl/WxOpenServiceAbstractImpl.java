@@ -5,14 +5,14 @@ import com.naspat.common.error.WxErrorException;
 import com.naspat.common.util.http.RequestExecutor;
 import com.naspat.common.util.http.RequestHttp;
 import com.naspat.open.api.WxOpenComponentService;
-import com.naspat.open.config.WxOpenConfig;
 import com.naspat.open.api.WxOpenService;
+import com.naspat.open.config.WxOpenConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
-public abstract class WxOpenServiceAbstractImpl<H, P> implements WxOpenService, RequestHttp<H, P> {
+public abstract class WxOpenServiceAbstractImpl implements WxOpenService, RequestHttp {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
     private WxOpenComponentService wxOpenComponentService = new WxOpenComponentServiceImpl(this);
     private WxOpenConfig wxOpenConfig;

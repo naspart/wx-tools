@@ -1,7 +1,7 @@
 package com.naspat.ma.config;
 
 import com.github.jedis.lock.JedisLock;
-import com.naspat.common.util.http.apache.ApacheHttpClientBuilder;
+import com.naspat.common.util.http.HttpClientBuilder;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.util.Pool;
 
@@ -46,7 +46,7 @@ public class WxMaInRedisConfig implements WxMaConfig {
 
     protected volatile File tmpDirFile;
 
-    private volatile ApacheHttpClientBuilder apacheHttpClientBuilder;
+    private volatile HttpClientBuilder httpClientBuilder;
 
     public WxMaInRedisConfig(Pool<Jedis> jedisPool) {
         this.jedisPool = jedisPool;
@@ -256,12 +256,12 @@ public class WxMaInRedisConfig implements WxMaConfig {
     }
 
     @Override
-    public ApacheHttpClientBuilder getApacheHttpClientBuilder() {
-        return this.apacheHttpClientBuilder;
+    public HttpClientBuilder getHttpClientBuilder() {
+        return this.httpClientBuilder;
     }
 
-    public void setApacheHttpClientBuilder(ApacheHttpClientBuilder apacheHttpClientBuilder) {
-        this.apacheHttpClientBuilder = apacheHttpClientBuilder;
+    public void setHttpClientBuilder(HttpClientBuilder httpClientBuilder) {
+        this.httpClientBuilder = httpClientBuilder;
     }
 
     public void setHttpProxyPassword(String httpProxyPassword) {

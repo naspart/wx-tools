@@ -4,7 +4,7 @@ import com.naspat.common.bean.result.WxMediaUploadResult;
 import com.naspat.common.error.WxError;
 import com.naspat.common.error.WxErrorException;
 import com.naspat.common.util.fs.FileUtils;
-import com.naspat.common.util.http.BaseMediaDownloadRequestExecutor;
+import com.naspat.common.util.http.MediaDownloadRequestExecutor;
 import com.naspat.common.util.http.MediaUploadRequestExecutor;
 import com.naspat.common.util.http.RequestExecutor;
 import com.naspat.ma.api.WxMaMediaService;
@@ -41,7 +41,7 @@ public class WxMaMediaServiceImpl implements WxMaMediaService {
     @Override
     public File getMedia(String mediaId) throws WxErrorException {
         try {
-            RequestExecutor<File, String> executor = BaseMediaDownloadRequestExecutor
+            RequestExecutor<File, String> executor = MediaDownloadRequestExecutor
                     .create(this.wxMaService.getRequestHttp(), Files.createTempDirectory("wxma").toFile());
             return this.wxMaService.execute(executor, MEDIA_GET_URL, "media_id=" + mediaId);
         } catch (IOException e) {

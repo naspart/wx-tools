@@ -5,7 +5,7 @@ import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.naspat.common.error.WxError;
 import com.naspat.common.error.WxErrorException;
-import com.naspat.common.util.http.BaseMediaDownloadRequestExecutor;
+import com.naspat.common.util.http.MediaDownloadRequestExecutor;
 import com.naspat.common.util.http.RequestExecutor;
 import com.naspat.common.util.json.GsonHelper;
 import com.naspat.ma.api.WxMaCodeService;
@@ -44,7 +44,7 @@ public class WxMaCodeServiceImpl implements WxMaCodeService {
         String appId = this.wxMaService.getWxMaConfig().getAppId();
         Path qrCodeFilePath = null;
         try {
-            RequestExecutor<File, String> executor = BaseMediaDownloadRequestExecutor
+            RequestExecutor<File, String> executor = MediaDownloadRequestExecutor
                     .create(this.wxMaService.getRequestHttp(), Files.createTempDirectory("weixin-java-tools-ma-" + appId).toFile());
 
             final StringBuilder url = new StringBuilder(GET_QRCODE_URL);

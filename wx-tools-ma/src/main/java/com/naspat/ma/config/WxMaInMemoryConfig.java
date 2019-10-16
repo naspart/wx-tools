@@ -1,6 +1,6 @@
 package com.naspat.ma.config;
 
-import com.naspat.common.util.http.apache.ApacheHttpClientBuilder;
+import com.naspat.common.util.http.HttpClientBuilder;
 
 import java.io.File;
 import java.util.concurrent.locks.Lock;
@@ -36,7 +36,7 @@ public class WxMaInMemoryConfig implements WxMaConfig {
 
     protected volatile File tmpDirFile;
 
-    protected volatile ApacheHttpClientBuilder apacheHttpClientBuilder;
+    protected volatile HttpClientBuilder httpClientBuilder;
 
     @Override
     public String getAccessToken() {
@@ -199,12 +199,12 @@ public class WxMaInMemoryConfig implements WxMaConfig {
     }
 
     @Override
-    public ApacheHttpClientBuilder getApacheHttpClientBuilder() {
-        return this.apacheHttpClientBuilder;
+    public HttpClientBuilder getHttpClientBuilder() {
+        return this.httpClientBuilder;
     }
 
-    public void setApacheHttpClientBuilder(ApacheHttpClientBuilder apacheHttpClientBuilder) {
-        this.apacheHttpClientBuilder = apacheHttpClientBuilder;
+    public void setHttpClientBuilder(HttpClientBuilder httpClientBuilder) {
+        this.httpClientBuilder = httpClientBuilder;
     }
 
     @Override

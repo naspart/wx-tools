@@ -31,7 +31,7 @@ import java.util.concurrent.locks.Lock;
 
 import static com.naspat.mp.enums.WxMpApiUrl.Other.GET_TICKET_URL;
 
-public abstract class WxMpServiceBaseImpl<H, P> implements WxMpService, RequestHttp<H, P> {
+public abstract class WxMpServiceBaseImpl implements WxMpService, RequestHttp {
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private static final JsonParser JSON_PARSER = new JsonParser();

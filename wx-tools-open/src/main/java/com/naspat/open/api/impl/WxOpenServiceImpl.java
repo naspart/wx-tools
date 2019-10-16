@@ -1,16 +1,15 @@
 package com.naspat.open.api.impl;
 
 import com.naspat.common.error.WxErrorException;
-import com.naspat.common.util.http.HttpType;
 import com.naspat.common.util.http.SimpleGetRequestExecutor;
 import com.naspat.common.util.http.SimplePostRequestExecutor;
-import com.naspat.common.util.http.apache.DefaultApacheHttpClientBuilder;
+import com.naspat.common.util.http.DefaultHttpClientBuilder;
 import com.naspat.open.config.WxOpenConfig;
 import org.apache.http.HttpHost;
 import org.apache.http.impl.client.CloseableHttpClient;
 
-public class WxOpenServiceImpl extends WxOpenServiceAbstractImpl<CloseableHttpClient, HttpHost> {
-    private CloseableHttpClient httpClient = DefaultApacheHttpClientBuilder.get().build();
+public class WxOpenServiceImpl extends WxOpenServiceAbstractImpl {
+    private CloseableHttpClient httpClient = DefaultHttpClientBuilder.get().build();
     private HttpHost httpProxy = null;
 
     @Override
@@ -20,7 +19,7 @@ public class WxOpenServiceImpl extends WxOpenServiceAbstractImpl<CloseableHttpCl
             this.httpProxy = new HttpHost(wxOpenConfig.getHttpProxyHost(), wxOpenConfig.getHttpProxyPort());
         }
 
-        this.httpClient = DefaultApacheHttpClientBuilder.get()
+        this.httpClient = DefaultHttpClientBuilder.get()
                 .httpProxyHost(wxOpenConfig.getHttpProxyHost())
                 .httpProxyPort(wxOpenConfig.getHttpProxyPort())
                 .httpProxyUsername(wxOpenConfig.getHttpProxyUsername())
@@ -35,11 +34,6 @@ public class WxOpenServiceImpl extends WxOpenServiceAbstractImpl<CloseableHttpCl
     @Override
     public HttpHost getRequestHttpProxy() {
         return httpProxy;
-    }
-
-    @Override
-    public HttpType getRequestType() {
-        return HttpType.APACHE_HTTP;
     }
 
     @Override

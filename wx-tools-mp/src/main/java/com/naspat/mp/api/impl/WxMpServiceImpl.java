@@ -4,9 +4,8 @@ import com.naspat.common.WxType;
 import com.naspat.common.bean.WxAccessToken;
 import com.naspat.common.error.WxError;
 import com.naspat.common.error.WxErrorException;
-import com.naspat.common.util.http.HttpType;
-import com.naspat.common.util.http.apache.ApacheHttpClientBuilder;
-import com.naspat.common.util.http.apache.DefaultApacheHttpClientBuilder;
+import com.naspat.common.util.http.DefaultHttpClientBuilder;
+import com.naspat.common.util.http.HttpClientBuilder;
 import com.naspat.mp.config.WxMpConfig;
 import org.apache.http.HttpHost;
 import org.apache.http.client.config.RequestConfig;
@@ -25,7 +24,7 @@ import static com.naspat.mp.enums.WxMpApiUrl.Other.GET_ACCESS_TOKEN_URL;
  * 默认接口实现类，使用apache httpclient实现
  * </pre>
  */
-public class WxMpServiceImpl extends WxMpServiceBaseImpl<CloseableHttpClient, HttpHost> {
+public class WxMpServiceImpl extends WxMpServiceBaseImpl {
     private CloseableHttpClient httpClient;
     private HttpHost httpProxy;
 
@@ -40,19 +39,14 @@ public class WxMpServiceImpl extends WxMpServiceBaseImpl<CloseableHttpClient, Ht
     }
 
     @Override
-    public HttpType getRequestType() {
-        return HttpType.APACHE_HTTP;
-    }
-
-    @Override
     public void initHttp() {
         WxMpConfig wxMpConfig = this.getWxMpConfig();
-        ApacheHttpClientBuilder apacheHttpClientBuilder = wxMpConfig.getApacheHttpClientBuilder();
-        if (null == apacheHttpClientBuilder) {
-            apacheHttpClientBuilder = DefaultApacheHttpClientBuilder.get();
+        HttpClientBuilder httpClientBuilder = wxMpConfig.getHttpClientBuilder();
+        if (null == httpClientBuilder) {
+            httpClientBuilder = DefaultHttpClientBuilder.get();
         }
 
-        apacheHttpClientBuilder.httpProxyHost(wxMpConfig.getHttpProxyHost())
+        httpClientBuilder.httpProxyHost(wxMpConfig.getHttpProxyHost())
                 .httpProxyPort(wxMpConfig.getHttpProxyPort())
                 .httpProxyUsername(wxMpConfig.getHttpProxyUsername())
                 .httpProxyPassword(wxMpConfig.getHttpProxyPassword());
@@ -61,7 +55,7 @@ public class WxMpServiceImpl extends WxMpServiceBaseImpl<CloseableHttpClient, Ht
             this.httpProxy = new HttpHost(wxMpConfig.getHttpProxyHost(), wxMpConfig.getHttpProxyPort());
         }
 
-        this.httpClient = apacheHttpClientBuilder.build();
+        this.httpClient = httpClientBuilder.build();
     }
 
     @Override

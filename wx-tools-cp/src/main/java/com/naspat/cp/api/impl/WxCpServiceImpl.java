@@ -3,9 +3,8 @@ package com.naspat.cp.api.impl;
 import com.naspat.common.bean.WxAccessToken;
 import com.naspat.common.error.WxError;
 import com.naspat.common.error.WxErrorException;
-import com.naspat.common.util.http.HttpType;
-import com.naspat.common.util.http.apache.ApacheHttpClientBuilder;
-import com.naspat.common.util.http.apache.DefaultApacheHttpClientBuilder;
+import com.naspat.common.util.http.DefaultHttpClientBuilder;
+import com.naspat.common.util.http.HttpClientBuilder;
 import com.naspat.cp.config.WxCpConfigStorage;
 import org.apache.http.HttpHost;
 import org.apache.http.client.config.RequestConfig;
@@ -21,9 +20,8 @@ import java.io.IOException;
  *  默认接口实现类，使用apache httpclient实现
  * Created by Binary Wang on 2017-5-27.
  * </pre>
-
  */
-public class WxCpServiceImpl extends WxCpServiceAbstractImpl<CloseableHttpClient, HttpHost> {
+public class WxCpServiceImpl extends WxCpServiceAbstractImpl {
     protected CloseableHttpClient httpClient;
     protected HttpHost httpProxy;
 
@@ -35,11 +33,6 @@ public class WxCpServiceImpl extends WxCpServiceAbstractImpl<CloseableHttpClient
     @Override
     public HttpHost getRequestHttpProxy() {
         return httpProxy;
-    }
-
-    @Override
-    public HttpType getRequestType() {
-        return HttpType.APACHE_HTTP;
     }
 
     @Override
@@ -82,13 +75,12 @@ public class WxCpServiceImpl extends WxCpServiceAbstractImpl<CloseableHttpClient
 
     @Override
     public void initHttp() {
-        ApacheHttpClientBuilder apacheHttpClientBuilder = this.configStorage
-                .getApacheHttpClientBuilder();
-        if (null == apacheHttpClientBuilder) {
-            apacheHttpClientBuilder = DefaultApacheHttpClientBuilder.get();
+        HttpClientBuilder httpClientBuilder = this.configStorage.getHttpClientBuilder();
+        if (null == httpClientBuilder) {
+            httpClientBuilder = DefaultHttpClientBuilder.get();
         }
 
-        apacheHttpClientBuilder.httpProxyHost(this.configStorage.getHttpProxyHost())
+        httpClientBuilder.httpProxyHost(this.configStorage.getHttpProxyHost())
                 .httpProxyPort(this.configStorage.getHttpProxyPort())
                 .httpProxyUsername(this.configStorage.getHttpProxyUsername())
                 .httpProxyPassword(this.configStorage.getHttpProxyPassword());
@@ -97,7 +89,7 @@ public class WxCpServiceImpl extends WxCpServiceAbstractImpl<CloseableHttpClient
             this.httpProxy = new HttpHost(this.configStorage.getHttpProxyHost(), this.configStorage.getHttpProxyPort());
         }
 
-        this.httpClient = apacheHttpClientBuilder.build();
+        this.httpClient = httpClientBuilder.build();
     }
 
     @Override

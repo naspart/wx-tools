@@ -1,7 +1,7 @@
 package com.naspat.cp.config;
 
 import com.naspat.common.bean.WxAccessToken;
-import com.naspat.common.util.http.apache.ApacheHttpClientBuilder;
+import com.naspat.common.util.http.HttpClientBuilder;
 import com.naspat.cp.util.json.WxCpGsonBuilder;
 
 import java.io.File;
@@ -32,7 +32,7 @@ public class WxCpInMemoryConfigStorage implements WxCpConfigStorage {
 
     protected volatile File tmpDirFile;
 
-    private volatile ApacheHttpClientBuilder apacheHttpClientBuilder;
+    private volatile HttpClientBuilder httpClientBuilder;
 
     @Override
     public String getAccessToken() {
@@ -212,11 +212,11 @@ public class WxCpInMemoryConfigStorage implements WxCpConfigStorage {
     }
 
     @Override
-    public ApacheHttpClientBuilder getApacheHttpClientBuilder() {
-        return this.apacheHttpClientBuilder;
+    public HttpClientBuilder getHttpClientBuilder() {
+        return this.httpClientBuilder;
     }
 
-    public void setApacheHttpClientBuilder(ApacheHttpClientBuilder apacheHttpClientBuilder) {
-        this.apacheHttpClientBuilder = apacheHttpClientBuilder;
+    public void setHttpClientBuilder(HttpClientBuilder httpClientBuilder) {
+        this.httpClientBuilder = httpClientBuilder;
     }
 }

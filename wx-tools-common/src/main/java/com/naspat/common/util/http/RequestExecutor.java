@@ -1,6 +1,5 @@
 package com.naspat.common.util.http;
 
-
 import com.naspat.common.error.WxErrorException;
 
 import java.io.IOException;

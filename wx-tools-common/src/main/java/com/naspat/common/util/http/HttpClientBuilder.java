@@ -1,4 +1,4 @@
-package com.naspat.common.util.http.apache;
+package com.naspat.common.util.http;
 
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -6,7 +6,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 /**
  * httpclient build interface.
  */
-public interface ApacheHttpClientBuilder {
+public interface HttpClientBuilder {
 
     /**
      * 构建httpclient实例.
@@ -18,25 +18,25 @@ public interface ApacheHttpClientBuilder {
     /**
      * 代理服务器地址.
      */
-    ApacheHttpClientBuilder httpProxyHost(String httpProxyHost);
+    HttpClientBuilder httpProxyHost(String httpProxyHost);
 
     /**
      * 代理服务器端口.
      */
-    ApacheHttpClientBuilder httpProxyPort(int httpProxyPort);
+    HttpClientBuilder httpProxyPort(int httpProxyPort);
 
     /**
      * 代理服务器用户名.
      */
-    ApacheHttpClientBuilder httpProxyUsername(String httpProxyUsername);
+    HttpClientBuilder httpProxyUsername(String httpProxyUsername);
 
     /**
      * 代理服务器密码.
      */
-    ApacheHttpClientBuilder httpProxyPassword(String httpProxyPassword);
+    HttpClientBuilder httpProxyPassword(String httpProxyPassword);
 
     /**
      * ssl连接socket工厂.
      */
-    ApacheHttpClientBuilder sslConnectionSocketFactory(SSLConnectionSocketFactory sslConnectionSocketFactory);
+    HttpClientBuilder sslConnectionSocketFactory(SSLConnectionSocketFactory sslConnectionSocketFactory);
 }

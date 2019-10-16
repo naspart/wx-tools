@@ -1,5 +1,6 @@
-package com.naspat.common.util.http.apache;
+package com.naspat.common.util.http;
 
+import org.apache.http.Consts;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
@@ -8,20 +9,22 @@ import org.apache.http.client.ResponseHandler;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
-import java.io.InputStream;
 
-public class InputStreamResponseHandler implements ResponseHandler<InputStream> {
-    public static final ResponseHandler<InputStream> INSTANCE = new InputStreamResponseHandler();
-    private static final int STATUS_CODE_300 = 300;
+/**
+ * copy from {@link org.apache.http.impl.client.BasicResponseHandler}
+ */
+public class Utf8ResponseHandler implements ResponseHandler<String> {
+
+    public static final ResponseHandler<String> INSTANCE = new Utf8ResponseHandler();
 
     @Override
-    public InputStream handleResponse(final HttpResponse response) throws IOException {
+    public String handleResponse(final HttpResponse response) throws IOException {
         final StatusLine statusLine = response.getStatusLine();
         final HttpEntity entity = response.getEntity();
-        if (statusLine.getStatusCode() >= STATUS_CODE_300) {
+        if (statusLine.getStatusCode() >= 300) {
             EntityUtils.consume(entity);
             throw new HttpResponseException(statusLine.getStatusCode(), statusLine.getReasonPhrase());
         }
-        return entity == null ? null : entity.getContent();
+        return entity == null ? null : EntityUtils.toString(entity, Consts.UTF_8);
     }
 }

@@ -7,9 +7,12 @@ import com.naspat.common.error.WxError;
 import com.naspat.common.error.WxErrorException;
 import com.naspat.common.util.DataUtils;
 import com.naspat.common.util.crypto.SHA1;
-import com.naspat.common.util.http.*;
-import com.naspat.common.util.http.apache.ApacheHttpClientBuilder;
-import com.naspat.common.util.http.apache.DefaultApacheHttpClientBuilder;
+import com.naspat.common.util.http.RequestExecutor;
+import com.naspat.common.util.http.RequestHttp;
+import com.naspat.common.util.http.SimpleGetRequestExecutor;
+import com.naspat.common.util.http.SimplePostRequestExecutor;
+import com.naspat.common.util.http.HttpClientBuilder;
+import com.naspat.common.util.http.DefaultHttpClientBuilder;
 import com.naspat.ma.api.*;
 import com.naspat.ma.bean.WxMaJscode2SessionResult;
 import com.naspat.ma.config.WxMaConfig;
@@ -27,7 +30,7 @@ import java.util.Map;
 import java.util.concurrent.locks.Lock;
 
 @Slf4j
-public class WxMaServiceImpl implements WxMaService, RequestHttp<CloseableHttpClient, HttpHost> {
+public class WxMaServiceImpl implements WxMaService, RequestHttp {
     private CloseableHttpClient httpClient;
     private HttpHost httpProxy;
     private WxMaConfig wxMaConfig;
@@ -61,19 +64,14 @@ public class WxMaServiceImpl implements WxMaService, RequestHttp<CloseableHttpCl
     }
 
     @Override
-    public HttpType getRequestType() {
-        return HttpType.APACHE_HTTP;
-    }
-
-    @Override
     public void initHttp() {
         WxMaConfig wxMaConfig = this.getWxMaConfig();
-        ApacheHttpClientBuilder apacheHttpClientBuilder = wxMaConfig.getApacheHttpClientBuilder();
-        if (null == apacheHttpClientBuilder) {
-            apacheHttpClientBuilder = DefaultApacheHttpClientBuilder.get();
+        HttpClientBuilder httpClientBuilder = wxMaConfig.getHttpClientBuilder();
+        if (null == httpClientBuilder) {
+            httpClientBuilder = DefaultHttpClientBuilder.get();
         }
 
-        apacheHttpClientBuilder.httpProxyHost(wxMaConfig.getHttpProxyHost())
+        httpClientBuilder.httpProxyHost(wxMaConfig.getHttpProxyHost())
                 .httpProxyPort(wxMaConfig.getHttpProxyPort())
                 .httpProxyUsername(wxMaConfig.getHttpProxyUsername())
                 .httpProxyPassword(wxMaConfig.getHttpProxyPassword());
@@ -82,7 +80,7 @@ public class WxMaServiceImpl implements WxMaService, RequestHttp<CloseableHttpCl
             this.httpProxy = new HttpHost(wxMaConfig.getHttpProxyHost(), wxMaConfig.getHttpProxyPort());
         }
 
-        this.httpClient = apacheHttpClientBuilder.build();
+        this.httpClient = httpClientBuilder.build();
     }
 
     @Override

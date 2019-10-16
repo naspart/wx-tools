@@ -5,7 +5,7 @@ import com.naspat.common.bean.result.WxMediaUploadResult;
 import com.naspat.common.error.WxError;
 import com.naspat.common.error.WxErrorException;
 import com.naspat.common.util.fs.FileUtils;
-import com.naspat.common.util.http.BaseMediaDownloadRequestExecutor;
+import com.naspat.common.util.http.MediaDownloadRequestExecutor;
 import com.naspat.common.util.http.MediaUploadRequestExecutor;
 import com.naspat.common.util.json.WxGsonBuilder;
 import com.naspat.mp.api.WxMpMaterialService;
@@ -55,7 +55,7 @@ public class WxMpMaterialServiceImpl implements WxMpMaterialService {
     @Override
     public File mediaDownload(String mediaId) throws WxErrorException {
         return this.wxMpService.execute(
-                BaseMediaDownloadRequestExecutor.create(this.wxMpService.getRequestHttp(), this.wxMpService.getWxMpConfig().getTmpDirFile()),
+                MediaDownloadRequestExecutor.create(this.wxMpService.getRequestHttp(), this.wxMpService.getWxMpConfig().getTmpDirFile()),
                 MEDIA_GET_URL,
                 "media_id=" + mediaId);
     }

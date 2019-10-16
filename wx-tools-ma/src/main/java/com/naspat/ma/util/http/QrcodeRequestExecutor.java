@@ -6,17 +6,15 @@ import com.naspat.common.util.fs.FileUtils;
 import com.naspat.common.util.http.RequestExecutor;
 import com.naspat.common.util.http.RequestHttp;
 import com.naspat.common.util.http.ResponseHandler;
-import com.naspat.common.util.http.apache.InputStreamResponseHandler;
-import com.naspat.common.util.http.apache.Utf8ResponseHandler;
+import com.naspat.common.util.http.InputStreamResponseHandler;
+import com.naspat.common.util.http.Utf8ResponseHandler;
 import com.naspat.ma.bean.AbstractWxMaQrcodeWrapper;
 import org.apache.http.Header;
-import org.apache.http.HttpHost;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.CloseableHttpClient;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,9 +22,9 @@ import java.io.InputStream;
 import java.util.UUID;
 
 public class QrcodeRequestExecutor implements RequestExecutor<File, AbstractWxMaQrcodeWrapper> {
-    protected RequestHttp<CloseableHttpClient, HttpHost> requestHttp;
+    protected RequestHttp requestHttp;
 
-    public QrcodeRequestExecutor(RequestHttp<CloseableHttpClient, HttpHost> requestHttp) {
+    public QrcodeRequestExecutor(RequestHttp requestHttp) {
         this.requestHttp = requestHttp;
     }
 

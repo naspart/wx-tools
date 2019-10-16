@@ -2,7 +2,7 @@ package com.naspat.open.config;
 
 
 import com.naspat.common.enums.TicketType;
-import com.naspat.common.util.http.apache.ApacheHttpClientBuilder;
+import com.naspat.common.util.http.HttpClientBuilder;
 import com.naspat.ma.config.WxMaConfig;
 import com.naspat.mp.bean.WxMpHostConfig;
 import com.naspat.mp.config.WxMpConfig;
@@ -34,7 +34,7 @@ public class WxOpenInMemoryConfig implements WxOpenConfig {
     private int httpProxyPort;
     private String httpProxyUsername;
     private String httpProxyPassword;
-    private ApacheHttpClientBuilder apacheHttpClientBuilder;
+    private HttpClientBuilder httpClientBuilder;
 
     private Lock componentAccessTokenLock = new ReentrantLock();
 
@@ -167,13 +167,13 @@ public class WxOpenInMemoryConfig implements WxOpenConfig {
     }
 
     @Override
-    public ApacheHttpClientBuilder getApacheHttpClientBuilder() {
-        return apacheHttpClientBuilder;
+    public HttpClientBuilder getHttpClientBuilder() {
+        return httpClientBuilder;
     }
 
     @Override
-    public ApacheHttpClientBuilder setApacheHttpClientBuilder(ApacheHttpClientBuilder apacheHttpClientBuilder) {
-        return this.apacheHttpClientBuilder = apacheHttpClientBuilder;
+    public HttpClientBuilder setApacheHttpClientBuilder(HttpClientBuilder httpClientBuilder) {
+        return this.httpClientBuilder = httpClientBuilder;
     }
 
     @Override
@@ -565,8 +565,8 @@ public class WxOpenInMemoryConfig implements WxOpenConfig {
         }
 
         @Override
-        public ApacheHttpClientBuilder getApacheHttpClientBuilder() {
-            return wxOpenConfig.getApacheHttpClientBuilder();
+        public HttpClientBuilder getHttpClientBuilder() {
+            return wxOpenConfig.getHttpClientBuilder();
         }
 
         @Override

@@ -1,4 +1,4 @@
-package com.naspat.common.util.http.apache;
+package com.naspat.common.util.http;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpHost;
@@ -10,41 +10,39 @@ import org.apache.http.client.config.RequestConfig;
 import org.apache.http.config.Registry;
 import org.apache.http.config.RegistryBuilder;
 import org.apache.http.config.SocketConfig;
+import org.apache.http.conn.DnsResolver;
 import org.apache.http.conn.HttpClientConnectionManager;
 import org.apache.http.conn.socket.ConnectionSocketFactory;
 import org.apache.http.conn.socket.PlainConnectionSocketFactory;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
-import org.apache.http.conn.ssl.TrustStrategy;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
-import org.apache.http.ssl.SSLContexts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.net.ssl.SSLContext;
-import java.security.KeyManagementException;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
- * httpclient 连接管理器
+ * httpclient 连接管理器 自带DNS解析.
+ * <p>大部分代码拷贝自：DefaultApacheHttpClientBuilder</p>
  */
-public class DefaultApacheHttpClientBuilder implements ApacheHttpClientBuilder {
-    protected final Logger log = LoggerFactory.getLogger(DefaultApacheHttpClientBuilder.class);
+public class HttpDnsClientBuilder implements HttpClientBuilder {
+    protected final Logger log = LoggerFactory.getLogger(HttpDnsClientBuilder.class);
     private final AtomicBoolean prepared = new AtomicBoolean(false);
     private int connectionRequestTimeout = 3000;
     private int connectionTimeout = 5000;
     private int soTimeout = 5000;
     private int idleConnTimeout = 60000;
     private int checkWaitTime = 60000;
-    private int maxConnPerHost = 100;
-    private int maxTotalConn = 300;
+    private int maxConnPerHost = 10;
+    private int maxTotalConn = 50;
     private String userAgent;
+
+    private DnsResolver dnsResover;
+
     private HttpRequestRetryHandler httpRequestRetryHandler = (exception, executionCount, context) -> false;
     private SSLConnectionSocketFactory sslConnectionSocketFactory = SSLConnectionSocketFactory.getSocketFactory();
     private PlainConnectionSocketFactory plainConnectionSocketFactory = PlainConnectionSocketFactory.getSocketFactory();
@@ -52,48 +50,46 @@ public class DefaultApacheHttpClientBuilder implements ApacheHttpClientBuilder {
     private int httpProxyPort;
     private String httpProxyUsername;
     private String httpProxyPassword;
+
     /**
-     * 闲置连接监控线程
+     * 闲置连接监控线程.
      */
     private IdleConnectionMonitorThread idleConnectionMonitorThread;
-    /**
-     * 持有client对象,仅初始化一次,避免多service实例的时候造成重复初始化的问题
-     */
-    private CloseableHttpClient closeableHttpClient;
+    private org.apache.http.impl.client.HttpClientBuilder httpClientBuilder;
 
-    private DefaultApacheHttpClientBuilder() {
+    private HttpDnsClientBuilder() {
     }
 
-    public static DefaultApacheHttpClientBuilder get() {
-        return DefaultApacheHttpClientBuilder.SingletonHolder.INSTANCE;
+    public static HttpDnsClientBuilder get() {
+        return new HttpDnsClientBuilder();
     }
 
     @Override
-    public ApacheHttpClientBuilder httpProxyHost(String httpProxyHost) {
+    public HttpClientBuilder httpProxyHost(String httpProxyHost) {
         this.httpProxyHost = httpProxyHost;
         return this;
     }
 
     @Override
-    public ApacheHttpClientBuilder httpProxyPort(int httpProxyPort) {
+    public HttpClientBuilder httpProxyPort(int httpProxyPort) {
         this.httpProxyPort = httpProxyPort;
         return this;
     }
 
     @Override
-    public ApacheHttpClientBuilder httpProxyUsername(String httpProxyUsername) {
+    public HttpClientBuilder httpProxyUsername(String httpProxyUsername) {
         this.httpProxyUsername = httpProxyUsername;
         return this;
     }
 
     @Override
-    public ApacheHttpClientBuilder httpProxyPassword(String httpProxyPassword) {
+    public HttpClientBuilder httpProxyPassword(String httpProxyPassword) {
         this.httpProxyPassword = httpProxyPassword;
         return this;
     }
 
     @Override
-    public ApacheHttpClientBuilder sslConnectionSocketFactory(SSLConnectionSocketFactory sslConnectionSocketFactory) {
+    public HttpClientBuilder sslConnectionSocketFactory(SSLConnectionSocketFactory sslConnectionSocketFactory) {
         this.sslConnectionSocketFactory = sslConnectionSocketFactory;
         return this;
     }
@@ -101,8 +97,7 @@ public class DefaultApacheHttpClientBuilder implements ApacheHttpClientBuilder {
     /**
      * 获取链接的超时时间设置,默认3000ms
      * <p>
-     * 设置为零时不超时,一直等待.
-     * 设置为负数是使用系统默认设置(非上述的3000ms的默认值,而是httpclient的默认设置).
+     * 设置为零时不超时,一直等待. 设置为负数是使用系统默认设置(非上述的3000ms的默认值,而是httpclient的默认设置).
      * </p>
      *
      * @param connectionRequestTimeout 获取链接的超时时间设置(单位毫秒),默认3000ms
@@ -114,8 +109,7 @@ public class DefaultApacheHttpClientBuilder implements ApacheHttpClientBuilder {
     /**
      * 建立链接的超时时间,默认为5000ms.由于是在链接池获取链接,此设置应该并不起什么作用
      * <p>
-     * 设置为零时不超时,一直等待.
-     * 设置为负数是使用系统默认设置(非上述的5000ms的默认值,而是httpclient的默认设置).
+     * 设置为零时不超时,一直等待. 设置为负数是使用系统默认设置(非上述的5000ms的默认值,而是httpclient的默认设置).
      * </p>
      *
      * @param connectionTimeout 建立链接的超时时间设置(单位毫秒),默认5000ms
@@ -156,7 +150,7 @@ public class DefaultApacheHttpClientBuilder implements ApacheHttpClientBuilder {
     }
 
     /**
-     * 每路的最大链接数,默认10
+     * 每路的最大链接数,默认10.
      *
      * @param maxConnPerHost 每路的最大链接数,默认10
      */
@@ -165,7 +159,7 @@ public class DefaultApacheHttpClientBuilder implements ApacheHttpClientBuilder {
     }
 
     /**
-     * 最大总连接数,默认50
+     * 最大总连接数,默认50.
      *
      * @param maxTotalConn 最大总连接数,默认50
      */
@@ -174,7 +168,7 @@ public class DefaultApacheHttpClientBuilder implements ApacheHttpClientBuilder {
     }
 
     /**
-     * 自定义httpclient的User Agent
+     * 自定义httpclient的User Agent.
      *
      * @param userAgent User Agent
      */
@@ -190,37 +184,42 @@ public class DefaultApacheHttpClientBuilder implements ApacheHttpClientBuilder {
         if (prepared.get()) {
             return;
         }
-        Registry<ConnectionSocketFactory> registry = RegistryBuilder.<ConnectionSocketFactory>create()
-                .register("http", this.plainConnectionSocketFactory)
-                .register("https", this.sslConnectionSocketFactory)
-                .build();
+
+        Registry<ConnectionSocketFactory> registry =
+                RegistryBuilder.<ConnectionSocketFactory>create()
+                        .register("http", this.plainConnectionSocketFactory)
+                        .register("https", this.sslConnectionSocketFactory)
+                        .build();
 
         @SuppressWarnings("resource")
-        PoolingHttpClientConnectionManager connectionManager = new PoolingHttpClientConnectionManager(registry);
+        PoolingHttpClientConnectionManager connectionManager;
+        if (dnsResover != null) {
+            if (log.isDebugEnabled()) {
+                log.debug("specified dns resolver.");
+            }
+            connectionManager = new PoolingHttpClientConnectionManager(registry, dnsResover);
+        } else {
+            if (log.isDebugEnabled()) {
+                log.debug("Not specified dns resolver.");
+            }
+            connectionManager = new PoolingHttpClientConnectionManager(registry);
+        }
+
         connectionManager.setMaxTotal(this.maxTotalConn);
         connectionManager.setDefaultMaxPerRoute(this.maxConnPerHost);
-        connectionManager.setDefaultSocketConfig(
-                SocketConfig.copy(SocketConfig.DEFAULT)
-                        .setSoTimeout(this.soTimeout)
-                        .build()
-        );
+        connectionManager
+                .setDefaultSocketConfig(SocketConfig.copy(SocketConfig.DEFAULT).setSoTimeout(this.soTimeout).build());
 
         this.idleConnectionMonitorThread = new IdleConnectionMonitorThread(
                 connectionManager, this.idleConnTimeout, this.checkWaitTime);
         this.idleConnectionMonitorThread.setDaemon(true);
         this.idleConnectionMonitorThread.start();
 
-        HttpClientBuilder httpClientBuilder = HttpClients.custom()
-                .setConnectionManager(connectionManager)
+        this.httpClientBuilder = HttpClients.custom().setConnectionManager(connectionManager)
                 .setConnectionManagerShared(true)
-                .setSSLSocketFactory(this.buildSSLConnectionSocketFactory())
-                .setDefaultRequestConfig(
-                        RequestConfig.custom()
-                                .setSocketTimeout(this.soTimeout)
-                                .setConnectTimeout(this.connectionTimeout)
-                                .setConnectionRequestTimeout(this.connectionRequestTimeout)
-                                .build()
-                )
+                .setDefaultRequestConfig(RequestConfig.custom().setSocketTimeout(this.soTimeout)
+                        .setConnectTimeout(this.connectionTimeout)
+                        .setConnectionRequestTimeout(this.connectionRequestTimeout).build())
                 .setRetryHandler(this.httpRequestRetryHandler);
 
         if (StringUtils.isNotBlank(this.httpProxyHost) && StringUtils.isNotBlank(this.httpProxyUsername)) {
@@ -230,33 +229,14 @@ public class DefaultApacheHttpClientBuilder implements ApacheHttpClientBuilder {
                     new AuthScope(this.httpProxyHost, this.httpProxyPort),
                     new UsernamePasswordCredentials(this.httpProxyUsername, this.httpProxyPassword)
             );
-            httpClientBuilder.setDefaultCredentialsProvider(provider);
-            httpClientBuilder.setProxy(new HttpHost(this.httpProxyHost, this.httpProxyPort));
+            this.httpClientBuilder.setDefaultCredentialsProvider(provider);
+            this.httpClientBuilder.setProxy(new HttpHost(this.httpProxyHost, this.httpProxyPort));
         }
 
         if (StringUtils.isNotBlank(this.userAgent)) {
-            httpClientBuilder.setUserAgent(this.userAgent);
+            this.httpClientBuilder.setUserAgent(this.userAgent);
         }
-        this.closeableHttpClient = httpClientBuilder.build();
         prepared.set(true);
-    }
-
-    private SSLConnectionSocketFactory buildSSLConnectionSocketFactory() {
-        try {
-            SSLContext sslcontext = SSLContexts.custom()
-                    //忽略掉对服务器端证书的校验
-                    .loadTrustMaterial((TrustStrategy) (chain, authType) -> true).build();
-
-            return new SSLConnectionSocketFactory(
-                    sslcontext,
-                    new String[]{"TLSv1"},
-                    null,
-                    SSLConnectionSocketFactory.getDefaultHostnameVerifier());
-        } catch (NoSuchAlgorithmException | KeyManagementException | KeyStoreException e) {
-            this.log.error(e.getMessage(), e);
-        }
-
-        return null;
     }
 
     @Override
@@ -264,14 +244,15 @@ public class DefaultApacheHttpClientBuilder implements ApacheHttpClientBuilder {
         if (!prepared.get()) {
             prepare();
         }
-        return this.closeableHttpClient;
+        return this.httpClientBuilder.build();
     }
 
-    /**
-     * DefaultApacheHttpClientBuilder 改为单例模式,并持有唯一的CloseableHttpClient(仅首次调用创建)
-     */
-    private static class SingletonHolder {
-        private static final DefaultApacheHttpClientBuilder INSTANCE = new DefaultApacheHttpClientBuilder();
+    public DnsResolver getDnsResover() {
+        return dnsResover;
+    }
+
+    public void setDnsResover(DnsResolver dnsResover) {
+        this.dnsResover = dnsResover;
     }
 
     public static class IdleConnectionMonitorThread extends Thread {
@@ -280,6 +261,9 @@ public class DefaultApacheHttpClientBuilder implements ApacheHttpClientBuilder {
         private final int checkWaitTime;
         private volatile boolean shutdown;
 
+        /**
+         * 构造方法.
+         */
         public IdleConnectionMonitorThread(HttpClientConnectionManager connMgr, int idleConnTimeout, int checkWaitTime) {
             super("IdleConnectionMonitorThread");
             this.connMgr = connMgr;
@@ -294,20 +278,26 @@ public class DefaultApacheHttpClientBuilder implements ApacheHttpClientBuilder {
                     synchronized (this) {
                         wait(this.checkWaitTime);
                         this.connMgr.closeExpiredConnections();
-                        this.connMgr.closeIdleConnections(this.idleConnTimeout,
-                                TimeUnit.MILLISECONDS);
+                        this.connMgr.closeIdleConnections(this.idleConnTimeout, TimeUnit.MILLISECONDS);
                     }
                 }
             } catch (InterruptedException ignore) {
+                Thread.currentThread().interrupt();
             }
         }
 
+        /**
+         * 触发.
+         */
         public void trigger() {
             synchronized (this) {
                 notifyAll();
             }
         }
 
+        /**
+         * 关闭.
+         */
         public void shutdown() {
             this.shutdown = true;
             synchronized (this) {
@@ -315,4 +305,5 @@ public class DefaultApacheHttpClientBuilder implements ApacheHttpClientBuilder {
             }
         }
     }
+
 }

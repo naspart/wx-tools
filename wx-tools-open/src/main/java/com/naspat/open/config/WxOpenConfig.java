@@ -1,6 +1,6 @@
 package com.naspat.open.config;
 
-import com.naspat.common.util.http.apache.ApacheHttpClientBuilder;
+import com.naspat.common.util.http.HttpClientBuilder;
 import com.naspat.ma.config.WxMaConfig;
 import com.naspat.mp.config.WxMpConfig;
 import com.naspat.open.bean.WxOpenAuthorizerAccessToken;
@@ -57,9 +57,9 @@ public interface WxOpenConfig {
 
     void setHttpProxyPassword(String httpProxyPassword);
 
-    ApacheHttpClientBuilder getApacheHttpClientBuilder();
+    HttpClientBuilder getHttpClientBuilder();
 
-    ApacheHttpClientBuilder setApacheHttpClientBuilder(ApacheHttpClientBuilder apacheHttpClientBuilder);
+    HttpClientBuilder setApacheHttpClientBuilder(HttpClientBuilder httpClientBuilder);
 
     WxMpConfig getWxMpConfig(String appId);
 

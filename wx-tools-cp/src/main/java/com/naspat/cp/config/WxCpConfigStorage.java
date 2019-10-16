@@ -1,7 +1,7 @@
 package com.naspat.cp.config;
 
 import com.naspat.common.bean.WxAccessToken;
-import com.naspat.common.util.http.apache.ApacheHttpClientBuilder;
+import com.naspat.common.util.http.HttpClientBuilder;
 
 import java.io.File;
 
@@ -68,5 +68,5 @@ public interface WxCpConfigStorage {
    *
    * @return ApacheHttpClientBuilder
    */
-  ApacheHttpClientBuilder getApacheHttpClientBuilder();
+  HttpClientBuilder getHttpClientBuilder();
 }

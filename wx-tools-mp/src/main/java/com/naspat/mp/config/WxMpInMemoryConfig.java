@@ -1,7 +1,7 @@
 package com.naspat.mp.config;
 
 import com.naspat.common.enums.TicketType;
-import com.naspat.common.util.http.apache.ApacheHttpClientBuilder;
+import com.naspat.common.util.http.HttpClientBuilder;
 import com.naspat.mp.bean.WxMpHostConfig;
 import com.naspat.mp.util.json.WxMpGsonBuilder;
 import lombok.Data;
@@ -49,7 +49,7 @@ public class WxMpInMemoryConfig implements WxMpConfig {
 
     protected volatile File tmpDirFile;
 
-    protected volatile ApacheHttpClientBuilder apacheHttpClientBuilder;
+    protected volatile HttpClientBuilder httpClientBuilder;
 
 
     @Override

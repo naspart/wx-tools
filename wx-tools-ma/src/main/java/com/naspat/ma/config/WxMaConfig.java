@@ -1,6 +1,6 @@
 package com.naspat.ma.config;
 
-import com.naspat.common.util.http.apache.ApacheHttpClientBuilder;
+import com.naspat.common.util.http.HttpClientBuilder;
 
 import java.util.concurrent.locks.Lock;
 
@@ -90,5 +90,5 @@ public interface WxMaConfig {
      *
      * @return ApacheHttpClientBuilder
      */
-    ApacheHttpClientBuilder getApacheHttpClientBuilder();
+    HttpClientBuilder getHttpClientBuilder();
 }

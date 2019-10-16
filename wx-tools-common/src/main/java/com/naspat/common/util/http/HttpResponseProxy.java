@@ -8,11 +8,6 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * <pre>
- * 三种http框架的response代理类，方便提取公共方法
- * </pre>
- */
 public class HttpResponseProxy {
     private static final Pattern PATTERN = Pattern.compile(".*filename=\"(.*)\"");
 

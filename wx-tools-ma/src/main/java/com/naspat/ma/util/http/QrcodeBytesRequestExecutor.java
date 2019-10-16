@@ -5,26 +5,24 @@ import com.naspat.common.error.WxErrorException;
 import com.naspat.common.util.http.RequestExecutor;
 import com.naspat.common.util.http.RequestHttp;
 import com.naspat.common.util.http.ResponseHandler;
-import com.naspat.common.util.http.apache.InputStreamResponseHandler;
-import com.naspat.common.util.http.apache.Utf8ResponseHandler;
+import com.naspat.common.util.http.InputStreamResponseHandler;
+import com.naspat.common.util.http.Utf8ResponseHandler;
 import com.naspat.ma.bean.AbstractWxMaQrcodeWrapper;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.Header;
-import org.apache.http.HttpHost;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.CloseableHttpClient;
 
 import java.io.IOException;
 import java.io.InputStream;
 
 public class QrcodeBytesRequestExecutor implements RequestExecutor<byte[], AbstractWxMaQrcodeWrapper> {
-    protected RequestHttp<CloseableHttpClient, HttpHost> requestHttp;
+    protected RequestHttp requestHttp;
 
-    public QrcodeBytesRequestExecutor(RequestHttp<CloseableHttpClient, HttpHost> requestHttp) {
+    public QrcodeBytesRequestExecutor(RequestHttp requestHttp) {
         this.requestHttp = requestHttp;
     }
 

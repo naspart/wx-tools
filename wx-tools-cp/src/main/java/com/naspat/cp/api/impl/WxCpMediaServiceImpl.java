@@ -3,7 +3,7 @@ package com.naspat.cp.api.impl;
 import com.naspat.common.bean.result.WxMediaUploadResult;
 import com.naspat.common.error.WxErrorException;
 import com.naspat.common.util.fs.FileUtils;
-import com.naspat.common.util.http.BaseMediaDownloadRequestExecutor;
+import com.naspat.common.util.http.MediaDownloadRequestExecutor;
 import com.naspat.common.util.http.MediaUploadRequestExecutor;
 import com.naspat.cp.api.WxCpMediaService;
 import com.naspat.cp.api.WxCpService;
@@ -43,7 +43,7 @@ public class WxCpMediaServiceImpl implements WxCpMediaService {
     public File download(String mediaId) throws WxErrorException {
         String url = "https://qyapi.weixin.qq.com/cgi-bin/media/get";
         return this.mainService.execute(
-                BaseMediaDownloadRequestExecutor.create(this.mainService.getRequestHttp(),
+                MediaDownloadRequestExecutor.create(this.mainService.getRequestHttp(),
                         this.mainService.getWxCpConfigStorage().getTmpDirFile()),
                 url, "media_id=" + mediaId);
     }
