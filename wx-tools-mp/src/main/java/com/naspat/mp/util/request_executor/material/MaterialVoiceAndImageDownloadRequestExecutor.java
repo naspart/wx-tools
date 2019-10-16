@@ -31,10 +31,6 @@ public abstract class MaterialVoiceAndImageDownloadRequestExecutor<H, P> impleme
         switch (requestHttp.getRequestType()) {
             case APACHE_HTTP:
                 return new MaterialVoiceAndImageDownloadApacheHttpRequestExecutor(requestHttp, tmpDirFile);
-            case JODD_HTTP:
-                return new MaterialVoiceAndImageDownloadJoddHttpRequestExecutor(requestHttp, tmpDirFile);
-            case OK_HTTP:
-                return new MaterialVoiceAndImageDownloadOkhttpRequestExecutor(requestHttp, tmpDirFile);
             default:
                 return null;
         }

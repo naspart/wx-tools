@@ -2,8 +2,6 @@ package com.naspat.common.util.http;
 
 import com.naspat.common.error.WxErrorException;
 import com.naspat.common.util.http.apache.ApacheMediaDownloadRequestExecutor;
-import com.naspat.common.util.http.jodd.JoddHttpMediaDownloadRequestExecutor;
-import com.naspat.common.util.http.okhttp.OkHttpMediaDownloadRequestExecutor;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,10 +29,6 @@ public abstract class BaseMediaDownloadRequestExecutor<H, P> implements RequestE
         switch (requestHttp.getRequestType()) {
             case APACHE_HTTP:
                 return new ApacheMediaDownloadRequestExecutor(requestHttp, tmpDirFile);
-            case JODD_HTTP:
-                return new JoddHttpMediaDownloadRequestExecutor(requestHttp, tmpDirFile);
-            case OK_HTTP:
-                return new OkHttpMediaDownloadRequestExecutor(requestHttp, tmpDirFile);
             default:
                 return null;
         }

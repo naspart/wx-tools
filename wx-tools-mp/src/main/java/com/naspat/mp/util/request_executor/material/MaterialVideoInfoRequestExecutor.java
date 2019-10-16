@@ -25,10 +25,6 @@ public abstract class MaterialVideoInfoRequestExecutor<H, P> implements RequestE
         switch (requestHttp.getRequestType()) {
             case APACHE_HTTP:
                 return new MaterialVideoInfoApacheHttpRequestExecutor(requestHttp);
-            case JODD_HTTP:
-                return new MaterialVideoInfoJoddHttpRequestExecutor(requestHttp);
-            case OK_HTTP:
-                return new MaterialVideoInfoOkhttpRequestExecutor(requestHttp);
             default:
                 return null;
         }

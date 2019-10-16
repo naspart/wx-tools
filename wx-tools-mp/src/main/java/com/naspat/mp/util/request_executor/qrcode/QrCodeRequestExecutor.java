@@ -30,10 +30,6 @@ public abstract class QrCodeRequestExecutor<H, P> implements RequestExecutor<Fil
         switch (requestHttp.getRequestType()) {
             case APACHE_HTTP:
                 return new QrCodeApacheHttpRequestExecutor(requestHttp);
-            case JODD_HTTP:
-                return new QrCodeJoddHttpRequestExecutor(requestHttp);
-            case OK_HTTP:
-                return new QrCodeOkhttpRequestExecutor(requestHttp);
             default:
                 throw new WxErrorException(WxError.builder().errorCode(-1).errorMsg("不支持的http框架").build());
         }

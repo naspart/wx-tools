@@ -3,8 +3,6 @@ package com.naspat.common.util.http;
 import com.naspat.common.bean.result.WxMediaUploadResult;
 import com.naspat.common.error.WxErrorException;
 import com.naspat.common.util.http.apache.ApacheMediaUploadRequestExecutor;
-import com.naspat.common.util.http.jodd.JoddHttpMediaUploadRequestExecutor;
-import com.naspat.common.util.http.okhttp.OkHttpMediaUploadRequestExecutor;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,10 +27,6 @@ public abstract class MediaUploadRequestExecutor<H, P> implements RequestExecuto
         switch (requestHttp.getRequestType()) {
             case APACHE_HTTP:
                 return new ApacheMediaUploadRequestExecutor(requestHttp);
-            case JODD_HTTP:
-                return new JoddHttpMediaUploadRequestExecutor(requestHttp);
-            case OK_HTTP:
-                return new OkHttpMediaUploadRequestExecutor(requestHttp);
             default:
                 throw new IllegalArgumentException("非法请求参数");
         }

@@ -28,10 +28,6 @@ public abstract class MaterialDeleteRequestExecutor<H, P> implements RequestExec
         switch (requestHttp.getRequestType()) {
             case APACHE_HTTP:
                 return new MaterialDeleteApacheHttpRequestExecutor(requestHttp);
-            case JODD_HTTP:
-                return new MaterialDeleteJoddHttpRequestExecutor(requestHttp);
-            case OK_HTTP:
-                return new MaterialDeleteOkhttpRequestExecutor(requestHttp);
             default:
                 return null;
         }

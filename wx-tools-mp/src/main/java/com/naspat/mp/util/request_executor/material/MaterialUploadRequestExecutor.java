@@ -26,10 +26,6 @@ public abstract class MaterialUploadRequestExecutor<H, P> implements RequestExec
         switch (requestHttp.getRequestType()) {
             case APACHE_HTTP:
                 return new MaterialUploadApacheHttpRequestExecutor(requestHttp);
-            case JODD_HTTP:
-                return new MaterialUploadJoddHttpRequestExecutor(requestHttp);
-            case OK_HTTP:
-                return new MaterialUploadOkhttpRequestExecutor(requestHttp);
             default:
                 return null;
         }

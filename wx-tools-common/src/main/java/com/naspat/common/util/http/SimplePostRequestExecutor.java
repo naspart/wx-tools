@@ -2,8 +2,6 @@ package com.naspat.common.util.http;
 
 import com.naspat.common.error.WxErrorException;
 import com.naspat.common.util.http.apache.ApacheHttpClientSimplePostRequestExecutor;
-import com.naspat.common.util.http.jodd.JoddHttpSimplePostRequestExecutor;
-import com.naspat.common.util.http.okhttp.OkHttpSimplePostRequestExecutor;
 
 import java.io.IOException;
 
@@ -28,10 +26,6 @@ public abstract class SimplePostRequestExecutor<H, P> implements RequestExecutor
         switch (requestHttp.getRequestType()) {
             case APACHE_HTTP:
                 return new ApacheHttpClientSimplePostRequestExecutor(requestHttp);
-            case JODD_HTTP:
-                return new JoddHttpSimplePostRequestExecutor(requestHttp);
-            case OK_HTTP:
-                return new OkHttpSimplePostRequestExecutor(requestHttp);
             default:
                 throw new IllegalArgumentException("非法请求参数");
         }

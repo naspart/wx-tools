@@ -1,6 +1,5 @@
 package com.naspat.open.util.request_executor;
 
-import com.naspat.common.error.WxError;
 import com.naspat.common.error.WxErrorException;
 import com.naspat.common.util.http.RequestExecutor;
 import com.naspat.common.util.http.RequestHttp;
@@ -27,15 +26,6 @@ public abstract class MaQrcodeRequestExecutor<H, P> implements RequestExecutor<F
 
     @SuppressWarnings("unchecked")
     public static RequestExecutor<File, WxMaQrcodeParam> create(RequestHttp requestHttp) throws WxErrorException {
-        switch (requestHttp.getRequestType()) {
-            case APACHE_HTTP:
-                return new MaQrcodeApacheHttpRequestExecutor(requestHttp);
-            case JODD_HTTP:
-                return new MaQrcodeJoddHttpRequestExecutor(requestHttp);
-            case OK_HTTP:
-                return new MaQrcodeOkhttpRequestExecutor(requestHttp);
-            default:
-                throw new WxErrorException(WxError.builder().errorCode(-1).errorMsg("不支持的http框架").build());
-        }
+        return new MaQrcodeApacheHttpRequestExecutor(requestHttp);
     }
 }

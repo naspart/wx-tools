@@ -26,10 +26,6 @@ public abstract class MediaImgUploadRequestExecutor<H, P> implements RequestExec
         switch (requestHttp.getRequestType()) {
             case APACHE_HTTP:
                 return new MediaImgUploadApacheHttpRequestExecutor(requestHttp);
-            case JODD_HTTP:
-                return new MediaImgUploadHttpRequestExecutor(requestHttp);
-            case OK_HTTP:
-                return new MediaImgUploadOkhttpRequestExecutor(requestHttp);
             default:
                 return null;
         }

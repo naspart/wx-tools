@@ -25,8 +25,6 @@ public abstract class VoiceUploadRequestExecutor<H, P> implements RequestExecuto
         switch (requestHttp.getRequestType()) {
             case APACHE_HTTP:
                 return new VoiceUploadApacheHttpRequestExecutor(requestHttp);
-            case JODD_HTTP:
-            case OK_HTTP:
             default:
                 return null;
         }
