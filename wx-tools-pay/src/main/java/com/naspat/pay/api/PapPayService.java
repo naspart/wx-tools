@@ -19,6 +19,8 @@ public interface PapPayService {
      */
     String getMpSignUrl(PapPayMpSignRequest request) throws WxPayException;
 
+    String getAppSignUrl(PapPayAppSignRequest request) throws WxPayException;
+
     /**
      * <pre>
      * 支付中签约API.

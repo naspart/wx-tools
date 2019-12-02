@@ -49,6 +49,19 @@ public class PapPayServiceImpl implements PapPayService {
     }
 
     @Override
+    public String getAppSignUrl(PapPayAppSignRequest request) throws WxPayException {
+        request.checkAndSign(this.payService.getWxPayConfig());
+
+        String url = this.payService.getPayBaseUrl() + "/papay/preentrustweb";
+        String responseContent = this.payService.post(url, request.toXML(), false);
+
+        PayPayAppSignResult result = BaseWxPayResult.fromXML(responseContent, PayPayAppSignResult.class);
+        result.checkResult(this.payService, request.getSignType(), true);
+
+        return result.getPreEntrustwebId();
+    }
+
+    @Override
     public PapPayPayAndSignResult payAndSign(PapPayPayAndSignRequest request) throws WxPayException {
         request.checkAndSign(this.payService.getWxPayConfig());
 
