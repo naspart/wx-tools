@@ -5,12 +5,12 @@
     <parent>
         <artifactId>wx-tools</artifactId>
         <groupId>com.naspat</groupId>
-        <version>0.0.8</version>
+        <version>0.0.9</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>wx-tools-open</artifactId>
-    <version>0.0.8</version>
+    <version>0.0.9</version>
     <packaging>jar</packaging>
 
     <name>Wx Tools - Open</name>
@@ -21,12 +21,12 @@
         <dependency>
             <groupId>com.naspat</groupId>
             <artifactId>wx-tools-mp</artifactId>
-            <version>0.0.8</version>
+            <version>0.0.9</version>
         </dependency>
         <dependency>
             <groupId>com.naspat</groupId>
             <artifactId>wx-tools-ma</artifactId>
-            <version>0.0.8</version>
+            <version>0.0.9</version>
         </dependency>
 
         <dependency>
@@ -38,7 +38,7 @@
         <dependency>
             <groupId>com.naspat</groupId>
             <artifactId>wx-tools-pay</artifactId>
-            <version>0.0.6</version>
+            <version>0.0.9</version>
         </dependency>
     </dependencies>
 </project>

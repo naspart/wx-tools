@@ -95,6 +95,11 @@ public abstract class BaseWxPayResult implements Serializable {
      */
     @XStreamAlias("sign")
     private String sign;
+    /**
+     * 签名.
+     */
+    @XStreamAlias("sign_type")
+    private String signType;
 
     //以下为辅助属性
     /**
