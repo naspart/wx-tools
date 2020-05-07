@@ -302,7 +302,7 @@ public abstract class WxMpServiceBaseImpl implements WxMpService, RequestHttp {
             throw new IllegalArgumentException("uri参数中不允许有access_token: " + uri);
         }
 
-        String accessToken = this.getWxMpConfig().getAccessToken();
+        String accessToken = getAccessToken(false);
 
         String uriWithAccessToken = uri + (uri.contains("?") ? "&" : "?") + "access_token=" + accessToken;
 
