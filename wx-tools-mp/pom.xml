@@ -5,12 +5,12 @@
     <parent>
         <artifactId>wx-tools</artifactId>
         <groupId>com.naspat</groupId>
-        <version>0.1.0</version>
+        <version>0.1.1</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>wx-tools-mp</artifactId>
-    <version>0.1.0</version>
+    <version>0.1.1</version>
     <packaging>jar</packaging>
 
     <name>Wx Tools - MP</name>
@@ -21,19 +21,12 @@
         <dependency>
             <groupId>com.naspat</groupId>
             <artifactId>wx-tools-common</artifactId>
-            <version>0.1.0</version>
+            <version>${wx-tools.version}</version>
         </dependency>
 
         <dependency>
             <groupId>redis.clients</groupId>
             <artifactId>jedis</artifactId>
-            <version>3.1.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.redisson</groupId>
-            <artifactId>redisson</artifactId>
-            <version>3.10.0</version>
         </dependency>
     </dependencies>
 </project>

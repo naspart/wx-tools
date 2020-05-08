@@ -8,21 +8,18 @@ import com.naspat.common.error.WxError;
 import com.naspat.common.error.WxErrorException;
 import com.naspat.common.util.RandomUtils;
 import com.naspat.common.util.crypto.SHA1;
-import com.naspat.common.util.http.SimpleGetRequestExecutor;
 import com.naspat.mp.api.WxMpCardService;
 import com.naspat.mp.api.WxMpService;
 import com.naspat.mp.bean.card.WxMpCardLandingPageCreateRequest;
 import com.naspat.mp.bean.card.WxMpCardLandingPageCreateResult;
 import com.naspat.mp.bean.card.WxMpCardQrcodeCreateResult;
 import com.naspat.mp.bean.card.WxMpCardResult;
-import com.naspat.mp.enums.WxMpApiUrl;
 import com.naspat.mp.util.json.WxMpGsonBuilder;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
-import java.util.concurrent.locks.Lock;
 
 public class WxMpCardServiceImpl implements WxMpCardService {
     private final Logger log = LoggerFactory.getLogger(WxMpCardServiceImpl.class);
@@ -37,38 +34,6 @@ public class WxMpCardServiceImpl implements WxMpCardService {
     @Override
     public WxMpService getWxMpService() {
         return this.wxMpService;
-    }
-
-    @Override
-    public String getCardApiTicket() throws WxErrorException {
-        return getCardApiTicket(false);
-    }
-
-    @Override
-    public String getCardApiTicket(boolean forceRefresh) throws WxErrorException {
-        final TicketType type = TicketType.WX_CARD;
-        Lock lock = getWxMpService().getWxMpConfig().getTicketLock(type);
-        try {
-            lock.lock();
-
-            if (forceRefresh) {
-                this.getWxMpService().getWxMpConfig().expireTicket(type);
-            }
-
-            if (this.getWxMpService().getWxMpConfig().isTicketExpired(type)) {
-                String responseContent = this.wxMpService.execute(SimpleGetRequestExecutor
-                        .create(this.getWxMpService().getRequestHttp()), WxMpApiUrl.Card.CARD_GET_TICKET, null);
-                JsonElement tmpJsonElement = new JsonParser().parse(responseContent);
-                JsonObject tmpJsonObject = tmpJsonElement.getAsJsonObject();
-                String cardApiTicket = tmpJsonObject.get("ticket").getAsString();
-                int expiresInSeconds = tmpJsonObject.get("expires_in").getAsInt();
-                this.getWxMpService().getWxMpConfig().updateTicket(type, cardApiTicket, expiresInSeconds);
-            }
-        } finally {
-            lock.unlock();
-        }
-
-        return this.getWxMpService().getWxMpConfig().getTicket(type);
     }
 
     /**
@@ -90,7 +55,7 @@ public class WxMpCardServiceImpl implements WxMpCardService {
             WxErrorException {
         long timestamp = System.currentTimeMillis() / 1000;
         String nonceStr = RandomUtils.getRandomStr();
-        String cardApiTicket = getCardApiTicket();
+        String cardApiTicket = this.wxMpService.getWxMpConfig().getTicket(TicketType.WX_CARD);
 
         String[] signParam = Arrays.copyOf(optionalSignParam, optionalSignParam.length + 3);
         signParam[optionalSignParam.length] = String.valueOf(timestamp);

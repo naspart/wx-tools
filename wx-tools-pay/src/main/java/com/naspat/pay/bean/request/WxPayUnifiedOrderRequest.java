@@ -1,10 +1,12 @@
 package com.naspat.pay.bean.request;
 
 import com.naspat.common.annotation.Required;
+import com.naspat.common.util.xml.XStreamCDataConverter;
 import com.naspat.pay.config.WxPayConfig;
 import com.naspat.pay.constant.WxPayConstants.TradeType;
 import com.naspat.pay.exception.WxPayException;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamConverter;
 import lombok.*;
 import org.apache.commons.lang3.StringUtils;
 
@@ -104,6 +106,7 @@ public class WxPayUnifiedOrderRequest extends BaseWxPayRequest {
      * </pre>
      */
     @XStreamAlias("detail")
+    @XStreamConverter(value = XStreamCDataConverter.class)
     private String detail;
 
     /**
@@ -117,6 +120,7 @@ public class WxPayUnifiedOrderRequest extends BaseWxPayRequest {
      * </pre>
      */
     @XStreamAlias("attach")
+    @XStreamConverter(value = XStreamCDataConverter.class)
     private String attach;
 
     /**

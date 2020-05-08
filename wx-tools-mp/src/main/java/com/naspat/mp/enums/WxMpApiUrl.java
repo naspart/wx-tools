@@ -81,7 +81,7 @@ public interface WxMpApiUrl {
         /**
          * 获得各种类型的ticket.
          */
-        GET_TICKET_URL(API_DEFAULT_HOST_URL, "/cgi-bin/ticket/getticket?type="),
+        GET_TICKET_URL(API_DEFAULT_HOST_URL, "/cgi-bin/ticket/getticket?type=%s"),
         /**
          * 长链接转短链接接口.
          */

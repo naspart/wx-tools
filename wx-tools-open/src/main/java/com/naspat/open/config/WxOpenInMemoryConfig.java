@@ -371,7 +371,6 @@ public class WxOpenInMemoryConfig implements WxOpenConfig {
             return null;
         }
 
-        @Override
         public Lock getTicketLock(TicketType type) {
             switch (type) {
                 case JSAPI: {
@@ -387,7 +386,6 @@ public class WxOpenInMemoryConfig implements WxOpenConfig {
             return null;
         }
 
-        @Override
         public boolean isTicketExpired(TicketType type) {
             switch (type) {
                 case JSAPI: {
@@ -404,7 +402,6 @@ public class WxOpenInMemoryConfig implements WxOpenConfig {
             return false;
         }
 
-        @Override
         public void expireTicket(TicketType type) {
             switch (type) {
                 case JSAPI: {
@@ -421,7 +418,6 @@ public class WxOpenInMemoryConfig implements WxOpenConfig {
             }
         }
 
-        @Override
         public void updateTicket(TicketType type, String ticket, int expiresInSeconds) {
             switch (type) {
                 case JSAPI: {
@@ -526,11 +522,6 @@ public class WxOpenInMemoryConfig implements WxOpenConfig {
 
         @Override
         public String getMsgDataFormat() {
-            return null;
-        }
-
-        @Override
-        public String getOauth2redirectUri() {
             return null;
         }
 

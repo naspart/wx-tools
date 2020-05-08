@@ -1,7 +1,6 @@
 package com.naspat.open.config;
 
 import org.apache.commons.lang3.StringUtils;
-import org.redisson.api.RedissonClient;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.util.Pool;
 
@@ -19,7 +18,6 @@ public class WxOpenInRedisConfig extends WxOpenInMemoryConfig {
     private final static String CARD_API_TICKET_KEY = "wechat_card_api_ticket:";
 
     protected final Pool<Jedis> jedisPool;
-    protected final RedissonClient redissonClient;
 
     /**
      * redis 存储的 key 的前缀，可为空
@@ -32,19 +30,13 @@ public class WxOpenInRedisConfig extends WxOpenInMemoryConfig {
     private String jsapiTicketKey;
     private String cardApiTicket;
 
-    public WxOpenInRedisConfig(Pool<Jedis> jedisPool, RedissonClient redissonClient) {
+    public WxOpenInRedisConfig(Pool<Jedis> jedisPool) {
         this.jedisPool = jedisPool;
-        this.redissonClient = redissonClient;
-
-        componentAccessTokenLock = redissonClient.getLock("wechat_distributed_lock:component_access_token");
     }
 
-    public WxOpenInRedisConfig(Pool<Jedis> jedisPool, RedissonClient redissonClient, String keyPrefix) {
+    public WxOpenInRedisConfig(Pool<Jedis> jedisPool, String keyPrefix) {
         this.jedisPool = jedisPool;
-        this.redissonClient = redissonClient;
         this.keyPrefix = keyPrefix;
-
-        componentAccessTokenLock = redissonClient.getLock("wechat_distributed_lock:component_access_token");
     }
 
     private Lock componentAccessTokenLock;
@@ -142,7 +134,7 @@ public class WxOpenInRedisConfig extends WxOpenInMemoryConfig {
             synchronized (authorizerAccessTokenLocks) {
                 authorizerAccessTokenLock = authorizerAccessTokenLocks.get(appId);
                 if (authorizerAccessTokenLock == null) {
-                    authorizerAccessTokenLock = redissonClient.getLock("wechat_distributed_lock:authorizer_access_token:" + appId);
+                    //authorizerAccessTokenLock = redissonClient.getLock("wechat_distributed_lock:authorizer_access_token:" + appId);
 
                     authorizerAccessTokenLocks.put(appId, authorizerAccessTokenLock);
                 }

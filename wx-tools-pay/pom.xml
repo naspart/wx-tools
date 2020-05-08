@@ -5,12 +5,11 @@
     <parent>
         <artifactId>wx-tools</artifactId>
         <groupId>com.naspat</groupId>
-        <version>0.1.0</version>
+        <version>0.1.1</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>wx-tools-pay</artifactId>
-    <version>0.1.0</version>
     <packaging>jar</packaging>
 
     <name>Wx Tools - Pay</name>
@@ -21,13 +20,12 @@
         <dependency>
             <groupId>com.naspat</groupId>
             <artifactId>wx-tools-common</artifactId>
-            <version>0.1.0</version>
+            <version>${wx-tools.version}</version>
         </dependency>
 
         <dependency>
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
-            <version>1.9.4</version>
             <exclusions>
                 <exclusion>
                     <groupId>commons-logging</groupId>
@@ -39,13 +37,11 @@
         <dependency>
             <groupId>org.bouncycastle</groupId>
             <artifactId>bcpkix-jdk15on</artifactId>
-            <version>1.60</version>
         </dependency>
+
         <dependency>
             <groupId>org.jodd</groupId>
             <artifactId>jodd-core</artifactId>
-            <version>5.0.13</version>
-            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>

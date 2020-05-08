@@ -27,9 +27,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.util.concurrent.locks.Lock;
-
-import static com.naspat.mp.enums.WxMpApiUrl.Other.GET_TICKET_URL;
 
 public abstract class WxMpServiceBaseImpl implements WxMpService, RequestHttp {
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -62,50 +59,6 @@ public abstract class WxMpServiceBaseImpl implements WxMpService, RequestHttp {
     private int maxRetryTimes = 5;
 
     @Override
-    public String getAccessToken() throws WxErrorException {
-        return getAccessToken(false);
-    }
-
-    @Override
-    public String getTicket(TicketType type) throws WxErrorException {
-        return this.getTicket(type, false);
-    }
-
-    @Override
-    public String getTicket(TicketType type, boolean forceRefresh) throws WxErrorException {
-        Lock lock = this.getWxMpConfig().getTicketLock(type);
-        try {
-            lock.lock();
-            if (forceRefresh) {
-                this.getWxMpConfig().expireTicket(type);
-            }
-
-            if (this.getWxMpConfig().isTicketExpired(type)) {
-                String responseContent = execute(SimpleGetRequestExecutor.create(this),
-                        GET_TICKET_URL.getUrl(this.getWxMpConfig()) + type.getCode(), null);
-                JsonObject tmpJsonObject = JSON_PARSER.parse(responseContent).getAsJsonObject();
-                String jsapiTicket = tmpJsonObject.get("ticket").getAsString();
-                int expiresInSeconds = tmpJsonObject.get("expires_in").getAsInt();
-                this.getWxMpConfig().updateTicket(type, jsapiTicket, expiresInSeconds);
-            }
-        } finally {
-            lock.unlock();
-        }
-
-        return this.getWxMpConfig().getTicket(type);
-    }
-
-    @Override
-    public String getJsapiTicket() throws WxErrorException {
-        return this.getJsapiTicket(false);
-    }
-
-    @Override
-    public String getJsapiTicket(boolean forceRefresh) throws WxErrorException {
-        return this.getTicket(TicketType.JSAPI, forceRefresh);
-    }
-
-    @Override
     public boolean checkSignature(String timestamp, String nonce, String signature) {
         try {
             return SHA1.gen(this.getWxMpConfig().getToken(), timestamp, nonce)
@@ -120,8 +73,8 @@ public abstract class WxMpServiceBaseImpl implements WxMpService, RequestHttp {
     public WxJsapiSignature createJsapiSignature(String url) throws WxErrorException {
         long timestamp = System.currentTimeMillis() / 1000;
         String randomStr = RandomUtils.getRandomStr();
-        String jsapiTicket = this.getJsapiTicket();
-        String signature = SHA1.genWithAmple("jsapi_ticket=" + jsapiTicket, "noncestr=" + randomStr, "timestamp=" + timestamp, "url=" + url);
+        String jsApiTicket = this.getWxMpConfig().getTicket(TicketType.JSAPI);
+        String signature = SHA1.genWithAmple("jsapi_ticket=" + jsApiTicket, "noncestr=" + randomStr, "timestamp=" + timestamp, "url=" + url);
 
         WxJsapiSignature jsapiSignature = new WxJsapiSignature();
         jsapiSignature.setAppId(this.getWxMpConfig().getAppId());
@@ -302,7 +255,7 @@ public abstract class WxMpServiceBaseImpl implements WxMpService, RequestHttp {
             throw new IllegalArgumentException("uri参数中不允许有access_token: " + uri);
         }
 
-        String accessToken = getAccessToken(false);
+        String accessToken = this.getWxMpConfig().getAccessToken();
 
         String uriWithAccessToken = uri + (uri.contains("?") ? "&" : "?") + "access_token=" + accessToken;
 
