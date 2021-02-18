@@ -9,7 +9,10 @@ import com.naspat.pay.bean.request.*;
 import com.naspat.pay.bean.result.*;
 import com.naspat.pay.config.WxPayConfig;
 import com.naspat.pay.exception.WxPayException;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpRequestBase;
 
+import java.io.InputStream;
 import java.util.Date;
 import java.util.Map;
 
@@ -48,6 +51,66 @@ public interface WxPayService {
      * @throws WxPayException 微信支付异常
      */
     String post(String url, String requestStr, boolean useKey) throws WxPayException;
+
+    /**
+     * 发送post请求，得到响应字符串.
+     *
+     * @param url        请求地址
+     * @param requestStr 请求信息
+     * @return 返回请求结果字符串 string
+     * @throws WxPayException the wx pay exception
+     */
+    String postV3(String url, String requestStr) throws WxPayException;
+
+    /**
+     * 发送post请求，得到响应字符串.
+     * <p>
+     * 部分字段会包含敏感信息，所以在提交前需要在请求头中会包含"Wechatpay-Serial"信息
+     *
+     * @param url        请求地址
+     * @param requestStr 请求信息
+     * @return 返回请求结果字符串 string
+     * @throws WxPayException the wx pay exception
+     */
+    String postV3WithWechatpaySerial(String url, String requestStr) throws WxPayException;
+
+    /**
+     * 发送post请求，得到响应字符串.
+     *
+     * @param url      请求地址
+     * @param httpPost 请求信息
+     * @return 返回请求结果字符串 string
+     * @throws WxPayException the wx pay exception
+     */
+    String postV3(String url, HttpPost httpPost) throws WxPayException;
+
+    /**
+     * 发送http请求，得到响应字符串.
+     *
+     * @param url      请求地址
+     * @param httpRequest 请求信息，可以是put，post，get，delete等请求
+     * @return 返回请求结果字符串 string
+     * @throws WxPayException the wx pay exception
+     */
+    String requestV3(String url, HttpRequestBase httpRequest) throws WxPayException;
+
+    /**
+     * 发送get V3请求，得到响应字符串.
+     *
+     * @param url 请求地址
+     * @return 返回请求结果字符串 string
+     * @throws WxPayException the wx pay exception
+     */
+    String getV3(String url) throws WxPayException;
+
+    /**
+     * 发送下载 V3请求，得到响应流.
+     *
+     * @param url 请求地址
+     * @return 返回请求响应流 input stream
+     * @throws WxPayException the wx pay exception
+     */
+    InputStream downloadV3(String url) throws WxPayException;
 
     /**
      * 获取企业支付服务类.
